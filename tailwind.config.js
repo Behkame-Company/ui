@@ -11,7 +11,7 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
-      // TODO: Add custom
+      // TODO: Add custom theme here 
     },
   },
   plugins: [],
