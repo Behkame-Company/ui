@@ -8,11 +8,7 @@ run `npm run dev` and go to `http://localhost:4321/docs` to see the components i
 
 ### How to use 
 
-- in your nuxt project, create new file named `main.css` at `assets/css/main.css` and add this code:
-
-```css
-@import "tailwindcss";
-```
+- copy `assets/css/main.css` file in ui repository into your nuxt project
 
 - in your `nuxt.config.ts` file, add this code:
 

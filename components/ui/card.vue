@@ -8,7 +8,7 @@
 @reference "assets/css/main.css";
 
 .ui-card {
-  @apply bg-white rounded-lg p-4 border border-gray-200;
+  @apply bg-white rounded-lg p-4 border border-tint-400 text-black;
 }
 
 </style>

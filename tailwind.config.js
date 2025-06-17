@@ -8,11 +8,6 @@ module.exports = {
     "./app.vue",
     "./error.vue"
   ],
-  darkMode: 'class',
-  theme: {
-    extend: {
-      // TODO: Add custom theme here 
-    },
-  },
+  darkMode: 'class', 
   plugins: [],
 } 

@@ -1,1 +1,107 @@
 @import "tailwindcss";
+
+@theme {
+
+    /* Reset Every Style */
+    --*: initial;
+
+    /* ========== Colors ========== */
+
+    /* Basic */
+    --color-primary: #3F59DE;
+    --color-black: #000000;
+    --color-white: #FFFFFF;
+
+    /* Status */
+    --color-error: #E55151;
+    --color-success: #4DD951;
+    --color-warning: #EAB035;
+    --color-info: #A777E1;
+
+    /* Blue */
+    --color-blue-50: #F5F7FF;
+    --color-blue-100: #C5CFFD;
+    --color-blue-200: #98A8F9;
+    --color-blue-300: #7086F2;
+    --color-blue-400: #506AE9;
+    --color-blue-500: #3854DD;
+    --color-blue-600: #2743CD;
+    --color-blue-700: #1B35B8;
+    --color-blue-800: #132AA0;
+    --color-blue-900: #0E2287;
+
+    /* Tints */
+    --color-tint-50: #FAFBFF;
+    --color-tint-100: #F4F6FE;
+    --color-tint-200: #EEF1FD;
+    --color-tint-300: #E8EBFA;
+    --color-tint-400: #E2E5F6;
+    --color-tint-500: #DBDFF1;
+    --color-tint-600: #D4D8EA;
+    --color-tint-700: #CCCFE2;
+    --color-tint-800: #C3C7D9;
+    --color-tint-900: #0E2287;
+
+    /* Shades */
+    --color-shade-50: #AEB2C2;
+    --color-shade-100: #A2A7BF;
+    --color-shade-200: #959CBB;
+    --color-shade-300: #888FB4;
+    --color-shade-400: #7B83AA;
+    --color-shade-500: #6D759D;
+    --color-shade-600: #5E668B;
+    --color-shade-700: #4D5475;
+    --color-shade-800: #3B415B;
+    --color-shade-900: #292D40;
+
+    /* Red */
+    --color-red-50: #FFF2F2;
+    --color-red-100: #FCAEAE;
+    --color-red-200: #F47676;
+    --color-red-300: #E55151;
+    --color-red-400: #CF3A3A;
+    --color-red-500: #B32D2D;
+
+    /* Green */
+    --color-green-50: #F5FFF5;
+    --color-green-100: #AEFAB1;
+    --color-green-200: #74EE78;
+    --color-green-300: #4DD951;
+    --color-green-400: #33B738;
+    --color-green-500: #238C27;
+
+    /* Yellow */
+    --color-yellow-50: #FFFBF2;
+    --color-yellow-100: #FCDFA0;
+    --color-yellow-200: #F6C65E;
+    --color-yellow-300: #EAB035;
+    --color-yellow-400: #D79C1E;
+    --color-yellow-500: #BF8913;
+
+    /* Purple */
+    --color-purple-50: #FCFAFF;
+    --color-purple-100: #DDC5FB;
+    --color-purple-200: #C098F2;
+    --color-purple-300: #A777E1;
+    --color-purple-400: #8D5EC7;
+    --color-purple-500: #744BA6;
+
+    /* ========== Font Size ========== */
+    
+    --font-size-xxs: 0.506rem;
+    --font-size-xs: 0.694rem;     
+    --font-size-sm: 0.714rem;    
+    --font-size-base: 1rem;      
+    --font-size-h6: 1.124rem;    
+    --font-size-h5: 1.429rem;     
+    --font-size-h4: 1.714rem;     
+    --font-size-h3: 2.071rem;   
+    --font-size-h2: 2.5rem;    
+    --font-size-h1: 3rem;       
+    --font-size-d2: 3.571rem;    
+    --font-size-d1: 4.286rem;     
+
+    /* ========== Spacing ========== */
+
+    --spacing: 1px; 
+}
