@@ -2,10 +2,9 @@
 
 @theme {
 
-    /* Reset Every Style */
-    --*: initial;
-
     /* ========== Colors ========== */
+
+    --color-*: initial;
 
     /* Basic */
     --color-primary: #3F59DE;
@@ -88,20 +87,51 @@
 
     /* ========== Font Size ========== */
     
-    --font-size-xxs: 0.506rem;
-    --font-size-xs: 0.694rem;     
-    --font-size-sm: 0.714rem;    
-    --font-size-base: 1rem;      
-    --font-size-h6: 1.124rem;    
-    --font-size-h5: 1.429rem;     
-    --font-size-h4: 1.714rem;     
-    --font-size-h3: 2.071rem;   
-    --font-size-h2: 2.5rem;    
-    --font-size-h1: 3rem;       
-    --font-size-d2: 3.571rem;    
-    --font-size-d1: 4.286rem;     
+    --text-*: initial;
 
-    /* ========== Spacing ========== */
+    --text-xxs: 0.506rem;
+    --text-xs: 0.694rem;     
+    --text-sm: 0.714rem;    
+    --text-base: 1rem;      
+    --text-h6: 1.124rem;    
+    --text-h5: 1.429rem;     
+    --text-h4: 1.714rem;     
+    --text-h3: 2.071rem;   
+    --text-h2: 2.5rem;    
+    --text-h1: 3rem;       
+    --text-d2: 3.571rem;    
+    --text-d1: 4.286rem;   
+    
+    /* ========== Border radius ========== */
 
-    --spacing: 1px; 
+    --radius-*: initial;
+
+    --radius-none: 0px ;
+    --radius-xs:   2px ;
+    --radius-sm:   4px ;
+    --radius-md:   6px ;
+    --radius-lg:   8px ;
+    --radius-xl:   12px ;
+    --radius-2xl:   16px ;
+    --radius-3xl:   24px ;
+    --radius-4xl:   32px ;
+    --radius-5xl:   40px ;
+    --radius-full:   50% ;
+
+    /* ========== Break Point ========== */
+
+    --breakpoint-*: initial;
+    --container-*: initial;
+
+    --breakpoint-sm: 640px ;
+    --breakpoint-md: 1024px ;
+    --breakpoint-lg: 1440px ;
+
+    --container-sm: 640px ;
+    --container-md: 1024px ;
+    --container-lg: 1440px ;
+
+   
+
+    
 }

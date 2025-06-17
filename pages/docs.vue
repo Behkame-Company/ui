@@ -6,7 +6,7 @@
 
     <h3 class="text-start mt-4 mb-4 text-xl font-bold">Card Component</h3>
 
-    <UiCard class="w-full"> 
+    <UiCard class="w-full "> 
       <span class="text-start mt-4 mb-4">this is content of card</span>
     </UiCard>
       
