@@ -1,11 +1,8 @@
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
-
   compatibilityDate: '2025-05-15',
-
   devtools: { enabled: false },
-
   css: ['~/assets/css/main.css'],
 
   vite: {
@@ -18,4 +15,5 @@ export default defineNuxtConfig({
     port: 3003
   },
 
+  modules: ['@nuxt/icon'],
 })
