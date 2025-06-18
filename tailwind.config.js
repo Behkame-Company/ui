@@ -1,5 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  fontFamily: {
+    sans: ['"Roboto"', 'sans-serif']
+  },
   content: [
     "./components/**/*.{js,vue,ts}",
     "./layouts/**/*.vue",

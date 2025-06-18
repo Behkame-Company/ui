@@ -8,6 +8,8 @@ run `npm run dev` and go to `http://localhost:4321/docs` to see the components i
 
 ### How to use 
 
+- install nuxt icon `npx nuxi module add icon`
+
 - copy `assets/css/main.css` file in ui repository into your nuxt project
 
 - in your `nuxt.config.ts` file, add this code:

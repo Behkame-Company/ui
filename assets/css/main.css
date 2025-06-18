@@ -1,9 +1,20 @@
 @import "tailwindcss";
 
+* {
+    outline: none;
+    font-family: "Roboto";
+}
+
+html {
+    font-size: 14px;
+}
+
 @theme {
 
     /* ========== Colors ========== */
 
+    --text-base: 14px ;
+    
     --color-*: initial;
 
     /* Basic */
@@ -19,8 +30,8 @@
 
     /* Blue */
     --color-blue-50: #F5F7FF;
-    --color-blue-100: #C5CFFD;
-    --color-blue-200: #98A8F9;
+    --color-blue-100: #E4E8FD;
+    --color-blue-200: #C7CFF9;
     --color-blue-300: #7086F2;
     --color-blue-400: #506AE9;
     --color-blue-500: #3854DD;
@@ -39,7 +50,7 @@
     --color-tint-600: #D4D8EA;
     --color-tint-700: #CCCFE2;
     --color-tint-800: #C3C7D9;
-    --color-tint-900: #0E2287;
+    --color-tint-900: #BCC0D1;
 
     /* Shades */
     --color-shade-50: #AEB2C2;
@@ -112,11 +123,11 @@
     --radius-md:   6px ;
     --radius-lg:   8px ;
     --radius-xl:   12px ;
-    --radius-2xl:   16px ;
-    --radius-3xl:   24px ;
-    --radius-4xl:   32px ;
-    --radius-5xl:   40px ;
-    --radius-full:   50% ;
+    --radius-2xl:  16px ;
+    --radius-3xl:  24px ;
+    --radius-4xl:  32px ;
+    --radius-5xl:  40px ;
+    --radius-full: 50% ;
 
     /* ========== Break Point ========== */
 
