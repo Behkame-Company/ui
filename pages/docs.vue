@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { UiButton } from '#components';
+import { UiButton, UiInput, UiCard } from '#components';
 
 </script>
 
@@ -184,20 +184,6 @@ import { UiButton } from '#components';
     </div>
       
     </div>
-
-
-
    
   </div>
 </template>
-<script setup lang="ts">
-
-const name = ref<string>("")
-
-const updateName = (value: string) => {
-
-  console.log(value)
-  name.value = value 
-}
-
-</script>
