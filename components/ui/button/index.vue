@@ -1,6 +1,6 @@
 <template>
    
-    <button class="ui-button" @click="onTap()" :disabled="disabled" :class="{
+    <button class="ui-button" @click="onTap" :disabled="disabled" :class="{
         [size_class]: true,
         [color_class]: true,
         'ui-button-disabled': disabled,
@@ -8,7 +8,8 @@
         'ui-button-with-prefix': prefix_icon,
         'ui-button-with-suffix': suffix_icon,
         'ui-button-with-both-icons': (prefix_icon && suffix_icon)
-    }">
+    }"
+    >
 
         <UiLoadingSpinner v-if="loading" :size="props.size" />
         
@@ -58,11 +59,11 @@ const props = defineProps({
     },
 })
 
-const emit = defineEmits(['tap'])
+const emit = defineEmits<{
+  (e: 'tap'): void
+}>()
 
-function onTap() {
-    emit('tap')
-}
+const onTap = () => emit('tap')
  
 const color_class = computed<string>(() => {
     switch (props.color) {

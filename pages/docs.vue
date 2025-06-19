@@ -64,7 +64,14 @@
       <div class="w-1/4 px-2">
   
         <h5 class="text-start mt-4 mb-4 text-xl">Text area</h5>
+
+        <UiInputTextArea class="w-full my-1" size="sm" placeholder="sm text area" />
+
+        <UiInputTextArea class="w-full my-1" size="md" placeholder="md text area" />
+
+        <UiInputTextArea class="w-full my-1" size="lg" placeholder="lg text area" />
     
+        <UiInputTextArea class="w-full my-1" size="xl" placeholder="xl text area" />
 
       </div>
 
@@ -72,6 +79,13 @@
   
         <h5 class="text-start mt-4 mb-4 text-xl">Password</h5>
     
+        <UiInputPassword class="my-1" size="sm" placeholder="password sm" />
+
+        <UiInputPassword class="my-1" size="md" placeholder="password md" />
+
+        <UiInputPassword class="my-1" size="lg" placeholder="password lg" />
+
+        <UiInputPassword class="my-1" size="xl" placeholder="password xl" />
 
       </div>
 

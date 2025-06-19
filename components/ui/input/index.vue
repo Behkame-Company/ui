@@ -52,12 +52,12 @@ const props = defineProps({
   disabled: {
     type: Boolean, 
     default: false, // pass this variable true if you want the input to get disabled 
-  },
-  update_callback: {
-    type: Function,
-    default: (val: string) => {}, // when the value updates this callback will be triggred 
-  }
+  }, 
 })
+
+const emit = defineEmits<{
+  (e: 'update', value: string): void
+}>()
 
 const local_data = ref<string>("")
 
@@ -85,8 +85,8 @@ onMounted(() => local_data.value = props.default_value)
 
 watch(local_data, (val, prev) => {
 
-  if( prev != val )
-    props.update_callback(val)
+  if( prev != val ) 
+    emit('update', val)
 })
 
 const onFocus = () => focused.value = true
@@ -139,7 +139,7 @@ const onBlur = () => focused.value = false
 }
 
 .ui-input-suffix-icon-pointer {
-  @apply bg-blue-100 cursor-pointer ;
+  @apply bg-blue-100 hover:bg-primary hover:text-white cursor-pointer ;
 }
 
 .ui-input {
