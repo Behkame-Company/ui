@@ -3,7 +3,7 @@
     
     <input :type="input_type" class="ui-input-password" :class="`${size_class} ${ focused ? 'ui-input-password-focus' : ''} ${ disabled ? 'ui-input-password-disabled' : ''}`" :name="name" :placeholder="placeholder" :disabled="disabled" v-model="local_data" @focus="onFocus" @blur="onBlur" />
 
-    <div class="ui-input-password-suffix-icon ui-input-password-suffix-icon-pointer" :class="{ 'ui-input-password-suffix-icon-disabled': disabled }" :disabled="disabled" @click="toggleShowPassword">
+    <div class="ui-input-password-suffix-icon" :class="{ 'ui-input-password-suffix-icon-disabled': disabled }" :disabled="disabled" @click="toggleShowPassword">
         <Icon :name="icon_name" :size="icon_size_class" />
     </div>
 
@@ -75,7 +75,13 @@ watch(local_data, (val, prev) => {
     emit('update', val)
 })
 
-const toggleShowPassword = () => show_password.value = !show_password.value
+const toggleShowPassword = () => {
+
+  if( props.disabled ) 
+    return
+
+  show_password.value = !show_password.value
+}
 
 const onFocus = () => focused.value = true
 
@@ -91,7 +97,7 @@ const onBlur = () => focused.value = false
 }
 
 .ui-input-password-container-disabled {
-  @apply opacity-50 ;
+  @apply opacity-50 cursor-not-allowed ;
 }
 
 .ui-input-password-container-focused {
@@ -100,6 +106,10 @@ const onBlur = () => focused.value = false
 
 .ui-input-password {
     @apply flex-1 rounded-sm ring-0 focus:ring-0 border-0 text-shade-600 placeholder:text-shade-100 transition-all ;              
+}
+
+.ui-input-password:disabled {
+    @apply cursor-not-allowed ;              
 }
 
 /* ===== size ===== */
@@ -126,7 +136,7 @@ const onBlur = () => focused.value = false
 /* ===== icon ===== */
 
 .ui-input-password-suffix-icon {
-  @apply flex justify-center items-center text-shade-100 p-2.5 transition-all ;
+  @apply flex justify-center items-center text-shade-100 hover:text-primary p-2.5 transition-all cursor-pointer ;
 }
 
 .ui-input-password-suffix-icon-focused {
@@ -134,11 +144,7 @@ const onBlur = () => focused.value = false
 }
 
 .ui-input-password-suffix-icon-disabled {
-  @apply cursor-not-allowed ;
-}
-
-.ui-input-password-suffix-icon-pointer {
-  @apply bg-blue-100 hover:bg-primary hover:text-white cursor-pointer ;
+  @apply hover:text-shade-100 cursor-not-allowed ;
 }
 
 </style>

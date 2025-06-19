@@ -58,7 +58,7 @@ watch(local_data, (val, prev) => {
 }
 
 .ui-input-text-area:disabled {
-  @apply opacity-50;
+  @apply opacity-50 cursor-not-allowed ;
 }
 
 /* ===== size ===== */
