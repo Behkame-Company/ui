@@ -1,13 +1,13 @@
 <template>
   <div class="ui-input-container" :class="{ 'ui-input-container-focused': focused, 'ui-input-container-disabled': disabled }" >
 
-    <div class="ui-input-prefix-icon" v-if="prefix_icon" :class="{ 'ui-input-prefix-icon-disabled': disabled, 'ui-input-prefix-icon-focused': focused, 'ui-input-prefix-icon-pointer': prefix_callback != null }" :disabled="disabled">
+    <div class="ui-input-prefix-icon" v-if="prefix_icon" :class="{ 'ui-input-prefix-icon-pointer': prefix_callback != null, 'ui-input-prefix-icon-disabled': disabled, 'ui-input-prefix-icon-focused': focused }" :disabled="disabled">
       <Icon :name="prefix_icon" :size="icon_size_class" />
     </div>
     
     <input type="text" class="ui-input" :class="`${size_class} ${ focused ? 'ui-input-focus' : ''} ${ disabled ? 'ui-input-disabled' : ''}`" :name="name" :placeholder="placeholder" :disabled="disabled" v-model="local_data" @focus="onFocus" @blur="onBlur" />
 
-    <div class="ui-input-suffix-icon" v-if="suffix_icon" :class="{ 'ui-input-suffix-icon-disabled': disabled, 'ui-input-suffix-icon-focused': focused, 'ui-input-suffix-icon-pointer': suffix_callback != null }" :disabled="disabled">
+    <div class="ui-input-suffix-icon" v-if="suffix_icon" :class="{ 'ui-input-suffix-icon-pointer': suffix_callback != null, 'ui-input-suffix-icon-disabled': disabled, 'ui-input-suffix-icon-focused': focused }" :disabled="disabled">
         <Icon :name="suffix_icon" :size="icon_size_class" />
     </div>
 
@@ -118,12 +118,12 @@ const onBlur = () => focused.value = false
   @apply text-primary ;
 }
 
-.ui-input-prefix-icon-disabled {
-  @apply cursor-not-allowed ;
-}
-
 .ui-input-prefix-icon-pointer {
   @apply bg-blue-100 hover:bg-primary hover:text-white cursor-pointer ;
+}
+
+.ui-input-prefix-icon-pointer.ui-input-prefix-icon-disabled {
+  @apply hover:bg-blue-100 hover:text-shade-100 cursor-not-allowed ;
 }
 
 .ui-input-suffix-icon {
@@ -134,12 +134,12 @@ const onBlur = () => focused.value = false
   @apply text-primary ;
 }
 
-.ui-input-suffix-icon-disabled {
-  @apply cursor-not-allowed ;
-}
-
 .ui-input-suffix-icon-pointer {
   @apply bg-blue-100 hover:bg-primary hover:text-white cursor-pointer ;
+}
+
+.ui-input-suffix-icon-pointer.ui-input-suffix-icon-disabled {
+  @apply hover:bg-blue-100 hover:text-shade-100 cursor-not-allowed ;
 }
 
 .ui-input {
