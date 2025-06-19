@@ -1,8 +1,3 @@
-<script setup lang="ts">
-import { UiButton, UiInput, UiCard } from '#components';
-
-</script>
-
 <template>
   <div class="container mx-auto">
 
@@ -108,82 +103,114 @@ import { UiButton, UiInput, UiCard } from '#components';
 
     </div>
 
-
-    <UiCard class="w-full ">
-      <span class="text-start mt-4 mb-4">this is content of card</span>
-    </UiCard>
-
     <h3 class="text-start mt-4 mb-4 text-xl font-bold">Button Component</h3>
 
-    <div class="flex flex-row gap-[8px]">
+    <div class="flex justify-start items-start">
 
-      <div>
+      <div class="w-1/4 px-2">
+  
+        <h5 class="text-start mt-4 mb-4 text-lg font-bold">Default</h5>
 
-     <h5 class="text-start mt-4 mb-4 text-lg font-bold">Default</h5>
+        <UiButton class="my-2" size="sm"> Button sm </UiButton>
 
-    <UiButton class="mt-[16px]" size="xl"><span class="text-white">Button</span></UiButton>
-     <UiButton class="mt-[16px]" size="lg" ><span class="text-white">Button</span></UiButton>
-     <UiButton class="mt-[16px]" size="md"><span class="text-white">Button</span></UiButton>
-     <UiButton class="mt-[16px]" size="sm"><span class="text-white">Button</span></UiButton>
-   
+        <UiButton class="my-2" size="md"> Button md </UiButton>
+
+        <UiButton class="my-2" size="lg" > Button lg </UiButton>
+
+        <UiButton class="my-2" size="xl"> Button xl </UiButton>
+
+    
+      </div>
+
+      <div class="w-1/4 px-2">
+  
+        <h5 class="text-start mt-4 mb-4 text-lg font-bold">Colors</h5>
+
+        <UiButton class="my-2" color="primary"> Button Primary </UiButton>
+
+        <UiButton class="my-2" color="outline"> Button Outline </UiButton>
+
+        <UiButton class="my-2" color="secondary"> Button Secondary </UiButton>
+
+        <UiButton class="my-2" color="dark"> Button Dark </UiButton>
+
+        <UiButton class="my-2" color="error"> Button Error </UiButton>
+
+        <UiButton class="my-2" color="success"> Button Success </UiButton>
+
+        <UiButton class="my-2" color="warning"> Button Warning </UiButton>
+
+        <UiButton class="my-2" color="info"> Button Info </UiButton>
+
+      </div>
+
+      <div class="w-1/4 px-2">
+  
+        <h5 class="text-start mt-4 mb-4 text-lg font-bold">Disabled state</h5>
+
+        <UiButton class="my-2" :disabled="true" color="primary"> Button Primary </UiButton>
+
+        <UiButton class="my-2" :disabled="true" color="outline"> Button Outline </UiButton>
+
+        <UiButton class="my-2" :disabled="true" color="secondary"> Button Secondary </UiButton>
+
+        <UiButton class="my-2" :disabled="true" color="dark"> Button Dark </UiButton>
+
+        <UiButton class="my-2" :disabled="true" color="error"> Button Error </UiButton>
+
+        <UiButton class="my-2" :disabled="true" color="success"> Button Success </UiButton>
+
+        <UiButton class="my-2" :disabled="true" color="warning"> Button Warning </UiButton>
+
+        <UiButton class="my-2" :disabled="true" color="info"> Button Info </UiButton>
+
+      </div>
+
+      <div class="w-1/4 px-2">
+  
+        <h5 class="text-start mt-4 mb-4 text-lg font-bold">Loading state</h5>
+
+        <UiButton class="my-2" size="sm" :loading="true" color="primary"> Button Primary </UiButton>
+
+        <UiButton class="my-2" size="md" :loading="true" color="outline"> Button Outline </UiButton>
+
+        <UiButton class="my-2" size="lg" :loading="true" color="secondary"> Button Secondary </UiButton>
+
+        <UiButton class="my-2" size="xl" :loading="true" color="dark"> Button Dark </UiButton>
+
+        <UiButton class="my-2" size="sm" :loading="true" color="error"> Button Error </UiButton>
+
+        <UiButton class="my-2" size="md" :loading="true" color="success"> Button Success </UiButton>
+
+        <UiButton class="my-2" size="lg" :loading="true" color="warning"> Button Warning </UiButton>
+
+        <UiButton class="my-2" size="xl" :loading="true" color="info"> Button Info </UiButton>
+
+      </div>
+
+      <div class="w-1/4 px-2">
+  
+        <h5 class="text-start mt-4 mb-4 text-lg font-bold">Suffix / Prefix Icon</h5>
+
+        <UiButton class="my-2" size="sm" suffix_icon="material-symbols:bolt"> Suffix Icon </UiButton>
+
+        <UiButton class="my-2" size="md" suffix_icon="material-symbols:bolt"> Suffix Icon </UiButton>
+
+        <UiButton class="my-2" size="lg" suffix_icon="material-symbols:bolt"> Suffix Icon </UiButton>
+
+        <UiButton class="my-2" size="xl" suffix_icon="material-symbols:bolt"> Suffix Icon </UiButton>
+
+        <UiButton class="my-2" size="sm" prefix_icon="material-symbols:bolt"> Prefix Icon </UiButton>
+
+        <UiButton class="my-2" size="md" prefix_icon="material-symbols:bolt"> Prefix Icon </UiButton>
+
+        <UiButton class="my-2" size="lg" prefix_icon="material-symbols:bolt"> Prefix Icon </UiButton>
+
+        <UiButton class="my-2" size="xl" prefix_icon="material-symbols:bolt"> Prefix Icon </UiButton>
+
+      </div>
+
     </div>
-
-    <div>
-
-    <h5 class="text-start mt-4 mb-4 text-lg font-bold">Loading</h5>
-
-    <UiButton class="mt-[16px]" size="xl" :loading="true"><span class="text-white">Button</span></UiButton>
-     <UiButton class="mt-[16px]" size="lg" :loading="true"><span class="text-white">Button</span></UiButton>
-     <UiButton class="mt-[16px]" size="md" :loading="true"><span class="text-white">Button</span></UiButton>
-     <UiButton class="mt-[16px]" size="sm" :loading="true"><span class="text-white">Button</span></UiButton>
-   
-    </div>
-
-  <div>
-
-    <h5 class="text-start mt-4 mb-4 text-lg font-bold">Disabled</h5>
-
-    <UiButton class="mt-[16px]" size="xl" :disabled="true"><span class="text-white">Button</span></UiButton>
-     <UiButton class="mt-[16px]" size="lg" :disabled="true"><span class="text-white">Button</span></UiButton>
-     <UiButton class="mt-[16px]" size="md" :disabled="true"><span class="text-white">Button</span></UiButton>
-     <UiButton class="mt-[16px]" size="sm" :disabled="true"><span class="text-white">Button</span></UiButton>
-   
-    </div>
-
-            <div>
-
-    <h5 class="text-start mt-4 mb-4 text-lg font-bold">Suffix Icon</h5>
-
-    <UiButton class="mt-[16px]" size="xl" suffix_icon="material-symbols:bolt"><span class="text-white">Button</span></UiButton>
-     <UiButton class="mt-[16px]" size="lg" suffix_icon="material-symbols:bolt"><span class="text-white">Button</span></UiButton>
-     <UiButton class="mt-[16px]" size="md" suffix_icon="material-symbols:bolt"><span class="text-white">Button</span></UiButton>
-     <UiButton class="mt-[16px]" size="sm" suffix_icon="material-symbols:bolt"><span class="text-white">Button</span></UiButton>
-   
-    </div>
-
-    <div>
-
-    <h5 class="text-start mt-4 mb-4 text-lg font-bold">Prefix Icon</h5>
-
-    <UiButton class="mt-[16px]" size="xl" prefix_icon="material-symbols:bolt"><span class="text-white">Button</span></UiButton>
-     <UiButton class="mt-[16px]" size="lg" prefix_icon="material-symbols:bolt"><span class="text-white">Button</span></UiButton>
-     <UiButton class="mt-[16px]" size="md" prefix_icon="material-symbols:bolt"><span class="text-white">Button</span></UiButton>
-     <UiButton class="mt-[16px]" size="sm" prefix_icon="material-symbols:bolt"><span class="text-white">Button</span></UiButton>
-   
-    </div>
-
-     <div>
-
-    <h5 class="text-start mt-4 mb-4 text-lg font-bold whitespace-nowrap">Prefix Icon & Suffix Icon</h5>
-
-    <UiButton class="mt-[16px]" size="xl" prefix_icon="material-symbols:bolt" suffix_icon="material-symbols:bolt"><span class="text-white">Button</span></UiButton>
-     <UiButton class="mt-[16px]" size="lg" prefix_icon="material-symbols:bolt" suffix_icon="material-symbols:bolt"><span class="text-white">Button</span></UiButton>
-     <UiButton class="mt-[16px]" size="md" prefix_icon="material-symbols:bolt" suffix_icon="material-symbols:bolt"><span class="text-white">Button</span></UiButton>
-     <UiButton class="mt-[16px]" size="sm" prefix_icon="material-symbols:bolt" suffix_icon="material-symbols:bolt"><span class="text-white">Button</span></UiButton>
-   
-    </div>
-      
-    </div>
-   
+    
   </div>
 </template>

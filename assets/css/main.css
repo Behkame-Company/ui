@@ -141,7 +141,12 @@ html {
     --container-sm: 640px ;
     --container-md: 1024px ;
     --container-lg: 1440px ;
-   
+
+
+    /* ========== Size ========== */
+    
+    --size-13: 3.25rem ;
+    --size-18: 4.5rem ;
 
     
 }
