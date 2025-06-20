@@ -104,12 +104,20 @@
         <UiInputPassword class="my-1" size="sm" :disabled="true" placeholder="password sm" />
         
         <UiInputPassword class="my-1" size="sm" placeholder="password sm" />
+        
+        <UiInputPassword class="my-1" size="sm" :disabled="true" placeholder="password sm" />
 
         <UiInputPassword class="my-1" size="md" placeholder="password md" />
+        
+        <UiInputPassword class="my-1" size="md" :disabled="true" placeholder="password md" />
 
         <UiInputPassword class="my-1" size="lg" placeholder="password lg" />
+        
+        <UiInputPassword class="my-1" size="lg" :disabled="true" placeholder="password lg" />
 
         <UiInputPassword class="my-1" size="xl" placeholder="password xl" />
+        
+        <UiInputPassword class="my-1" size="xl" :disabled="true" placeholder="password xl" />
         
 
       </div>
@@ -118,6 +126,21 @@
   
         <h5 class="text-start mt-4 mb-4 text-xl">Pin Code</h5>
     
+        <UiInputPinCode class="my-1 w-52" size="sm" />
+        
+        <UiInputPinCode class="my-1 w-52" :disabled="true" size="sm" />
+
+        <UiInputPinCode class="my-1 w-64" size="md" />
+        
+        <UiInputPinCode class="my-1 w-64" :disabled="true" size="md" />
+
+        <UiInputPinCode class="my-1 w-72" size="lg" />
+        
+        <UiInputPinCode class="my-1 w-72" :disabled="true" size="lg" />
+
+        <UiInputPinCode class="my-1 w-80" size="xl" />
+        
+        <UiInputPinCode class="my-1 w-80" :disabled="true" size="xl" />
 
       </div>
 
