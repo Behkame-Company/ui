@@ -105,7 +105,7 @@ const onBlur = () => focused.value = false
 }
 
 .ui-input-password {
-    @apply flex-1 rounded-sm ring-0 focus:ring-0 border-0 text-shade-600 placeholder:text-shade-100 transition-all ;              
+    @apply flex-1 rounded-sm ring-0 focus:ring-0 border-0 text-shade-600 placeholder:text-tint-700 transition-all ;              
 }
 
 .ui-input-password:disabled {

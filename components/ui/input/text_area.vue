@@ -50,7 +50,7 @@ watch(local_data, (val, prev) => {
 @reference "assets/css/main.css";
 
 .ui-input-text-area {
-  @apply border-1 border-tint-600 text-shade-900 placeholder:text-shade-100 rounded-lg ;
+  @apply border-1 border-tint-600 text-shade-900 placeholder:text-tint-700 rounded-lg ;
 }
 
 .ui-input-text-area:focus {

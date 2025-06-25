@@ -119,11 +119,11 @@ const onBlur = () => focused.value = false
 }
 
 .ui-input-prefix-icon-pointer {
-  @apply bg-blue-100 hover:bg-primary hover:text-white cursor-pointer ;
+  @apply bg-tint-600 hover:bg-primary hover:text-white cursor-pointer ;
 }
 
 .ui-input-prefix-icon-pointer.ui-input-prefix-icon-disabled {
-  @apply hover:bg-blue-100 hover:text-shade-100 cursor-not-allowed ;
+  @apply hover:bg-tint-600 hover:text-shade-100 cursor-not-allowed ;
 }
 
 .ui-input-suffix-icon {
@@ -135,15 +135,15 @@ const onBlur = () => focused.value = false
 }
 
 .ui-input-suffix-icon-pointer {
-  @apply bg-blue-100 hover:bg-primary hover:text-white cursor-pointer ;
+  @apply bg-tint-600 hover:bg-primary hover:text-white cursor-pointer ;
 }
 
 .ui-input-suffix-icon-pointer.ui-input-suffix-icon-disabled {
-  @apply hover:bg-blue-100 hover:text-shade-100 cursor-not-allowed ;
+  @apply hover:bg-tint-600 hover:text-shade-100 cursor-not-allowed ;
 }
 
 .ui-input {
-    @apply flex-1 rounded-sm ring-0 focus:ring-0 border-0 text-shade-600 placeholder:text-shade-100 transition-all ;              
+    @apply flex-1 rounded-sm ring-0 focus:ring-0 border-0 text-shade-600 placeholder:text-tint-700 transition-all ;              
 }
 
 .ui-input-focus {
@@ -174,5 +174,7 @@ const onBlur = () => focused.value = false
   @apply py-3 px-4 text-h6 placeholder:text-h6; 
   line-height: 17px;
 }
+
+/* TODO : input foces prefix/suffix icon fill bg blue-100  */
 
 </style>

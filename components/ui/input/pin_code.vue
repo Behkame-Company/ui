@@ -120,7 +120,7 @@ const onBlur = (index: number) => {
 }
 
 .ui-input-pin-code {
-    @apply ring-0 focus:ring-0 text-shade-600 placeholder:text-shade-100 transition-all text-center border-b-1 border-tint-600;    
+    @apply ring-0 focus:ring-0 text-shade-600 placeholder:text-tint-700 transition-all text-center border-b-1 border-tint-600;    
 }
 
 .ui-input-pin-code-focus {
