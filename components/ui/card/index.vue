@@ -29,11 +29,11 @@ const size_class = computed<string>(() => `ui-card-${props.size}`)
 @reference "assets/css/main.css";
 
 .ui-card {
-    @apply rounded-lg bg-white hover:shadow-hover transition-all duration-300 ;
+    @apply rounded-lg bg-white transition-all duration-300 ;
 }
 
 .ui-card-header {
-    @apply border-b border-tint-400 ;
+    @apply border-b border-tint-200 ;
 }
 
 .ui-card-body {
@@ -46,20 +46,20 @@ const size_class = computed<string>(() => `ui-card-${props.size}`)
 
 /* shadow */
 
-.ui-card-sm {
-    @apply shadow-sm ;
-}
-
-.ui-card-md {
-    @apply shadow-md ;
+.ui-card-xl {
+    @apply shadow-xs hover:shadow-lg ;
 }
 
 .ui-card-lg {
-    @apply shadow-md ;
+    @apply shadow-2xs hover:shadow-sm ;
 }
 
-.ui-card-xl {
-    @apply shadow-sm ;
+.ui-card-md {
+    @apply shadow-2xs hover:shadow-sm ;
+}
+
+.ui-card-sm {
+    @apply shadow-2xs hover:shadow-sm ;
 }
 
 /* size header */

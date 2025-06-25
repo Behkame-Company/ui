@@ -5,6 +5,14 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   css: ['~/assets/css/main.css'],
 
+  app: {
+    head: {
+      bodyAttrs: {
+        class: 'bg-[#FCFCFC]'
+      }
+    }
+  },
+  
   vite: {
     plugins: [
       tailwindcss(),

@@ -100,18 +100,19 @@ html {
     
     --text-*: initial;
 
-    --text-xxs: 0.506rem;
-    --text-xs: 0.694rem;     
-    --text-sm: 0.714rem;    
+    --text-3xs: 0.643rem;
+    --text-2xs: 0.714rem;
+    --text-xs: 0.786rem;     
+    --text-sm: 0.857rem;    
     --text-base: 1rem;      
-    --text-h6: 1.124rem;    
-    --text-h5: 1.429rem;     
-    --text-h4: 1.714rem;     
-    --text-h3: 2.071rem;   
-    --text-h2: 2.5rem;    
-    --text-h1: 3rem;       
-    --text-d2: 3.571rem;    
-    --text-d1: 4.286rem;   
+    --text-h6: 1.143rem;    
+    --text-h5: 1.286rem;     
+    --text-h4: 1.429rem;     
+    --text-h3: 1.571rem;   
+    --text-h2: 1.786rem;    
+    --text-h1: 2rem;       
+    --text-d2: 3rem;    
+    --text-d1: 4rem;   
     
     /* ========== Border radius ========== */
 
@@ -155,13 +156,18 @@ html {
 
     --shadow-none: 0px 0px 0px 0px rgba(0, 0, 0, 0.00) ;
     
-    --shadow-sm: 0px 0px 5px 0px rgba(0, 0, 0, 0.08) ;
+    --shadow-2xs: 0px 0px 2px 0px rgba(0, 0, 0, 0.07) ;
 
-    --shadow-md: 0px 0px 7px 0px rgba(0, 0, 0, 0.08) ;
+    --shadow-xs: 0px 0px 4px 0px rgba(0, 0, 0, 0.07) ;
+
+    --shadow-sm: 0px 0px 6px 0px rgba(0, 0, 0, 0.07) ;
+
+    --shadow-md: 0px 0px 8px 0px rgba(0, 0, 0, 0.07) ;
     
-    --shadow-lg: 0px 0px 10px 0px rgba(0, 0, 0, 0.10) ;
+    --shadow-lg: 0px 0px 10px 0px rgba(0, 0, 0, 0.07) ;
 
-    --shadow-hover: 0px 6px 12px 0px rgba(0, 0, 0, 0.08) ;
-
+    --shadow-xl: 0px 0px 12px 0px rgba(0, 0, 0, 0.07) ;
+    
+    --shadow-2xl: 0px 0px 14px 0px rgba(0, 0, 0, 0.07) ;
     
 }
