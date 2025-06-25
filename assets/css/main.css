@@ -147,6 +147,21 @@ html {
     
     --size-13: 3.25rem ;
     --size-18: 4.5rem ;
+    
+    
+    /* ========== Shadow ========== */
+
+    --shadow-*: initial;
+
+    --shadow-none: 0px 0px 0px 0px rgba(0, 0, 0, 0.00) ;
+    
+    --shadow-sm: 0px 0px 5px 0px rgba(0, 0, 0, 0.08) ;
+
+    --shadow-md: 0px 0px 7px 0px rgba(0, 0, 0, 0.08) ;
+    
+    --shadow-lg: 0px 0px 10px 0px rgba(0, 0, 0, 0.10) ;
+
+    --shadow-hover: 0px 6px 12px 0px rgba(0, 0, 0, 0.08) ;
 
     
 }

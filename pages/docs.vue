@@ -3,6 +3,136 @@
 
     <h1 class="text-center mt-4 mb-4 text-2xl font-bold">Behkame Design System</h1>
 
+    <h3 class="text-start mt-4 mb-4 text-h6 font-bold">Card Components</h3>
+
+    <div class="flex justify-start items-start mt-4">
+      <div class="w-1/4 px-2">
+        <UiCard size="xl">
+          <template #default>
+            <span class="text-start text-h5">Card Body XL</span>
+          </template>
+        </UiCard>
+      </div>
+      <div class="w-1/4 px-2">
+        <UiCard size="lg">
+          <template #default>
+            <span class="text-start text-h6">Card Body LG</span>
+          </template>
+        </UiCard>
+      </div>
+      <div class="w-1/4 px-2">
+        <UiCard size="md">
+          <template #default>
+            <span class="text-start text-base">Card Body MD</span>
+          </template>
+        </UiCard>
+      </div>
+      <div class="w-1/4 px-2">
+        <UiCard size="sm">
+          <template #default>
+            <span class="text-start text-sm">Card Body SM</span>
+          </template>
+        </UiCard>
+      </div>
+    </div>
+    
+    <div class="flex justify-start items-start mt-4">
+      <div class="w-1/4 px-2">
+        <UiCard size="xl">
+          <template #header>
+            <span class="text-start text-h5">Card header XL</span>
+          </template>
+          <template #default>
+            <span class="text-start text-h5">Card Body XL</span>
+          </template>
+        </UiCard>
+      </div>
+      <div class="w-1/4 px-2">
+        <UiCard size="lg">
+          <template #header>
+            <span class="text-start text-h6">Card header LG</span>
+          </template>
+          <template #default>
+            <span class="text-start text-h6">Card Body LG</span>
+          </template>
+        </UiCard>
+      </div>
+      <div class="w-1/4 px-2">
+        <UiCard size="md">
+          <template #header>
+            <span class="text-start text-base">Card header MD</span>
+          </template>
+          <template #default>
+            <span class="text-start text-base">Card Body MD</span>
+          </template>
+        </UiCard>
+      </div>
+      <div class="w-1/4 px-2">
+        <UiCard size="sm">
+          <template #header>
+            <span class="text-start text-sm">Card header SM</span>
+          </template>
+          <template #default>
+            <span class="text-start text-sm">Card Body SM</span>
+          </template>
+        </UiCard>
+      </div>
+    </div>
+
+    <div class="flex justify-start items-start mt-4">
+      <div class="w-1/4 px-2">
+        <UiCard size="xl">
+          <template #header>
+            <span class="text-start text-h5">Card header XL</span>
+          </template>
+          <template #default>
+            <span class="text-start text-h5">Card Body XL</span>
+          </template>
+          <template #footer>
+            <UiButton class="w-full" size="xl" color="primary"> Button Footer XL</UiButton>
+          </template>
+        </UiCard>
+      </div>
+      <div class="w-1/4 px-2">
+        <UiCard size="lg">
+          <template #header>
+            <span class="text-start text-h6">Card header LG</span>
+          </template>
+          <template #default>
+            <span class="text-start text-h6">Card Body LG</span>
+          </template>
+          <template #footer>
+            <UiButton class="w-full" size="lg" color="primary"> Button Footer LG</UiButton>
+          </template>
+        </UiCard>
+      </div>
+      <div class="w-1/4 px-2">
+        <UiCard size="md">
+          <template #header>
+            <span class="text-start text-base">Card header MD</span>
+          </template>
+          <template #default>
+            <span class="text-start text-base">Card Body MD</span>
+          </template>
+          <template #footer>
+            <UiButton class="w-full" size="md" color="primary"> Button Footer MD</UiButton>
+          </template>
+        </UiCard>
+      </div>
+      <div class="w-1/4 px-2">
+        <UiCard size="sm">
+          <template #header>
+            <span class="text-start text-sm">Card header SM</span>
+          </template>
+          <template #default>
+            <span class="text-start text-sm">Card Body SM</span>
+          </template>
+          <template #footer>
+            <UiButton class="w-full"size="sm" color="primary"> Button Footer SM</UiButton>
+          </template>
+        </UiCard>
+      </div>
+    </div>
 
     <h3 class="text-start mt-4 mb-4 text-h6 font-bold">Input Components</h3>
 
