@@ -5,7 +5,7 @@
       <Icon :name="prefix_icon" :size="icon_size_class" />
     </div>
     
-    <input type="text" class="ui-input" :class="`${size_class} ${ focused ? 'ui-input-focus' : ''} ${ disabled ? 'ui-input-disabled' : ''}`" :name="name" :placeholder="placeholder" :disabled="disabled" v-model="local_data" @focus="onFocus" @blur="onBlur" />
+    <input type="text" class="ui-input" :class="`${size_class} ${ focused ? 'ui-input-focus' : ''} ${ disabled ? 'ui-input-disabled' : ''}`" :name="name" :placeholder="placeholder" :disabled="disabled" v-model="model" @focus="onFocus" @blur="onBlur" />
 
     <div class="ui-input-suffix-icon" v-if="suffix_icon" :class="{ 'ui-input-suffix-icon-pointer': suffix_callback != null, 'ui-input-suffix-icon-disabled': disabled, 'ui-input-suffix-icon-focused': focused }" :disabled="disabled">
         <Icon :name="suffix_icon" :size="icon_size_class" />
@@ -14,6 +14,10 @@
   </div>
 </template>
 <script setup lang="ts">
+
+const model = defineModel<string>({
+  required: true
+})
 
 const props = defineProps({
   name: {
@@ -45,21 +49,11 @@ const props = defineProps({
     type: Function || null,
     default: null,  // if you put some callback value it will get new style for suffix icon
   },
-  default_value: {
-    type: String,
-    default: '', // default value to put in input 
-  },
   disabled: {
     type: Boolean, 
     default: false, // pass this variable true if you want the input to get disabled 
   }, 
 })
-
-const emit = defineEmits<{
-  (e: 'update', value: string): void
-}>()
-
-const local_data = ref<string>("")
 
 const focused = ref<boolean>(false)
 
@@ -79,14 +73,6 @@ const icon_size_class = computed<string>(() => {
   }
 
   return "0px"
-})
-
-onMounted(() => local_data.value = props.default_value)
-
-watch(local_data, (val, prev) => {
-
-  if( prev != val ) 
-    emit('update', val)
 })
 
 const onFocus = () => focused.value = true

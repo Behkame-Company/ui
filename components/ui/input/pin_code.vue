@@ -1,11 +1,15 @@
 <template>
   <div class="ui-input-pin-code-container" :class="{ 'ui-input-pin-code-container-focused': focused, 'ui-input-pin-code-container-disabled': disabled }" >
 
-    <input v-for="i in length" :key="i" type="text" class="ui-input-pin-code" :class="`${size_class} ${disabled_class} ${element_focused_class[i-1]}`" :disabled="disabled" maxlength="1" :id="local_ids[i-1]" v-model="local_data[i-1]" @input="(e: any) => onUpdate(i-1, e)" @focus="(e: any) => onFocus(i-1)" @blur="(e: any) => onBlur(i-1)" />
+    <input v-for="i in length" :key="i" type="text" class="ui-input-pin-code" :class="`${size_class} ${disabled_class} ${element_focused_class[i-1]}`" :disabled="disabled" maxlength="1" :id="local_ids[i-1]" v-model="model[i-1]" @input="(e: any) => onUpdate(i-1, e)" @focus="(e: any) => onFocus(i-1)" @blur="(e: any) => onBlur(i-1)" />
 
   </div>
 </template>
 <script setup lang="ts">
+
+const model = defineModel<string>({
+  required: true
+})
 
 const props = defineProps({
   size: {
@@ -16,11 +20,7 @@ const props = defineProps({
   length: {
     type: Number,
     default: 4, // default length of pin code
-  },
-  default_value: {
-    type: String,
-    default: '', // default value to put in input 
-  },
+  }, 
   disabled: {
     type: Boolean, 
     default: false, // pass this variable true if you want the input to get disabled 
@@ -31,8 +31,6 @@ const emit = defineEmits<{
   (e: 'update', value: string): void
   (e: 'submit'): void
 }>()
-
-const local_data = ref< Record<number, string> >({})
 
 const focused = ref<boolean>(false)
 
@@ -58,8 +56,6 @@ onMounted(() => {
 
   for( let i = 0; i < props.length; i++ ) {
 
-    local_data.value[i] = ''
-
     local_ids.value[i] = Math.random().toString(36).substring(2, 15) + `ui-input-pin-code-${i}`
 
     elemet_focused.value[i] = false
@@ -67,10 +63,6 @@ onMounted(() => {
 })
 
 const onUpdate = (index: number, e: any) => {
-
-  local_data.value[index] = e.target.value
-
-  emit('update', Object.values(local_data.value).join(''))
 
   if( index == props.length - 1 ) {
 
@@ -84,7 +76,6 @@ const onUpdate = (index: number, e: any) => {
     // focus on next input 
     const next_input = document.getElementById(local_ids.value[index + 1]) as HTMLInputElement
     if( next_input ) {
-      local_data.value[index + 1] = ''
       next_input.focus()
     }
   }

@@ -1,7 +1,7 @@
 <template>
   <div class="ui-input-password-container" :class="{ 'ui-input-password-container-focused': focused, 'ui-input-password-container-disabled': disabled }" >
     
-    <input :type="input_type" class="ui-input-password" :class="`${size_class} ${ focused ? 'ui-input-password-focus' : ''} ${ disabled ? 'ui-input-password-disabled' : ''}`" :name="name" :placeholder="placeholder" :disabled="disabled" v-model="local_data" @focus="onFocus" @blur="onBlur" />
+    <input :type="input_type" class="ui-input-password" :class="`${size_class} ${ focused ? 'ui-input-password-focus' : ''} ${ disabled ? 'ui-input-password-disabled' : ''}`" :name="name" :placeholder="placeholder" :disabled="disabled" v-model="model" @focus="onFocus" @blur="onBlur" />
 
     <div class="ui-input-password-suffix-icon" :class="{ 'ui-input-password-suffix-icon-disabled': disabled }" :disabled="disabled" @click="toggleShowPassword">
         <Icon :name="icon_name" :size="icon_size_class" />
@@ -10,6 +10,10 @@
   </div>
 </template>
 <script setup lang="ts">
+
+const model = defineModel<string>({
+  required: true
+})
 
 const props = defineProps({
   name: {
@@ -25,21 +29,11 @@ const props = defineProps({
     default: 'sm', // valid values: sm, md, lg, xl
     validator: (value: string) => ['sm', 'md', 'lg', 'xl'].includes(value)
   },
-  default_value: {
-    type: String,
-    default: '', // default value to put in input 
-  },
   disabled: {
     type: Boolean, 
     default: false, // pass this variable true if you want the input to get disabled 
   }, 
 })
-
-const emit = defineEmits<{
-  (e: 'update', value: string): void
-}>()
-
-const local_data = ref<string>("")
 
 const show_password = ref<boolean>(false)
 
@@ -65,15 +59,7 @@ const icon_size_class = computed<string>(() => {
   }
 
   return "0px"
-})
-
-onMounted(() => local_data.value = props.default_value)
-
-watch(local_data, (val, prev) => {
-
-  if( prev != val ) 
-    emit('update', val)
-})
+}) 
 
 const toggleShowPassword = () => {
 

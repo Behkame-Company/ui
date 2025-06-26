@@ -3,6 +3,10 @@
 </template>
 <script setup lang="ts">
 
+const model = defineModel<string>({
+  required: true
+})
+
 const props = defineProps({
   name: {
     type: String,
@@ -17,32 +21,14 @@ const props = defineProps({
     default: 'sm', // valid values: sm, md, lg, xl
     validator: (value: string) => ['sm', 'md', 'lg', 'xl'].includes(value)
   },
-  default_value: {
-    type: String,
-    default: '', // default value to put in input text area 
-  },
   disabled: {
     type: Boolean, 
     default: false, // pass this variable true if you want the input text area to get disabled 
   }, 
-})
-
-const emit = defineEmits<{
-  (e: 'update', value: string): void
-}>()
-
+}) 
 const local_data = ref<string>("")
 
 const size_class = computed<string>(() => `ui-input-text-area-${props.size}`)
-
-onMounted(() => local_data.value = props.default_value)
-
-
-watch(local_data, (val, prev) => {
-
-  if( prev != val ) 
-    emit('update', val)
-})
 
 </script>
 <style>
