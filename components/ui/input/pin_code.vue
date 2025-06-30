@@ -1,17 +1,17 @@
 <template>
   <div class="ui-input-pin-code-container" :class="{ 'ui-input-pin-code-container-focused': focused, 'ui-input-pin-code-container-disabled': disabled }" >
 
-    <input v-for="i in length" :key="i" type="text" class="ui-input-pin-code" :class="`${size_class} ${disabled_class} ${element_focused_class[i-1]}`" :disabled="disabled" maxlength="1" :id="local_ids[i-1]" v-model="model[i-1]" @input="(e: any) => onUpdate(i-1, e)" @focus="(e: any) => onFocus(i-1)" @blur="(e: any) => onBlur(i-1)" />
+    <input v-for="i in length" :key="i" type="text" class="ui-input-pin-code" :class="`${size_class} ${disabled_class} ${element_focused_class[i-1]}`" :disabled="disabled" maxlength="1" :id="local_ids[i-1]" @input="(e: any) => onUpdate(i-1, e)" @focus="(e: any) => onFocus(i-1)" @blur="(e: any) => onBlur(i-1)" />
 
   </div>
 </template>
 <script setup lang="ts">
 
-const model = defineModel<string>({
-  required: true
-})
-
 const props = defineProps({
+  default_value: {
+    type: String,
+    default: '',
+  },
   size: {
     type: String,
     default: 'sm', // valid values: sm, md, lg, xl
@@ -31,6 +31,8 @@ const emit = defineEmits<{
   (e: 'update', value: string): void
   (e: 'submit'): void
 }>()
+
+const model = ref<string>(props.default_value)
 
 const focused = ref<boolean>(false)
 
@@ -63,6 +65,10 @@ onMounted(() => {
 })
 
 const onUpdate = (index: number, e: any) => {
+
+  model.value = model.value.slice(0, index) + e.target.value + model.value.slice(index + 1)
+
+  emit('update', model.value)
 
   if( index == props.length - 1 ) {
 
