@@ -11,7 +11,7 @@
     }"
     >
 
-        <UiLoadingSpinner v-if="loading" :size="props.size" />
+        <UiLoadingSpinner v-if="loading" :size="props.size" class="my-1" />
         
         <template v-else>
 
@@ -149,7 +149,7 @@ const suffix_icon_class = computed<string>(() => {
             return 'ui-button-suffix-icon-xl';
     }
 })
-  
+
 </script>
 <style scoped>
 
