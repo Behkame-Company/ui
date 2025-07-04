@@ -280,19 +280,19 @@
     
         <UiInputDropdown class="my-1 w-96" size="sm" placeholder="dropdown sm" v-model="dropdown_model_1" :options="dropdown_options" />
 
-        <UiInputDropdown class="my-1 w-96" size="sm" placeholder="dropdown sm" v-model="dropdown_model_1" :options="dropdown_options" :disabled="true" />
+        <UiInputDropdown class="my-1 w-96" size="sm" placeholder="dropdown sm disabled" v-model="dropdown_model_1" :options="dropdown_options" :disabled="true" />
 
         <UiInputDropdown class="my-1 w-96" size="md" placeholder="dropdown md" v-model="dropdown_model_2" :options="dropdown_options" />
 
-        <UiInputDropdown class="my-1 w-96" size="md" placeholder="dropdown md" v-model="dropdown_model_2" :options="dropdown_options" :disabled="true" />
+        <UiInputDropdown class="my-1 w-96" size="md" placeholder="dropdown md disabled" v-model="dropdown_model_2" :options="dropdown_options" :disabled="true" />
 
         <UiInputDropdown class="my-1 w-96" size="lg" placeholder="dropdown lg" v-model="dropdown_model_3" :options="dropdown_options" />
 
-        <UiInputDropdown class="my-1 w-96" size="lg" placeholder="dropdown lg" v-model="dropdown_model_3" :options="dropdown_options" :disabled="true" />
+        <UiInputDropdown class="my-1 w-96" size="lg" placeholder="dropdown lg disabled" v-model="dropdown_model_3" :options="dropdown_options" :disabled="true" />
 
         <UiInputDropdown class="my-1 w-96" size="xl" placeholder="dropdown xl" v-model="dropdown_model_4" :options="dropdown_options" />
 
-        <UiInputDropdown class="my-1 w-96" size="xl" placeholder="dropdown xl" v-model="dropdown_model_4" :options="dropdown_options" :disabled="true" />
+        <UiInputDropdown class="my-1 w-96" size="xl" placeholder="dropdown xl disabled" v-model="dropdown_model_4" :options="dropdown_options" :disabled="true" />
 
       </div>
 
