@@ -142,21 +142,21 @@
   
         <h5 class="text-start mt-4 mb-4 text-xl">Diffrent sizes</h5>
     
-        <UiInput class="my-1" name="name" size="sm" placeholder="Input size sm" />
+        <UiInput class="my-4" name="name" size="sm" placeholder="Input size sm" />
 
-        <UiInput class="my-1" name="name" size="sm" :disabled="true" placeholder="Input size sm disabled" />
+        <UiInput class="my-4" name="name" size="sm" :disabled="true" placeholder="Input size sm disabled" />
         
-        <UiInput class="my-1" name="name" size="md" placeholder="Input size md" />
+        <UiInput class="my-4" name="name" size="md" placeholder="Input size md" />
 
-        <UiInput class="my-1" name="name" size="md" :disabled="true" placeholder="Input size md disabled" />
+        <UiInput class="my-4" name="name" size="md" :disabled="true" placeholder="Input size md disabled" />
         
-        <UiInput class="my-1" name="name" size="lg" placeholder="Input size lg" />
+        <UiInput class="my-4" name="name" size="lg" placeholder="Input size lg" />
 
-        <UiInput class="my-1" name="name" size="lg" :disabled="true" placeholder="Input size lg disabled" />
+        <UiInput class="my-4" name="name" size="lg" :disabled="true" placeholder="Input size lg disabled" />
         
-        <UiInput class="my-1" name="name" size="xl" placeholder="Input size xl" />
+        <UiInput class="my-4" name="name" size="xl" placeholder="Input size xl" />
 
-        <UiInput class="my-1" name="name" size="xl" :disabled="true" placeholder="Input size xl disabled" />
+        <UiInput class="my-4" name="name" size="xl" :disabled="true" placeholder="Input size xl disabled" />
 
       </div>
 
@@ -164,17 +164,17 @@
   
         <h5 class="text-start mt-4 mb-4 text-xl">Prefix and Suffix icon</h5>
   
-        <UiInput class="my-1" prefix_icon="material-symbols:bolt" placeholder="Input with prefix icon" />
+        <UiInput class="my-4" prefix_icon="material-symbols:bolt" placeholder="Input with prefix icon" />
 
-        <UiInput class="my-1" prefix_icon="material-symbols:bolt" :disabled="true" placeholder="Input with prefix icon disabled" />
+        <UiInput class="my-4" prefix_icon="material-symbols:bolt" :disabled="true" placeholder="Input with prefix icon disabled" />
 
-        <UiInput class="my-1" suffix_icon="material-symbols:bolt" placeholder="Input with suffix icon" />
+        <UiInput class="my-4" suffix_icon="material-symbols:bolt" placeholder="Input with suffix icon" />
 
-        <UiInput class="my-1" suffix_icon="material-symbols:bolt" :disabled="true" placeholder="Input with suffix icon disabled" />
+        <UiInput class="my-4" suffix_icon="material-symbols:bolt" :disabled="true" placeholder="Input with suffix icon disabled" />
 
-        <UiInput class="my-1" prefix_icon="material-symbols:bolt" suffix_icon="material-symbols:bolt" placeholder="Input with prefix and suffix icon" />
+        <UiInput class="my-4" prefix_icon="material-symbols:bolt" suffix_icon="material-symbols:bolt" placeholder="Input with prefix and suffix icon" />
 
-        <UiInput class="my-1" prefix_icon="material-symbols:bolt" :disabled="true" suffix_icon="material-symbols:bolt" placeholder="Input with prefix and suffix icon disabled" />
+        <UiInput class="my-4" prefix_icon="material-symbols:bolt" :disabled="true" suffix_icon="material-symbols:bolt" placeholder="Input with prefix and suffix icon disabled" />
         
       </div>
 
@@ -182,29 +182,40 @@
 
         <h5 class="text-start mt-4 mb-4 text-xl">Prefix and Suffix callback</h5>
 
-        <UiInput class="my-1" prefix_icon="material-symbols:bolt" :prefix_callback="() => {}" placeholder="Input with prefix icon" />
+        <UiInput class="my-4" prefix_icon="material-symbols:bolt" :prefix_callback="() => {}" placeholder="Input with prefix icon" />
 
-        <UiInput class="my-1" prefix_icon="material-symbols:bolt" :disabled="true" :prefix_callback="() => {}" placeholder="Input with prefix icon" />
+        <UiInput class="my-4" prefix_icon="material-symbols:bolt" :disabled="true" :prefix_callback="() => {}" placeholder="Input with prefix icon" />
 
-        <UiInput class="my-1" suffix_icon="material-symbols:bolt" :suffix_callback="() => {}" placeholder="Input with suffix icon" />
+        <UiInput class="my-4" suffix_icon="material-symbols:bolt" :suffix_callback="() => {}" placeholder="Input with suffix icon" />
 
-        <UiInput class="my-1" suffix_icon="material-symbols:bolt" :disabled="true" :suffix_callback="() => {}" placeholder="Input with suffix icon" />
+        <UiInput class="my-4" suffix_icon="material-symbols:bolt" :disabled="true" :suffix_callback="() => {}" placeholder="Input with suffix icon" />
 
-        <UiInput class="my-1" prefix_icon="material-symbols:bolt" :prefix_callback="() => {}" suffix_icon="material-symbols:bolt" :suffix_callback="() => {}" placeholder="Input with prefix and suffix icon" />
+        <UiInput class="my-4" prefix_icon="material-symbols:bolt" :prefix_callback="() => {}" suffix_icon="material-symbols:bolt" :suffix_callback="() => {}" placeholder="Input with prefix and suffix icon" />
 
-        <UiInput class="my-1" prefix_icon="material-symbols:bolt" :disabled="true" :prefix_callback="() => {}" suffix_icon="material-symbols:bolt" :suffix_callback="() => {}" placeholder="Input with prefix and suffix icon" />
+        <UiInput class="my-4" prefix_icon="material-symbols:bolt" :disabled="true" :prefix_callback="() => {}" suffix_icon="material-symbols:bolt" :suffix_callback="() => {}" placeholder="Input with prefix and suffix icon" />
 
       </div>
-  
+
       <div class="w-1/4 px-2">
   
-        <h5 class="text-start mt-4 mb-4 text-xl">Disabled state</h5>
-        
-        <UiInput class="my-1" placeholder="Default state" />
+        <h5 class="text-start mt-4 mb-4 text-xl">Dropdown</h5>
+    
+        <UiInputDropdown class="my-4 w-96" size="sm" placeholder="dropdown sm" v-model="dropdown_model_1" :options="dropdown_options" />
 
-        <UiInput class="my-1" :disabled="true" placeholder="Disabled state" />
+        <UiInputDropdown class="my-4 w-96" size="sm" placeholder="dropdown sm disabled" v-model="dropdown_model_1" :options="dropdown_options" :disabled="true" />
 
-  
+        <UiInputDropdown class="my-4 w-96" size="md" placeholder="dropdown md" v-model="dropdown_model_2" :options="dropdown_options" />
+
+        <UiInputDropdown class="my-4 w-96" size="md" placeholder="dropdown md disabled" v-model="dropdown_model_2" :options="dropdown_options" :disabled="true" />
+
+        <UiInputDropdown class="my-4 w-96" size="lg" placeholder="dropdown lg" v-model="dropdown_model_3" :options="dropdown_options" />
+
+        <UiInputDropdown class="my-4 w-96" size="lg" placeholder="dropdown lg disabled" v-model="dropdown_model_3" :options="dropdown_options" :disabled="true" />
+
+        <UiInputDropdown class="my-4 w-96" size="xl" placeholder="dropdown xl" v-model="dropdown_model_4" :options="dropdown_options" />
+
+        <UiInputDropdown class="my-4 w-96" size="xl" placeholder="dropdown xl disabled" v-model="dropdown_model_4" :options="dropdown_options" :disabled="true" />
+
       </div>
 
     </div>
@@ -215,15 +226,15 @@
   
         <h5 class="text-start mt-4 mb-4 text-xl">Text area</h5>
 
-        <UiInputTextArea class="w-full my-1" size="sm" :disabled="true" placeholder="sm text area" />
+        <UiInputTextArea class="w-full my-4" size="sm" :disabled="true" placeholder="sm text area" />
 
-        <UiInputTextArea class="w-full my-1" size="sm" placeholder="sm text area" />
+        <UiInputTextArea class="w-full my-4" size="sm" placeholder="sm text area" />
 
-        <UiInputTextArea class="w-full my-1" size="md" placeholder="md text area" />
+        <UiInputTextArea class="w-full my-4" size="md" placeholder="md text area" />
 
-        <UiInputTextArea class="w-full my-1" size="lg" placeholder="lg text area" />
+        <UiInputTextArea class="w-full my-4" size="lg" placeholder="lg text area" />
     
-        <UiInputTextArea class="w-full my-1" size="xl" placeholder="xl text area" />
+        <UiInputTextArea class="w-full my-4" size="xl" placeholder="xl text area" />
 
       </div>
 
@@ -231,23 +242,23 @@
   
         <h5 class="text-start mt-4 mb-4 text-xl">Password</h5>
     
-        <UiInputPassword class="my-1" size="sm" :disabled="true" placeholder="password sm" />
+        <UiInputPassword class="my-4" size="sm" :disabled="true" placeholder="password sm" />
         
-        <UiInputPassword class="my-1" size="sm" placeholder="password sm" />
+        <UiInputPassword class="my-4" size="sm" placeholder="password sm" />
         
-        <UiInputPassword class="my-1" size="sm" :disabled="true" placeholder="password sm" />
+        <UiInputPassword class="my-4" size="sm" :disabled="true" placeholder="password sm" />
 
-        <UiInputPassword class="my-1" size="md" placeholder="password md" />
+        <UiInputPassword class="my-4" size="md" placeholder="password md" />
         
-        <UiInputPassword class="my-1" size="md" :disabled="true" placeholder="password md" />
+        <UiInputPassword class="my-4" size="md" :disabled="true" placeholder="password md" />
 
-        <UiInputPassword class="my-1" size="lg" placeholder="password lg" />
+        <UiInputPassword class="my-4" size="lg" placeholder="password lg" />
         
-        <UiInputPassword class="my-1" size="lg" :disabled="true" placeholder="password lg" />
+        <UiInputPassword class="my-4" size="lg" :disabled="true" placeholder="password lg" />
 
-        <UiInputPassword class="my-1" size="xl" placeholder="password xl" />
+        <UiInputPassword class="my-4" size="xl" placeholder="password xl" />
         
-        <UiInputPassword class="my-1" size="xl" :disabled="true" placeholder="password xl" />
+        <UiInputPassword class="my-4" size="xl" :disabled="true" placeholder="password xl" />
         
 
       </div>
@@ -256,43 +267,21 @@
   
         <h5 class="text-start mt-4 mb-4 text-xl">Pin Code</h5>
     
-        <UiInputPinCode class="my-1 w-52" size="sm" />
+        <UiInputPinCode class="my-4 w-52" size="sm" />
         
-        <UiInputPinCode class="my-1 w-52" :disabled="true" size="sm" />
+        <UiInputPinCode class="my-4 w-52" :disabled="true" size="sm" />
 
-        <UiInputPinCode class="my-1 w-64" size="md" />
+        <UiInputPinCode class="my-4 w-64" size="md" />
         
-        <UiInputPinCode class="my-1 w-64" :disabled="true" size="md" />
+        <UiInputPinCode class="my-4 w-64" :disabled="true" size="md" />
 
-        <UiInputPinCode class="my-1 w-72" size="lg" />
+        <UiInputPinCode class="my-4 w-72" size="lg" />
         
-        <UiInputPinCode class="my-1 w-72" :disabled="true" size="lg" />
+        <UiInputPinCode class="my-4 w-72" :disabled="true" size="lg" />
 
-        <UiInputPinCode class="my-1 w-80" size="xl" />
+        <UiInputPinCode class="my-4 w-80" size="xl" />
         
-        <UiInputPinCode class="my-1 w-80" :disabled="true" size="xl" />
-
-      </div>
-
-      <div class="w-1/4 px-2">
-  
-        <h5 class="text-start mt-4 mb-4 text-xl">Dropdown</h5>
-    
-        <UiInputDropdown class="my-1 w-96" size="sm" placeholder="dropdown sm" v-model="dropdown_model_1" :options="dropdown_options" />
-
-        <UiInputDropdown class="my-1 w-96" size="sm" placeholder="dropdown sm disabled" v-model="dropdown_model_1" :options="dropdown_options" :disabled="true" />
-
-        <UiInputDropdown class="my-1 w-96" size="md" placeholder="dropdown md" v-model="dropdown_model_2" :options="dropdown_options" />
-
-        <UiInputDropdown class="my-1 w-96" size="md" placeholder="dropdown md disabled" v-model="dropdown_model_2" :options="dropdown_options" :disabled="true" />
-
-        <UiInputDropdown class="my-1 w-96" size="lg" placeholder="dropdown lg" v-model="dropdown_model_3" :options="dropdown_options" />
-
-        <UiInputDropdown class="my-1 w-96" size="lg" placeholder="dropdown lg disabled" v-model="dropdown_model_3" :options="dropdown_options" :disabled="true" />
-
-        <UiInputDropdown class="my-1 w-96" size="xl" placeholder="dropdown xl" v-model="dropdown_model_4" :options="dropdown_options" />
-
-        <UiInputDropdown class="my-1 w-96" size="xl" placeholder="dropdown xl disabled" v-model="dropdown_model_4" :options="dropdown_options" :disabled="true" />
+        <UiInputPinCode class="my-4 w-80" :disabled="true" size="xl" />
 
       </div>
 
