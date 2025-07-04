@@ -169,32 +169,64 @@ const suffix_icon_class = computed<string>(() => {
     @apply text-white bg-primary hover:bg-blue-600 border-primary hover:border-blue-600 ;
 }
 
+.ui-button-primary:disabled {
+    @apply hover:bg-primary hover:border-primary ;
+}
+
 .ui-button-outline {
-    @apply text-primary  bg-transparent hover:bg-blue-50 border-primary ;
+    @apply text-primary  bg-transparent border-primary hover:bg-blue-50 ;
+}
+
+.ui-button-outline:disabled {
+    @apply hover:bg-transparent hover:border-primary ;
 }
 
 .ui-button-secondary {
     @apply text-primary bg-blue-100 hover:bg-blue-200 border-blue-100 hover:border-blue-200 ;
 }
 
+.ui-button-secondary:disabled {
+    @apply hover:bg-blue-100 hover:border-blue-100 ;
+}
+
 .ui-button-dark  {
     @apply text-white bg-black hover:bg-shade-900 border-black hover:border-shade-900 ;
+}
+
+.ui-button-dark:disabled {
+    @apply hover:bg-black hover:border-black ;
 }
 
 .ui-button-error {
     @apply text-white bg-error hover:bg-red-400 border-error hover:border-red-400 ;
 }
 
+.ui-button-error:disabled {
+    @apply hover:bg-error hover:border-error ;
+}
+
 .ui-button-success {
     @apply text-white bg-success hover:bg-green-400 border-success hover:border-green-400 ;
+}
+
+.ui-button-success:disabled {
+    @apply hover:bg-success hover:border-success ;
 }
 
 .ui-button-warning {
     @apply text-white bg-warning hover:bg-yellow-400 border-warning hover:border-yellow-400 ;
 }
 
+.ui-button-warning:disabled {
+    @apply hover:bg-warning hover:border-warning ;
+}
+
 .ui-button-info {
     @apply text-white bg-info hover:bg-purple-400 border-info hover:border-purple-400 ;
+}
+
+.ui-button-info:disabled {
+    @apply hover:bg-info hover:border-info ;
 }
 
 /* ===== size ===== */
