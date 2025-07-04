@@ -276,8 +276,23 @@
 
       <div class="w-1/4 px-2">
   
-        <h5 class="text-start mt-4 mb-4 text-xl">Upload image</h5>
+        <h5 class="text-start mt-4 mb-4 text-xl">Dropdown</h5>
     
+        <UiInputDropdown class="my-1 w-96" size="sm" placeholder="dropdown sm" v-model="dropdown_model_1" :options="dropdown_options" />
+
+        <UiInputDropdown class="my-1 w-96" size="sm" placeholder="dropdown sm" v-model="dropdown_model_1" :options="dropdown_options" :disabled="true" />
+
+        <UiInputDropdown class="my-1 w-96" size="md" placeholder="dropdown md" v-model="dropdown_model_2" :options="dropdown_options" />
+
+        <UiInputDropdown class="my-1 w-96" size="md" placeholder="dropdown md" v-model="dropdown_model_2" :options="dropdown_options" :disabled="true" />
+
+        <UiInputDropdown class="my-1 w-96" size="lg" placeholder="dropdown lg" v-model="dropdown_model_3" :options="dropdown_options" />
+
+        <UiInputDropdown class="my-1 w-96" size="lg" placeholder="dropdown lg" v-model="dropdown_model_3" :options="dropdown_options" :disabled="true" />
+
+        <UiInputDropdown class="my-1 w-96" size="xl" placeholder="dropdown xl" v-model="dropdown_model_4" :options="dropdown_options" />
+
+        <UiInputDropdown class="my-1 w-96" size="xl" placeholder="dropdown xl" v-model="dropdown_model_4" :options="dropdown_options" :disabled="true" />
 
       </div>
 
@@ -406,3 +421,24 @@
     
   </div>
 </template>
+<script setup lang="ts">
+
+const dropdown_options = ref<{ label: string, value: string }[]>([
+  { label: 'Option 1', value: 'option1' },
+  { label: 'Option 2', value: 'option2' },
+  { label: 'Option 3', value: 'option3' },
+  { label: 'Option 4', value: 'option4' },
+  { label: 'Option 5', value: 'option5' },
+  { label: 'Option 6', value: 'option6' },
+  { label: 'Option 7', value: 'option7' },
+  { label: 'Option 8', value: 'option8' },
+  { label: 'Option 9', value: 'option9' },
+  { label: 'Option 10', value: 'option10' }
+])
+
+const dropdown_model_1 = ref<string>('')
+const dropdown_model_2 = ref<string>('')
+const dropdown_model_3 = ref<string>('')
+const dropdown_model_4 = ref<string>('')
+
+</script>
