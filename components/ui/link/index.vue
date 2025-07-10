@@ -1,0 +1,138 @@
+<template>
+  <div class="ui-link">
+    <a
+      class="ui-link-text"
+      href="#"
+      :class="{ [size_class]: true, [color_class]: true }"
+      >{{ props.text }}</a
+    >
+  </div>
+</template>
+
+<script lang="ts" setup>
+const props = defineProps({
+  text: {
+    type: String,
+    default: "",
+  },
+
+  color: {
+    type: String,
+    default: "primary", // set this to the color of the link
+    validator: (value: string) =>
+      [
+        "primary",
+        "secondary",
+        "dark",
+        "error",
+        "success",
+        "warning",
+        "info",
+        "low-contrast",
+      ].includes(value),
+  },
+  size: {
+    type: String,
+    default: "sm", // set this to the size of the link
+    validator: (value: string) =>
+      ["xs", "sm", "md", "lg", "xl"].includes(value),
+  },
+});
+
+const color_class = computed<string>(() => {
+  switch (props.color) {
+    case "primary":
+      return "ui-link-primary";
+    case "outline":
+      return "ui-link-outline";
+    case "secondary":
+      return "ui-link-secondary";
+    case "dark":
+      return "ui-link-dark";
+    case "text-bt":
+      return "ui-link-text-bt";
+    case "low-contrast":
+      return "ui-link-low-contrast";
+    case "error":
+      return "ui-link-error";
+    case "success":
+      return "ui-link-success";
+    case "warning":
+      return "ui-link-warning";
+    case "info":
+      return "ui-link-info";
+    default:
+      return "ui-link-primary";
+  }
+});
+const size_class = computed<string>(() => {
+  switch (props.size) {
+    case "xl":
+      return "ui-link-xl";
+    case "lg":
+      return "ui-link-lg";
+    case "md":
+      return "ui-link-md";
+    case "sm":
+      return "ui-link-sm";
+    case "xs":
+      return "ui-link-xs";
+    default:
+      return "ui-link-xl";
+  }
+});
+</script>
+
+<style scoped>
+@reference "assets/css/main.css";
+
+.ui-link {
+  @apply flex justify-center items-center px-8 py-4;
+}
+.ui-link-text {
+  @apply underline underline-offset-4;
+}
+.ui-link-primary {
+  @apply text-primary decoration-primary;
+}
+.ui-link-dark {
+  @apply text-gray decoration-gray;
+}
+.ui-link-secondary {
+  @apply text-blue-200 decoration-blue-200;
+}
+.ui-link-low-contrast {
+  @apply text-cyan-lc-shade-999 decoration-cyan-lc-shade-999;
+}
+.ui-link-error {
+  @apply text-error decoration-error;
+}
+.ui-link-success {
+  @apply text-success decoration-success;
+}
+.ui-link-warning {
+  @apply text-warning decoration-warning;
+}
+.ui-link-info {
+  @apply text-info decoration-info;
+}
+
+.ui-link-text-xl {
+  @apply text-h5;
+}
+
+.ui-link-text-lg {
+  @apply text-h6;
+}
+
+.ui-link-text-md {
+  @apply text-base;
+}
+
+.ui-link-text-sm {
+  @apply text-base;
+}
+.ui-link-text-xs {
+  @apply text-sm;
+}
+</style>

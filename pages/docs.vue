@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto">
 
-    <h1 class="text-center mt-4 mb-4 text-2xl font-bold">Behkame Design System</h1>
+    <!-- <h1 class="text-center mt-4 mb-4 text-2xl font-bold">Behkame Design System</h1>
 
     <h3 class="text-start mt-4 mb-4 text-h6 font-bold">Card Components</h3>
 
@@ -297,7 +297,7 @@
       </div>
 
 
-    </div>
+    </div> -->
 
     <h3 class="text-start mt-4 mb-4 text-xl font-bold">Button Component</h3>
 
@@ -306,14 +306,15 @@
       <div class="w-1/4 px-2">
   
         <h5 class="text-start mt-4 mb-4 text-lg font-bold">Default</h5>
+        <UiButton color="primary" class="my-2" size="xs"> xs </UiButton>
 
-        <UiButton class="my-2" size="sm"> Button sm </UiButton>
+        <UiButton class="my-2" size="sm">  sm </UiButton>
 
-        <UiButton class="my-2" size="md"> Button md </UiButton>
+        <UiButton class="my-2" size="md">  md </UiButton>
 
-        <UiButton class="my-2" size="lg" > Button lg </UiButton>
+        <UiButton class="my-2" size="lg" >  lg </UiButton>
 
-        <UiButton class="my-2" size="xl"> Button xl </UiButton>
+        <UiButton  size="xl">  xl </UiButton>
 
     
       </div>
@@ -405,9 +406,217 @@
         <UiButton class="my-2" size="xl" prefix_icon="material-symbols:bolt"> Prefix Icon </UiButton>
 
       </div>
+      <UiLink text="Home" color="warning" size="xl"/>
 
     </div>
-    
+       <!-- <h3 class="text-start mt-4 mb-4 text-xl font-bold">
+      toast-alert Component
+    </h3>
+
+    <div class="flex justify-start items-start gap-5">
+      <div class="flex flex-col w-1/4 gap-2">
+        <UiToastSnackbarAlert
+          color="primary"
+          size="lg"
+          cancel_icon="material-symbols:cancel-outline"
+          body_text="hi its my message"
+          title="Message"
+          icon_size="lg"
+          prefix_icon="material-symbols:electric-bolt-rounded"
+          :auto_dismiss="false"
+        />
+        <UiToastSnackbarAlert
+          color="outline"  
+          size="lg"
+          cancel_icon="material-symbols:cancel-outline"
+          body_text="hi its my message"
+          title="Message"
+          icon_size="lg"
+          prefix_icon="material-symbols:electric-bolt-rounded"
+          :auto_dismiss="false"
+        />
+        <UiToastSnackbarAlert
+          color="dark"
+          size="lg"
+          cancel_icon="material-symbols:cancel-outline"
+          body_text="hi it my message"
+          title="Message"
+          icon_size="lg"
+          prefix_icon="material-symbols:electric-bolt-rounded"
+          :auto_dismiss="false"
+        />
+        <UiToastSnackbarAlert
+          color="error"
+          size="lg"
+          cancel_icon="material-symbols:cancel-outline"
+          body_text="hi it my message"
+          title="Message"
+          icon_size="lg"
+          prefix_icon="material-symbols:electric-bolt-rounded"
+          :auto_dismiss="false"
+        />
+        <UiToastSnackbarAlert
+          color="success"
+          size="lg"
+          cancel_icon="material-symbols:cancel-outline"
+          body_text="hi it my message"
+          title="Message"
+          icon_size="lg"
+          prefix_icon="material-symbols:electric-bolt-rounded"
+          :auto_dismiss="false"
+        />
+        <UiToastSnackbarAlert
+          color="warning"
+          size="lg"
+          cancel_icon="material-symbols:cancel-outline"
+          body_text="hi it my message"
+          title="Message"
+          icon_size="lg"
+          prefix_icon="material-symbols:electric-bolt-rounded"
+          :auto_dismiss="false"
+        />
+        <UiToastSnackbarAlert
+          color="info"
+          size="lg"
+          cancel_icon="material-symbols:cancel-outline"
+          body_text="hi it my message"
+          title="Message"
+          icon_size="lg"
+          prefix_icon="material-symbols:electric-bolt-rounded"
+          :auto_dismiss="false"
+        />
+      </div>
+      <div class="flex flex-col w-1/4 gap-2">
+        <UiToastSnackbarAlert
+          color="primary"
+          size="lg"
+          cancel_icon="material-symbols:cancel-outline"
+          title="Message"
+          icon_size="lg"
+          prefix_icon="material-symbols:electric-bolt-rounded"
+          :auto_dismiss="false"
+        />
+        <UiToastSnackbarAlert
+          color="outline"
+          size="lg"
+          cancel_icon="material-symbols:cancel-outline"
+          title="Message"
+          icon_size="lg"
+          prefix_icon="material-symbols:electric-bolt-rounded"
+          :auto_dismiss="false"
+        />
+        <UiToastSnackbarAlert
+          color="dark"
+          size="lg"
+          cancel_icon="material-symbols:cancel-outline"
+          title="Message"
+          icon_size="lg"
+          prefix_icon="material-symbols:electric-bolt-rounded"
+          :auto_dismiss="false"
+        />
+        <UiToastSnackbarAlert
+          color="error"
+          size="lg"
+          cancel_icon="material-symbols:cancel-outline"
+          title="Message"
+          icon_size="lg"
+          prefix_icon="material-symbols:electric-bolt-rounded"
+          :auto_dismiss="false"
+        />
+        <UiToastSnackbarAlert
+          color="success"
+          size="lg"
+          cancel_icon="material-symbols:cancel-outline"
+          title="Message"
+          icon_size="lg"
+          prefix_icon="material-symbols:electric-bolt-rounded"
+          :auto_dismiss="false"
+        />
+        <UiToastSnackbarAlert
+          color="warning"
+          size="lg"
+          cancel_icon="material-symbols:cancel-outline"
+          title="Message"
+          icon_size="lg"
+          prefix_icon="material-symbols:electric-bolt-rounded"
+          :auto_dismiss="false"
+        />
+        <UiToastSnackbarAlert
+          color="info"
+          size="lg"
+          cancel_icon="material-symbols:cancel-outline"
+          title="Message"
+          icon_size="lg"
+          prefix_icon="material-symbols:electric-bolt-rounded"
+          :auto_dismiss="false"
+        />
+      </div>
+      <div class="flex flex-col w-1/4 gap-2">
+        <UiToastSnackbarAlert
+          color="primary"
+          size="sm"
+          title="Message"
+          icon_size="sm"
+          prefix_icon="material-symbols:electric-bolt-rounded"
+          :auto_dismiss="true"
+          :timer="30"
+        />
+        <UiToastSnackbarAlert
+          color="outline"
+          size="sm"
+          title="Message"
+          icon_size="sm"
+          prefix_icon="material-symbols:electric-bolt-rounded"
+          :auto_dismiss="true"
+          :timer="30"
+        />
+        <UiToastSnackbarAlert
+          color="dark"
+          size="sm"
+          title="Message"
+          icon_size="sm"
+          prefix_icon="material-symbols:electric-bolt-rounded"
+          :auto_dismiss="true"
+          :timer="30"
+        />
+        <UiToastSnackbarAlert
+          color="error"
+          size="sm"
+          title="Message"
+          icon_size="sm"
+          prefix_icon="material-symbols:electric-bolt-rounded"
+          :auto_dismiss="true"
+          :timer="30"
+        />
+        <UiToastSnackbarAlert
+          color="success"
+          size="sm"
+          title="Message"
+          icon_size="sm"
+          prefix_icon="material-symbols:electric-bolt-rounded"
+          :auto_dismiss="true"
+          :timer="30"
+        />
+        <UiToastSnackbarAlert
+          color="warning"
+          size="sm"
+          title="Message"
+          icon_size="sm"
+          prefix_icon="material-symbols:electric-bolt-rounded"
+          :auto_dismiss="true"
+          :timer="30"
+        />
+        <UiToastSnackbarAlert
+          color="info"
+          size="sm"
+          title="Message"
+          icon_size="sm"
+          prefix_icon="material-symbols:electric-bolt-rounded"
+          :auto_dismiss="true"
+          :timer="30"
+        />
+      </div>
+    </div> -->
   </div>
 </template>
 <script setup lang="ts">
