@@ -1,8 +1,8 @@
 <template>
-  <div class="ui-link">
+  <div class="ui-link" >
     <a
       class="ui-link-text"
-      href="#"
+      :href
       :class="{ [size_class]: true, [color_class]: true }"
       >{{ props.text }}</a
     >
@@ -10,12 +10,19 @@
 </template>
 
 <script lang="ts" setup>
+
 const props = defineProps({
+
   text: {
     type: String,
     default: "",
   },
+ href:{
+  type:String,
+  default: "",
 
+
+ },
   color: {
     type: String,
     default: "primary", // set this to the color of the link
@@ -28,12 +35,12 @@ const props = defineProps({
         "success",
         "warning",
         "info",
-        "low-contrast",
+        "gray",
       ].includes(value),
   },
   size: {
     type: String,
-    default: "sm", // set this to the size of the link
+    default: "xl", // set this to the size of the link
     validator: (value: string) =>
       ["xs", "sm", "md", "lg", "xl"].includes(value),
   },
@@ -47,12 +54,12 @@ const color_class = computed<string>(() => {
       return "ui-link-outline";
     case "secondary":
       return "ui-link-secondary";
-    case "dark":
-      return "ui-link-dark";
+    case "gray":
+      return "ui-link-gray";
     case "text-bt":
       return "ui-link-text-bt";
-    case "low-contrast":
-      return "ui-link-low-contrast";
+    case "dark":
+      return "ui-link-dark";
     case "error":
       return "ui-link-error";
     case "success":
@@ -65,20 +72,21 @@ const color_class = computed<string>(() => {
       return "ui-link-primary";
   }
 });
+
 const size_class = computed<string>(() => {
   switch (props.size) {
     case "xl":
-      return "ui-link-xl";
+      return "ui-link-text-xl";
     case "lg":
-      return "ui-link-lg";
+      return "ui-link-text-lg";
     case "md":
-      return "ui-link-md";
+      return "ui-link-text-md";
     case "sm":
-      return "ui-link-sm";
+      return "ui-link-text-sm";
     case "xs":
-      return "ui-link-xs";
+      return "ui-link-text-xs";
     default:
-      return "ui-link-xl";
+      return "ui-link-text-xl";
   }
 });
 </script>
@@ -95,13 +103,13 @@ const size_class = computed<string>(() => {
 .ui-link-primary {
   @apply text-primary decoration-primary;
 }
-.ui-link-dark {
+.ui-link-gray {
   @apply text-gray decoration-gray;
 }
 .ui-link-secondary {
   @apply text-blue-200 decoration-blue-200;
 }
-.ui-link-low-contrast {
+.ui-link-dark {
   @apply text-cyan-lc-shade-999 decoration-cyan-lc-shade-999;
 }
 .ui-link-error {
@@ -130,9 +138,9 @@ const size_class = computed<string>(() => {
 }
 
 .ui-link-text-sm {
-  @apply text-base;
+  @apply text-sm;
 }
 .ui-link-text-xs {
-  @apply text-sm;
+  @apply text-xs;
 }
 </style>

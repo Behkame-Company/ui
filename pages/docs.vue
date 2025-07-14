@@ -1,6 +1,5 @@
 <template>
   <div class="container mx-auto">
-
     <!-- <h1 class="text-center mt-4 mb-4 text-2xl font-bold">Behkame Design System</h1>
 
     <h3 class="text-start mt-4 mb-4 text-h6 font-bold">Card Components</h3>
@@ -302,25 +301,20 @@
     <h3 class="text-start mt-4 mb-4 text-xl font-bold">Button Component</h3>
 
     <div class="flex justify-start items-start">
-
       <div class="w-1/4 px-2">
-  
         <h5 class="text-start mt-4 mb-4 text-lg font-bold">Default</h5>
         <UiButton color="primary" class="my-2" size="xs"> xs </UiButton>
 
-        <UiButton class="my-2" size="sm">  sm </UiButton>
+        <UiButton class="my-2" size="sm"> sm </UiButton>
 
-        <UiButton class="my-2" size="md">  md </UiButton>
+        <UiButton class="my-2" size="md"> md </UiButton>
 
-        <UiButton class="my-2" size="lg" >  lg </UiButton>
+        <UiButton class="my-2" size="lg"> lg </UiButton>
 
-        <UiButton  size="xl">  xl </UiButton>
-
-    
+        <UiButton size="xl"> xl </UiButton>
       </div>
 
       <div class="w-1/4 px-2">
-  
         <h5 class="text-start mt-4 mb-4 text-lg font-bold">Colors</h5>
 
         <UiButton class="my-2" color="primary"> Button Primary </UiButton>
@@ -336,80 +330,184 @@
         <UiButton class="my-2" color="success"> Button Success </UiButton>
 
         <UiButton class="my-2" color="warning"> Button Warning </UiButton>
+        <UiButton class="my-2" color="text-bt"> Button tb </UiButton>
+        <UiButton class="my-2" color="gray"> Button gray </UiButton>
 
         <UiButton class="my-2" color="info"> Button Info </UiButton>
-
       </div>
 
       <div class="w-1/4 px-2">
-  
         <h5 class="text-start mt-4 mb-4 text-lg font-bold">Disabled state</h5>
 
-        <UiButton class="my-2" :disabled="true" color="primary"> Button Primary </UiButton>
+        <UiButton class="my-2" :disabled="true" color="primary">
+          Button Primary
+        </UiButton>
 
-        <UiButton class="my-2" :disabled="true" color="outline"> Button Outline </UiButton>
+        <UiButton class="my-2" :disabled="true" color="outline">
+          Button Outline
+        </UiButton>
 
-        <UiButton class="my-2" :disabled="true" color="secondary"> Button Secondary </UiButton>
+        <UiButton class="my-2" :disabled="true" color="secondary">
+          Button Secondary
+        </UiButton>
 
-        <UiButton class="my-2" :disabled="true" color="dark"> Button Dark </UiButton>
+        <UiButton class="my-2" :disabled="true" color="dark">
+          Button Dark
+        </UiButton>
 
-        <UiButton class="my-2" :disabled="true" color="error"> Button Error </UiButton>
+        <UiButton class="my-2" :disabled="true" color="error">
+          Button Error
+        </UiButton>
 
-        <UiButton class="my-2" :disabled="true" color="success"> Button Success </UiButton>
+        <UiButton class="my-2" :disabled="true" color="success">
+          Button Success
+        </UiButton>
 
-        <UiButton class="my-2" :disabled="true" color="warning"> Button Warning </UiButton>
+        <UiButton class="my-2" :disabled="true" color="warning">
+          Button Warning
+        </UiButton>
 
-        <UiButton class="my-2" :disabled="true" color="info"> Button Info </UiButton>
-
+        <UiButton class="my-2" :disabled="true" color="info">
+          Button Info
+        </UiButton>
+        <UiButton class="my-2" :disabled="true" color="gray">
+          Button gray
+        </UiButton>
+        <UiButton class="my-2" :disabled="true" color="text-bt">
+          Button tb
+        </UiButton>
       </div>
 
       <div class="w-1/4 px-2">
-  
         <h5 class="text-start mt-4 mb-4 text-lg font-bold">Loading state</h5>
 
-        <UiButton class="my-2" size="sm" :loading="true" color="primary"> Button Primary </UiButton>
+        <UiButton class="my-2" size="sm" :loading="true" color="primary">
+          Button Primary
+        </UiButton>
 
-        <UiButton class="my-2" size="md" :loading="true" color="outline"> Button Outline </UiButton>
+        <UiButton class="my-2" size="md" :loading="true" color="outline">
+          Button Outline
+        </UiButton>
 
-        <UiButton class="my-2" size="lg" :loading="true" color="secondary"> Button Secondary </UiButton>
+        <UiButton class="my-2" size="lg" :loading="true" color="secondary">
+          Button Secondary
+        </UiButton>
 
-        <UiButton class="my-2" size="xl" :loading="true" color="dark"> Button Dark </UiButton>
+        <UiButton class="my-2" size="xl" :loading="true" color="dark">
+          Button Dark
+        </UiButton>
 
-        <UiButton class="my-2" size="sm" :loading="true" color="error"> Button Error </UiButton>
+        <UiButton class="my-2" size="sm" :loading="true" color="error">
+          Button Error
+        </UiButton>
 
-        <UiButton class="my-2" size="md" :loading="true" color="success"> Button Success </UiButton>
+        <UiButton class="my-2" size="md" :loading="true" color="success">
+          Button Success
+        </UiButton>
 
-        <UiButton class="my-2" size="lg" :loading="true" color="warning"> Button Warning </UiButton>
+        <UiButton class="my-2" size="lg" :loading="true" color="warning">
+          Button Warning
+        </UiButton>
 
-        <UiButton class="my-2" size="xl" :loading="true" color="info"> Button Info </UiButton>
-
+        <UiButton class="my-2" size="xl" :loading="true" color="info">
+          Button Info
+        </UiButton>
+        <UiButton class="my-2" size="xl" :loading="true" color="gray">
+          Button gray
+        </UiButton>
+        <UiButton class="my-2" size="xl" :loading="true" color="text-bt">
+          Button bt
+        </UiButton>
       </div>
 
       <div class="w-1/4 px-2">
-  
-        <h5 class="text-start mt-4 mb-4 text-lg font-bold">Suffix / Prefix Icon</h5>
+        <h5 class="text-start mt-4 mb-4 text-lg font-bold">
+          Suffix / Prefix Icon
+        </h5>
 
-        <UiButton class="my-2" size="sm" suffix_icon="material-symbols:bolt"> Suffix Icon </UiButton>
+        <UiButton class="my-2" size="sm" suffix_icon="material-symbols:bolt">
+          Suffix Icon
+        </UiButton>
 
-        <UiButton class="my-2" size="md" suffix_icon="material-symbols:bolt"> Suffix Icon </UiButton>
+        <UiButton class="my-2" size="md" suffix_icon="material-symbols:bolt">
+          Suffix Icon
+        </UiButton>
 
-        <UiButton class="my-2" size="lg" suffix_icon="material-symbols:bolt"> Suffix Icon </UiButton>
+        <UiButton class="my-2" size="lg" suffix_icon="material-symbols:bolt">
+          Suffix Icon
+        </UiButton>
 
-        <UiButton class="my-2" size="xl" suffix_icon="material-symbols:bolt"> Suffix Icon </UiButton>
+        <UiButton class="my-2" size="xl" suffix_icon="material-symbols:bolt">
+          Suffix Icon
+        </UiButton>
 
-        <UiButton class="my-2" size="sm" prefix_icon="material-symbols:bolt"> Prefix Icon </UiButton>
+        <UiButton class="my-2" size="sm" prefix_icon="material-symbols:bolt">
+          Prefix Icon
+        </UiButton>
 
-        <UiButton class="my-2" size="md" prefix_icon="material-symbols:bolt"> Prefix Icon </UiButton>
+        <UiButton class="my-2" size="md" prefix_icon="material-symbols:bolt">
+          Prefix Icon
+        </UiButton>
 
-        <UiButton class="my-2" size="lg" prefix_icon="material-symbols:bolt"> Prefix Icon </UiButton>
+        <UiButton class="my-2" size="lg" prefix_icon="material-symbols:bolt">
+          Prefix Icon
+        </UiButton>
 
-        <UiButton class="my-2" size="xl" prefix_icon="material-symbols:bolt"> Prefix Icon </UiButton>
-
+        <UiButton class="my-2" size="xl" prefix_icon="material-symbols:bolt">
+          Prefix Icon
+        </UiButton>
       </div>
-      <UiLink text="Home" color="warning" size="xl"/>
 
-    </div>
-       <!-- <h3 class="text-start mt-4 mb-4 text-xl font-bold">
+      <div class="w-1/4 px-2">
+        <UiLink text="Home" color="info" href="google.com" size="xl" />
+        <UiLink text="Home" color="warning" size="md" />
+        <UiLink text="Home" color="primary" size="sm" />
+        <UiLink text="Home" color="dark" size="xs" />
+        <UiLink text="Home" color="gray" size="lg" />
+        <UiLink text="Home" color="error" size="xl" />
+        <UiLink text="Home" color="success" size="xl" />
+        <UiLink text="Home" color="warning" size="xl" />
+        <UiLink text="Home" color="warning" size="xl" />
+      </div>
+
+     
+      
+      <div class="w-1/4 px-2">
+        <div class="space-y-4">
+          <UiRadio
+            v-for="op in options"
+            :key="op.value"
+            name="myRadio"
+            :value="op.value"
+            :label="op.label"
+            size="lg"
+          />
+          <UiRadio name="myRadio" value="option2" label="Option 1" size="sm" />
+          <UiRadio name="myRadio" value="option2" label="Option 2" size="md" />
+          <UiRadio
+            name="myRadio"
+            value="option2"
+            label="Option 3"
+            size="md"
+            :disabled="true"
+          />
+        </div>
+      </div>
+      <div class="w-1/4 px-2">
+        <UiToggle v-model="isToggled" label="Title" size="lg" />
+        <UiToggle v-model="isToggled" label="Title" size="md" />
+
+        <UiToggle v-model="isToggled" label="Title" size="sm" />
+
+        <UiToggle
+          v-model="isToggled1"
+          label="Title"
+          size="lg"
+          :disabled="true"
+        />
+      </div>
+
+      <!-- <h3 class="text-start mt-4 mb-4 text-xl font-bold">
       toast-alert Component
     </h3>
 
@@ -617,26 +715,56 @@
         />
       </div>
     </div> -->
+    
+    </div>
+  </div>
+  <div>
+     <div class="w-1/4 px-2 space-x-2">
+       <UiCheckbox v-model="isAccepted" title="Hello"  size="md" />
+       <UiCheckbox v-model="isAccepted" title="I agree"  size="sm" />
+       <UiCheckbox v-model="isAccepted" title="I agree"  size="lg" />
+       <UiCheckbox v-model="isAccepted1" title="I agree"  size="lg" :disabled="true" />
+
+
+
+        
+      </div>
   </div>
 </template>
 <script setup lang="ts">
+const isToggled = ref(true);
+const isToggled1 = ref(false);
+const isAccepted = ref(false)
+const isAccepted1 = ref(true)
 
-const dropdown_options = ref<{ label: string, value: string }[]>([
-  { label: 'Option 1', value: 'option1' },
-  { label: 'Option 2', value: 'option2' },
-  { label: 'Option 3', value: 'option3' },
-  { label: 'Option 4', value: 'option4' },
-  { label: 'Option 5', value: 'option5' },
-  { label: 'Option 6', value: 'option6' },
-  { label: 'Option 7', value: 'option7' },
-  { label: 'Option 8', value: 'option8' },
-  { label: 'Option 9', value: 'option9' },
-  { label: 'Option 10', value: 'option10' }
-])
 
-const dropdown_model_1 = ref<string>('')
-const dropdown_model_2 = ref<string>('')
-const dropdown_model_3 = ref<string>('')
-const dropdown_model_4 = ref<string>('')
+const selectedOption = ref(false);
+const dropdown_options = ref<{ label: string; value: string }[]>([
+  { label: "Option 1", value: "option1" },
+  { label: "Option 2", value: "option2" },
+  { label: "Option 3", value: "option3" },
+  { label: "Option 4", value: "option4" },
+  { label: "Option 5", value: "option5" },
+  { label: "Option 6", value: "option6" },
+  { label: "Option 7", value: "option7" },
+  { label: "Option 8", value: "option8" },
+  { label: "Option 9", value: "option9" },
+  { label: "Option 10", value: "option10" },
+]);
 
+const dropdown_model_1 = ref<string>("");
+const dropdown_model_2 = ref<string>("");
+const dropdown_model_3 = ref<string>("");
+const dropdown_model_4 = ref<string>("");
+
+const options = [
+  { value: "a", label: " A" },
+  { value: "b", label: " B" },
+  { value: "c", label: " C" },
+];
+const options2 = [
+  { value: "a", title: " A" },
+  { value: "b", title: " B" },
+  { value: "c", title: " C" },
+];
 </script>

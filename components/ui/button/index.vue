@@ -51,7 +51,8 @@ const props = defineProps({
   size: {
     type: String,
     default: "sm", // set this to the size of the button
-    validator: (value: string) => ["xs","sm", "md", "lg", "xl"].includes(value),
+    validator: (value: string) =>
+     ["xs","sm", "md", "lg", "xl"].includes(value),
   },
   color: {
     type: String,
@@ -98,8 +99,8 @@ const color_class = computed<string>(() => {
       return "ui-button-dark";
     case "text-bt":
       return "ui-button-text-bt";
-      case "low-contrast":
-      return "ui-button-low-contrast";
+      case "gray":
+      return "ui-button-gray";
     case "error":
       return "ui-button-error";
     case "success":
@@ -204,7 +205,7 @@ const suffix_icon_class = computed<string>(() => {
 
 
 .ui-button-outline {
-  @apply text-primary  bg-transparent border-primary hover:bg-blue-100 focus:bg-blue-200 focus:border-primary;
+  @apply text-primary  bg-transparent border-primary hover:bg-blue-100 hover:border-2 hover:border-primary focus:bg-blue-200 focus:border-primary focus:border-2;
 }
 
 
@@ -213,32 +214,32 @@ const suffix_icon_class = computed<string>(() => {
 }
 
 .ui-button-secondary {
-  @apply text-primary bg-blue-200 hover:bg-blue-300 border-blue-200 hover:border-primary focus:bg-blue-300 focus:border-primary;
+  @apply text-primary bg-blue-200 hover:bg-blue-300 border-blue-200 hover:border-blue-300 focus:bg-blue-300 focus:border-primary focus:border-2;
 }
 
 .ui-button-secondary:disabled {
   @apply hover:bg-blue-200 hover:border-blue-200;
 }
 
-.ui-button-dark {
+.ui-button-gray {
   @apply text-white bg-gray hover:bg-gray-shade-800 border-gray hover:border-gray-shade-800 focus:bg-gray-shade-900 focus:border-gray-shade-900;
 }
 
 
-.ui-button-dark:disabled {
+.ui-button-gray:disabled {
   @apply hover:bg-gray hover:border-gray;
 }
 
-.ui-button-low-contrast {
+.ui-button-dark {
   @apply text-white bg-cyan-lc-shade-999 hover:bg-cyan-lc-shade-850 border-cyan-lc-shade-999 hover:border-cyan-lc-shade-850  focus:bg-cyan-lc-shade-600 focus:border-cyan-lc-shade-600;
 }
-.ui-button-low-contrast:disabled {
+.ui-button-dark:disabled {
   @apply bg-cyan-lc-shade-999 hover:bg-cyan-lc-shade-999;
 }
 
 
 .ui-button-text-bt {
-  @apply text-gray hover:text-primary  bg-white  hover:bg-blue-200   border-white hover:border-blue-200 focus:text-blue-999  focus:bg-blue-250 focus:border-blue-250;
+  @apply text-gray hover:text-primary  bg-transparent  hover:bg-blue-200   border-none hover:border-blue-200 focus:text-blue-999  focus:bg-blue-250 focus:border-blue-250;
 }
 
 .ui-button-text-bt:disabled {
@@ -317,10 +318,10 @@ const suffix_icon_class = computed<string>(() => {
 }
 
 .ui-button-text-sm {
-  @apply text-base;
+  @apply text-sm;
 }
 .ui-button-text-xs {
-  @apply text-sm;
+  @apply text-xs;
 }
 
 /* ===== loading ===== */

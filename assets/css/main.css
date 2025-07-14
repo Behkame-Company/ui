@@ -678,22 +678,23 @@ html {
 
   --shadow-*: initial;
 
-  /* --shadow-none: 0px 0px 0px 0px rgba(0, 0, 0, 0); */
+ --shadow-*: initial;
 
-  /* --shadow-2xs: 0px 0px 2px 0px rgba(0, 0, 0, 0.07); */
+    --shadow-none: 0px 0px 0px 0px rgba(0, 0, 0, 0.00) ;
+    
+    --shadow-2xs: 0px 0px 2px 0px rgba(0, 0, 0, 0.07) ;
 
-  /* --shadow-xs: 0px 0px 4px 0px rgba(0, 0, 0, 0.07); */
+    --shadow-xs: 0px 0px 4px 0px rgba(0, 0, 0, 0.07) ;
 
-  --shadow-sm: 0px 0px 5px 0px rgba(0, 0, 0, 0.08);
+    --shadow-sm: 0px 0px 6px 0px rgba(0, 0, 0, 0.07) ;
 
-  --shadow-md: 0px 0px 7px 0px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0px 0px 8px 0px rgba(0, 0, 0, 0.07) ;
+    
+    --shadow-lg: 0px 0px 10px 0px rgba(0, 0, 0, 0.07) ;
 
-  --shadow-lg: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-  --shadow-however: 0px 6px 12px 0px rgba(0, 0, 0, 0.08);
-
-  /* --shadow-xl: 0px 0px 12px 0px rgba(0, 0, 0, 0.07); */
-
-  /* --shadow-2xl: 0px 0px 14px 0px rgba(0, 0, 0, 0.07); */
+    --shadow-xl: 0px 0px 12px 0px rgba(0, 0, 0, 0.07) ;
+    
+    --shadow-2xl: 0px 0px 14px 0px rgba(0, 0, 0, 0.07) ;
 }
 
 /* === Transition === */
