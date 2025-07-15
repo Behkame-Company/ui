@@ -1,7 +1,7 @@
 <template>
   <div class="ui-input-pin-code-container" :class="{ 'ui-input-pin-code-container-focused': focused, 'ui-input-pin-code-container-disabled': disabled }" >
 
-    <input v-for="i in length" :key="i" type="text" class="ui-input-pin-code" :class="`${size_class} ${disabled_class} ${element_focused_class[i-1]}`" :disabled="disabled" maxlength="1" :id="local_ids[i-1]" @input="(e: any) => onUpdate(i-1, e)" @focus="(e: any) => onFocus(i-1)" @blur="(e: any) => onBlur(i-1)" />
+    <input v-for="i in length" :key="i" type="number" class="ui-input-pin-code" :class="`${size_class} ${disabled_class} ${element_focused_class[i-1]}`" :disabled="disabled" maxlength="1" :id="local_ids[i-1]" @input="(e: any) => onUpdate(i-1, e)" @focus="(e: any) => onFocus(i-1)" @blur="(e: any) => onBlur(i-1)" />
 
   </div>
 </template>
@@ -105,7 +105,7 @@ const onBlur = (index: number) => {
 @reference "assets/css/main.css";
 
 .ui-input-pin-code-container {
-  @apply overflow-hidden flex justify-center items-center border border-tint-600 rounded-sm transition-all ;
+  @apply overflow-hidden flex justify-center items-center border border-gray-tint-650 rounded-sm transition-all ;
 }
 
 .ui-input-pin-code-container-disabled {
@@ -117,11 +117,11 @@ const onBlur = (index: number) => {
 }
 
 .ui-input-pin-code {
-    @apply ring-0 focus:ring-0 text-shade-600 placeholder:text-tint-700 transition-all text-center border-b-1 border-tint-600;    
+    @apply ring-0 focus:ring-0 text-gray-shade-800 placeholder:text-gray-shade-400 transition-all text-center border-b-1 border-gray-shade-400;    
 }
 
 .ui-input-pin-code-focus {
-    @apply text-shade-900 ;              
+    @apply text-gray-shade-800 ;              
 }
 
 .ui-input-pin-code-disabled {
@@ -129,7 +129,7 @@ const onBlur = (index: number) => {
 }
 
 .ui-input-pin-code-element-focused{
-  @apply text-shade-900 border-b-1 border-primary;
+  @apply text-gray-shade-800 border-b-1 border-primary;
 }
 
 /* ===== size ===== */

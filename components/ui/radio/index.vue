@@ -1,13 +1,10 @@
 <template>
-  <label class="ui-radio"  :class="disabled_class">
+  <label class="ui-radio" :class="disabled_class">
     <input
       type="radio"
       :value="value"
-      :checked="modelValue === value"
       class="peer hidden"
-      @change="$emit('update:modelValue', value)"
-      :name="name"
-      :size="size"
+      v-model="model"
       :disabled="disabled"
     />
     <div class="ui-radio-input" :class="[size_class]"></div>
@@ -16,32 +13,30 @@
 </template>
 
 <script setup lang="ts">
+const model = defineModel<boolean>({ required: true });
+
 const props = defineProps({
-  modelValue: [String],
   value: [String],
   label: {
     type: String,
     required: true,
   },
-  name: {
-    type: String,
-    required: true,
-  },
+
   size: {
     type: String,
     default: "md",
+    validator: (value: string) => ["sm", "md", "lg"].includes(value),
   },
-    disabled: {
+  disabled: {
     type: Boolean,
     default: false, // set this to true to disable the button
   },
 });
 
-const emit = defineEmits(["update:modelValue"]);
-
 const disabled_class = computed(() => ({
-  'opacity-50 cursor-not-allowed': props.disabled,
-}))
+  "ui-radio-disabled": props.disabled,
+}));
+
 const size_class = computed(() => {
   switch (props.size) {
     case "lg":
@@ -50,7 +45,6 @@ const size_class = computed(() => {
       return "ui-radio-md";
     case "sm":
       return "ui-radio-sm";
-
     default:
       return "ui-radio-md";
   }
@@ -69,7 +63,6 @@ const text_size_class = computed(() => {
   }
 });
 </script>
-
 <style scoped>
 @reference "assets/css/main.css";
 

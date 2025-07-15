@@ -3,10 +3,8 @@
     <input
       type="checkbox"
       class="sr-only"
-      :checked="modelValue"
-      @change="toggle"
-      :size="size"
       :disabled="disabled"
+      v-model="model"
     />
     <span class="ui-toggle-input" :class="[input_bg_class , size_input_class]">
       <span class="ui-toggle-butoon" :class="[button_bg_class ,size_button_class]"></span>
@@ -16,13 +14,10 @@
     </span>
   </label>
 </template>
-
 <script setup lang="ts">
+const model = defineModel<boolean>({ required: true });
+
 const props = defineProps({
-  modelValue: { 
-    type: Boolean,
-    default: false 
-},
   label: {
      type: String,
       default: "Title" 
@@ -30,7 +25,7 @@ const props = defineProps({
 
     size: {
     type: String,
-    default: "sm",
+    default: "dm",
     validator: (value: string) =>
       [ "sm", "md", "lg"].includes(value),
   },
@@ -42,15 +37,15 @@ const props = defineProps({
 });
 
 const input_bg_class = computed(() => {
-  return props.modelValue
-    ? "bg-primary justify-end"
+  return model.value
+    ? "bg-primary border-primary justify-end"
     : "bg-transparent border border-gray-shade-50 justify-start";
 });
 const button_bg_class = computed(() => {
-  return props.modelValue ? "bg-white" : "bg-gray-shade-50";
+  return model.value ? "bg-white" : "bg-gray-shade-50";
 });
 const disabled_class = computed(() => ({
-  'opacity-50 cursor-not-allowed': props.disabled,
+  'ui-toggle-disabled': props.disabled,
 }))
 const size_input_class = computed<string>(() => {
   switch (props.size) {
@@ -95,11 +90,8 @@ const text_size_class = computed<string>(() => {
       return "ui-toggle-title-md";
   }
 });
-const emit = defineEmits(["update:modelValue"]);
 
-function toggle(): void {
-  emit("update:modelValue", !props.modelValue);
-}
+
 </script>
 <style scoped>
 @reference "assets/css/main.css";
@@ -142,5 +134,8 @@ function toggle(): void {
 }
 .ui-toggle-title-sm{
     @apply  text-sm
+}
+.ui-toggle-disabled{
+  @apply opacity-50 cursor-not-allowed
 }
 </style>

@@ -1,18 +1,16 @@
 <template>
-  <div class="ui-link" >
+  
     <a
       class="ui-link-text"
       :href
       :class="{ [size_class]: true, [color_class]: true }"
       >{{ props.text }}</a
     >
-  </div>
+ 
 </template>
-
 <script lang="ts" setup>
 
 const props = defineProps({
-
   text: {
     type: String,
     default: "",
@@ -20,8 +18,6 @@ const props = defineProps({
  href:{
   type:String,
   default: "",
-
-
  },
   color: {
     type: String,
@@ -40,7 +36,7 @@ const props = defineProps({
   },
   size: {
     type: String,
-    default: "xl", // set this to the size of the link
+    default: "md", // set this to the size of the link
     validator: (value: string) =>
       ["xs", "sm", "md", "lg", "xl"].includes(value),
   },
@@ -86,7 +82,7 @@ const size_class = computed<string>(() => {
     case "xs":
       return "ui-link-text-xs";
     default:
-      return "ui-link-text-xl";
+      return "ui-link-text-md";
   }
 });
 </script>
@@ -94,11 +90,9 @@ const size_class = computed<string>(() => {
 <style scoped>
 @reference "assets/css/main.css";
 
-.ui-link {
-  @apply flex justify-center items-center px-8 py-4;
-}
+
 .ui-link-text {
-  @apply underline underline-offset-4;
+  @apply flex justify-center items-center px-8 py-4 underline underline-offset-4;
 }
 .ui-link-primary {
   @apply text-primary decoration-primary;

@@ -18,7 +18,7 @@ const props = defineProps({
   },
   size: {
     type: String,
-    default: 'sm', // valid values: sm, md, lg, xl
+    default: 'md', // valid values: sm, md, lg, xl
     validator: (value: string) => ['sm', 'md', 'lg', 'xl'].includes(value)
   },
   disabled: {
@@ -36,7 +36,7 @@ const size_class = computed<string>(() => `ui-input-text-area-${props.size}`)
 @reference "assets/css/main.css";
 
 .ui-input-text-area {
-  @apply border-1 border-tint-600 text-shade-900 placeholder:text-tint-700 rounded-lg ;
+  @apply border-1 border-gray-tint-650 text-gray-shade-800 placeholder:text-gray-shade-400 rounded-lg ;
 }
 
 .ui-input-text-area:focus {
@@ -50,22 +50,22 @@ const size_class = computed<string>(() => `ui-input-text-area-${props.size}`)
 /* ===== size ===== */
 
 .ui-input-text-area-sm {
-  @apply py-2 px-3 text-sm placeholder:text-sm; 
+  @apply py-2 px-2 text-xs placeholder:text-xs; 
 }
 
 .ui-input-text-area-md {
-  @apply py-2 px-3 text-base placeholder:text-base; 
-  line-height: 18px;
+  @apply py-2 px-2 text-base placeholder:text-base; 
+  /* line-height: 18px; */
 }
 
 .ui-input-text-area-lg {
-  @apply py-2 px-3 text-h6 placeholder:text-h6; 
-  line-height: 20px;
+  @apply py-2 px-2 text-sm placeholder:text-sm; 
+  /* line-height: 20px; */
 }
 
 .ui-input-text-area-xl {
-  @apply py-3 px-4 text-h6 placeholder:text-h6; 
-  line-height: 17px;
+  @apply py-3 px-3 text-base placeholder:text-base; 
+  /* line-height: 17px; */
 }
 
 </style>

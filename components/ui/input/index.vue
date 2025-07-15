@@ -1,15 +1,48 @@
 <template>
   <div class="ui-input-container" :class="{ 'ui-input-container-focused': focused, 'ui-input-container-disabled': disabled }" >
 
-    <div class="ui-input-prefix-icon" v-if="prefix_icon" :class="{ 'ui-input-prefix-icon-pointer': prefix_callback != null, 'ui-input-prefix-icon-disabled': disabled, 'ui-input-prefix-icon-focused': focused }" :disabled="disabled">
-      <Icon :name="prefix_icon" :size="icon_size_class" />
-    </div>
+    <div
+  class="ui-input-prefix-icon"
+  v-if="prefix_icon"
+  :class="[
+    prefix_callback ? 'ui-input-prefix-icon-pointer' : '',
+    disabled ? 'ui-input-prefix-icon-disabled' : '',
+    focused ? (prefix_callback ? 'ui-input-prefix-icon-pointer-focused' : 'ui-input-prefix-icon-focused') : ''
+  ]"
+  :disabled="disabled"
+>
+  <Icon :name="prefix_icon" :size="icon_size_class" />
+</div>
     
-    <input type="text" class="ui-input" :class="`${size_class} ${ focused ? 'ui-input-focus' : ''} ${ disabled ? 'ui-input-disabled' : ''}`" :name="name" :placeholder="placeholder" :disabled="disabled" v-model="model" @focus="onFocus" @blur="onBlur" />
+    <input
+  type="text"
+  class="ui-input"
+  :class="[
+    size_class,
+    !prefix_icon ? 'pl-2' : 'pl-0',
+    focused ? 'ui-input-focus' : '',
+    disabled ? 'ui-input-disabled' : ''
+  ]"
+  :name="name"
+  :placeholder="placeholder"
+  :disabled="disabled"
+  v-model="model"
+  @focus="onFocus"
+  @blur="onBlur"
+/>
 
-    <div class="ui-input-suffix-icon" v-if="suffix_icon" :class="{ 'ui-input-suffix-icon-pointer': suffix_callback != null, 'ui-input-suffix-icon-disabled': disabled, 'ui-input-suffix-icon-focused': focused }" :disabled="disabled">
-        <Icon :name="suffix_icon" :size="icon_size_class" />
-    </div>
+    <div
+  class="ui-input-suffix-icon"
+  v-if="suffix_icon"
+  :class="[
+    suffix_callback ? 'ui-input-suffix-icon-pointer' : '',
+    disabled ? 'ui-input-suffix-icon-disabled' : '',
+    focused ? (suffix_callback ? 'ui-input-suffix-icon-pointer-focused' : 'ui-input-suffix-icon-focused') : ''
+  ]"
+  :disabled="disabled"
+>
+  <Icon :name="suffix_icon" :size="icon_size_class" />
+</div>
 
   </div>
 </template>
@@ -30,7 +63,7 @@ const props = defineProps({
   },
   size: {
     type: String,
-    default: 'sm', // valid values: sm, md, lg, xl
+    default: 'md', // valid values: sm, md, lg, xl
     validator: (value: string) => ['sm', 'md', 'lg', 'xl'].includes(value)
   },
   prefix_icon: {
@@ -85,7 +118,7 @@ const onBlur = () => focused.value = false
 @reference "assets/css/main.css";
 
 .ui-input-container {
-  @apply overflow-hidden flex justify-center items-center border border-tint-600 rounded-sm transition-all ;
+  @apply overflow-hidden gap-1  flex justify-center  border border-gray-tint-600 rounded-sm transition-all ;
 }
 
 .ui-input-container-disabled {
@@ -97,43 +130,49 @@ const onBlur = () => focused.value = false
 }
 
 .ui-input-prefix-icon {
-  @apply flex justify-center items-center text-shade-100 p-2.5 transition-all ;
+  @apply flex justify-center items-center text-gray-shade-400 py-2 pr-1 pl-1.5 transition-all ;
 }
 
 .ui-input-prefix-icon-focused {
-  @apply text-primary ;
+  @apply text-gray-shade-800;
 }
 
 .ui-input-prefix-icon-pointer {
-  @apply bg-tint-600 hover:bg-primary hover:text-white cursor-pointer ;
+  @apply   flex justify-center p-2 max-h-full  bg-gray-tint-650 hover:bg-blue-250 hover:text-primary cursor-pointer;
+}
+.ui-input-prefix-icon-pointer-focused {
+  @apply  bg-blue-250 text-primary cursor-pointer ;
 }
 
 .ui-input-prefix-icon-pointer.ui-input-prefix-icon-disabled {
-  @apply hover:bg-tint-600 hover:text-shade-100 cursor-not-allowed ;
+  @apply hover:bg-gray-tint-650 hover:text-gray-shade-400 cursor-not-allowed ;
 }
 
 .ui-input-suffix-icon {
-  @apply flex justify-center items-center text-shade-100 p-2.5 transition-all ;
+  @apply flex justify-center items-center text-gray-shade-400 py-2 pl-2 pr-1.5 transition-all ;
 }
 
 .ui-input-suffix-icon-focused {
-  @apply text-primary ;
+  @apply text-gray-shade-800;
 }
 
 .ui-input-suffix-icon-pointer {
-  @apply bg-tint-600 hover:bg-primary hover:text-white cursor-pointer ;
+  @apply bg-gray-tint-650 hover:bg-blue-250 hover:text-primary cursor-pointer ;
+}
+.ui-input-suffix-icon-pointer-focused {
+  @apply  bg-blue-250 text-primary cursor-pointer ;
 }
 
 .ui-input-suffix-icon-pointer.ui-input-suffix-icon-disabled {
-  @apply hover:bg-tint-600 hover:text-shade-100 cursor-not-allowed ;
+  @apply hover:bg-gray-tint-650 hover:text-gray-shade-400 cursor-not-allowed ;
 }
 
 .ui-input {
-    @apply flex-1 rounded-sm ring-0 focus:ring-0 border-0 text-shade-600 placeholder:text-tint-700 transition-all ;              
+    @apply flex-1 rounded-sm ring-0 focus:ring-0 border-0 text-gray-shade-800 placeholder:text-gray-shade-400 transition-all ;              
 }
 
 .ui-input-focus {
-    @apply text-shade-900 ;              
+    @apply text-gray-shade-800 ;              
 }
 
 .ui-input-disabled {
@@ -143,24 +182,21 @@ const onBlur = () => focused.value = false
 /* ===== size ===== */
 
 .ui-input-sm {
-  @apply py-2 px-3 text-sm placeholder:text-sm; 
+  @apply py-2 pr-2  text-xs placeholder:text-xs; 
 }
 
 .ui-input-md {
-  @apply py-2 px-3 text-base placeholder:text-base; 
-  line-height: 18px;
+  @apply py-2 pr-2 text-sm placeholder:text-sm; 
 }
 
 .ui-input-lg {
-  @apply py-2 px-3 text-h6 placeholder:text-h6; 
-  line-height: 20px;
+  @apply py-2.25 pr-2  text-base placeholder:text-base; 
 }
 
 .ui-input-xl {
-  @apply py-3 px-4 text-h6 placeholder:text-h6; 
-  line-height: 17px;
+  @apply py-2 pr-3  text-h6 placeholder:text-h6; 
 }
 
-/* TODO : input foces prefix/suffix icon fill bg blue-100  */
+
 
 </style>
