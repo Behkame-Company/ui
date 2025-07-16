@@ -624,19 +624,21 @@ html {
 
   --text-*: initial;
 
-  --text-3xs: 0.643rem;
-  --text-2xs: 0.714rem;
-  --text-xs: 0.786rem;
-  --text-sm: 0.857rem;
+  --text-5xs: 0.500rem;
+  --text-4xs: 0.5625rem;
+  --text-3xs: 0.625rem;
+  --text-2xs: 0.6875rem;
+  --text-xs: 0.8125rem;
+  --text-sm: 0.875rem;
   --text-base: 1rem;
-  --text-h6: 1.143rem;
-  --text-h5: 1.286rem;
-  --text-h4: 1.429rem;
-  --text-h3: 1.571rem;
-  --text-h2: 1.786rem;
+  --text-h6: 1.125rem;
+  --text-h5: 1.250rem;
+  --text-h4: 1.4375rem;
+  --text-h3: 1.625rem;
+  --text-h2: 1.8125rem;
   --text-h1: 2rem;
-  --text-d2: 3rem;
-  --text-d1: 4rem;
+  --text-d2: 2.250rem;
+  --text-d1: 2.5625rem;
 
   /* ========== Border radius ========== */
 

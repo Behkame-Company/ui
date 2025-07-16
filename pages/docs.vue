@@ -878,7 +878,63 @@
         :disabled="true"
       />
     </div>
+  
   </div>
+  <div class="py-3">
+
+  <UiTab :tabs="['Overview', 'Settings', 'Activity']" type="bordered"/>
+    
+ 
+<UiTab
+   :tabs="['Tab 1', 'Tab 2', 'Tab 3']"
+  type="rounded"
+/><UiTab
+   :tabs="['Tab 1', 'Tab 2', 'Tab 3']"
+  type="text"
+/><UiTab
+   :tabs="['Tab 1', 'Tab 2', 'Tab 3']"
+   type="defualt"
+/>
+<UiTab
+   :tabs="['Tab 1', 'Tab 2', 'Tab 3']"
+  type="filled"
+/>
+
+  </div>
+  <div class="felx flex-col gap-5 py-4">
+     <UiPagination
+    :currentPage="currentPage"
+    :perPage="perPage"
+    :total="total"
+    :onClick="onClick"
+    :prev="prev"
+    :next="next"
+    class="mb-2"
+    @update:perPage="(val) => perPage = val"
+    type="bordered"
+  />
+    <UiPagination
+    :currentPage="currentPage"
+    :perPage="perPage"
+    :total="total"
+    :onClick="onClick"
+    :prev="prev"
+    :next="next"
+    @update:perPage="(val) => perPage = val"
+    type="defualt"
+  />
+  </div>
+<div class="flex gap-x-3 mb-4">
+
+ <UiTag text="Info" type="info" prefixIcon="mdi:information" />
+<UiTag text="Closable" type="error" closeable />
+<UiTag text="Closable" type="light-purple"  />
+
+<UiTag text="All" type="success" prefixIcon="mdi:check" closeable  />
+
+
+</div>
+
 
 
   </div>
@@ -919,4 +975,13 @@ const options2 = [
   { value: "b", title: " B" },
   { value: "c", title: " C" },
 ];
+const currentPage = ref(1)
+const perPage = ref(5)
+const total = ref(64)
+
+const onClick = (page: number) => currentPage.value = page
+const prev = () => currentPage.value = Math.max(1, currentPage.value - 1)
+const next = () => currentPage.value = Math.min(totalPages.value, currentPage.value + 1)
+
+const totalPages = computed(() => Math.ceil(total.value / perPage.value))
 </script>
