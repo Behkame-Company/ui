@@ -138,16 +138,5 @@ const onBlur = (index: number) => {
   @apply w-8 mx-2 pb-1 mb-2 mt-1.5 text-sm; 
 }
 
-.ui-input-pin-code-md {
-  @apply w-10 mx-2 pb-1 mb-2 mt-1.5 text-base; 
-}
-
-.ui-input-pin-code-lg {
-  @apply w-12 mx-2.5 pb-1.5 mb-2.5 mt-2 text-h6; 
-}
-
-.ui-input-pin-code-xl {
-  @apply w-12 mx-2.5 pb-2 mb-3 mt-2.5 text-h6; 
-} 
 
 </style>

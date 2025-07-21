@@ -106,7 +106,7 @@ const text_size_class = computed<string>(() => {
   @apply w-3.5 h-3.5 rounded-full transition-all duration-300 ease-in-out;
 }
 .ui-toggle-title {
-  @apply text-gray;
+  @apply text-gray text-nowrap;
 }
 .ui-toggle-input-lg{
     @apply  w-8 h-4.5 rounded-5xl

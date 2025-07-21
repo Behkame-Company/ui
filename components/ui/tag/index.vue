@@ -2,14 +2,14 @@
   <!-- Only render the tag if it's visible -->
   <div v-if="visible" class="ui-tag" :class="[type_class, spacing_class]">
     <!-- Optional prefix icon -->
-    <Icon v-if="prefixIcon" :name="prefixIcon" class="ui-tag-icon" />
+    <VsxIcon v-if="prefixIcon" :iconName="prefixIcon" class="ui-tag-icon" />
 
     <!-- Optional tag text -->
     <span v-if="text" class="ui-tag-text">{{ text }}</span>
 
     <!-- Optional close button -->
     <button v-if="closeable" @click="handleClose" class="ui-tag-close">
-      <Icon name="mdi:close" class="ui-tag-icon" />
+      <VsxIcon iconName="CloseCircle" class="ui-tag-icon" />
     </button>
   </div>
 </template>

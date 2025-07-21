@@ -3,32 +3,34 @@
     <!-- Pagination Controls (Prev / Pages / Next) -->
     <div class="ui-pagination-wrapper">
       <!-- Previous Button -->
-      <button class="ui-page-button" @click="prev" :disabled="isFirstPage">
-        <Icon name="heroicons:chevron-left" class="ui-icon" />
+      <button class="ui-button-arrow" @click="prev" :disabled="isFirstPage">
+        <VsxIcon iconName="ArrowLeft2" class="ui-icon" :size="18" type="linear" />
       </button>
 
       <!-- Page Number Buttons: Hidden when 'All' is selected -->
       <template v-if="localPerPage !== -1">
-        <button
-          v-for="page in pages"
-          :key="page"
-          @click="() => goToPage(page)"
-          :class="[
-            'ui-page-button',
-            page === currentPage
-              ? 'ui-page-button-active'
-              : type === 'bordered'
-              ? 'ui-page-button-inactive-bordered'
-              : 'ui-page-button-inactive',
-          ]"
-        >
-          {{ page }}
-        </button>
+        <template v-for="page in windowedPages" :key="page + '-' + Math.random()">
+          <button
+            v-if="page !== -1"
+            @click="() => goToPage(page)"
+            :class="[
+              'ui-page-button',
+              page === currentPage
+                ? 'ui-page-button-active'
+                : type === 'bordered'
+                ? 'ui-page-button-inactive-bordered'
+                : 'ui-page-button-inactive',
+            ]"
+          >
+            {{ page }}
+          </button>
+          <span v-else class="ui-page-ellipsis">...</span>
+        </template>
       </template>
 
       <!-- Next Button -->
-      <button class="ui-page-button" @click="next" :disabled="isLastPage">
-        <Icon name="heroicons:chevron-right" class="ui-icon" />
+      <button class="ui-button-arrow" @click="next" :disabled="isLastPage">
+        <VsxIcon iconName="ArrowRight2" class="ui-icon" :size="18" type="linear" />
       </button>
     </div>
 
@@ -94,12 +96,33 @@ const totalPages = computed<number>(() =>
   localPerPage.value === -1 ? 1 : Math.ceil(props.total / localPerPage.value)
 );
 
-// TODO: For large page counts, consider windowed pagination (e.g., 1 ... 4 5 6 ... 10)
-const pages = computed<number[]>(() =>
-  localPerPage.value === -1
-    ? []
-    : Array.from({ length: totalPages.value }, (_, i) => i + 1)
-);
+const windowSize = 3; // Number of pages to show on each side of the current page
+
+const windowedPages = computed<number[]>(() => {
+  if (localPerPage.value === -1) return [];
+  const total = totalPages.value;
+  const current = props.currentPage;
+  const window = windowSize;
+  let start = Math.max(1, current - window);
+  let end = Math.min(total, current + window);
+
+  // Always show first and last page
+  if (start > 2) start++;
+  if (end < total - 1) end--;
+
+  const pages: number[] = [];
+  if (start > 1) pages.push(1);
+  if (start > 2) pages.push(-1); // -1 will represent '...'
+
+  for (let i = start; i <= end; i++) {
+    pages.push(i);
+  }
+
+  if (end < total - 1) pages.push(-1); // -1 will represent '...'
+  if (end < total) pages.push(total);
+
+  return pages;
+});
 
 const goToPage = (page: number) => {
   emit("update:currentPage", page);
@@ -142,11 +165,11 @@ const changePerPage = (): void => {
 }
 
 .ui-pagination-wrapper {
-  @apply flex items-center gap-2;
+  @apply flex items-center justify-center gap-2;
 }
 
 .ui-page-button {
-  @apply w-5.5 h-7 flex items-center justify-center rounded-sm text-sm transition duration-300 cursor-pointer;
+  @apply w-5.5 h-7 p-1.5 flex items-center justify-center rounded-sm text-sm transition duration-300 cursor-pointer;
 }
 
 .ui-page-button-inactive {
@@ -170,9 +193,13 @@ const changePerPage = (): void => {
 }
 
 .ui-icon {
-  @apply text-gray-shade-800 w-8 h-8;
+  @apply text-gray-shade-800 cursor-pointer;
 }
-.ui-page-button:disabled {
+.ui-button-arrow:disabled {
  @apply opacity-50 cursor-not-allowed;
+}
+
+.ui-page-ellipsis {
+  @apply px-2 text-gray-shade-400 select-none;
 }
 </style>

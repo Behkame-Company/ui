@@ -94,5 +94,6 @@ const text_size_class = computed(() => {
 }
 .ui-radio-label-lg {
   @apply text-base font-medium;
-}
+} 
+
 </style>

@@ -121,7 +121,7 @@ const toggleCheckbox = () => {
 }
 
 .checkbox-border {
-  @apply inline-flex items-center justify-center border-1  border-gray-shade-50 rounded-sm gap-2;
+  @apply inline-flex items-center justify-center border-1  border-gray-shade-50 rounded-md gap-2;
 }
 
 .ui-checkbox-title {

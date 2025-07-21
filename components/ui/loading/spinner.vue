@@ -22,7 +22,7 @@ const size_class = computed(() => "spinner-size-" + props.size)
 
 @reference "assets/css/main.css";
 .spinner-size-xs {
-    @apply w-4 h-4;
+    @apply w-3.5 h-3.5;
 }
 .spinner-size-sm {
     @apply w-4 h-4;

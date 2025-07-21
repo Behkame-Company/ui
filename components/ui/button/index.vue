@@ -253,7 +253,7 @@ const suffix_icon_class = computed<string>(() => {
 }
 
 .ui-button-dark {
-  @apply text-white bg-cyan-lc-shade-999 hover:bg-cyan-lc-shade-850 border-cyan-lc-shade-999 hover:border-cyan-lc-shade-850  focus:bg-cyan-lc-shade-600 focus:border-cyan-lc-shade-600;
+  @apply text-white bg-cyan-lc-shade-999 hover:bg-cyan-lc-shade-850 border-cyan-lc-shade-999 hover:border-cyan-lc-shade-850  focus:bg-cyan-lc-shade-700 focus:border-cyan-lc-shade-700;
 }
 .ui-button-dark:disabled {
   @apply bg-cyan-lc-shade-999 hover:bg-cyan-lc-shade-999;
@@ -335,7 +335,7 @@ const suffix_icon_class = computed<string>(() => {
 }
 
 .ui-button-text-sm {
-  @apply text-sm font-medium;
+  @apply text-xs font-medium;
 }
 .ui-button-text-xs {
   @apply text-2xs font-medium;

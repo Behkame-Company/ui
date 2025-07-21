@@ -92,7 +92,7 @@ const size_class = computed<string>(() => {
 
 
 .ui-link-text {
-  @apply flex justify-center items-center px-8 py-4 underline underline-offset-4;
+  @apply flex justify-center items-center px-8 py-4 underline underline-offset-4 cursor-pointer text-nowrap ;
 }
 .ui-link-primary {
   @apply text-primary decoration-primary;

@@ -203,7 +203,7 @@ const close = (): void => {
 
 @reference "assets/css/main.css";
 .ui-toast {
-  @apply flex flex-col justify-around border border-tint-400 rounded-lg shadow-xs;
+  @apply flex flex-col justify-around  rounded-lg shadow-xs border-gray-tint-400;
 }
 
 .ui-toast-header {
@@ -213,7 +213,7 @@ const close = (): void => {
   @apply flex gap-1 items-center;
 }
 .ui-toast-header-right {
-  @apply flex  items-center;
+  @apply flex items-center;
 }
 .ui-toast-no-message {
   @apply rounded-md p-2.5;
@@ -228,48 +228,48 @@ const close = (): void => {
   @apply text-white bg-primary border-primary;
 }
 .ui-toast-body-primary {
-  @apply text-shade-800 bg-blue-50 border-tint-400;
+  @apply text-gray-shade-800 bg-blue-50 border-gray-tint-400;
 }
 
 .ui-toast-outline {
-  @apply text-shade-600 bg-white border-tint-400;
+  @apply text-gray-shade-800 bg-white border-gray-tint-400;
 }
 .ui-toast-body-outline {
-  @apply text-shade-800 bg-white border-tint-400;
+  @apply text-gray-shade-800 bg-white border-gray-tint-400;
 }
 
 .ui-toast-dark {
-  @apply text-white bg-shade-600 border-tint-400;
+  @apply text-white bg-gray-shade-800 border-gray-tint-400;
 }
 .ui-toast-body-dark {
-  @apply text-shade-800 bg-tint-50 border-tint-400;
+  @apply text-gray-shade-800 bg-gray-tint-50 border-gray-tint-400;
 }
 
 .ui-toast-error {
-  @apply text-white bg-error border-tint-400;
+  @apply text-white bg-error border-gray-tint-400;
 }
 .ui-toast-body-error {
-  @apply text-shade-800 bg-red-50 border-tint-400;
+  @apply text-gray-shade-800 bg-red-50 border-gray-tint-400;
 }
 
 .ui-toast-success {
-  @apply text-white bg-success border-tint-400;
+  @apply text-white bg-success border-gray-tint-400;
 }
 .ui-toast-body-success {
-  @apply text-shade-800 bg-green-50 border-tint-400;
+  @apply text-gray-shade-800 bg-green-50 border-gray-tint-400;
 }
 
 .ui-toast-warning {
-  @apply text-white bg-warning border-tint-400;
+  @apply text-white bg-warning border-gray-tint-400;
 }
 .ui-toast-body-warning {
-  @apply text-shade-800 bg-yellow-50 border-tint-400;
+  @apply text-gray-shade-800 bg-yellow-50 border-gray-tint-400;
 }
 
 .ui-toast-info {
-  @apply text-white bg-info border-tint-400;
+  @apply text-white bg-info border-gray-tint-400;
 }
 .ui-toast-body-info {
-  @apply text-shade-800 bg-purple-50 border-tint-400;
+  @apply text-gray-shade-800 bg-purple-50 ;
 }
 </style>
