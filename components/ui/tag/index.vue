@@ -107,7 +107,7 @@ function handleClose(): void {
 
 /* Base tag style */
 .ui-tag {
-  @apply px-3 pr- inline-flex items-center gap-2 rounded-md font-light text-3xs transition-all;
+  @apply px-3  inline-flex items-center gap-2 rounded-md font-light text-3xs transition-all;
 }
 
 /* Icon style */
@@ -122,7 +122,7 @@ function handleClose(): void {
 
 /* Close button style */
 .ui-tag-close {
-  @apply ml-1 w-4 h-4 flex items-center justify-center transition duration-300;
+  @apply ml-1 w-4 h-4 flex items-center justify-center cursor-pointer transition duration-300;
 }
 
 /* Type color classes */

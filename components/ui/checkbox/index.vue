@@ -11,10 +11,25 @@
       class="ui-checkbox-input"
       @click.prevent="toggleCheckbox"
     >
-      <span class="checkbox-border" :class="[checkbox_class, size_class]">
-        <Icon v-if="model" name="si:check-fill" :class="size_icon_class" />
-      </span>
-      <span :class="[text_size_class]" class="ui-checkbox-title">{{ title }}</span>
+      <div class="p-0.5">
+        <VsxIcon
+          v-if="model"
+          iconName="TickSquare"
+          class="ui-checkbox-icon-color"
+          :size="size_icon_class"
+          type="bold"
+        />
+
+        <span
+          v-else
+          class="checkbox-border"
+          :class="[checkbox_class, size_class]"
+        ></span>
+      </div>
+
+      <span :class="[text_size_class]" class="ui-checkbox-title">{{
+        title
+      }}</span>
     </label>
   </div>
 </template>
@@ -64,13 +79,13 @@ const size_class = computed(() => {
 const size_icon_class = computed(() => {
   switch (props.size) {
     case "lg":
-      return "ui-checkbox-icon-lg";
+      return 24;
     case "md":
-      return "ui-checkbox-icon-md";
+      return 20;
     case "sm":
-      return "ui-checkbox-icon-sm";
+      return 18;
     default:
-      return "ui-checkbox-icon-md";
+      return 20;
   }
 });
 
@@ -106,7 +121,7 @@ const toggleCheckbox = () => {
 }
 
 .checkbox-border {
-  @apply inline-flex items-center justify-center rounded-sm gap-2 border-1 p-1;
+  @apply inline-flex items-center justify-center border-1  border-gray-shade-50 rounded-sm gap-2;
 }
 
 .ui-checkbox-title {
@@ -123,27 +138,20 @@ const toggleCheckbox = () => {
   @apply w-4.5 h-4.5;
 }
 
-.ui-checkbox-icon-lg {
-  @apply w-4.5 h-4.5 text-white;
-}
-.ui-checkbox-icon-md {
-  @apply w-3.5 h-3.5 text-white;
-}
-.ui-checkbox-icon-sm {
-  @apply w-3 h-3 text-white;
-}
-
 .ui-checkbox-text-lg {
-  @apply text-h6;
+  @apply text-base font-medium;
 }
 .ui-checkbox-text-md {
-  @apply text-base;
+  @apply text-sm font-medium;
 }
 .ui-checkbox-text-sm {
-  @apply text-sm;
+  @apply text-2xs font-medium;
 }
 
 .ui-checkbox-disabled {
   @apply opacity-50 cursor-not-allowed;
+}
+.ui-checkbox-icon-color {
+  @apply text-primary;
 }
 </style>

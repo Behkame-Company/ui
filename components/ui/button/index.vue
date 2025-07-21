@@ -3,7 +3,6 @@
     class="ui-button"
     @click="onTap"
     :disabled="disabled"
-    
     :class="{
       [size_class]: true,
       [color_class]: true,
@@ -14,25 +13,37 @@
       'ui-button-with-both-icons': prefix_icon && suffix_icon,
     }"
   >
-    <UiLoadingSpinner v-if="loading" :size="props.size" class="my-1" />
+    <UiLoadingSpinner v-if="loading" :size="props.size"  />
 
     <template v-else>
-      <Icon
+      <!-- <Icon
         v-if="prefix_icon"
         :class="`${prefix_icon_class}`"
         :name="prefix_icon"
         :size="props.size"
+      /> -->
+      <VsxIcon
+        v-if="prefix_icon"
+        :class="prefix_icon_class"
+        :iconName="prefix_icon"
+        :size="prefix_icon_size"
+        type="bold"
       />
-
       <span :class="`${text_size_class}`">
         <slot />
       </span>
-
-      <Icon
+      <!-- <Icon
         v-if="suffix_icon"
         :class="`${suffix_icon_class}`"
         :name="suffix_icon"
         :size="props.size"
+      /> -->
+      <VsxIcon
+        v-if="suffix_icon"
+        :class="suffix_icon_class"
+        :iconName="suffix_icon"
+        :size="suffix_icon_size"
+        type="bold"
       />
     </template>
   </button>
@@ -43,7 +54,7 @@ const props = defineProps({
     type: Boolean,
     default: false, // set this to true to disable the button
   },
- 
+
   loading: {
     type: Boolean,
     default: false, // set this to true to show the loading spinner
@@ -52,7 +63,7 @@ const props = defineProps({
     type: String,
     default: "sm", // set this to the size of the button
     validator: (value: string) =>
-     ["xs","sm", "md", "lg", "xl"].includes(value),
+      ["xs", "sm", "md", "lg", "xl"].includes(value),
   },
   color: {
     type: String,
@@ -68,7 +79,7 @@ const props = defineProps({
         "success",
         "warning",
         "info",
-        "low-contrast"
+        "low-contrast",
       ].includes(value),
   },
   suffix_icon: {
@@ -99,7 +110,7 @@ const color_class = computed<string>(() => {
       return "ui-button-dark";
     case "text-bt":
       return "ui-button-text-bt";
-      case "gray":
+    case "gray":
       return "ui-button-gray";
     case "error":
       return "ui-button-error";
@@ -141,7 +152,7 @@ const text_size_class = computed<string>(() => {
       return "ui-button-text-md";
     case "sm":
       return "ui-button-text-sm";
-       case "xs":
+    case "xs":
       return "ui-button-text-xs";
     default:
       return "ui-button-text-xl";
@@ -150,21 +161,35 @@ const text_size_class = computed<string>(() => {
 
 const prefix_icon_class = computed<string>(() => {
   switch (props.size) {
-    case "xl":
-      return "ui-button-prefix-icon-xl";
-    case "lg":
-      return "ui-button-prefix-icon-lg";
-    case "md":
-      return "ui-button-prefix-icon-md";
-    case "sm":
-      return "ui-button-prefix-icon-sm";
-      case "xs":
-      return "ui-button-prefix-icon-xs";
-    default:
-      return "ui-button-prefix-icon-xl";
+    case "xl": return "ui-button-prefix-icon-xl";
+    case "lg": return "ui-button-prefix-icon-lg";
+    case "md": return "ui-button-prefix-icon-md";
+    case "sm": return "ui-button-prefix-icon-sm";
+    case "xs": return "ui-button-prefix-icon-xs";
+    default: return "ui-button-prefix-icon-md";
   }
 });
 
+const prefix_icon_size = computed<number>(() => {
+  switch (props.size) {
+    case "xl": return 24;
+    case "lg": return 20;
+    case "md": return 16;
+    case "sm": return 14;
+    case "xs": return 12;
+    default: return 16;
+  }
+});
+const suffix_icon_size = computed<number>(() => {
+  switch (props.size) {
+    case "xl": return 24;
+    case "lg": return 20;
+    case "md": return 16;
+    case "sm": return 14;
+    case "xs": return 12;
+    default: return 16;
+  }
+});
 const suffix_icon_class = computed<string>(() => {
   switch (props.size) {
     case "xl":
@@ -175,7 +200,7 @@ const suffix_icon_class = computed<string>(() => {
       return "ui-button-suffix-icon-md";
     case "sm":
       return "ui-button-suffix-icon-sm";
-      case "xs":
+    case "xs":
       return "ui-button-suffix-icon-xs";
     default:
       return "ui-button-suffix-icon-xl";
@@ -186,7 +211,7 @@ const suffix_icon_class = computed<string>(() => {
 @reference "assets/css/main.css";
 
 .ui-button {
-  @apply flex items-center justify-center border-1 rounded-md transition-all cursor-pointer;
+  @apply flex items-center justify-center border-1 rounded-md transition-all cursor-pointer text-nowrap;
 }
 
 .ui-button-disabled {
@@ -203,11 +228,9 @@ const suffix_icon_class = computed<string>(() => {
   @apply hover:bg-primary hover:border-primary;
 }
 
-
 .ui-button-outline {
   @apply text-primary  bg-transparent border-primary hover:bg-blue-100 hover:border-2 hover:border-primary focus:bg-blue-200 focus:border-primary focus:border-2;
 }
-
 
 .ui-button-outline:disabled {
   @apply hover:bg-transparent hover:border-primary;
@@ -225,7 +248,6 @@ const suffix_icon_class = computed<string>(() => {
   @apply text-white bg-gray hover:bg-gray-shade-800 border-gray hover:border-gray-shade-800 focus:bg-gray-shade-900 focus:border-gray-shade-900;
 }
 
-
 .ui-button-gray:disabled {
   @apply hover:bg-gray hover:border-gray;
 }
@@ -236,7 +258,6 @@ const suffix_icon_class = computed<string>(() => {
 .ui-button-dark:disabled {
   @apply bg-cyan-lc-shade-999 hover:bg-cyan-lc-shade-999;
 }
-
 
 .ui-button-text-bt {
   @apply text-gray hover:text-primary  bg-transparent  hover:bg-blue-200   border-none hover:border-blue-200 focus:text-blue-999  focus:bg-blue-250 focus:border-blue-250;
@@ -254,7 +275,6 @@ const suffix_icon_class = computed<string>(() => {
   @apply hover:bg-error hover:border-error;
 }
 
-
 .ui-button-success {
   @apply text-white bg-success hover:bg-green-750 border-success hover:border-green-750 focus:bg-green-950 focus:border-green-950;
 }
@@ -262,7 +282,6 @@ const suffix_icon_class = computed<string>(() => {
 .ui-button-success:disabled {
   @apply hover:bg-success hover:border-success;
 }
-
 
 .ui-button-warning {
   @apply text-white bg-warning hover:bg-orange-600 border-warning hover:border-orange-600 focus:bg-orange-900 focus:border-orange-900;
@@ -272,7 +291,6 @@ const suffix_icon_class = computed<string>(() => {
   @apply hover:bg-warning hover:border-warning;
 }
 
-
 .ui-button-info {
   @apply text-white bg-info hover:bg-purple-700 border-info hover:border-purple-700 focus:bg-purple-850 focus:border-purple-850;
 }
@@ -280,7 +298,6 @@ const suffix_icon_class = computed<string>(() => {
 .ui-button-info:disabled {
   @apply hover:bg-info hover:border-info;
 }
-
 
 /* ===== size ===== */
 
@@ -306,22 +323,22 @@ const suffix_icon_class = computed<string>(() => {
 /* ===== text size ===== */
 
 .ui-button-text-xl {
-  @apply text-h5;
+  @apply text-h6 font-medium;
 }
 
 .ui-button-text-lg {
-  @apply text-h6;
+  @apply text-base font-medium;
 }
 
 .ui-button-text-md {
-  @apply text-base;
+  @apply text-sm font-medium;
 }
 
 .ui-button-text-sm {
-  @apply text-sm;
+  @apply text-sm font-medium;
 }
 .ui-button-text-xs {
-  @apply text-xs;
+  @apply text-2xs font-medium;
 }
 
 /* ===== loading ===== */
@@ -331,19 +348,19 @@ const suffix_icon_class = computed<string>(() => {
 }
 
 .ui-button-xl.ui-button-loading {
-  @apply px-18;
+  @apply px-18 py-3.5;
 }
 
 .ui-button-lg.ui-button-loading {
-  @apply px-14;
+  @apply px-14 py-3;
 }
 
 .ui-button-md.ui-button-loading {
-  @apply px-12;
+  @apply px-12 py-3;
 }
 
 .ui-button-sm.ui-button-loading {
-  @apply px-10;
+  @apply px-10 py-2;
 }
 .ui-button-xs.ui-button-loading {
   @apply px-10;
@@ -351,41 +368,27 @@ const suffix_icon_class = computed<string>(() => {
 
 /* ===== icon ===== */
 
-.ui-button-prefix-icon-xl {
-  @apply w-6 h-6 me-2;
+.ui-button-prefix-icon-xl ,.ui-button-prefix-icon-lg {
+  @apply  me-2;
 }
 
-.ui-button-prefix-icon-lg {
-  @apply w-5 h-5 me-2;
+.ui-button-prefix-icon-md ,.ui-button-prefix-icon-sm {
+  @apply  me-1;
 }
 
-.ui-button-prefix-icon-md {
-  @apply w-4 h-4 me-1;
-}
-
-.ui-button-prefix-icon-sm {
-  @apply w-4 h-4 me-1;
-}
 .ui-button-prefix-icon-xs {
-  @apply w-4 h-4 me-0.5;
+  @apply  me-0.5;
 }
 
-.ui-button-suffix-icon-xl {
-  @apply w-6 h-6 ms-2;
+.ui-button-suffix-icon-xl ,.ui-button-suffix-icon-lg {
+  @apply ms-2;
 }
 
-.ui-button-suffix-icon-lg {
-  @apply w-5 h-5 ms-2;
+.ui-button-suffix-icon-md,.ui-button-suffix-icon-sm  {
+  @apply ms-1;
 }
 
-.ui-button-suffix-icon-md {
-  @apply w-4 h-4 ms-1;
-}
-
-.ui-button-suffix-icon-sm {
-  @apply w-4 h-4 ms-1;
-}
 .ui-button-suffix-icon-xs {
-  @apply w-4 h-4 me-0.5;
+  @apply me-0.5;
 }
 </style>

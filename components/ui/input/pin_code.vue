@@ -1,7 +1,7 @@
 <template>
   <div class="ui-input-pin-code-container" :class="{ 'ui-input-pin-code-container-focused': focused, 'ui-input-pin-code-container-disabled': disabled }" >
 
-    <input v-for="i in length" :key="i" type="number" class="ui-input-pin-code" :class="`${size_class} ${disabled_class} ${element_focused_class[i-1]}`" :disabled="disabled" maxlength="1" :id="local_ids[i-1]" @input="(e: any) => onUpdate(i-1, e)" @focus="(e: any) => onFocus(i-1)" @blur="(e: any) => onBlur(i-1)" />
+    <input v-for="i in length" min="0" :key="i"  type="number" class="ui-input-pin-code" :class="`${size_class} ${disabled_class} ${element_focused_class[i-1]}`" :disabled="disabled" maxlength="1" :id="local_ids[i-1]" @input="(e: any) => onUpdate(i-1, e)" @focus="(e: any) => onFocus(i-1)" @blur="(e: any) => onBlur(i-1)" />
 
   </div>
 </template>
@@ -134,7 +134,7 @@ const onBlur = (index: number) => {
 
 /* ===== size ===== */
 
-.ui-input-pin-code-sm {
+ .ui-input-pin-code-sm {
   @apply w-8 mx-2 pb-1 mb-2 mt-1.5 text-sm; 
 }
 
@@ -148,6 +148,6 @@ const onBlur = (index: number) => {
 
 .ui-input-pin-code-xl {
   @apply w-12 mx-2.5 pb-2 mb-3 mt-2.5 text-h6; 
-}
+} 
 
 </style>

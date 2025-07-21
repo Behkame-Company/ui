@@ -27,7 +27,7 @@
      
       @click="toggleShowPassword"
     >
-      <Icon :name="icon_name" :size="icon_size_class" />
+      <VsxIcon :iconName="icon_name" :size="icon_size_class"  type="linear" />
     </div>
   </div>
 </template>
@@ -67,7 +67,7 @@ const input_type = computed<string>(() =>
 );
 
 const icon_name = computed<string>(() =>
-  show_password.value ? "uil:eye" : "uil:eye-slash"
+  show_password.value ? "Eye" : "EyeSlash"
 );
 
 const icon_size_class = computed<string>(() => {

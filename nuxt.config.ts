@@ -1,32 +1,32 @@
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
-
   ssr: false,
 
-  compatibilityDate: '2025-05-15',
-  
+  compatibilityDate: "2025-05-15",
+
   devtools: { enabled: false },
 
-  css: ['~/assets/css/main.css'],
+  css: ["~/assets/css/main.css"],
 
   app: {
     head: {
       bodyAttrs: {
-        class: 'bg-[#FCFCFC]'
-      }
-    }
+        class: "bg-[#FCFCFC]",
+      },
+    },
   },
-  
+
   vite: {
-    plugins: [
-      tailwindcss(),
-    ],
+    plugins: [tailwindcss()],
+    ssr: {
+      noExternal: ["vue-iconsax"],
+    },
   },
 
   devServer: {
-    port: 3003
+    port: 3003,
   },
 
-  modules: ['@nuxt/icon'],
-})
+  modules: ["@nuxt/icon"],
+});

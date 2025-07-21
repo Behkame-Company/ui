@@ -7,23 +7,24 @@
         <Icon name="heroicons:chevron-left" class="ui-icon" />
       </button>
 
-      <!-- Page Number Buttons -->
-      <button
-        v-for="page in pages"
-        :key="page"
-        @click="() => onClick(page)"
-        :class="[
-          'ui-page-button',
-          // Style current page differently
-          page === currentPage
-            ? 'ui-page-button-active'
-            : type === 'bordered'
-            ? 'ui-page-button-inactive-bordered'
-            : 'ui-page-button-inactive',
-        ]"
-      >
-        {{ page }}
-      </button>
+      <!-- Page Number Buttons: Hidden when 'All' is selected -->
+      <template v-if="localPerPage !== -1">
+        <button
+          v-for="page in pages"
+          :key="page"
+          @click="() => goToPage(page)"
+          :class="[
+            'ui-page-button',
+            page === currentPage
+              ? 'ui-page-button-active'
+              : type === 'bordered'
+              ? 'ui-page-button-inactive-bordered'
+              : 'ui-page-button-inactive',
+          ]"
+        >
+          {{ page }}
+        </button>
+      </template>
 
       <!-- Next Button -->
       <button class="ui-page-button" @click="next" :disabled="isLastPage">
@@ -35,24 +36,21 @@
     <div class="ui-pagination-info">
       From {{ from }} to {{ to }} of {{ total }} records
 
-      <!-- Page size select dropdown -->
       <select
-        v-model="localPerPage"
+        v-model.number="localPerPage"
         @change="changePerPage"
         class="ui-page-size-select"
       >
         <option v-for="n in [5, 10, 15, 20]" :key="n" :value="n">
           {{ n }}
         </option>
+        <option :value="-1">all</option>
       </select>
     </div>
   </div>
 </template>
 
-
-
 <script setup lang="ts">
-// ✅ Define props and their types
 const props = defineProps({
   currentPage: {
     type: Number,
@@ -66,75 +64,75 @@ const props = defineProps({
     type: Number,
     required: true,
   },
-  onClick: {
-    // Callback when a page number is clicked
-    type: Function as PropType<(page: number) => void>,
-    required: true,
-  },
-  prev: {
-    // Callback for previous page button
-    type: Function as PropType<() => void>,
-    required: true,
-  },
-  next: {
-    // Callback for next page button
-    type: Function as PropType<() => void>,
-    required: true,
-  },
   type: {
-    // Style variant: default or bordered
     type: String,
     default: "default",
     validator: (value: string) => ["default", "bordered"].includes(value),
   },
-  size: {
-    // Size variant: sm, md, lg (not used in template currently)
-    type: String,
-    default: "md",
-    validator: (value: string) => ["sm", "md", "lg"].includes(value),
-  },
-})
+  // size: {
+  //   type: String,
+  //   default: "md",
+  //   validator: (value: string) => ["sm", "md", "lg"].includes(value),
+  // },
+});
 
-// ✅ Define emit for updating page size
 const emit = defineEmits<{
   (e: "update:perPage", value: number): void;
-}>()
+  (e: "update:currentPage", value: number): void;
+}>();
 
-// ✅ Local state for perPage selector
-const localPerPage = ref(props.perPage)
+const localPerPage = ref<number>(props.perPage);
 
-// ✅ Update local state when prop changes
 watch(
   () => props.perPage,
-  (val) => (localPerPage.value = val)
-)
+  (val: number) => {
+    localPerPage.value = val;
+  }
+);
 
-// ✅ Total pages, computed from total and perPage
-const totalPages = computed(() => Math.ceil(props.total / localPerPage.value))
+const totalPages = computed<number>(() =>
+  localPerPage.value === -1 ? 1 : Math.ceil(props.total / localPerPage.value)
+);
 
-// ✅ Pages array [1, 2, ..., totalPages]
-const pages = computed(() =>
-  Array.from({ length: totalPages.value }, (_, i) => i + 1)
-)
+// TODO: For large page counts, consider windowed pagination (e.g., 1 ... 4 5 6 ... 10)
+const pages = computed<number[]>(() =>
+  localPerPage.value === -1
+    ? []
+    : Array.from({ length: totalPages.value }, (_, i) => i + 1)
+);
 
-// ✅ Is current page the first one?
-const isFirstPage = computed(() => props.currentPage === 1)
+const goToPage = (page: number) => {
+  emit("update:currentPage", page);
+};
 
-// ✅ Is current page the last one?
-const isLastPage = computed(() => props.currentPage === totalPages.value)
+const isFirstPage = computed<boolean>(() =>
+  props.currentPage === 1 || localPerPage.value === -1
+);
+const prev = () => {
+  if (props.currentPage > 1) emit("update:currentPage", props.currentPage - 1);
+};
+const next = () => {
+  if (props.currentPage < totalPages.value) emit("update:currentPage", props.currentPage + 1);
+};
 
-// ✅ Starting index of current page range (e.g., 21)
-const from = computed(() => (props.currentPage - 1) * localPerPage.value + 1)
+const isLastPage = computed<boolean>(() =>
+  props.currentPage === totalPages.value || localPerPage.value === -1
+);
 
-// ✅ Ending index of current page range (e.g., 40 or total)
-const to = computed(() =>
-  Math.min(props.currentPage * localPerPage.value, props.total)
-)
+const from = computed<number>(() =>
+  localPerPage.value === -1 ? 1 : (props.currentPage - 1) * localPerPage.value + 1
+);
 
-// ✅ Emit updated page size
-const changePerPage = () => emit("update:perPage", localPerPage.value)
+const to = computed<number>(() =>
+  localPerPage.value === -1
+    ? props.total
+    : Math.min(props.currentPage * localPerPage.value, props.total)
+);
+
+const changePerPage = (): void => {
+  emit("update:perPage", localPerPage.value);
+};
 </script>
-
 
 <style scoped>
 @reference "assets/css/main.css";
@@ -148,7 +146,7 @@ const changePerPage = () => emit("update:perPage", localPerPage.value)
 }
 
 .ui-page-button {
-  @apply w-5.5 h-7 flex items-center justify-center rounded-sm  text-sm transition duration-300;
+  @apply w-5.5 h-7 flex items-center justify-center rounded-sm text-sm transition duration-300 cursor-pointer;
 }
 
 .ui-page-button-inactive {
@@ -168,10 +166,13 @@ const changePerPage = () => emit("update:perPage", localPerPage.value)
 }
 
 .ui-page-size-select {
-  @apply border border-gray-tint-650 rounded-sm py-1 px-2 text-sm text-primary;
+  @apply border border-gray-tint-650 rounded-sm py-1 px-2 text-sm text-primary cursor-pointer;
 }
 
 .ui-icon {
   @apply text-gray-shade-800 w-8 h-8;
+}
+.ui-page-button:disabled {
+ @apply opacity-50 cursor-not-allowed;
 }
 </style>

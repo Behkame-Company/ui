@@ -13,10 +13,12 @@
 </template>
 
 <script setup lang="ts">
-const model = defineModel<boolean>({ required: true });
+// Use 'any' so the radio can be used in a group (v-model will be the selected value)
+const model = defineModel<any>({ required: true });
 
 const props = defineProps({
-  value: [String],
+  // The value this radio represents
+  value: [String, Number, Boolean],
   label: {
     type: String,
     required: true,
@@ -67,30 +69,30 @@ const text_size_class = computed(() => {
 @reference "assets/css/main.css";
 
 .ui-radio {
-  @apply flex items-center  gap-2 cursor-pointer p-0.5;
+  @apply flex items-center gap-2 cursor-pointer ;
 }
 .ui-radio-input {
-  @apply rounded-full bg-transparent border border-gray-shade-50 peer-checked:bg-transparent peer-checked:border-primary peer-checked:border-4  p-0.5;
+  @apply rounded-full bg-transparent border border-gray-shade-50 peer-checked:bg-transparent peer-checked:border-primary peer-checked:border-4 p-0.5  peer-checked:p-0.5 ;
 }
 .ui-radio-disabled {
   @apply opacity-50 cursor-not-allowed;
 }
 .ui-radio-sm {
-  @apply w-5 h-5;
+  @apply w-5 h-5 ;
 }
 .ui-radio-md {
-  @apply w-5.5 h-5.5;
+  @apply w-5.5 h-5.5 ;
 }
 .ui-radio-lg {
-  @apply w-6 h-6;
+  @apply w-6 h-6 ;
 }
 .ui-radio-label-sm {
-  @apply text-sm;
+  @apply text-2xs font-medium;
 }
 .ui-radio-label-md {
-  @apply text-base;
+  @apply text-xs font-medium;
 }
 .ui-radio-label-lg {
-  @apply text-h6;
+  @apply text-base font-medium;
 }
 </style>

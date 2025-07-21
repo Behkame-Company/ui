@@ -120,21 +120,21 @@ const size_class = computed<string>(() => {
 }
 
 .ui-link-text-xl {
-  @apply text-h5;
+  @apply text-h6 font-medium;
 }
 
 .ui-link-text-lg {
-  @apply text-h6;
+  @apply text-base font-medium;
 }
 
 .ui-link-text-md {
-  @apply text-base;
+  @apply text-sm font-medium;
 }
 
 .ui-link-text-sm {
-  @apply text-sm;
+  @apply text-xs font-medium;
 }
 .ui-link-text-xs {
-  @apply text-xs;
+  @apply text-2xs font-medium;
 }
 </style>

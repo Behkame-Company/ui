@@ -1,6 +1,6 @@
 <template>
   <!-- Container for the entire tab component -->
-  <div class="ui-tab-pagination">
+  <div class="ui-tab">
 
     <!-- Tab buttons rendered dynamically from `tabs` prop -->
     <div class="ui-tab-wrapper">
@@ -11,6 +11,7 @@
         :class="[
           'ui-tab-base',        // Base styles for all tabs
           tab_style,            // Dynamic style class based on `type` prop
+          size_style,
           selectedIndex === index
             ? `${tab_style}-active`     // Active state class
             : `${tab_style}-inactive`,  // Inactive state class
@@ -21,9 +22,9 @@
     </div>
 
     <!-- Display content for the selected tab -->
-    <div class="ml-4" v-if="Contents[selectedIndex]">
+    <!-- <div class="ml-4" v-if="Contents[selectedIndex]">
       {{ Contents[selectedIndex] }}
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -41,7 +42,7 @@ const props = defineProps({
   // Array of tab contents
   Contents: {
     type: Array as PropType<(string | number | VNode)[]>,
-    default: () => ["Content 1", "Content 2", "Content 3"],
+    // default: () => ["Content 1", "Content 2", "Content 3"],
   },
 
   // Type of tab style (default, bordered, rounded, text, filled)
@@ -50,6 +51,11 @@ const props = defineProps({
     default: "default",
     validator: (value: string) =>
       ["default", "bordered", "rounded", "text", "filled"].includes(value),
+  },
+  size: {
+    type: String,
+    default: "md",
+    validator: (value: string) => ["md", "sm", "lg"].includes(value),
   },
 });
 
@@ -68,10 +74,8 @@ function select_tab(index: number) {
 }
 
 // Compute tab style class based on the `type` prop
-const type = computed(() => props.type ?? "default");
-
 const tab_style = computed(() => {
-  switch (type.value) {
+  switch (props.type) {
     case "filled":
       return "ui-tab-filled";
     case "bordered":
@@ -84,13 +88,24 @@ const tab_style = computed(() => {
       return "ui-tab-default";
   }
 });
+
+const size_style = computed(() => {
+  switch (props.size) {
+    case "sm":
+      return "ui-tab-text-sm";
+    case "lg":
+      return "ui-tab-text-lg";
+    default:
+      return "ui-tab-text-md";
+  }
+});
 </script>
 
 <style scoped>
 @reference "assets/css/main.css";
 
 /* Root container styles */
-.ui-tab-pagination {
+.ui-tab {
   @apply w-full overflow-auto;
 }
 
@@ -101,18 +116,18 @@ const tab_style = computed(() => {
 
 /* Base styles shared by all tab buttons */
 .ui-tab-base {
-  @apply transition-all duration-200 text-gray-shade-400 p-2;
+  @apply transition-all duration-300 text-gray-shade-400 p-2 cursor-pointer;
 }
 
 /* Filled type styles */
 .ui-tab-filled {
-  @apply rounded-lg;
+  @apply rounded-lg 
 }
 .ui-tab-filled-active {
   @apply text-white bg-primary;
 }
 .ui-tab-filled-inactive {
-  @apply text-gray-shade-400;
+  @apply text-gray-shade-400 hover:bg-blue-100  hover:text-primary;
 }
 
 /* Default underline type styles */
@@ -123,40 +138,50 @@ const tab_style = computed(() => {
   @apply border-primary text-primary;
 }
 .ui-tab-default-inactive {
-  @apply text-gray-shade-400;
+  @apply text-gray-shade-400  hover:text-blue-500 hover:border-none;
 }
 
 /* Bordered tab styles */
 .ui-tab-bordered {
-  @apply rounded-lg;
+  @apply rounded-lg  ;
 }
 .ui-tab-bordered-active {
   @apply bg-transparent text-primary border border-primary;
 }
 .ui-tab-bordered-inactive {
-  @apply text-gray-shade-400 bg-transparent;
+  @apply text-gray-shade-400 bg-transparent hover:border hover:border-blue-300  hover:text-blue-400;
 }
 
 /* Text type (minimal styling) */
 .ui-tab-text {
-  @apply bg-transparent;
+  @apply bg-transparent 
 }
 .ui-tab-text-active {
   @apply text-primary;
 }
 .ui-tab-text-inactive {
-  @apply text-gray-shade-400;
+  @apply text-gray-shade-400 hover:text-blue-500;
 }
 
 /* Rounded-top tabs */
 .ui-tab-rounded {
-  @apply rounded-t-lg;
+  @apply rounded-t-lg 
 }
 .ui-tab-rounded-active {
   @apply bg-primary text-white;
 }
 .ui-tab-rounded-inactive {
-  @apply text-gray-shade-400;
+  @apply text-gray-shade-400 hover:bg-blue-100  hover:text-primary;
 }
+ /* Size styles */
+ .ui-tab-text-sm {
+  @apply text-xs font-bold;
+ }
+ .ui-tab-text-md {
+  @apply text-sm font-bold ;
+ }
+ .ui-tab-text-lg {
+  @apply text-base font-bold;
+ }
 </style>
 

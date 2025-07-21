@@ -17,6 +17,7 @@
     "nuxt": "^3.17.5",
     "tailwindcss": "^4.1.8",
     "vue": "^3.5.16",
+    "vue-iconsax": "^2.0.0",
     "vue-router": "^4.5.1"
   }
 }

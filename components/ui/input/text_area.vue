@@ -50,11 +50,11 @@ const size_class = computed<string>(() => `ui-input-text-area-${props.size}`)
 /* ===== size ===== */
 
 .ui-input-text-area-sm {
-  @apply py-2 px-2 text-xs placeholder:text-xs; 
+  @apply py-2 px-2 text-3xs placeholder:text-3xs; 
 }
 
 .ui-input-text-area-md {
-  @apply py-2 px-2 text-base placeholder:text-base; 
+  @apply py-2 px-2 text-sm placeholder:text-sm; 
   /* line-height: 18px; */
 }
 

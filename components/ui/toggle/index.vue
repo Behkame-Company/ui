@@ -112,7 +112,7 @@ const text_size_class = computed<string>(() => {
     @apply  w-8 h-4.5 rounded-5xl
 }
 .ui-toggle-input-md{
-    @apply  w-7 h-4 rounded-5xl
+    @apply  w-7.25 h-4 rounded-5xl
 }
 .ui-toggle-input-sm{
     @apply  w-6.5 h-3.5 rounded-5xl
@@ -127,13 +127,13 @@ const text_size_class = computed<string>(() => {
     @apply w-2.5 h-2.5
 }
 .ui-toggle-title-lg{
-    @apply  text-h6
+    @apply  text-base font-medium
 }
 .ui-toggle-title-md{
-    @apply  text-base
+    @apply  text-xs font-medium
 }
 .ui-toggle-title-sm{
-    @apply  text-sm
+    @apply  text-2xs font-medium
 }
 .ui-toggle-disabled{
   @apply opacity-50 cursor-not-allowed
