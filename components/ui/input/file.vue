@@ -60,7 +60,7 @@ const onFileChange = (e: Event) => {
 @reference "assets/css/main.css";
 
 .ui-file-input-container {
-  @apply w-max-content  h-11 flex items-center;
+  @apply w-max-content h-11 flex items-center;
 }
 .ui-file-label {
   @apply flex text-center w-full h-full border border-primary rounded-sm transition-all cursor-pointer ;
