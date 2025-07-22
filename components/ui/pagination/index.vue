@@ -71,11 +71,7 @@ const props = defineProps({
     default: "default",
     validator: (value: string) => ["default", "bordered"].includes(value),
   },
-  // size: {
-  //   type: String,
-  //   default: "md",
-  //   validator: (value: string) => ["sm", "md", "lg"].includes(value),
-  // },
+
 });
 
 const emit = defineEmits<{

@@ -4,7 +4,7 @@
       Behkame Design System
     </h1>
 
-    <!-- <h3 class="text-start mt-4 mb-4 text-h6 font-bold">Card Components</h3>
+    <h3 class="text-start mt-4 mb-4 text-h6 font-bold">Card Components</h3>
 
     <div class="flex justify-start items-start mt-4">
       <div class="w-1/4 px-2">
@@ -35,8 +35,8 @@
           </template>
         </UiCard>
       </div>
-    </div> -->
-    <!-- 
+    </div> 
+    
     <div class="flex justify-start items-start mt-4">
       <div class="w-1/4 px-2">
         <UiCard size="xl">
@@ -111,6 +111,20 @@
           </template>
         </UiCard>
       </div>
+      <!-- <UiCard image="https://example.com/image.jpg">
+        <template #header>
+            <span class="text-start text-h6">Card header LG</span>
+          </template>
+          <template #default>
+            <span class="text-start text-h6">Card Body LG</span>
+          </template>
+          <template #footer>
+            <UiButton class="w-full" size="lg" color="primary">
+              Button Footer LG</UiButton
+            >
+          </template>
+  <!-- ... -->
+
       <div class="w-1/4 px-2">
         <UiCard size="md">
           <template #header>
@@ -141,7 +155,7 @@
           </template>
         </UiCard>
       </div>
-    </div> -->
+    </div> 
 
     <h3 class="text-start mt-4 mb-4 text-h6 font-bold">Input Components</h3>
 
@@ -626,6 +640,9 @@
       </div>
 
       <div class="w-1/4 px-2">
+        <h5 class="text-center font-bold">Link</h5>
+       
+
         <UiLink text="XL Link" color="info" href="google.com" size="xl" />
         <UiLink text="MD Link" color="warning" size="md" />
         <UiLink text="SM Link" color="primary" size="sm" />
@@ -636,8 +653,10 @@
         <UiLink text="Warning Link" color="warning" size="xl" />
         <UiLink text="Gray Link" color="gray" size="xl" />
       </div>
+      
 
       <div class="w-1/4 px-2">
+        <h5 class="text-start mt-4 mb-4 text-lg font-bold">Radio</h5>
         <div class="space-y-4">
           <UiRadio
             v-for="op in options"
@@ -660,7 +679,9 @@
           />
         </div>
       </div>
+
       <div class="flex flex-col w-1/4 px-2">
+        <h5 class="text-start mt-4 mb-4 text-lg font-bold">Toggle</h5>
         <UiToggle v-model="isToggled" label="LG Toggle" size="lg" />
         <UiToggle v-model="isToggled" label="MD Toggle" size="md" />
 
@@ -675,6 +696,7 @@
       </div>
 
       <div class="w-1/4 px-2 space-x-2">
+        <h5 class="text-start mt-4 mb-4 text-lg font-bold">Checkbox</h5>
         <UiCheckbox v-model="isAccepted2" title="Hello" size="md" />
         <UiCheckbox v-model="isAccepted" title="I agree" size="sm" />
         <UiCheckbox v-model="isAccepted3" title="I agree" size="lg" />
@@ -964,26 +986,10 @@
       <UiTag text="Closable" type="light-purple" />
       <UiTag text="All" type="success" closeable  prefixIcon="InfoCircle" />
     </div>
-    <div class="p-6">
-      <UiTable :headers="headers">
-        <tr
-          v-for="(item, index) in items"
-          :key="index"
-          class="bg-white hover:bg-gray-50"
-        >
-          <td class="px-6 py-4">{{ index + 1 }}</td>
-          <td class="px-6 py-4">{{ item.name }}</td>
-          <td class="px-6 py-4">{{ item.color }}</td>
-          <td class="px-6 py-4">{{ item.category }}</td>
-          <td class="px-6 py-4">{{ item.price }}</td>
-          <td class="px-6 py-4">
-            <a href="#" class="font-medium text-blue-600 hover:underline"
-              >Edit</a
-            >
-          </td>
-        </tr>
-      </UiTable>
-    </div>
+    <UiTable
+  :headers="headers"
+  v-model="rows"
+/>
     <h6 class="text-start mt-4 mb-4 text-xl">File Input</h6>
 
     <div class=" flex flex-row gap-2 my-4">
@@ -998,6 +1004,11 @@
         :icon="'InfoCircle'"
         :size="20"
       />
+    </div>
+    <div>
+    <h6 class="text-start mt-4 mb-4 text-xl">List</h6>
+
+      <UiList title="List" :items="list_items.map(item => item.text)" />
     </div>
   </div>
 </template>
@@ -1042,17 +1053,16 @@ const perPage = ref(5);
 const total = ref(100);
 
 const headers = [
-  { type: "number", text: "#" },
-  { type: "text", text: "Name" },
-  { type: "select", text: "Color", options: ["Silver", "Black", "Gold"] },
-  { type: "text", text: "Category" },
-  { type: "number", text: "Price" },
-  { type: "action", text: "Action" },
+  { text: "#", type: "text", options: undefined ,},
+  { text: "Column 1", type: "text", options: undefined,  },
+  { text: "Column 2", type: "text", options: undefined },
+  { text: "Column 3", type: "text", options: undefined,},
+  // ...
 ];
-
-const items = [
-  { name: "MacBook Pro", color: "Silver", category: "Laptop", price: "$2999" },
-  { name: "iPad", color: "Gold", category: "Tablet", price: "$699" },
-  { name: "iMac", color: "Silver", category: "Desktop", price: "$3999" },
+const rows = [
+  { "#": 1, Color: "Silver", Category: "Laptop", Price: 2999 },
+  { "#": 2, Color: "White", Category: "Laptop PC", Price: 1999 },
+  // ...
 ];
+const list_items = [ {id:1 , text:"example1"},{id:2 , text:"example2"},{id:3 , text:"example3"},{id:4 , text:"example4"},{id:5 , text:"example5"},{id:6 , text:"example6"},{id:7 , text:"example7"},{id:8 , text:"example8"},{id:9 , text:"example9"},{id:10 , text:"example10"}];
 </script>

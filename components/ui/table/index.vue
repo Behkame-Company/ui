@@ -1,107 +1,122 @@
 <template>
-  <div class="ui-table-wrapper">
-   
-
-    <table class="ui-table">
-      <thead class="ui-thead">
+  <div class="table-container">
+    <h2 class="table-title">List A</h2>
+    <table class="custom-table">
+      <thead>
         <tr>
-          <th v-for="(header, index) in headers" :key="index" class="ui-th">
-            <component
-              v-if="header.type !== 'action'"
-              :is="getInputComponent(header.type)"
-              v-model="filters[header.text]"
-              :multiple="header.type === 'multi-select'"
-              :placeholder="header.text"
-              class="ui-input"
-            >
-              <!-- Render options for select/multi-select -->
-              <option
-                v-for="option in header.options || []"
-                :key="option"
-                :value="option"
-                
+          <th v-for="(header, colIndex) in headers" :key="header.text" class="table-th" :style="header.width ? { width: header.width } : {}">
+            <template v-if="header.text === '#'">
+              {{ header.text }}
+            </template>
+            <template v-else>
+              <component
+                :is="header.type === 'select' ? 'select' : 'input'"
+                :type="header.type !== 'select' ? header.type : undefined"
+                :placeholder="header.text"
+                class="table-filter-input"
+                v-model="localFilters[header.text]"
+                @input="onFilterChange"
+                @change="onFilterChange"
               >
-                {{ option }}
-              </option>
-            </component>
-            <span v-else class="ui-action-text">{{ header.text }}</span>
+                <option v-for="option in header.options || []" :key="option" :value="option">
+                  {{ option }}
+                </option>
+              </component>
+            </template>
           </th>
         </tr>
       </thead>
-      <tbody class="text-gray-shade-800 text-3xs font-light">
-        <slot />
+      <tbody>
+        <tr v-for="(row, rowIndex) in rows" :key="rowIndex" :class="rowIndex % 2 === 1 ? 'table-row-even' : 'table-row-odd'">
+          <td v-for="(header, colIndex) in headers" :key="header.text" class="table-td">
+            <span v-if="row[colIndex] === 'circle'" class="table-circle"></span>
+            <span v-else>{{ row[colIndex] }}</span>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
 </template>
 
-<script lang="ts" setup>
-
+<script setup lang="ts">
 
 type HeaderType = {
-  type: 'text' | 'number' | 'select' | 'multi-select' | 'date' | 'time' | 'datetime' | 'action'
   text: string
-  default?: string
-  options?: string[]
+  type?: string // 'text', 'number', 'select', etc.
+  options?: string[] | undefined
+  width?: string | undefined
 }
 
 const props = defineProps<{
   headers: HeaderType[]
+  rows: any[]
+  filters: Record<string, string>
 }>()
+const emit = defineEmits(['update:filters'])
 
-const filters = reactive(
-  Object.fromEntries(props.headers.map(h => [h.text, h.default ?? '']))
+const localFilters = reactive({ ...props.filters })
+
+watch(
+  () => props.filters,
+  (newVal) => {
+    Object.assign(localFilters, newVal)
+  }
 )
 
-
-
-const getInputComponent = (type: string) => {
-  switch (type) {
-    case 'text':
-    case 'number':
-    case 'date':
-    case 'time':
-    case 'datetime':
-      return 'input'
-    case 'select':
-    case 'multi-select':
-      return 'select'
-    default:
-      return 'input'
-  }
+function onFilterChange() {
+  emit('update:filters', { ...localFilters })
 }
+
+const headers = [
+  { text: "#", type: "text", options: undefined, width: undefined },
+  { text: "Column 1", type: "text", options: undefined, width: undefined },
+  { text: "Column 2", type: "text", options: undefined, width: undefined },
+  { text: "Column 3", type: "text", options: undefined, width: undefined },
+  { text: "Column 4", type: "text", options: undefined, width: undefined },
+  { text: "Column 5", type: "text", options: undefined, width: undefined },
+  { text: "Column 6", type: "text", options: undefined, width: undefined }
+];
+
+const rows = Array.from({ length: 8 }, (_, i) => [
+  i + 1,
+  "Example",
+  "Example",
+  "circle", // This will render the gray circle
+  "Example",
+  "Example",
+  "Example"
+]);
 </script>
 
 <style scoped>
 @reference "assets/css/main.css";
-
-.ui-table-wrapper {
-  @apply w-full overflow-x-auto shadow-md sm:rounded-lg;
+.table-container {
+  @apply p-2 shadow-md rounded-lg bg-white ;
 }
-
-.ui-table {
-  @apply w-full  text-left table-auto  bg-white  ;
+.table-title {
+  @apply py-3.5 px-2 text-base font-bold;
 }
-.ui-thead {
-  @apply text-xs text-gray-shade-400 uppercase  border-y border-gray-tint-200 ;
+.custom-table {
+  @apply w-full text-sm table text-gray-shade-500;
+  border-collapse: separate;
+  border-spacing: 0;
 }
-.ui-th {
-  @apply px-6 py-3  ;
+.table-th, .table-td {
+  @apply px-2 py-2 text-center align-middle;
 }
-.ui-input {
-  @apply w-28 border border-gray-tint-650 rounded-md p-1 text-center bg-transparent text-gray-shade-400 placeholder:text-gray-shade-400 placeholder:text-3xs placeholder:font-light text-3xs font-light;
+.table-th {
+  @apply font-medium bg-white border border-gray-tint-200 text-center;
 }
-.ui-action-text {
-  @apply font-medium;
+.table-row-odd {
+  @apply bg-white;
 }
-:deep(.ui-table) tbody tr:nth-child(odd) {
-  @apply bg-transparent;
+.table-row-even {
+  @apply bg-gray-tint-200 rounded-sm;
 }
-:deep(.ui-table) tbody tr:nth-child(even) {
-  @apply bg-gray-tint-200;
+.table-circle {
+  @apply inline-block w-8 h-8 rounded-full bg-gray-shade-200;
 }
-:deep(.ui-table),
-:deep(.ui-table tr) {
-  @apply border-none text-center;
+.table-filter-input {
+  @apply border py-1.5 px-3 bg-white text-center placeholder:text-center placeholder:text-gray-shade-400;
 }
 </style>
