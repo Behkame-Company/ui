@@ -431,7 +431,13 @@
       <div class="w-1/4 px-2">
         <h5 class="text-start mt-4 mb-4 text-xl">Pin Code</h5>
 
+        <UiInputPinCode class="my-4 w-52" size="xs" />
         <UiInputPinCode class="my-4 w-52" size="sm" />
+        <UiInputPinCode class="my-4 w-52" size="md" />
+        <UiInputPinCode class="my-4 w-52" size="lg" />
+        <UiInputPinCode class="my-4 w-52" size="xl" />
+
+
       </div>
       <div class="w-1/4 px-2">
         <h5 class="text-start mt-4 mb-4 text-xl">Text Area</h5>
@@ -956,7 +962,7 @@
       <UiTag text="Info" type="info" prefixIcon="InfoCircle" />
       <UiTag text="Closable" type="error" closeable />
       <UiTag text="Closable" type="light-purple" />
-      <UiTag text="All" type="success" closeable />
+      <UiTag text="All" type="success" closeable  prefixIcon="InfoCircle" />
     </div>
     <div class="p-6">
       <UiTable :headers="headers">
@@ -978,13 +984,20 @@
         </tr>
       </UiTable>
     </div>
-    <div class="my-4">
+    <h6 class="text-start mt-4 mb-4 text-xl">File Input</h6>
+
+    <div class=" flex flex-row gap-2 my-4">
       <UiInputFile
-        chooseText="Choose file"
-        placeholder="No file choosen"
-        accept="image/*"
+        :chooseText="'Choose file'"
+        :placeholder="'No file choosen'"
+        
+        
       />
-    
+      <UiInputFile
+        placeholder="No file choosen"
+        :icon="'InfoCircle'"
+        :size="20"
+      />
     </div>
   </div>
 </template>

@@ -1,7 +1,14 @@
 <template>
-  <div class="ui-input-pin-code-container" :class="{ 'ui-input-pin-code-container-focused': focused, 'ui-input-pin-code-container-disabled': disabled }" >
+  <div
+    :class="[
+      'ui-input-pin-code-container',
+      `ui-input-pin-code-container-${props.size}`,
+      gap_class,
+      { 'ui-input-pin-code-container-focused': focused, 'ui-input-pin-code-container-disabled': disabled }
+    ]"
+  >
 
-    <input v-for="i in length" min="0" :key="i"  type="number" class="ui-input-pin-code" :class="`${size_class} ${disabled_class} ${element_focused_class[i-1]}`" :disabled="disabled" maxlength="1" :id="local_ids[i-1]" @input="(e: any) => onUpdate(i-1, e)" @focus="(e: any) => onFocus(i-1)" @blur="(e: any) => onBlur(i-1)" />
+    <input v-for="i in length" min="0" :key="i"  type="number" class="ui-input-pin-code no-spinner" :class="`${size_class} ${disabled_class} ${element_focused_class[i-1]}`" :disabled="disabled" maxlength="1" :id="local_ids[i-1]" @input="(e: any) => onUpdate(i-1, e)" @focus="(e: any) => onFocus(i-1)" @blur="(e: any) => onBlur(i-1)" />
 
   </div>
 </template>
@@ -15,7 +22,7 @@ const props = defineProps({
   size: {
     type: String,
     default: 'sm', // valid values: sm, md, lg, xl
-    validator: (value: string) => ['sm', 'md', 'lg', 'xl'].includes(value)
+    validator: (value: string) => ['xs','sm', 'md', 'lg', 'xl'].includes(value)
   },
   length: {
     type: Number,
@@ -25,6 +32,17 @@ const props = defineProps({
     type: Boolean, 
     default: false, // pass this variable true if you want the input to get disabled 
   }, 
+})
+
+const gap_class = computed(() => {
+  switch (props.size) {
+    case 'lg':
+      return 'gap-2'
+    case 'xl':
+      return 'gap-2.5'
+    default:
+      return 'gap-1.5'
+  }
 })
 
 const emit = defineEmits<{
@@ -105,9 +123,23 @@ const onBlur = (index: number) => {
 @reference "assets/css/main.css";
 
 .ui-input-pin-code-container {
-  @apply overflow-hidden flex justify-center items-center border border-gray-tint-650 rounded-sm transition-all ;
+  @apply flex w-[max-content] items-center border border-gray-tint-650 transition-all overflow-hidden rounded-sm;
 }
-
+.ui-input-pin-code-container-xs {
+  @apply py-2 px-1.5; /* 8px 6px */
+}
+.ui-input-pin-code-container-sm {
+  @apply py-2.5 px-2; /* 10px 8px */
+}
+.ui-input-pin-code-container-md {
+  @apply py-3 px-2.5; /* 12px 10px */
+}
+.ui-input-pin-code-container-lg {
+  @apply py-3 px-3; /* 12px 12px */
+}
+.ui-input-pin-code-container-xl {
+  @apply py-4 px-4; /* 16px 16px */
+}
 .ui-input-pin-code-container-disabled {
   @apply opacity-50 cursor-not-allowed ;
 }
@@ -117,7 +149,7 @@ const onBlur = (index: number) => {
 }
 
 .ui-input-pin-code {
-    @apply ring-0 focus:ring-0 text-gray-shade-800 placeholder:text-gray-shade-400 transition-all text-center border-b-1 border-gray-shade-400;    
+    @apply ring-0 focus:ring-0 text-gray-shade-800 placeholder:text-gray-shade-400  transition-all text-center border-b-1 border-gray-shade-400;    
 }
 
 .ui-input-pin-code-focus {
@@ -134,9 +166,36 @@ const onBlur = (index: number) => {
 
 /* ===== size ===== */
 
- .ui-input-pin-code-sm {
-  @apply w-8 mx-2 pb-1 mb-2 mt-1.5 text-sm; 
+.ui-input-pin-code-xs {
+  @apply w-4.5 pb-1  text-2xs; 
 }
 
+.ui-input-pin-code-sm {
+  @apply w-5 pb-1 text-xs ;
+}
+
+.ui-input-pin-code-md {
+  @apply w-6  pb-1  text-sm; 
+}
+
+.ui-input-pin-code-lg {
+  @apply w-6  pb-1  text-base; 
+}
+
+.ui-input-pin-code-xl {
+  @apply w-6 pb-1 text-h6; /* 8px horizontal space */
+}
+
+/* Hide spinners/arrows in number input for Chrome, Safari, Edge, Opera */
+input[type="number"].no-spinner::-webkit-inner-spin-button,
+input[type="number"].no-spinner::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide spinners/arrows in number input for Firefox */
+input[type="number"].no-spinner {
+  -moz-appearance: textfield;
+}
 
 </style>
