@@ -7,7 +7,7 @@
       class="hidden"
     />
     <label
-      :class="[disabled_class]"
+      :class="[disabledClass]"
       class="ui-checkbox-input"
       @click.prevent="toggleCheckbox"
     >
@@ -16,18 +16,18 @@
           v-if="model"
           iconName="TickSquare"
           class="ui-checkbox-icon-color"
-          :size="size_icon_class"
+          :size="sizeIconClass"
           type="bold"
         />
 
         <span
           v-else
           class="checkbox-border"
-          :class="[checkbox_class, size_class]"
+          :class="[checkboxClass, sizeClass]"
         ></span>
       </div>
 
-      <span :class="[text_size_class]" class="ui-checkbox-title">{{
+      <span :class="[textSizeClass]" class="ui-checkbox-title">{{
         title
       }}</span>
     </label>
@@ -53,17 +53,17 @@ const props = defineProps({
   },
 });
 
-const checkbox_class = computed(() => {
+const checkboxClass = computed(() => {
   return model.value
     ? "bg-primary border-primary"
     : "border-gray-shade-50 bg-transparent";
 });
 
-const disabled_class = computed(() => ({
+const disabledClass = computed(() => ({
   "ui-checkbox-disabled": props.disabled,
 }));
 
-const size_class = computed(() => {
+const sizeClass = computed(() => {
   switch (props.size) {
     case "lg":
       return "ui-checkbox-lg";
@@ -76,7 +76,7 @@ const size_class = computed(() => {
   }
 });
 
-const size_icon_class = computed(() => {
+const sizeIconClass = computed(() => {
   switch (props.size) {
     case "lg":
       return 24;
@@ -89,7 +89,7 @@ const size_icon_class = computed(() => {
   }
 });
 
-const text_size_class = computed(() => {
+const textSizeClass = computed(() => {
   switch (props.size) {
     case "lg":
       return "ui-checkbox-text-lg";

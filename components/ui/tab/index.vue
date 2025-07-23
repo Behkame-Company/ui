@@ -10,11 +10,11 @@
         @click="select_tab(index)"
         :class="[
           'ui-tab-base',        // Base styles for all tabs
-          tab_style,            // Dynamic style class based on `type` prop
-          size_style,
+          tabStyle,            // Dynamic style class based on `type` prop
+          sizeClass,
           selectedIndex === index
-            ? `${tab_style}-active`     // Active state class
-            : `${tab_style}-inactive`,  // Inactive state class
+            ? `${tabStyle}-active`     // Active state class
+            : `${tabStyle}-inactive`,  // Inactive state class
         ]"
       >
         {{ tab }}
@@ -74,7 +74,7 @@ function select_tab(index: number) {
 }
 
 // Compute tab style class based on the `type` prop
-const tab_style = computed(() => {
+const tabStyle = computed(() => {
   switch (props.type) {
     case "filled":
       return "ui-tab-filled";
@@ -89,7 +89,7 @@ const tab_style = computed(() => {
   }
 });
 
-const size_style = computed(() => {
+const sizeClass = computed(() => {
   switch (props.size) {
     case "sm":
       return "ui-tab-text-sm";

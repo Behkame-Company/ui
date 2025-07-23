@@ -1,15 +1,11 @@
 <template>
-  
-    <a
-      class="ui-link-text"
-      :href
-      :class="{ [size_class]: true, [color_class]: true }"
-      >{{ props.text }}</a
-    >
- 
+  <NuxtLink
+    class="ui-link-text"
+    :to="href"
+    :class="[sizeClass, colorClass]"
+  >{{ text }}</NuxtLink>
 </template>
 <script lang="ts" setup>
-
 const props = defineProps({
   text: {
     type: String,
@@ -38,11 +34,12 @@ const props = defineProps({
     type: String,
     default: "md", // set this to the size of the link
     validator: (value: string) =>
-      ["xs", "sm", "md", "lg", "xl"].includes(value),
+      ["xs", "sm", "md", "lg", "xl"]
+      .includes(value),
   },
 });
 
-const color_class = computed<string>(() => {
+const colorClass = computed<string>(() => {
   switch (props.color) {
     case "primary":
       return "ui-link-primary";
@@ -69,7 +66,7 @@ const color_class = computed<string>(() => {
   }
 });
 
-const size_class = computed<string>(() => {
+const sizeClass = computed<string>(() => {
   switch (props.size) {
     case "xl":
       return "ui-link-text-xl";

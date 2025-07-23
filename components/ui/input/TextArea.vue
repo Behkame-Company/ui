@@ -1,12 +1,7 @@
 <template>
-  <textarea class="ui-input-text-area" :class="size_class" :name="name" :placeholder="placeholder" :disabled="disabled" v-model="local_data" />
+  <textarea class="ui-input-text-area" :class="sizeClass" :name="name" :placeholder="placeholder" :disabled="disabled" v-model="localData" />
 </template>
 <script setup lang="ts">
-
-const model = defineModel<string>({
-  required: true
-})
-
 const props = defineProps({
   name: {
     type: String,
@@ -26,9 +21,9 @@ const props = defineProps({
     default: false, // pass this variable true if you want the input text area to get disabled 
   }, 
 }) 
-const local_data = ref<string>("")
+const localData = ref<string>("")
 
-const size_class = computed<string>(() => `ui-input-text-area-${props.size}`)
+const sizeClass = computed<string>(() => `ui-input-text-area-${props.size}`)
 
 </script>
 <style>

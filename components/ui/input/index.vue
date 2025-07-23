@@ -4,33 +4,33 @@
     :class="[
       focused ? 'ui-input-container-focused' : '',
       disabled ? 'ui-input-container-disabled' : '',
-      prefix_callback ? 'gap-2' : 'gap-1',
-      suffix_callback ? 'gap-2' : 'gap-1',
+      prefixCallback ? 'gap-2' : 'gap-1',
+      suffixCallback ? 'gap-2' : 'gap-1',
     ]"
   >
     <div
       class="ui-input-prefix-icon"
-      v-if="prefix_icon"
+      v-if="prefixIcon"
       :class="[
-        prefix_callback ? 'ui-input-prefix-icon-pointer' : '',
+        prefixCallback ? 'ui-input-prefix-icon-pointer' : '',
         disabled ? 'ui-input-prefix-icon-disabled' : '',
         focused
-          ? prefix_callback
+          ? prefixCallback
             ? 'ui-input-prefix-icon-pointer-focused'
             : 'ui-input-prefix-icon-focused'
           : '',
       ]"
       :disabled="disabled"
     >
-      <VsxIcon :iconName="prefix_icon" :size="icon_size_class" type="bold" />
+      <VsxIcon :iconName="prefixIcon" :size="iconSizeClass" type="bold" />
     </div>
 
     <input
       type="text"
       class="ui-input"
       :class="[
-        size_class,
-        !prefix_icon ? 'pl-2' : 'pl-0',
+        sizeClass,
+        !prefixIcon ? 'pl-2' : 'pl-0',
         focused ? 'ui-input-focus' : '',
         disabled ? 'ui-input-disabled' : '',
       ]"
@@ -44,19 +44,19 @@
 
     <div
       class="ui-input-suffix-icon"
-      v-if="suffix_icon"
+      v-if="suffixIcon"
       :class="[
-        suffix_callback ? 'ui-input-suffix-icon-pointer' : '',
+        suffixCallback ? 'ui-input-suffix-icon-pointer' : '',
         disabled ? 'ui-input-suffix-icon-disabled' : '',
         focused
-          ? suffix_callback
+          ? suffixCallback
             ? 'ui-input-suffix-icon-pointer-focused'
             : 'ui-input-suffix-icon-focused'
           : '',
       ]"
       :disabled="disabled"
     >
-      <VsxIcon :iconName="suffix_icon" :size="icon_size_class" type="bold" />
+      <VsxIcon :iconName="suffixIcon" :size="iconSizeClass" type="bold" />
     </div>
   </div>
 </template>
@@ -79,19 +79,19 @@ const props = defineProps({
     default: "md", // valid values: sm, md, lg, xl
     validator: (value: string) => ["sm", "md", "lg", "xl"].includes(value),
   },
-  prefix_icon: {
+  prefixIcon: {
     type: String,
     default: "", // choose icon name form iconify, example: `uil:bolt-alt`
   },
-  prefix_callback: {
+  prefixCallback: {
     type: Function || null,
     default: null, // if you put some callback value it will get new style for prefix icon
   },
-  suffix_icon: {
+  suffixIcon: {
     type: String,
     default: "", // choose icon name form iconify, example: `uil:bolt-alt`
   },
-  suffix_callback: {
+  suffixCallback: {
     type: Function || null,
     default: null, // if you put some callback value it will get new style for suffix icon
   },
@@ -103,9 +103,9 @@ const props = defineProps({
 
 const focused = ref<boolean>(false);
 
-const size_class = computed<string>(() => `ui-input-${props.size}`);
+const sizeClass = computed<string>(() => `ui-input-${props.size}`);
 
-const icon_size_class = computed<number>(() => {
+const iconSizeClass = computed<number>(() => {
   switch (props.size) {
     case "xl": return 20;
     case "lg": return 18;

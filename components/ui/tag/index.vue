@@ -1,6 +1,6 @@
 <template>
   <!-- Only render the tag if it's visible -->
-  <div v-if="visible" class="ui-tag" :class="[type_class, spacing_class]">
+  <div v-if="visible" class="ui-tag" :class="[typeClass, spacingClass]">
     <!-- Optional prefix icon -->
     <VsxIcon v-if="prefixIcon" :iconName="prefixIcon" class="ui-tag-icon" />
 
@@ -78,7 +78,7 @@ const visible = ref<boolean>(true);
 // Dynamic Spacing Class Logic
 // ------------------------------
 // Determine padding and gap styles based on tag content
-const spacing_class = computed<string>(() => {
+const spacingClass = computed<string>(() => {
   if (props.prefixIcon && !props.closeable) return "py-1.5 pl-4 pr-7 gap-x-1";
   if (!props.prefixIcon && props.closeable && !props.text) return "py-1 px-4";
   if (!props.prefixIcon && props.closeable && props.text) return "py-1 pl-3 pr-2 gap-x-1";
@@ -90,7 +90,7 @@ const spacing_class = computed<string>(() => {
 // Type-based Class
 // ------------------------------
 // Builds class like "ui-tag-color-primary" based on the `type` prop
-const type_class = computed<string>(() => `ui-tag-color-${props.type}`);
+const typeClass = computed<string>(() => `ui-tag-color-${props.type}`);
 
 // ------------------------------
 // Close Button Handler

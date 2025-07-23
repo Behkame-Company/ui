@@ -1,15 +1,15 @@
 <template>
-  <label class="ui-toggle" :class="disabled_class">
+  <label class="ui-toggle" :class="disabledClass">
     <input
       type="checkbox"
       class="sr-only"
       :disabled="disabled"
       v-model="model"
     />
-    <span class="ui-toggle-input" :class="[input_bg_class , size_input_class]">
-      <span class="ui-toggle-butoon" :class="[button_bg_class ,size_button_class]"></span>
+    <span class="ui-toggle-input" :class="[inputBgClass , sizeInputClass]">
+      <span class="ui-toggle-butoon" :class="[buttonBgClass ,sizeButtonClass]"></span>
     </span>
-    <span class="ui-toggle-title" :class="text_size_class">
+    <span class="ui-toggle-title" :class="textSizeClass">
       {{ label }}
     </span>
   </label>
@@ -36,18 +36,18 @@ const props = defineProps({
   
 });
 
-const input_bg_class = computed(() => {
+const inputBgClass = computed(() => {
   return model.value
     ? "bg-primary border-primary justify-end"
     : "bg-transparent border border-gray-shade-50 justify-start";
 });
-const button_bg_class = computed(() => {
+const buttonBgClass = computed(() => {
   return model.value ? "bg-white" : "bg-gray-shade-50";
 });
-const disabled_class = computed(() => ({
+const disabledClass = computed(() => ({
   'ui-toggle-disabled': props.disabled,
 }))
-const size_input_class = computed<string>(() => {
+const sizeInputClass = computed<string>(() => {
   switch (props.size) {
     
     case "lg":
@@ -61,7 +61,7 @@ const size_input_class = computed<string>(() => {
       return "ui-toggle-input-md";
   }
 });
-const size_button_class = computed<string>(() => {
+const sizeButtonClass = computed<string>(() => {
   switch (props.size) {
     
     case "lg":
@@ -76,7 +76,7 @@ const size_button_class = computed<string>(() => {
   }
 });
 
-const text_size_class = computed<string>(() => {
+const textSizeClass = computed<string>(() => {
   switch (props.size) {
     
     case "lg":

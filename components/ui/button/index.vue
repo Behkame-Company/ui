@@ -4,45 +4,35 @@
     @click="onTap"
     :disabled="disabled"
     :class="{
-      [size_class]: true,
-      [color_class]: true,
+      [sizeClass]: true,
+      [colorClass]: true,
       'ui-button-disabled': disabled,
       'ui-button-loading': loading,
-      'ui-button-with-prefix': prefix_icon,
-      'ui-button-with-suffix': suffix_icon,
-      'ui-button-with-both-icons': prefix_icon && suffix_icon,
+      'ui-button-with-prefix': prefixIcon,
+      'ui-button-with-suffix': suffixIcon,
+      'ui-button-with-both-icons': prefixIcon && suffixIcon,
     }"
   >
     <UiLoadingSpinner v-if="loading" :size="props.size"  />
 
     <template v-else>
-      <!-- <Icon
-        v-if="prefix_icon"
-        :class="`${prefix_icon_class}`"
-        :name="prefix_icon"
-        :size="props.size"
-      /> -->
+  
       <VsxIcon
-        v-if="prefix_icon"
-        :class="prefix_icon_class"
-        :iconName="prefix_icon"
-        :size="prefix_icon_size"
+        v-if="prefixIcon"
+        :class="prefixIconClass"
+        :iconName="prefixIcon"
+        :size="prefixIconSize"
         type="bold"
       />
-      <span :class="`${text_size_class}`">
+      <span :class="`${textSizeClass}`">
         <slot />
       </span>
-      <!-- <Icon
-        v-if="suffix_icon"
-        :class="`${suffix_icon_class}`"
-        :name="suffix_icon"
-        :size="props.size"
-      /> -->
+    
       <VsxIcon
-        v-if="suffix_icon"
-        :class="suffix_icon_class"
-        :iconName="suffix_icon"
-        :size="suffix_icon_size"
+        v-if="suffixIcon"
+        :class="suffixIconClass"
+        :iconName="suffixIcon"
+        :size="suffixIconSize "
         type="bold"
       />
     </template>
@@ -82,11 +72,11 @@ const props = defineProps({
         "low-contrast",
       ].includes(value),
   },
-  suffix_icon: {
+  suffixIcon: {
     type: String,
     default: "", // set this name of the icon to add to the suffix of the button
   },
-  prefix_icon: {
+  prefixIcon: {
     type: String,
     default: "", // set this name of the icon to add to the prefix of the button
   },
@@ -98,7 +88,7 @@ const emit = defineEmits<{
 
 const onTap = () => emit("tap");
 
-const color_class = computed<string>(() => {
+const colorClass = computed<string>(() => {
   switch (props.color) {
     case "primary":
       return "ui-button-primary";
@@ -125,7 +115,7 @@ const color_class = computed<string>(() => {
   }
 });
 
-const size_class = computed<string>(() => {
+const sizeClass = computed<string>(() => {
   switch (props.size) {
     case "xl":
       return "ui-button-xl";
@@ -142,7 +132,7 @@ const size_class = computed<string>(() => {
   }
 });
 
-const text_size_class = computed<string>(() => {
+const textSizeClass = computed<string>(() => {
   switch (props.size) {
     case "xl":
       return "ui-button-text-xl";
@@ -159,7 +149,7 @@ const text_size_class = computed<string>(() => {
   }
 });
 
-const prefix_icon_class = computed<string>(() => {
+const prefixIconClass = computed<string>(() => {
   switch (props.size) {
     case "xl": return "ui-button-prefix-icon-xl";
     case "lg": return "ui-button-prefix-icon-lg";
@@ -170,7 +160,7 @@ const prefix_icon_class = computed<string>(() => {
   }
 });
 
-const prefix_icon_size = computed<number>(() => {
+const prefixIconSize = computed<number>(() => {
   switch (props.size) {
     case "xl": return 24;
     case "lg": return 20;
@@ -180,7 +170,7 @@ const prefix_icon_size = computed<number>(() => {
     default: return 16;
   }
 });
-const suffix_icon_size = computed<number>(() => {
+const suffixIconSize = computed<number>(() => {
   switch (props.size) {
     case "xl": return 24;
     case "lg": return 20;
@@ -190,7 +180,7 @@ const suffix_icon_size = computed<number>(() => {
     default: return 16;
   }
 });
-const suffix_icon_class = computed<string>(() => {
+const suffixIconClass = computed<string>(() => {
   switch (props.size) {
     case "xl":
       return "ui-button-suffix-icon-xl";

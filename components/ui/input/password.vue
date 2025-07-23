@@ -7,9 +7,9 @@
     }"
   >
     <input
-      :type="input_type"
+      :type="inputType"
       class="ui-input-password"
-      :class="`${size_class} ${focused ? 'ui-input-password-focus' : ''} ${
+      :class="`${sizeClass} ${focused ? 'ui-input-password-focus' : ''} ${
         disabled ? 'ui-input-password-disabled' : ''
       }`"
       :name="name"
@@ -27,7 +27,7 @@
      
       @click="toggleShowPassword"
     >
-      <VsxIcon :iconName="icon_name" :size="icon_size_class"  type="linear" />
+      <VsxIcon :iconName="iconName" :size="iconSizeClass"  type="linear" />
     </div>
   </div>
 </template>
@@ -56,21 +56,21 @@ const props = defineProps({
   },
 });
 
-const show_password = ref<boolean>(false);
+const showPassword = ref<boolean>(false);
 
 const focused = ref<boolean>(false);
 
-const size_class = computed<string>(() => `ui-input-${props.size}`);
+const sizeClass = computed<string>(() => `ui-input-${props.size}`);
 
-const input_type = computed<string>(() =>
-  show_password.value ? "text" : "password"
+const inputType = computed<string>(() =>
+  showPassword.value ? "text" : "password"
 );
 
-const icon_name = computed<string>(() =>
-  show_password.value ? "Eye" : "EyeSlash"
+const iconName = computed<string>(() =>
+  showPassword.value ? "Eye" : "EyeSlash"
 );
 
-const icon_size_class = computed<string>(() => {
+const iconSizeClass = computed<string>(() => {
   switch (props.size) {
     case "sm":
       return "14px";
@@ -88,7 +88,7 @@ const icon_size_class = computed<string>(() => {
 const toggleShowPassword = () => {
   if (props.disabled) return;
 
-  show_password.value = !show_password.value;
+  showPassword.value = !showPassword.value;
 };
 
 const onFocus = () => (focused.value = true);

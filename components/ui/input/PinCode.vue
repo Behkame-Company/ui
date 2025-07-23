@@ -3,12 +3,12 @@
     :class="[
       'ui-input-pin-code-container',
       `ui-input-pin-code-container-${props.size}`,
-      gap_class,
+      gapClass,
       { 'ui-input-pin-code-container-focused': focused, 'ui-input-pin-code-container-disabled': disabled }
     ]"
   >
 
-    <input v-for="i in length" min="0" :key="i"  type="number" class="ui-input-pin-code no-spinner" :class="`${size_class} ${disabled_class} ${element_focused_class[i-1]}`" :disabled="disabled" maxlength="1" :id="local_ids[i-1]" @input="(e: any) => onUpdate(i-1, e)" @focus="(e: any) => onFocus(i-1)" @blur="(e: any) => onBlur(i-1)" />
+    <input v-for="i in length" min="0" :key="i"  type="number" class="ui-input-pin-code no-spinner" :class="`${sizeClass} ${disabledClass} ${elementFocusedClass[i-1]}`" :disabled="disabled" maxlength="1" :id="localIds[i-1]" @input="(e: any) => onUpdate(i-1, e)" @focus="(e: any) => onFocus(i-1)" @blur="(e: any) => onBlur(i-1)" />
 
   </div>
 </template>
@@ -34,7 +34,7 @@ const props = defineProps({
   }, 
 })
 
-const gap_class = computed(() => {
+const gapClass = computed(() => {
   switch (props.size) {
     case 'lg':
       return 'gap-2'
@@ -54,31 +54,31 @@ const model = ref<string>(props.default_value)
 
 const focused = ref<boolean>(false)
 
-const elemet_focused = ref<Record<number, boolean>>({})
+const elemetFocused = ref<Record<number, boolean>>({})
 
-const local_ids = ref<Record<number, string>>({})
+const localIds = ref<Record<number, string>>({})
 
-const element_focused_class = computed<Record<number, string>>(() => {
+const elementFocusedClass = computed<Record<number, string>>(() => {
 
   const data: Record<number, string> = {}
 
   for( let i = 0; i < props.length; i++ )
-    data[i] = elemet_focused.value[i] ? 'ui-input-pin-code-element-focused' : ''
+    data[i] = elemetFocused.value[i] ? 'ui-input-pin-code-element-focused' : ''
 
   return data
 })
 
-const disabled_class = computed<string>(() => props.disabled ? 'ui-input-pin-code-disabled' : '')
+const disabledClass = computed<string>(() => props.disabled ? 'ui-input-pin-code-disabled' : '')
 
-const size_class = computed<string>(() => `ui-input-pin-code-${props.size}`)
+const sizeClass = computed<string>(() => `ui-input-pin-code-${props.size}`)
 
 onMounted(() => {
 
   for( let i = 0; i < props.length; i++ ) {
 
-    local_ids.value[i] = Math.random().toString(36).substring(2, 15) + `ui-input-pin-code-${i}`
+    localIds.value[i] = Math.random().toString(36).substring(2, 15) + `ui-input-pin-code-${i}`
 
-    elemet_focused.value[i] = false
+    elemetFocused.value[i] = false
   }
 })
 
@@ -90,30 +90,30 @@ const onUpdate = (index: number, e: any) => {
 
   if( index == props.length - 1 ) {
 
-    const current_input = document.getElementById(local_ids.value[index]) as HTMLInputElement
-    if( current_input )
-      current_input.blur()
+    const currentInput = document.getElementById(localIds.value[index]) as HTMLInputElement
+    if( currentInput )
+      currentInput.blur()
 
     emit('submit')
   } else {
     
     // focus on next input 
-    const next_input = document.getElementById(local_ids.value[index + 1]) as HTMLInputElement
-    if( next_input ) {
-      next_input.focus()
+    const nextInput = document.getElementById(localIds.value[index + 1]) as HTMLInputElement
+    if( nextInput ) {
+      nextInput.focus()
     }
   }
 }
 
 const onFocus = (index: number) => {
 
-  elemet_focused.value[index] = true
+  elemetFocused.value[index] = true
   focused.value = true
 }
 
 const onBlur = (index: number) => {
 
-  elemet_focused.value[index] = false
+  elemetFocused.value[index] = false
   focused.value = false
 }
 

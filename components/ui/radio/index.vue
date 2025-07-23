@@ -1,5 +1,5 @@
 <template>
-  <label class="ui-radio" :class="disabled_class">
+  <label class="ui-radio" :class="disabledClass ">
     <input
       type="radio"
       :value="value"
@@ -7,8 +7,8 @@
       v-model="model"
       :disabled="disabled"
     />
-    <div class="ui-radio-input" :class="[size_class]"></div>
-    <span :class="text_size_class">{{ label }}</span>
+    <div class="ui-radio-input" :class="[sizeClass]"></div>
+    <span :class="textSizeClass">{{ label }}</span>
   </label>
 </template>
 
@@ -35,11 +35,11 @@ const props = defineProps({
   },
 });
 
-const disabled_class = computed(() => ({
+const disabledClass = computed(() => ({
   "ui-radio-disabled": props.disabled,
 }));
 
-const size_class = computed(() => {
+const sizeClass = computed(() => {
   switch (props.size) {
     case "lg":
       return "ui-radio-lg";
@@ -52,7 +52,7 @@ const size_class = computed(() => {
   }
 });
 
-const text_size_class = computed(() => {
+const textSizeClass = computed(() => {
   switch (props.size) {
     case "lg":
       return "ui-radio-label-lg";
