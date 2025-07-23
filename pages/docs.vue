@@ -1095,7 +1095,7 @@
 
   <UiModalPopUp
     v-if="showPopup"
-    icon="Party"
+    icon="Airdrop"
     title="Success"
     body="Body text.\nyou can type anything here"
     confirmText="Yes"
