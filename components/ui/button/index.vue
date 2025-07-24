@@ -24,7 +24,7 @@
         :size="prefixIconSize"
         type="bold"
       />
-      <span :class="`${textSizeClass}`">
+      <span :class="`${textSizeClass} ui-button-text text-${props.textAlign}`">
         <slot />
       </span>
     
@@ -79,6 +79,11 @@ const props = defineProps({
   prefixIcon: {
     type: String,
     default: "", // set this name of the icon to add to the prefix of the button
+  },
+  textAlign: {
+    type: String,
+    default: "center", // "left", "center", "right"
+    validator: (value: string) => ["left", "center", "right"].includes(value),
   },
 });
 
@@ -201,7 +206,7 @@ const suffixIconClass = computed<string>(() => {
 @reference "assets/css/main.css";
 
 .ui-button {
-  @apply flex items-center justify-center border-1 rounded-md transition-all cursor-pointer text-nowrap;
+  @apply flex items-center justify-center border-1 rounded-md transition-all cursor-pointer text-nowrap ;
 }
 
 .ui-button-disabled {
@@ -380,5 +385,9 @@ const suffixIconClass = computed<string>(() => {
 
 .ui-button-suffix-icon-xs {
   @apply me-0.5;
+}
+
+.ui-button-text {
+  @apply w-full;
 }
 </style>

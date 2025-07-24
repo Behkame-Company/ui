@@ -1,16 +1,19 @@
 <template>
-    <div class="ui-card" :class="sizeClass">
+    <div v-if="visible" class="ui-card" :class="sizeClass">
       <!-- Header -->
       <div class="ui-card-header" :class="headerClass" v-if="$slots.header">
         <slot name="header" />
         <!-- Icon rendering with guards -->
-        <VsxIcon
+         <button  @click="closeCard"   class="ui-card-header-icon">
+          <VsxIcon
           v-if="sizeIcon"
           iconName="CloseCircle"
-          class="ui-card-header-icon"
           :size="sizeIcon"
           type="bold"
+         
         />
+         </button>
+     
       </div>
   
       <!-- Body -->
@@ -49,6 +52,14 @@
       default: "",
     },
   });
+const  visible = ref<boolean>(true);
+  
+  const emit = defineEmits(['close']);
+  const closeCard = () => {
+  visible.value = false;
+    
+    emit('close')};
+
   
   const sizeClass = computed(() => `ui-card-${props.size}`);
   const headerClass = computed(() => `ui-card-header-${props.size}`);
@@ -89,7 +100,7 @@
 }
 
 .ui-card-header-icon {
-  @apply cursor-pointer p-0.5  text-gray-shade-800;
+  @apply cursor-pointer p-0.5  text-gray-shade-800 ;
 }
 /* shadow */
 
