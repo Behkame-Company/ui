@@ -197,7 +197,7 @@ const selectSection = (index: number): void => {
   @apply flex flex-col gap-4 mt-3;
 }
 .ui-sidebar__toggle-btn {
-  @apply absolute bottom-25 -right-4 w-8 h-8 bg-sidebar-toggle-btn text-gray-shade-800 rounded-full flex items-center justify-center cursor-pointer z-10 transition-colors duration-300;
+  @apply absolute bottom-25 -right-4 w-8 h-8 bg-gray-tint-650 text-gray-shade-800 rounded-full flex items-center hover:bg-gray-tint-800 justify-center cursor-pointer z-10 transition-colors duration-300;
 }
 .ui-sidebar__nav {
   @apply p-4 flex-1;

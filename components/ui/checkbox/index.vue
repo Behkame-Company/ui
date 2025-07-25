@@ -12,19 +12,17 @@
       @click.prevent="toggleCheckbox"
     >
       <div class="p-0.5">
-        <VsxIcon
-          v-if="model"
-          iconName="TickSquare"
-          class="ui-checkbox-icon-color"
-          :size="sizeIconClass"
-          type="bold"
-        />
-
         <span
-          v-else
           class="checkbox-border"
-          :class="[checkboxClass, sizeClass]"
-        ></span>
+          :class="[checkboxClass, sizeClass, { 'border-1': !model }]"
+        >
+          <VsxIcon
+            v-if="model"
+            iconName="TickSquare"
+            class="ui-checkbox-icon-color"
+            :size="sizeIconClass"
+            type="bold"
+        /></span>
       </div>
 
       <span :class="[textSizeClass]" class="ui-checkbox-title">{{
@@ -55,8 +53,8 @@ const props = defineProps({
 
 const checkboxClass = computed(() => {
   return model.value
-    ? "bg-primary border-primary"
-    : "border-gray-shade-50 bg-transparent";
+    ? "border-none"
+    : "border-1 border-gray-shade-50 bg-transparent";
 });
 
 const disabledClass = computed(() => ({
@@ -121,7 +119,7 @@ const toggleCheckbox = () => {
 }
 
 .checkbox-border {
-  @apply flex items-center justify-center border-1 border-gray-shade-50 rounded-md ;
+  @apply flex items-center justify-center border-1 border-gray-shade-50 rounded-md;
 }
 .ui-checkbox-lg .checkbox-border {
   @apply w-6 h-6;

@@ -22,7 +22,7 @@
       ]"
       :disabled="disabled"
     >
-      <VsxIcon :iconName="prefixIcon" :size="iconSizeClass" type="bold" />
+      <VsxIcon :iconName="prefixIcon" :size="iconSizeClass" :type="prefixIconType" />
     </div>
 
     <input
@@ -56,7 +56,7 @@
       ]"
       :disabled="disabled"
     >
-      <VsxIcon :iconName="suffixIcon" :size="iconSizeClass" type="bold" />
+      <VsxIcon :iconName="suffixIcon" :size="iconSizeClass" :type="suffixIconType" />
     </div>
   </div>
 </template>
@@ -98,6 +98,17 @@ const props = defineProps({
   disabled: {
     type: Boolean,
     default: false, // pass this variable true if you want the input to get disabled
+  },
+  prefixIconType: {
+    type: String,
+    default: "bold",
+    validator: (value: string) => ["linear", "outline", "bold", "bulk", "broken", "twotone"].includes(value)
+
+  },
+  suffixIconType: {
+    type: String,
+    default: "bold",
+    validator: (value: string) => ["linear", "outline", "bold", "bulk", "broken", "twotone"].includes(value)
   },
 });
 

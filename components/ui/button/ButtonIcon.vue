@@ -16,7 +16,7 @@
           v-if="icon"
           :iconName="icon"
           :size="iconSize"
-          type="bold"
+          :type="iconType"
         />
        
       
@@ -61,6 +61,11 @@
       default: "", // set this name of the icon to add to the prefix of the button
     },
   
+    iconType: {
+      type: String,
+      default: "bold",
+      validator: (value: string) => ["linear", "outline", "bold", "bulk", "broken", "twotone"].includes(value),
+    },
   });
   
   const emit = defineEmits<{

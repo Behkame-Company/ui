@@ -1,27 +1,42 @@
 <template>
   <div class="flex">
     <UiSidebar
-    data="Data"
+      data="Data"
       :topSections="[
         { iconName: 'User', text: 'Profile', to: '/profile' },
         { iconName: 'UserAdd', text: 'Home', to: '/' },
-        { iconName: 'User', text: 'Settings', to: '/settings' }
+        { iconName: 'User', text: 'Settings', to: '/settings' },
       ]"
       :bottomSections="[
         { iconName: 'User', text: 'Profile', to: '/profile' },
         { iconName: 'UserAdd', text: 'Home', to: '/' },
-        { iconName: 'User', text: 'Settings', to: '/settings' }
+        { iconName: 'User', text: 'Settings', to: '/settings' },
       ]"
-      :thirdSections="[
-        { iconName: 'User', text: 'Profile', to: '/profile' },
-      
-      ]"
+      :thirdSections="[{ iconName: 'User', text: 'Profile', to: '/profile' }]"
     />
-    <div class="flex-1 p-10">
+    <div class="flex-1 pl-50 pr-10 py-10">
       <!-- ...rest of your docs content... -->
       <h1 class="text-center mt-4 mb-4 text-2xl font-bold">
         Behkame Design System
       </h1>
+      <h3 class="text-start mt-4 mb-4 text-h6 font-bold">DropDown Components</h3>
+
+      <div class="flex justify-start items-start mt-4 gap-4">
+
+
+        <UiInputDropDown
+          v-model="selectedOption1"
+          :options="options"
+          placeholder="Select an option"
+        />
+
+        <UiInputMultiDropDown
+          v-model="selectedOption"
+          :options="options"
+          placeholder="Select options"
+        />
+
+      </div>
 
       <h3 class="text-start mt-4 mb-4 text-h6 font-bold">Card Components</h3>
 
@@ -147,237 +162,264 @@
           </UiCard>
         </div>
         <div class="w-1/4 px-2">
-        <UiCard size="sm">
+          <UiCard size="sm">
+            <template #header>
+              <span class="text-start text-sm">Card header SM</span>
+            </template>
+            <template #default>
+              <span class="text-start text-sm">Card Body SM</span>
+            </template>
+            <template #footer>
+              <UiButton class="w-full" size="sm" color="primary">
+                Button Footer SM</UiButton
+              >
+            </template>
+          </UiCard>
+        </div>
+      </div>
+      <div class="flex justify-around items-start p-6">
+        <UiCard
+          size="sm"
+          image="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
+        >
           <template #header>
-            <span class="text-start text-sm">Card header SM</span>
+            <span>Card header with Image</span>
           </template>
           <template #default>
-            <span class="text-start text-sm">Card Body SM</span>
+            <span
+              >This card displays an image inside the body, edge-to-edge.</span
+            >
           </template>
           <template #footer>
             <UiButton class="w-full" size="sm" color="primary">
-              Button Footer SM</UiButton
+              Button Footer SM
+            </UiButton>
+          </template>
+        </UiCard>
+        <UiCard
+          size="md"
+          image="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
+        >
+          <template #header>
+            <span>Card header with Image</span>
+          </template>
+          <template #default>
+            <span
+              >This card displays an image inside the body, edge-to-edge.</span
             >
+          </template>
+          <template #footer>
+            <UiButton class="w-full" size="md" color="primary">
+              Button Footer M
+            </UiButton>
+          </template>
+        </UiCard>
+        <UiCard
+          size="lg"
+          image="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
+        >
+          <template #header>
+            <span>Card header with Image</span>
+          </template>
+          <template #default>
+            <span
+              >This card displays an image inside the body, edge-to-edge.</span
+            >
+          </template>
+          <template #footer>
+            <UiButton class="w-full" size="lg" color="primary">
+              Button Footer Lg
+            </UiButton>
+          </template>
+        </UiCard>
+        <UiCard
+          size="xl"
+          image="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
+        >
+          <template #header>
+            <span>Card header with Image</span>
+          </template>
+          <template #default>
+            <span
+              >This card displays an image inside the body, edge-to-edge.</span
+            >
+          </template>
+          <template #footer>
+            <UiButton class="w-full" size="xl" color="primary">
+              Button Footer Xl
+            </UiButton>
           </template>
         </UiCard>
       </div>
 
-    </div>
-    <div class="flex justify-around items-start p-6">
-      <UiCard
-    size="sm"
-    image="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
-  >
-    <template #header>
-      <span >Card header with Image</span>
-    </template>
-    <template #default>
-      <span >This card displays an image inside the body, edge-to-edge.</span>
-    </template>
-    <template #footer>
-      <UiButton class="w-full" size="sm" color="primary">
-        Button Footer SM
-      </UiButton>
-    </template>
-  </UiCard>
-  <UiCard
-    size="md"
-    image="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
-  >
-    <template #header>
-      <span >Card header with Image</span>
-    </template>
-    <template #default>
-      <span >This card displays an image inside the body, edge-to-edge.</span>
-    </template>
-    <template #footer>
-      <UiButton class="w-full" size="md" color="primary">
-        Button Footer M
-      </UiButton>
-    </template>
-  </UiCard>
-  <UiCard
-    size="lg"
-    image="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
-  >
-    <template #header>
-      <span >Card header with Image</span>
-    </template>
-    <template #default>
-      <span >This card displays an image inside the body, edge-to-edge.</span>
-    </template>
-    <template #footer>
-      <UiButton class="w-full" size="lg" color="primary">
-        Button Footer Lg
-      </UiButton>
-    </template>
-  </UiCard>
-  <UiCard
-    size="xl"
-    image="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
-  >
-    <template #header>
-      <span >Card header with Image</span>
-    </template>
-    <template #default>
-      <span >This card displays an image inside the body, edge-to-edge.</span>
-    </template>
-    <template #footer>
-      <UiButton class="w-full" size="xl" color="primary">
-        Button Footer Xl
-      </UiButton>
-    </template>
-  </UiCard>
+      <h3 class="text-start mt-4 mb-4 text-h6 font-bold">Input Components</h3>
 
-    </div>
+      <div class="flex justify-start items-start">
+        <div class="w-1/4 px-2">
+          <h5 class="text-start mt-4 mb-4 text-xl">Diffrent sizes</h5>
 
+          <UiInput
+            class="my-4"
+            name="name"
+            size="sm"
+            placeholder="Input size sm"
+          />
 
-    <h3 class="text-start mt-4 mb-4 text-h6 font-bold">Input Components</h3>
+          <UiInput
+            class="my-4"
+            name="name"
+            size="sm"
+            :disabled="true"
+            placeholder="Input size sm disabled"
+          />
 
-    <div class="flex justify-start items-start">
-      <div class="w-1/4 px-2">
-        <h5 class="text-start mt-4 mb-4 text-xl">Diffrent sizes</h5>
+          <UiInput
+            class="my-4"
+            name="name"
+            size="md"
+            placeholder="Input size md"
+          />
 
-        <UiInput class="my-4" name="name" size="sm" placeholder="Input size sm" />
+          <UiInput
+            class="my-4"
+            name="name"
+            size="md"
+            :disabled="true"
+            placeholder="Input size md disabled"
+          />
 
-        <UiInput
-          class="my-4"
-          name="name"
-          size="sm"
-          :disabled="true"
-          placeholder="Input size sm disabled"
-        />
+          <UiInput
+            class="my-4"
+            name="name"
+            size="lg"
+            placeholder="Input size lg"
+          />
 
-        <UiInput class="my-4" name="name" size="md" placeholder="Input size md" />
+          <UiInput
+            class="my-4"
+            name="name"
+            size="lg"
+            :disabled="true"
+            placeholder="Input size lg disabled"
+          />
 
-        <UiInput
-          class="my-4"
-          name="name"
-          size="md"
-          :disabled="true"
-          placeholder="Input size md disabled"
-        />
+          <UiInput
+            class="my-4"
+            name="name"
+            size="xl"
+            placeholder="Input size xl"
+          />
 
-        <UiInput class="my-4" name="name" size="lg" placeholder="Input size lg" />
+          <UiInput
+            class="my-4"
+            name="name"
+            size="xl"
+            :disabled="true"
+            placeholder="Input size xl disabled"
+          />
+        </div>
 
-        <UiInput
-          class="my-4"
-          name="name"
-          size="lg"
-          :disabled="true"
-          placeholder="Input size lg disabled"
-        />
+        <div class="w-1/4 px-2">
+          <h5 class="text-start mt-4 mb-4 text-xl">Prefix and Suffix icon</h5>
 
-        <UiInput class="my-4" name="name" size="xl" placeholder="Input size xl" />
+          <UiInput
+            class="my-4"
+            prefix_icon="Flash"
+            placeholder="Input with prefix icon"
+          />
 
-        <UiInput
-          class="my-4"
-          name="name"
-          size="xl"
-          :disabled="true"
-          placeholder="Input size xl disabled"
-        />
-      </div>
+          <UiInput
+            class="my-4"
+            prefix_icon="Flash"
+            :disabled="true"
+            placeholder="Input with prefix icon disabled"
+          />
 
-      <div class="w-1/4 px-2">
-        <h5 class="text-start mt-4 mb-4 text-xl">Prefix and Suffix icon</h5>
+          <UiInput
+            class="my-4"
+            suffix_icon="Flash"
+            placeholder="Input with suffix icon"
+          />
 
-        <UiInput
-          class="my-4"
-          prefix_icon="Flash"
-          placeholder="Input with prefix icon"
-        />
+          <UiInput
+            class="my-4"
+            suffix_icon="Flash"
+            :disabled="true"
+            placeholder="Input with suffix icon disabled"
+          />
 
-        <UiInput
-          class="my-4"
-          prefix_icon="Flash"
-          :disabled="true"
-          placeholder="Input with prefix icon disabled"
-        />
+          <UiInput
+            class="my-4"
+            prefix_icon="Flash"
+            suffix_icon="Flash"
+            placeholder="Input with prefix and suffix icon"
+          />
 
-        <UiInput
-          class="my-4"
-          suffix_icon="Flash"
-          placeholder="Input with suffix icon"
-        />
+          <UiInput
+            class="my-4"
+            prefix_icon="Flash"
+            :disabled="true"
+            suffix_icon="Flash"
+            placeholder="Input with prefix and suffix icon disabled"
+          />
+        </div>
 
-        <UiInput
-          class="my-4"
-          suffix_icon="Flash"
-          :disabled="true"
-          placeholder="Input with suffix icon disabled"
-        />
+        <div class="w-1/4 px-2">
+          <h5 class="text-start mt-4 mb-4 text-xl">
+            Prefix and Suffix callback
+          </h5>
 
-        <UiInput
-          class="my-4"
-          prefix_icon="Flash"
-          suffix_icon="Flash"
-          placeholder="Input with prefix and suffix icon"
-        />
+          <UiInput
+            class="my-4"
+            prefix_icon="Flash"
+            :prefix_callback="() => {}"
+            placeholder="Input with prefix icon"
+          />
 
-        <UiInput
-          class="my-4"
-          prefix_icon="Flash"
-          :disabled="true"
-          suffix_icon="Flash"
-          placeholder="Input with prefix and suffix icon disabled"
-        />
-      </div>
+          <UiInput
+            class="my-4"
+            prefix_icon="Flash"
+            :disabled="true"
+            :prefix_callback="() => {}"
+            placeholder="Input with prefix icon"
+          />
 
-      <div class="w-1/4 px-2">
-        <h5 class="text-start mt-4 mb-4 text-xl">Prefix and Suffix callback</h5>
+          <UiInput
+            class="my-4"
+            suffix_icon="Flash"
+            :suffix_callback="() => {}"
+            placeholder="Input with suffix icon"
+          />
 
-        <UiInput
-          class="my-4"
-          prefix_icon="Flash"
-          :prefix_callback="() => {}"
-          placeholder="Input with prefix icon"
-        />
+          <UiInput
+            class="my-4"
+            suffix_icon="Flash"
+            :disabled="true"
+            :suffix_callback="() => {}"
+            placeholder="Input with suffix icon"
+          />
 
-        <UiInput
-          class="my-4"
-          prefix_icon="Flash"
-          :disabled="true"
-          :prefix_callback="() => {}"
-          placeholder="Input with prefix icon"
-        />
+          <UiInput
+            class="my-4"
+            prefix_icon="Flash"
+            :prefix_callback="() => {}"
+            suffix_icon="Flash"
+            :suffix_callback="() => {}"
+            placeholder="Input with prefix and suffix icon"
+          />
 
-        <UiInput
-          class="my-4"
-          suffix_icon="Flash"
-          :suffix_callback="() => {}"
-          placeholder="Input with suffix icon"
-        />
+          <UiInput
+            class="my-4"
+            prefix_icon="Flash"
+            :disabled="true"
+            :prefix_callback="() => {}"
+            suffix_icon="Flash"
+            :suffix_callback="() => {}"
+            placeholder="Input with prefix and suffix icon"
+          />
+        </div>
 
-        <UiInput
-          class="my-4"
-          suffix_icon="Flash"
-          :disabled="true"
-          :suffix_callback="() => {}"
-          placeholder="Input with suffix icon"
-        />
-
-        <UiInput
-          class="my-4"
-          prefix_icon="Flash"
-          :prefix_callback="() => {}"
-          suffix_icon="Flash"
-          :suffix_callback="() => {}"
-          placeholder="Input with prefix and suffix icon"
-        />
-
-        <UiInput
-          class="my-4"
-          prefix_icon="Flash"
-          :disabled="true"
-          :prefix_callback="() => {}"
-          suffix_icon="Flash"
-          :suffix_callback="() => {}"
-          placeholder="Input with prefix and suffix icon"
-        />
-      </div>
-
-      <!-- <div class="w-1/4 px-2">
+        <!-- <div class="w-1/4 px-2">
           <h5 class="text-start mt-4 mb-4 text-xl">Dropdown</h5>
 
           <UiInputDropdown
@@ -450,701 +492,727 @@
         </div>
       </div> -->
 
-      <div class="w-1/4 px-2">
-        <h5 class="text-start mt-4 mb-4 text-xl">Password</h5>
+        <div class="w-1/4 px-2">
+          <h5 class="text-start mt-4 mb-4 text-xl">Password</h5>
 
-        <UiInputPassword
-          class="my-4"
-          size="sm"
-          :disabled="true"
-          placeholder="password sm"
-        />
-
-        <UiInputPassword class="my-4" size="sm" placeholder="password sm" />
-
-        <UiInputPassword
-          class="my-4"
-          size="sm"
-          :disabled="true"
-          placeholder="password sm"
-        />
-
-        <UiInputPassword class="my-4" size="md" placeholder="password md" />
-
-        <UiInputPassword
-          class="my-4"
-          size="md"
-          :disabled="true"
-          placeholder="password md"
-        />
-
-        <UiInputPassword class="my-4" size="lg" placeholder="password lg" />
-
-        <UiInputPassword
-          class="my-4"
-          size="lg"
-          :disabled="true"
-          placeholder="password lg"
-        />
-
-        <UiInputPassword class="my-4" size="xl" placeholder="password xl" />
-
-        <UiInputPassword
-          class="my-4"
-          size="xl"
-          :disabled="true"
-          placeholder="password xl"
-        />
-      </div>
-
-      <div class="w-1/4 px-2">
-        <h5 class="text-start mt-4 mb-4 text-xl">Pin Code</h5>
-
-        <UiInputPinCode class="my-4 w-52" size="xs" />
-        <UiInputPinCode class="my-4 w-52" size="sm" />
-        <UiInputPinCode class="my-4 w-52" size="md" />
-        <UiInputPinCode class="my-4 w-52" size="lg" />
-        <UiInputPinCode class="my-4 w-52" size="xl" />
-      </div>
-      <div class="w-1/4 px-2">
-        <h5 class="text-start mt-4 mb-4 text-xl">Text Area</h5>
-
-        <UiInputTextArea class="my-4" size="sm" placeholder="Text Area size sm" />
-        <UiInputTextArea class="my-4" size="md" placeholder="Text Area size md" />
-        <UiInputTextArea class="my-4" size="lg" placeholder="Text Area size lg" />
-        <UiInputTextArea class="my-4" size="xl" placeholder="Text Area size xl" />
-      </div>
-    </div>
-
-    <h3 class="text-start mt-4 mb-4 text-xl font-bold">Button Component</h3>
-
-    <div class="flex justify-start items-start">
-      <div class="w-1/4 px-2">
-        <h5 class="text-start mt-4 mb-4 text-lg font-bold">Default</h5>
-        <UiButton color="primary" class="my-2" size="xs"> xs </UiButton>
-
-        <UiButton class="my-2" size="sm"> sm </UiButton>
-
-        <UiButton class="my-2" size="md"> md </UiButton>
-
-        <UiButton class="my-2" size="lg"> lg </UiButton>
-
-        <UiButton size="xl"> xl </UiButton>
-      </div>
-
-      <div class="w-1/4 px-2">
-        <h5 class="text-start mt-4 mb-4 text-lg font-bold">Colors</h5>
-
-        <UiButton class="my-2" color="primary"> Button Primary </UiButton>
-
-        <UiButton class="my-2" color="outline"> Button Outline </UiButton>
-
-        <UiButton class="my-2" color="secondary"> Button Secondary </UiButton>
-
-        <UiButton class="my-2" color="dark"> Button Dark </UiButton>
-
-        <UiButton class="my-2" color="error"> Button Error </UiButton>
-
-        <UiButton class="my-2" color="success"> Button Success </UiButton>
-
-        <UiButton class="my-2" color="warning"> Button Warning </UiButton>
-        <UiButton class="my-2" color="text-bt"> Button tb </UiButton>
-        <UiButton class="my-2" color="gray"> Button gray </UiButton>
-
-        <UiButton class="my-2" color="info"> Button Info </UiButton>
-      </div>
-
-      <div class="w-1/4 px-2">
-        <h5 class="text-start mt-4 mb-4 text-lg font-bold">Disabled state</h5>
-
-        <UiButton class="my-2" :disabled="true" color="primary">
-          Button Primary
-        </UiButton>
-
-        <UiButton class="my-2" :disabled="true" color="outline">
-          Button Outline
-        </UiButton>
-
-        <UiButton class="my-2" :disabled="true" color="secondary">
-          Button Secondary
-        </UiButton>
-
-        <UiButton class="my-2" :disabled="true" color="dark">
-          Button Dark
-        </UiButton>
-
-        <UiButton class="my-2" :disabled="true" color="error">
-          Button Error
-        </UiButton>
-
-        <UiButton class="my-2" :disabled="true" color="success">
-          Button Success
-        </UiButton>
-
-        <UiButton class="my-2" :disabled="true" color="warning">
-          Button Warning
-        </UiButton>
-
-        <UiButton class="my-2" :disabled="true" color="info">
-          Button Info
-        </UiButton>
-        <UiButton class="my-2" :disabled="true" color="gray">
-          Button gray
-        </UiButton>
-        <UiButton class="my-2" :disabled="true" color="text-bt">
-          Button tb
-        </UiButton>
-      </div>
-
-      <div class="w-1/4 px-2">
-        <h5 class="text-start mt-4 mb-4 text-lg font-bold">Loading state</h5>
-
-        <UiButton class="my-2" size="sm" :loading="true" color="primary">
-          Button Primary
-        </UiButton>
-
-        <UiButton class="my-2" size="md" :loading="true" color="outline">
-          Button Outline
-        </UiButton>
-
-        <UiButton class="my-2" size="lg" :loading="true" color="secondary">
-          Button Secondary
-        </UiButton>
-
-        <UiButton class="my-2" size="xl" :loading="true" color="dark">
-          Button Dark
-        </UiButton>
-
-        <UiButton class="my-2" size="sm" :loading="true" color="error">
-          Button Error
-        </UiButton>
-
-        <UiButton class="my-2" size="md" :loading="true" color="success">
-          Button Success
-        </UiButton>
-
-        <UiButton class="my-2" size="lg" :loading="true" color="warning">
-          Button Warning
-        </UiButton>
-
-        <UiButton class="my-2" size="xl" :loading="true" color="info">
-          Button Info
-        </UiButton>
-        <UiButton class="my-2" size="xl" :loading="true" color="gray">
-          Button gray
-        </UiButton>
-        <UiButton class="my-2" size="xl" :loading="true" color="text-bt">
-          Button bt
-        </UiButton>
-      </div>
-
-      <div class="w-1/4 px-2">
-        <h5 class="text-start mt-4 mb-4 text-lg font-bold">
-          Suffix / Prefix Icon
-        </h5>
-
-        <UiButton class="my-2" size="sm" suffixIcon="Flash">
-          Suffix Icon
-        </UiButton>
-
-        <UiButton class="my-2" size="md" suffixIcon="Flash">
-          Suffix Icon
-        </UiButton>
-
-        <UiButton class="my-2" size="lg" suffixIcon="Flash">
-          Suffix Icon
-        </UiButton>
-
-        <UiButton class="my-2" size="xl" suffixIcon="Flash"> 
-          Suffix Icon
-        </UiButton>
-
-        <UiButton class="my-2" size="sm" prefixIcon="Flash">
-          Prefix Icon
-        </UiButton>
-
-        <UiButton class="my-2" size="md" prefixIcon="Flash">
-          Prefix Icon
-        </UiButton>
-
-        <UiButton class="my-2" size="lg" prefixIcon="Flash">
-          Prefix Icon
-        </UiButton>
-
-        <UiButton class="my-2" size="xl" prefixIcon="Flash">
-          Prefix Icon
-        </UiButton>
-      </div>
-
-      <div class="w-1/4 px-2">
-        <h5 class="text-center font-bold">Link</h5>
-
-        <UiLink text="XL Link" color="info" href="google.com" size="xl" />
-        <UiLink text="MD Link" color="warning" size="md" />
-        <UiLink text="SM Link" color="primary" size="sm" />
-        <UiLink text="XS Link" color="dark" size="xs" />
-        <UiLink text="LG Link" color="gray" size="lg" />
-        <UiLink text="XL Link" color="error" size="xl" />
-        <UiLink text="Success Link" color="success" size="xl" />
-        <UiLink text="Warning Link" color="warning" size="xl" />
-        <UiLink text="Gray Link" color="gray" size="xl" />
-      </div>
-
-      <div class="w-1/4 px-2">
-        <h5 class="text-start mt-4 mb-4 text-lg font-bold">Radio</h5>
-        <div class="space-y-4">
-          <UiRadio
-            v-for="op in options"
-            :key="op.value"
-            v-model="selectedRadio"
-            name="myRadio"
-            :value="op.value"
-            :label="op.label"
+          <UiInputPassword
+            class="my-4"
             size="sm"
+            :disabled="true"
+            placeholder="password sm"
           />
-          <UiRadio name="myRadio" value="option2" label="SM Radio" size="sm" />
-          <UiRadio name="myRadio" value="option3" label="MD Radio" size="md" />
-          <UiRadio name="myRadio" value="option4" label="LG Radio" size="lg" />
-          <UiRadio
-            name="myRadio"
-            value="option5"
-            label="Disabled Radio"
+
+          <UiInputPassword class="my-4" size="sm" placeholder="password sm" />
+
+          <UiInputPassword
+            class="my-4"
+            size="sm"
+            :disabled="true"
+            placeholder="password sm"
+          />
+
+          <UiInputPassword class="my-4" size="md" placeholder="password md" />
+
+          <UiInputPassword
+            class="my-4"
             size="md"
             :disabled="true"
+            placeholder="password md"
+          />
+
+          <UiInputPassword class="my-4" size="lg" placeholder="password lg" />
+
+          <UiInputPassword
+            class="my-4"
+            size="lg"
+            :disabled="true"
+            placeholder="password lg"
+          />
+
+          <UiInputPassword class="my-4" size="xl" placeholder="password xl" />
+
+          <UiInputPassword
+            class="my-4"
+            size="xl"
+            :disabled="true"
+            placeholder="password xl"
+          />
+        </div>
+
+        <div class="w-1/4 px-2">
+          <h5 class="text-start mt-4 mb-4 text-xl">Pin Code</h5>
+
+          <UiInputPinCode class="my-4 w-52" size="xs" />
+          <UiInputPinCode class="my-4 w-52" size="sm" />
+          <UiInputPinCode class="my-4 w-52" size="md" />
+          <UiInputPinCode class="my-4 w-52" size="lg" />
+          <UiInputPinCode class="my-4 w-52" size="xl" />
+        </div>
+        <div class="w-1/4 px-2">
+          <h5 class="text-start mt-4 mb-4 text-xl">Text Area</h5>
+
+          <UiInputTextArea
+            class="my-4"
+            size="sm"
+            placeholder="Text Area size sm"
+          />
+          <UiInputTextArea
+            class="my-4"
+            size="md"
+            placeholder="Text Area size md"
+          />
+          <UiInputTextArea
+            class="my-4"
+            size="lg"
+            placeholder="Text Area size lg"
+          />
+          <UiInputTextArea
+            class="my-4"
+            size="xl"
+            placeholder="Text Area size xl"
           />
         </div>
       </div>
 
-      <div class="flex flex-col w-1/4 px-2">
-        <h5 class="text-start mt-4 mb-4 text-lg font-bold">Toggle</h5>
-        <UiToggle v-model="isToggled" label="LG Toggle" size="lg" />
-        <UiToggle v-model="isToggled" label="MD Toggle" size="md" />
+      <h3 class="text-start mt-4 mb-4 text-xl font-bold">Button Component</h3>
 
-        <UiToggle v-model="isToggled" label="SM Toggle" size="sm" />
+      <div class="flex justify-start items-start">
+        <div class="w-1/4 px-2">
+          <h5 class="text-start mt-4 mb-4 text-lg font-bold">Default</h5>
+          <UiButton color="primary" class="my-2" size="xs"> xs </UiButton>
 
-        <UiToggle
-          v-model="isToggled1"
-          label="Disabled Toggle"
-          size="lg"
-          :disabled="true"
-        />
+          <UiButton class="my-2" size="sm"> sm </UiButton>
+
+          <UiButton class="my-2" size="md"> md </UiButton>
+
+          <UiButton class="my-2" size="lg"> lg </UiButton>
+
+          <UiButton size="xl"> xl </UiButton>
+        </div>
+
+        <div class="w-1/4 px-2">
+          <h5 class="text-start mt-4 mb-4 text-lg font-bold">Colors</h5>
+
+          <UiButton class="my-2" color="primary"> Button Primary </UiButton>
+
+          <UiButton class="my-2" color="outline"> Button Outline </UiButton>
+
+          <UiButton class="my-2" color="secondary"> Button Secondary </UiButton>
+
+          <UiButton class="my-2" color="dark"> Button Dark </UiButton>
+
+          <UiButton class="my-2" color="error"> Button Error </UiButton>
+
+          <UiButton class="my-2" color="success"> Button Success </UiButton>
+
+          <UiButton class="my-2" color="warning"> Button Warning </UiButton>
+          <UiButton class="my-2" color="text-bt"> Button tb </UiButton>
+          <UiButton class="my-2" color="gray"> Button gray </UiButton>
+
+          <UiButton class="my-2" color="info"> Button Info </UiButton>
+        </div>
+
+        <div class="w-1/4 px-2">
+          <h5 class="text-start mt-4 mb-4 text-lg font-bold">Disabled state</h5>
+
+          <UiButton class="my-2" :disabled="true" color="primary">
+            Button Primary
+          </UiButton>
+
+          <UiButton class="my-2" :disabled="true" color="outline">
+            Button Outline
+          </UiButton>
+
+          <UiButton class="my-2" :disabled="true" color="secondary">
+            Button Secondary
+          </UiButton>
+
+          <UiButton class="my-2" :disabled="true" color="dark">
+            Button Dark
+          </UiButton>
+
+          <UiButton class="my-2" :disabled="true" color="error">
+            Button Error
+          </UiButton>
+
+          <UiButton class="my-2" :disabled="true" color="success">
+            Button Success
+          </UiButton>
+
+          <UiButton class="my-2" :disabled="true" color="warning">
+            Button Warning
+          </UiButton>
+
+          <UiButton class="my-2" :disabled="true" color="info">
+            Button Info
+          </UiButton>
+          <UiButton class="my-2" :disabled="true" color="gray">
+            Button gray
+          </UiButton>
+          <UiButton class="my-2" :disabled="true" color="text-bt">
+            Button tb
+          </UiButton>
+        </div>
+
+        <div class="w-1/4 px-2">
+          <h5 class="text-start mt-4 mb-4 text-lg font-bold">Loading state</h5>
+
+          <UiButton class="my-2" size="sm" :loading="true" color="primary">
+            Button Primary
+          </UiButton>
+
+          <UiButton class="my-2" size="md" :loading="true" color="outline">
+            Button Outline
+          </UiButton>
+
+          <UiButton class="my-2" size="lg" :loading="true" color="secondary">
+            Button Secondary
+          </UiButton>
+
+          <UiButton class="my-2" size="xl" :loading="true" color="dark">
+            Button Dark
+          </UiButton>
+
+          <UiButton class="my-2" size="sm" :loading="true" color="error">
+            Button Error
+          </UiButton>
+
+          <UiButton class="my-2" size="md" :loading="true" color="success">
+            Button Success
+          </UiButton>
+
+          <UiButton class="my-2" size="lg" :loading="true" color="warning">
+            Button Warning
+          </UiButton>
+
+          <UiButton class="my-2" size="xl" :loading="true" color="info">
+            Button Info
+          </UiButton>
+          <UiButton class="my-2" size="xl" :loading="true" color="gray">
+            Button gray
+          </UiButton>
+          <UiButton class="my-2" size="xl" :loading="true" color="text-bt">
+            Button bt
+          </UiButton>
+        </div>
+
+        <div class="w-1/4 px-2">
+          <h5 class="text-start mt-4 mb-4 text-lg font-bold">
+            Suffix / Prefix Icon
+          </h5>
+
+          <UiButton class="my-2" size="sm" suffixIcon="Flash">
+            Suffix Icon
+          </UiButton>
+
+          <UiButton class="my-2" size="md" suffixIcon="Flash">
+            Suffix Icon
+          </UiButton>
+
+          <UiButton class="my-2" size="lg" suffixIcon="Flash">
+            Suffix Icon
+          </UiButton>
+
+          <UiButton class="my-2" size="xl" suffixIcon="Flash">
+            Suffix Icon
+          </UiButton>
+
+          <UiButton class="my-2" size="sm" prefixIcon="Flash">
+            Prefix Icon
+          </UiButton>
+
+          <UiButton class="my-2" size="md" prefixIcon="Flash">
+            Prefix Icon
+          </UiButton>
+
+          <UiButton class="my-2" size="lg" prefixIcon="Flash">
+            Prefix Icon
+          </UiButton>
+
+          <UiButton class="my-2" size="xl" prefixIcon="Flash">
+            Prefix Icon
+          </UiButton>
+        </div>
+
+        <div class="w-1/4 px-2">
+          <h5 class="text-center font-bold">Link</h5>
+
+          <UiLink text="XL Link" color="info" href="google.com" size="xl" />
+          <UiLink text="MD Link" color="warning" size="md" />
+          <UiLink text="SM Link" color="primary" size="sm" />
+          <UiLink text="XS Link" color="dark" size="xs" />
+          <UiLink text="LG Link" color="gray" size="lg" />
+          <UiLink text="XL Link" color="error" size="xl" />
+          <UiLink text="Success Link" color="success" size="xl" />
+          <UiLink text="Warning Link" color="warning" size="xl" />
+          <UiLink text="Gray Link" color="gray" size="xl" />
+        </div>
+
+        <div class="w-1/4 px-2">
+          <h5 class="text-start mt-4 mb-4 text-lg font-bold">Radio</h5>
+          <div class="space-y-4">
+            <UiRadio
+              v-for="op in options"
+              :key="op.value"
+              v-model="selectedRadio"
+              name="myRadio"
+              :value="op.value"
+              :label="op.label"
+              size="sm"
+            />
+            <UiRadio
+              name="myRadio"
+              value="option2"
+              label="SM Radio"
+              size="sm"
+            />
+            <UiRadio
+              name="myRadio"
+              value="option3"
+              label="MD Radio"
+              size="md"
+            />
+            <UiRadio
+              name="myRadio"
+              value="option4"
+              label="LG Radio"
+              size="lg"
+            />
+            <UiRadio
+              name="myRadio"
+              value="option5"
+              label="Disabled Radio"
+              size="md"
+              :disabled="true"
+            />
+          </div>
+        </div>
+
+        <div class="flex flex-col w-1/4 px-2">
+          <h5 class="text-start mt-4 mb-4 text-lg font-bold">Toggle</h5>
+          <UiToggle v-model="isToggled" label="LG Toggle" size="lg" />
+          <UiToggle v-model="isToggled" label="MD Toggle" size="md" />
+
+          <UiToggle v-model="isToggled" label="SM Toggle" size="sm" />
+
+          <UiToggle
+            v-model="isToggled1"
+            label="Disabled Toggle"
+            size="lg"
+            :disabled="true"
+          />
+        </div>
+
+        <div class="w-1/4 px-2 space-x-2">
+          <h5 class="text-start mt-4 mb-4 text-lg font-bold">Checkbox</h5>
+          <UiCheckbox v-model="isAccepted2" title="Small Size" size="sm" />
+          <UiCheckbox v-model="isAccepted" title="Medium Size" size="md" />
+          <UiCheckbox v-model="isAccepted3" title="Large Size" size="lg" />
+          <UiCheckbox
+            v-model="isAccepted1"
+            title="Disabled Large Size"
+            size="lg"
+            :disabled="true"
+          />
+        </div>
+      </div>
+      <h3 class="text-start mt-4 mb-4 text-xl font-bold">
+        toast-alert Component
+      </h3>
+      <div class="flex flex-row gap-2 my-4">
+        <div class="flex flex-col w-1/4 gap-2">
+          <UiToastSnackbarAlert
+            color="primary"
+            size="lg"
+            cancel_icon="material-symbols:cancel-outline"
+            body_text="hi its my message"
+            title="Message"
+            icon_size="lg"
+            prefix_icon="material-symbols:electric-bolt-rounded"
+            :auto_dismiss="false"
+          />
+          <UiToastSnackbarAlert
+            color="outline"
+            size="lg"
+            cancel_icon="material-symbols:cancel-outline"
+            body_text="hi its my message"
+            title="Message"
+            icon_size="lg"
+            prefix_icon="material-symbols:electric-bolt-rounded"
+            :auto_dismiss="false"
+          />
+          <UiToastSnackbarAlert
+            color="dark"
+            size="lg"
+            cancel_icon="material-symbols:cancel-outline"
+            body_text="hi it my message"
+            title="Message"
+            icon_size="lg"
+            prefix_icon="material-symbols:electric-bolt-rounded"
+            :auto_dismiss="false"
+          />
+          <UiToastSnackbarAlert
+            color="error"
+            size="lg"
+            cancel_icon="material-symbols:cancel-outline"
+            body_text="hi it my message"
+            title="Message"
+            icon_size="lg"
+            prefix_icon="material-symbols:electric-bolt-rounded"
+            :auto_dismiss="false"
+          />
+          <UiToastSnackbarAlert
+            color="success"
+            size="lg"
+            cancel_icon="material-symbols:cancel-outline"
+            body_text="hi it my message"
+            title="Message"
+            icon_size="lg"
+            prefix_icon="material-symbols:electric-bolt-rounded"
+            :auto_dismiss="false"
+          />
+          <UiToastSnackbarAlert
+            color="warning"
+            size="lg"
+            cancel_icon="material-symbols:cancel-outline"
+            body_text="hi it my message"
+            title="Message"
+            icon_size="lg"
+            prefix_icon="material-symbols:electric-bolt-rounded"
+            :auto_dismiss="false"
+          />
+          <UiToastSnackbarAlert
+            color="info"
+            size="lg"
+            cancel_icon="material-symbols:cancel-outline"
+            body_text="hi it my message"
+            title="Message"
+            icon_size="lg"
+            prefix_icon="material-symbols:electric-bolt-rounded"
+            :auto_dismiss="false"
+          />
+        </div>
+        <div class="flex flex-col w-1/4 gap-2">
+          <UiToastSnackbarAlert
+            color="primary"
+            size="lg"
+            cancel_icon="material-symbols:cancel-outline"
+            title="Message"
+            icon_size="lg"
+            prefix_icon="material-symbols:electric-bolt-rounded"
+            :auto_dismiss="false"
+          />
+          <UiToastSnackbarAlert
+            color="outline"
+            size="lg"
+            cancel_icon="material-symbols:cancel-outline"
+            title="Message"
+            icon_size="lg"
+            prefix_icon="material-symbols:electric-bolt-rounded"
+            :auto_dismiss="false"
+          />
+          <UiToastSnackbarAlert
+            color="dark"
+            size="lg"
+            cancel_icon="material-symbols:cancel-outline"
+            title="Message"
+            icon_size="lg"
+            prefix_icon="material-symbols:electric-bolt-rounded"
+            :auto_dismiss="false"
+          />
+          <UiToastSnackbarAlert
+            color="error"
+            size="lg"
+            cancel_icon="material-symbols:cancel-outline"
+            title="Message"
+            icon_size="lg"
+            prefix_icon="material-symbols:electric-bolt-rounded"
+            :auto_dismiss="false"
+          />
+          <UiToastSnackbarAlert
+            color="success"
+            size="lg"
+            cancel_icon="material-symbols:cancel-outline"
+            title="Message"
+            icon_size="lg"
+            prefix_icon="material-symbols:electric-bolt-rounded"
+            :auto_dismiss="false"
+          />
+          <UiToastSnackbarAlert
+            color="warning"
+            size="lg"
+            cancel_icon="material-symbols:cancel-outline"
+            title="Message"
+            icon_size="lg"
+            prefix_icon="material-symbols:electric-bolt-rounded"
+            :auto_dismiss="false"
+          />
+          <UiToastSnackbarAlert
+            color="info"
+            size="lg"
+            cancel_icon="material-symbols:cancel-outline"
+            title="Message"
+            icon_size="lg"
+            prefix_icon="material-symbols:electric-bolt-rounded"
+            :auto_dismiss="false"
+          />
+        </div>
+        <div class="flex flex-col w-1/4 gap-2">
+          <UiToastSnackbarAlert
+            color="primary"
+            size="sm"
+            title="Message"
+            icon_size="sm"
+            prefix_icon="material-symbols:electric-bolt-rounded"
+            :auto_dismiss="true"
+            :timer="30"
+          />
+          <UiToastSnackbarAlert
+            color="outline"
+            size="sm"
+            title="Message"
+            icon_size="sm"
+            prefix_icon="material-symbols:electric-bolt-rounded"
+            :auto_dismiss="true"
+            :timer="30"
+          />
+          <UiToastSnackbarAlert
+            color="dark"
+            size="sm"
+            title="Message"
+            icon_size="sm"
+            prefix_icon="material-symbols:electric-bolt-rounded"
+            :auto_dismiss="true"
+            :timer="30"
+          />
+          <UiToastSnackbarAlert
+            color="error"
+            size="sm"
+            title="Message"
+            icon_size="sm"
+            prefix_icon="material-symbols:electric-bolt-rounded"
+            :auto_dismiss="true"
+            :timer="30"
+          />
+          <UiToastSnackbarAlert
+            color="success"
+            size="sm"
+            title="Message"
+            icon_size="sm"
+            prefix_icon="material-symbols:electric-bolt-rounded"
+            :auto_dismiss="true"
+            :timer="30"
+          />
+          <UiToastSnackbarAlert
+            color="warning"
+            size="sm"
+            title="Message"
+            icon_size="sm"
+            prefix_icon="material-symbols:electric-bolt-rounded"
+            :auto_dismiss="true"
+            :timer="30"
+          />
+          <UiToastSnackbarAlert
+            color="info"
+            size="sm"
+            title="Message"
+            icon_size="sm"
+            prefix_icon="material-symbols:electric-bolt-rounded"
+            :auto_dismiss="true"
+            :timer="30"
+          />
+        </div>
+      </div>
+      <h6 class="text-start mt-4 mb-4 text-xl">Tabs</h6>
+      <div>bordered/rounded/text/defualt/filled</div>
+
+      <div class="flex flex-row gap-2 my-4">
+        <UiTab type="bordered" />
+        <UiTab type="rounded" />
+        <UiTab type="text" />
+        <UiTab type="defualt" />
+        <UiTab type="filled" />
+      </div>
+      <div>sm</div>
+      <div class="flex flex-row gap-2 my-4">
+        <UiTab type="bordered" size="sm" />
+        <UiTab type="rounded" size="sm" />
+        <UiTab type="text" size="sm" />
+        <UiTab type="defualt" size="sm" />
+        <UiTab type="filled" size="sm" />
+      </div>
+      <div>md</div>
+      <div class="flex flex-row gap-2 my-4">
+        <UiTab type="bordered" size="md " />
+        <UiTab type="rounded" size="md" />
+        <UiTab type="text" size="md" />
+        <UiTab type="defualt" size="md" />
+        <UiTab type="filled" size="md" />
+      </div>
+      <div>lg</div>
+      <div class="flex flex-row gap-2 my-4">
+        <UiTab type="bordered" size="lg" />
+        <UiTab type="rounded" size="lg" />
+        <UiTab type="text" size="lg" />
+        <UiTab type="defualt" size="lg" />
+        <UiTab type="filled" size="lg" />
       </div>
 
-      <div class="w-1/4 px-2 space-x-2">
-        <h5 class="text-start mt-4 mb-4 text-lg font-bold">Checkbox</h5>
-        <UiCheckbox v-model="isAccepted2" title="Small Size" size="sm" />
-        <UiCheckbox v-model="isAccepted" title="Medium Size" size="md" />
-        <UiCheckbox v-model="isAccepted3" title="Large Size" size="lg" />
-        <UiCheckbox
-          v-model="isAccepted1"
-          title="Disabled Large Size"
-          size="lg"
-          :disabled="true"
-        />
-      </div>
-    </div>
-    <h3 class="text-start mt-4 mb-4 text-xl font-bold">toast-alert Component</h3>
-    <div class="flex flex-row gap-2 my-4">
-      <div class="flex flex-col w-1/4 gap-2">
-        <UiToastSnackbarAlert
-          color="primary"
-          size="lg"
-          cancel_icon="material-symbols:cancel-outline"
-          body_text="hi its my message"
-          title="Message"
-          icon_size="lg"
-          prefix_icon="material-symbols:electric-bolt-rounded"
-          :auto_dismiss="false"
-        />
-        <UiToastSnackbarAlert
-          color="outline"
-          size="lg"
-          cancel_icon="material-symbols:cancel-outline"
-          body_text="hi its my message"
-          title="Message"
-          icon_size="lg"
-          prefix_icon="material-symbols:electric-bolt-rounded"
-          :auto_dismiss="false"
-        />
-        <UiToastSnackbarAlert
-          color="dark"
-          size="lg"
-          cancel_icon="material-symbols:cancel-outline"
-          body_text="hi it my message"
-          title="Message"
-          icon_size="lg"
-          prefix_icon="material-symbols:electric-bolt-rounded"
-          :auto_dismiss="false"
-        />
-        <UiToastSnackbarAlert
-          color="error"
-          size="lg"
-          cancel_icon="material-symbols:cancel-outline"
-          body_text="hi it my message"
-          title="Message"
-          icon_size="lg"
-          prefix_icon="material-symbols:electric-bolt-rounded"
-          :auto_dismiss="false"
-        />
-        <UiToastSnackbarAlert
-          color="success"
-          size="lg"
-          cancel_icon="material-symbols:cancel-outline"
-          body_text="hi it my message"
-          title="Message"
-          icon_size="lg"
-          prefix_icon="material-symbols:electric-bolt-rounded"
-          :auto_dismiss="false"
-        />
-        <UiToastSnackbarAlert
-          color="warning"
-          size="lg"
-          cancel_icon="material-symbols:cancel-outline"
-          body_text="hi it my message"
-          title="Message"
-          icon_size="lg"
-          prefix_icon="material-symbols:electric-bolt-rounded"
-          :auto_dismiss="false"
-        />
-        <UiToastSnackbarAlert
-          color="info"
-          size="lg"
-          cancel_icon="material-symbols:cancel-outline"
-          body_text="hi it my message"
-          title="Message"
-          icon_size="lg"
-          prefix_icon="material-symbols:electric-bolt-rounded"
-          :auto_dismiss="false"
-        />
-      </div>
-      <div class="flex flex-col w-1/4 gap-2">
-        <UiToastSnackbarAlert
-          color="primary"
-          size="lg"
-          cancel_icon="material-symbols:cancel-outline"
-          title="Message"
-          icon_size="lg"
-          prefix_icon="material-symbols:electric-bolt-rounded"
-          :auto_dismiss="false"
-        />
-        <UiToastSnackbarAlert
-          color="outline"
-          size="lg"
-          cancel_icon="material-symbols:cancel-outline"
-          title="Message"
-          icon_size="lg"
-          prefix_icon="material-symbols:electric-bolt-rounded"
-          :auto_dismiss="false"
-        />
-        <UiToastSnackbarAlert
-          color="dark"
-          size="lg"
-          cancel_icon="material-symbols:cancel-outline"
-          title="Message"
-          icon_size="lg"
-          prefix_icon="material-symbols:electric-bolt-rounded"
-          :auto_dismiss="false"
-        />
-        <UiToastSnackbarAlert
-          color="error"
-          size="lg"
-          cancel_icon="material-symbols:cancel-outline"
-          title="Message"
-          icon_size="lg"
-          prefix_icon="material-symbols:electric-bolt-rounded"
-          :auto_dismiss="false"
-        />
-        <UiToastSnackbarAlert
-          color="success"
-          size="lg"
-          cancel_icon="material-symbols:cancel-outline"
-          title="Message"
-          icon_size="lg"
-          prefix_icon="material-symbols:electric-bolt-rounded"
-          :auto_dismiss="false"
-        />
-        <UiToastSnackbarAlert
-          color="warning"
-          size="lg"
-          cancel_icon="material-symbols:cancel-outline"
-          title="Message"
-          icon_size="lg"
-          prefix_icon="material-symbols:electric-bolt-rounded"
-          :auto_dismiss="false"
-        />
-        <UiToastSnackbarAlert
-          color="info"
-          size="lg"
-          cancel_icon="material-symbols:cancel-outline"
-          title="Message"
-          icon_size="lg"
-          prefix_icon="material-symbols:electric-bolt-rounded"
-          :auto_dismiss="false"
-        />
-      </div>
-      <div class="flex flex-col w-1/4 gap-2">
-        <UiToastSnackbarAlert
-          color="primary"
-          size="sm"
-          title="Message"
-          icon_size="sm"
-          prefix_icon="material-symbols:electric-bolt-rounded"
-          :auto_dismiss="true"
-          :timer="30"
-        />
-        <UiToastSnackbarAlert
-          color="outline"
-          size="sm"
-          title="Message"
-          icon_size="sm"
-          prefix_icon="material-symbols:electric-bolt-rounded"
-          :auto_dismiss="true"
-          :timer="30"
-        />
-        <UiToastSnackbarAlert
-          color="dark"
-          size="sm"
-          title="Message"
-          icon_size="sm"
-          prefix_icon="material-symbols:electric-bolt-rounded"
-          :auto_dismiss="true"
-          :timer="30"
-        />
-        <UiToastSnackbarAlert
-          color="error"
-          size="sm"
-          title="Message"
-          icon_size="sm"
-          prefix_icon="material-symbols:electric-bolt-rounded"
-          :auto_dismiss="true"
-          :timer="30"
-        />
-        <UiToastSnackbarAlert
-          color="success"
-          size="sm"
-          title="Message"
-          icon_size="sm"
-          prefix_icon="material-symbols:electric-bolt-rounded"
-          :auto_dismiss="true"
-          :timer="30"
-        />
-        <UiToastSnackbarAlert
-          color="warning"
-          size="sm"
-          title="Message"
-          icon_size="sm"
-          prefix_icon="material-symbols:electric-bolt-rounded"
-          :auto_dismiss="true"
-          :timer="30"
-        />
-        <UiToastSnackbarAlert
-          color="info"
-          size="sm"
-          title="Message"
-          icon_size="sm"
-          prefix_icon="material-symbols:electric-bolt-rounded"
-          :auto_dismiss="true"
-          :timer="30"
-        />
-      </div>
-    </div>
-    <h6 class="text-start mt-4 mb-4 text-xl">Tabs</h6>
-    <div>bordered/rounded/text/defualt/filled</div>
+      <div class="felx flex-col gap-5 py-10">
+        <h6 class="text-start mt-4 mb-4 text-xl">Pagination</h6>
 
-    <div class="flex flex-row gap-2 my-4">
-      <UiTab type="bordered" />
-      <UiTab type="rounded" />
-      <UiTab type="text" />
-      <UiTab type="defualt" />
-      <UiTab type="filled" />
-    </div>
-    <div>sm</div>
-    <div class="flex flex-row gap-2 my-4">
-      <UiTab type="bordered" size="sm" />
-      <UiTab type="rounded" size="sm" />
-      <UiTab type="text" size="sm" />
-      <UiTab type="defualt" size="sm" />
-      <UiTab type="filled" size="sm" />
-    </div>
-    <div>md</div>
-    <div class="flex flex-row gap-2 my-4">
-      <UiTab type="bordered" size="md " />
-      <UiTab type="rounded" size="md" />
-      <UiTab type="text" size="md" />
-      <UiTab type="defualt" size="md" />
-      <UiTab type="filled" size="md" />
-    </div>
-    <div>lg</div>
-    <div class="flex flex-row gap-2 my-4">
-      <UiTab type="bordered" size="lg" />
-      <UiTab type="rounded" size="lg" />
-      <UiTab type="text" size="lg" />
-      <UiTab type="defualt" size="lg" />
-      <UiTab type="filled" size="lg" />
-    </div>
+        <UiPagination
+          :currentPage="currentPage"
+          :perPage="perPage"
+          :total="total"
+          @update:currentPage="(val) => (currentPage = val)"
+          @update:perPage="(val) => (perPage = val)"
+          type="defualt"
+          class="mb-4"
+        />
+        <UiPagination
+          :currentPage="currentPage"
+          :perPage="perPage"
+          :total="total"
+          @update:currentPage="(val) => (currentPage = val)"
+          @update:perPage="(val) => (perPage = val)"
+          type="bordered"
+        />
+      </div>
+      <h6 class="text-start mt-4 mb-4 text-xl">Tags</h6>
 
-    <div class="felx flex-col gap-5 py-10">
-      <h6 class="text-start mt-4 mb-4 text-xl">Pagination</h6>
+      <div class="flex gap-x-3 mb-4">
+        <UiTag text="Primary" type="primary" />
+        <UiTag text="Secondary" type="secondary" />
+        <UiTag text="Success" type="success" />
+        <UiTag text="Warning" type="warning" />
+        <UiTag text="Error" type="error" />
+        <UiTag text="Gray" type="gray" />
+        <UiTag text="Blue" type="blue" />
+        <UiTag text="Info" type="info" prefixIcon="InfoCircle" />
+        <UiTag text="Closable" type="error" closeable />
+        <UiTag text="Closable" type="light-purple" />
+        <UiTag text="All" type="success" closeable prefixIcon="InfoCircle" />
+      </div>
+      <UiTable :headers="headers" v-model="rows" />
+      <h6 class="text-start mt-4 mb-4 text-xl">File Input</h6>
 
-      <UiPagination
-        :currentPage="currentPage"
-        :perPage="perPage"
-        :total="total"
-        @update:currentPage="(val) => (currentPage = val)"
-        @update:perPage="(val) => (perPage = val)"
-        type="defualt"
-        class="mb-4"
+      <div class="flex flex-row gap-2 my-4">
+        <UiInputFile
+          :chooseText="'Choose file'"
+          :placeholder="'No file choosen'"
+        />
+        <UiInputFile
+          placeholder="No file choosen"
+          :icon="'InfoCircle'"
+          :size="20"
+        />
+      </div>
+      <div>
+        <h6 class="text-start mt-4 mb-4 text-xl">List</h6>
+
+        <UiList title="List" :items="list_items.map((item) => item.text)" />
+      </div>
+      <div class="flex flex-row gap-2 my-4">
+        <button
+          @click="showModal = true"
+          class="px-4 py-2 bg-blue-600 text-white rounded-sm"
+        >
+          Open Modal1
+        </button>
+        <UiModal v-model="showModal" size="sm">
+          <template #header> Modal Title </template>
+          <template #body>
+            <p>This is the modal body content.</p>
+          </template>
+          <template #footer>
+            <UiButton color="primary" size="sm"> Button Footer sm </UiButton>
+          </template>
+        </UiModal>
+        <button
+          @click="showModal1 = true"
+          class="px-4 py-2 bg-blue-600 text-white rounded-sm"
+        >
+          Open Modal2
+        </button>
+        <UiModal v-model="showModal1" size="md">
+          <template #header> Modal Title </template>
+          <template #body>
+            <p>This is the modal body content.</p>
+          </template>
+          <template #footer size="md">
+            <UiButton color="primary" size="md"> Button Footer md </UiButton>
+          </template>
+        </UiModal>
+        <button
+          @click="showModal2 = true"
+          class="px-4 py-2 bg-blue-600 text-white rounded-sm"
+        >
+          Open Modal3
+        </button>
+        <UiModal v-model="showModal2" size="lg">
+          <template #header> Modal Title </template>
+          <template #body>
+            <p>This is the modal body content.</p>
+          </template>
+          <template #footer>
+            <UiButton color="primary" size="lg"> Button Footer lg </UiButton>
+          </template>
+        </UiModal>
+        <button
+          @click="showModal3 = true"
+          class="px-4 py-2 bg-blue-600 text-white rounded-sm"
+        >
+          Open Modal4
+        </button>
+        <UiModal v-model="showModal3" size="xl">
+          <template #header> Modal Title </template>
+          <template #body>
+            <p>This is the modal body content.</p>
+          </template>
+          <template #footer>
+            <UiButton color="primary" size="xl"> Button Footer xl </UiButton>
+          </template>
+        </UiModal>
+      </div>
+      <button
+        @click="showPopup = true"
+        class="bg-blue-600 text-white px-4 py-2 rounded-lg"
+      >
+        Open PopUp
+      </button>
+
+      <UiModalPopUp
+        v-if="showPopup"
+        icon="Airdrop"
+        title="Success"
+        body="Body text.\nyou can type anything here"
+        confirmText="Yes"
+        cancelText="No"
+        @confirm="showPopup = false"
+        @cancel="showPopup = false"
       />
-      <UiPagination
-        :currentPage="currentPage"
-        :perPage="perPage"
-        :total="total"
-        @update:currentPage="(val) => (currentPage = val)"
-        @update:perPage="(val) => (perPage = val)"
-        type="bordered"
-      />
     </div>
-    <h6 class="text-start mt-4 mb-4 text-xl">Tags</h6>
-
-    <div class="flex gap-x-3 mb-4">
-      <UiTag text="Primary" type="primary" />
-      <UiTag text="Secondary" type="secondary" />
-      <UiTag text="Success" type="success" />
-      <UiTag text="Warning" type="warning" />
-      <UiTag text="Error" type="error" />
-      <UiTag text="Gray" type="gray" />
-      <UiTag text="Blue" type="blue" />
-      <UiTag text="Info" type="info" prefixIcon="InfoCircle" />
-      <UiTag text="Closable" type="error" closeable />
-      <UiTag text="Closable" type="light-purple" />
-      <UiTag text="All" type="success" closeable prefixIcon="InfoCircle" />
-    </div>
-    <UiTable :headers="headers" v-model="rows" />
-    <h6 class="text-start mt-4 mb-4 text-xl">File Input</h6>
-
-    <div class="flex flex-row gap-2 my-4">
-      <UiInputFile :chooseText="'Choose file'" :placeholder="'No file choosen'" />
-      <UiInputFile
-        placeholder="No file choosen"
-        :icon="'InfoCircle'"
-        :size="20"
-      />
-    </div>
-    <div>
-      <h6 class="text-start mt-4 mb-4 text-xl">List</h6>
-
-      <UiList title="List" :items="list_items.map((item) => item.text)" />
-    </div>
-    <div class="flex flex-row gap-2 my-4">
-      <button @click="showModal = true" class="px-4 py-2 bg-blue-600 text-white rounded-sm">
-      Open Modal1
-    </button>
-    <UiModal v-model="showModal" size="sm">
-      <template #header>
-        Modal Title
-      </template>
-      <template #body>
-        <p>This is the modal body content.</p>
-      </template>
-      <template #footer >
-        <UiButton  color="primary" size="sm">
-        Button Footer sm
-      </UiButton>
-
-      </template>
-
-    </UiModal>
-    <button @click="showModal1 = true" class="px-4 py-2 bg-blue-600 text-white  rounded-sm">
-      Open Modal2
-    </button>
-    <UiModal v-model="showModal1" size="md">
-      <template #header>
-        Modal Title
-      </template>
-      <template #body>
-        <p>This is the modal body content.</p>
-      </template>
-      <template #footer size="md">
-        <UiButton color="primary" size="md">
-        Button Footer md
-      </UiButton>
-      </template>
-    </UiModal>
-    <button @click="showModal2 = true" class="px-4 py-2 bg-blue-600 text-white  rounded-sm">
-      Open Modal3
-    </button>
-    <UiModal v-model="showModal2" size="lg">
-      <template #header>
-        Modal Title
-      </template>
-      <template #body>
-        <p>This is the modal body content.</p>
-      </template>
-      <template #footer >
-        <UiButton  color="primary" size="lg">
-        Button Footer lg
-      </UiButton>
-
-      </template>
-    </UiModal>
-    <button @click="showModal3 = true" class="px-4 py-2 bg-blue-600 text-white  rounded-sm">
-      Open Modal4
-    </button>
-    <UiModal v-model="showModal3" size="xl">
-      <template #header>
-        Modal Title
-      </template>
-      <template #body>
-        <p>This is the modal body content.</p>
-      </template>
-      <template #footer >
-        <UiButton  color="primary" size="xl">
-        Button Footer xl
-      </UiButton>
-
-      </template>
-    </UiModal>
-    </div>
-    <button
-      @click="showPopup = true"
-      class="bg-blue-600 text-white px-4 py-2 rounded-lg"
-    >
-      Open PopUp
-    </button>
-
-    <UiModalPopUp
-      v-if="showPopup"
-      icon="Airdrop"
-      title="Success"
-      body="Body text.\nyou can type anything here"
-      confirmText="Yes"
-      cancelText="No"
-      @confirm="showPopup = false"
-      @cancel="showPopup = false"
-    />
-    </div>
-    
-
   </div>
   <!-- <UiButtonIcon icon="User" size="xl" color="error" class="m-4" /> -->
 </template>
 
-
 <script setup lang="ts">
 const isToggled = ref(true);
 const isToggled1 = ref(false);
-const isAccepted2 = ref(false)
+const isAccepted2 = ref(false);
 const isAccepted3 = ref(false);
 const isAccepted = ref(false);
-const showModal = ref(false)
-const showModal1 = ref(false)
-const showModal2 = ref(false)
-const showModal3 = ref(false)
+const showModal = ref(false);
+const showModal1 = ref(false);
+const showModal2 = ref(false);
+const showModal3 = ref(false);
 
-const showPopup = ref(false)
+const showPopup = ref(false);
 
+const selectedOption = ref<string[]>([]);
+const selectedOption1 = ref<string>('');
 
-const selectedOption = ref(false);
 const dropdown_options = ref<{ label: string; value: string }[]>([
   { label: "Option 1", value: "option1" },
   { label: "Option 2", value: "option2" },

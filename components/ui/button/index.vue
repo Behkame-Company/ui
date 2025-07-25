@@ -22,7 +22,7 @@
         :class="prefixIconClass"
         :iconName="prefixIcon"
         :size="prefixIconSize"
-        type="bold"
+        :type="prefixIconType"
       />
       <span :class="`${textSizeClass} ui-button-text text-${props.textAlign}`">
         <slot />
@@ -33,7 +33,7 @@
         :class="suffixIconClass"
         :iconName="suffixIcon"
         :size="suffixIconSize "
-        type="bold"
+        :type="suffixIconType"
       />
     </template>
   </button>
@@ -84,6 +84,16 @@ const props = defineProps({
     type: String,
     default: "center", // "left", "center", "right"
     validator: (value: string) => ["left", "center", "right"].includes(value),
+  },
+  prefixIconType: {
+    type: String,
+    default: "bold",
+    validator: (value: string) => ["linear", "outline", "bold", "bulk", "broken", "twotone"].includes(value),
+  },
+  suffixIconType: {
+    type: String,
+    default: "bold",
+    validator: (value: string) => ["linear", "outline", "bold", "bulk", "broken", "twotone"].includes(value),
   },
 });
 
