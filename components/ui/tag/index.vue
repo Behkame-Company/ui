@@ -107,7 +107,7 @@ function handleClose(): void {
 
 /* Base tag style */
 .ui-tag {
-  @apply px-3  inline-flex items-center gap-2 rounded-md font-light text-3xs transition-all;
+  @apply px-3  inline-flex items-center gap-2 rounded-md font-light text-3xs transition-all duration-300;
 }
 
 /* Icon style */

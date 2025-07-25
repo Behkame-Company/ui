@@ -121,7 +121,16 @@ const toggleCheckbox = () => {
 }
 
 .checkbox-border {
-  @apply inline-flex items-center justify-center border-1  border-gray-shade-50 rounded-md gap-2;
+  @apply flex items-center justify-center border-1 border-gray-shade-50 rounded-md ;
+}
+.ui-checkbox-lg .checkbox-border {
+  @apply w-6 h-6;
+}
+.ui-checkbox-md .checkbox-border {
+  @apply w-5 h-5;
+}
+.ui-checkbox-sm .checkbox-border {
+  @apply w-4.5 h-4.5;
 }
 
 .ui-checkbox-title {

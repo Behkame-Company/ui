@@ -1,6 +1,6 @@
 
 <template>
-  <div v-if="modelValue" class="ui-modal-backdrop">
+  <div v-if="modelValue" class="ui-modal-backdrop" @click="onBackdropClick">
     <div :class="['ui-modal', sizeClass]">
       <!-- Header Slot -->
       <div class="ui-modal-header" v-if="$slots.header" :class="headerTitleClass">
@@ -77,6 +77,13 @@ const bodyTextClass = computed(() => {
 const emit = defineEmits(['update:modelValue']);
 function closeModal() {
   emit('update:modelValue', false);
+}
+
+function onBackdropClick(event: MouseEvent) {
+  // Only close if the click is on the backdrop, not inside the modal
+  if (event.target === event.currentTarget) {
+    closeModal();
+  }
 }
 </script>
 

@@ -732,12 +732,12 @@
 
       <div class="w-1/4 px-2 space-x-2">
         <h5 class="text-start mt-4 mb-4 text-lg font-bold">Checkbox</h5>
-        <UiCheckbox v-model="isAccepted2" title="Hello" size="md" />
-        <UiCheckbox v-model="isAccepted" title="I agree" size="sm" />
-        <UiCheckbox v-model="isAccepted3" title="I agree" size="lg" />
+        <UiCheckbox v-model="isAccepted2" title="Small Size" size="sm" />
+        <UiCheckbox v-model="isAccepted" title="Medium Size" size="md" />
+        <UiCheckbox v-model="isAccepted3" title="Large Size" size="lg" />
         <UiCheckbox
           v-model="isAccepted1"
-          title="I agree"
+          title="Disabled Large Size"
           size="lg"
           :disabled="true"
         />
