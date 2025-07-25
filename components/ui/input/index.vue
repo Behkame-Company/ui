@@ -199,7 +199,7 @@ const onBlur = () => (focused.value = false);
 /* ===== size ===== */
 
 .ui-input-sm {
-  @apply py-2 pr-2  text-xs placeholder:text-3xs placeholder:font-normal;
+  @apply py-2 pr-2  text-3xs placeholder:text-3xs placeholder:font-normal;
 }
 
 .ui-input-md {

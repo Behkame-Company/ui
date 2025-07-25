@@ -6,17 +6,23 @@
       'ui-input-dropdown-container-disabled': disabled,
     }"
   >
+    <!-- Main input display -->
     <div
       class="ui-input-dropdown"
-      :class="`${dropdown_size_class} ${
-        disabled ? 'ui-input-dropdown-disabled' : ''
-      } ${model ? 'ui-input-dropdown-filled' : ''}`"
+      :class="[
+        classes.dropdown,
+        {
+          'ui-input-dropdown-disabled': disabled,
+          'ui-input-dropdown-filled': model,
+        },
+      ]"
       :disabled="disabled"
       @click="toggleDropdown"
     >
-      {{ model ? model : placeholder }}
+      {{ model || placeholder }}
     </div>
 
+    <!-- Suffix icon -->
     <div
       class="ui-input-dropdown-suffix-icon"
       :class="{
@@ -26,31 +32,32 @@
       :disabled="disabled"
       @click="toggleDropdown"
     >
-      <VsxIcon
-        :iconName="toggleIcon"
-        :size="icon_size_class"
-      />
+      <VsxIcon :iconName="toggleIcon" :size="classes.iconSize" />
     </div>
 
+    <!-- Dropdown -->
     <OnClickOutside
       v-if="dropdown_openned"
       class="ui-input-dropdown-options"
-      :class="dropdown_options_size_class"
+      :class="classes.options"
       :options="{ ignore: ['.ui-input-dropdown-container'] }"
       @trigger="closeDropdown"
     >
+      <!-- Search -->
       <UiInput
         class="ui-input-dropdown-search"
         :size="size"
-        :class="dropdown_search_size_class"
+        :class="classes.search"
         v-model="search"
         placeholder="Search"
         suffixIcon="SearchNormal1"
         suffixIconType="linear"
       />
+
+      <!-- Options -->
       <div
         class="ui-input-dropdown-option"
-        :class="dropdown_option_size_class"
+        :class="classes.option"
         v-for="option in filtered_options"
         :key="option.value"
         @click="() => selectOption(option)"
@@ -60,100 +67,72 @@
     </OnClickOutside>
   </div>
 </template>
+
 <script setup lang="ts">
 import { OnClickOutside } from "@vueuse/components";
 
-const model = defineModel<string>({
-  required: true,
-});
+// v-model binding
+const model = defineModel<string>({ required: true });
 
+// Props
 const props = defineProps({
-  name: {
-    type: String,
-    default: "", // input name property
-  },
-  placeholder: {
-    type: String,
-    default: "", // place holder to show in input
-  },
+  name: { type: String, default: "" },
+  placeholder: { type: String, default: "" },
   size: {
     type: String,
-    default: "sm", // valid values: sm, md, lg, xl
+    default: "sm",
     validator: (value: string) => ["sm", "md", "lg", "xl"].includes(value),
   },
-  disabled: {
-    type: Boolean,
-    default: false, // pass this variable true if you want the input to get disabled
-  },
+  disabled: { type: Boolean, default: false },
   options: {
     type: Array<{ label: string; value: string }>,
-    default: () => [], // options to show in dropdown
+    default: () => [],
     required: true,
   },
 });
 
-const dropdown_openned = ref<boolean>(false);
+// State
+const dropdown_openned = ref(false);
+const search = ref("");
 
-const search = ref<string>("");
+// ✅ Combined classes
+const classes = computed(() => {
+  const size = props.size;
+  const iconSize = { sm: 14, md: 16, lg: 18, xl: 20 }[size] ?? 0;
 
-const dropdown_size_class = computed<string>(
-  () => `ui-input-dropdown-${props.size}`
-);
-
-const dropdown_options_size_class = computed<string>(
-  () => `ui-input-dropdown-options-${props.size}`
-);
-
-const dropdown_search_size_class = computed<string>(
-  () => `ui-input-dropdown-search-${props.size}`
-);
-
-const dropdown_option_size_class = computed<string>(
-  () => `ui-input-dropdown-option-${props.size}`
-);
-
-const icon_size_class = computed<number>(() => {
-  switch (props.size) {
-    case "sm":
-      return 14;
-    case "md":
-      return 16;
-    case "lg":
-      return 18;
-    case "xl":
-      return 20;
-  }
-
-  return 0;
+  return {
+    dropdown: `ui-input-dropdown-${size}`,
+    options: `ui-input-dropdown-options-${size}`,
+    search: `ui-input-dropdown-search-${size}`,
+    option: `ui-input-dropdown-option-${size}`,
+    iconSize,
+  };
 });
 
-
+// Computed
 const filtered_options = computed(() =>
   props.options.filter((option) =>
     option.label.toLowerCase().includes(search.value.toLowerCase())
   )
 );
 
-const toggleDropdown = () => {
-  if (props.disabled) return;
+const toggleIcon = computed(() =>
+  dropdown_openned.value ? "ArrowUp2" : "ArrowDown2"
+);
 
-  dropdown_openned.value = !dropdown_openned.value;
+// Methods
+const toggleDropdown = () => {
+  if (!props.disabled) dropdown_openned.value = !dropdown_openned.value;
 };
 
 const closeDropdown = () => {
-  if (props.disabled) return;
-
-  dropdown_openned.value = false;
+  if (!props.disabled) dropdown_openned.value = false;
 };
 
 const selectOption = (option: { label: string; value: string }) => {
-  if (option.value === model.value) model.value = "";
-  else model.value = option.value;
-
+  model.value = option.value === model.value ? "" : option.value;
   closeDropdown();
 };
-const toggleIcon = computed<string>(() => dropdown_openned.value ? 'ArrowUp2' : 'ArrowDown2');
-
 </script>
 
 <style scoped>
@@ -186,21 +165,21 @@ const toggleIcon = computed<string>(() => dropdown_openned.value ? 'ArrowUp2' : 
 /* ===== size ===== */
 
 .ui-input-dropdown-sm {
-  @apply py-2 px-3 text-sm placeholder:text-3xs;
+  @apply py-2 px-3 text-3xs placeholder:text-3xs;
 }
 
 .ui-input-dropdown-md {
-  @apply py-2 px-3 text-base placeholder:text-xs;
+  @apply py-2 px-3 text-2xs placeholder:text-2xs;
   line-height: 18px;
 }
 
 .ui-input-dropdown-lg {
-  @apply py-2 px-3 text-h6 placeholder:text-sm;
+  @apply py-2 px-3 text-sm placeholder:text-sm;
   line-height: 20px;
 }
 
 .ui-input-dropdown-xl {
-  @apply py-3 px-4 text-h6 placeholder:text-base;
+  @apply py-3 px-4 text-base placeholder:text-base;
   line-height: 17px;
 }
 

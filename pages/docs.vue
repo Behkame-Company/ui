@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <UiSidebar
+    <!-- <UiSidebar
       data="Data"
       :topSections="[
         { iconName: 'User', text: 'Profile', to: '/profile' },
@@ -13,33 +13,18 @@
         { iconName: 'User', text: 'Settings', to: '/settings' },
       ]"
       :thirdSections="[{ iconName: 'User', text: 'Profile', to: '/profile' }]"
-    />
-    <div class="flex-1 pl-50 pr-10 py-10">
+    /> -->
+    <div >
       <!-- ...rest of your docs content... -->
+ 
+
+ 
+
       <h1 class="text-center mt-4 mb-4 text-2xl font-bold">
         Behkame Design System
       </h1>
-      <h3 class="text-start mt-4 mb-4 text-h6 font-bold">DropDown Components</h3>
-
-      <div class="flex justify-start items-start mt-4 gap-4">
-
-
-        <UiInputDropDown
-          v-model="selectedOption1"
-          :options="options"
-          placeholder="Select an option"
-        />
-
-        <UiInputMultiDropDown
-          v-model="selectedOption"
-          :options="options"
-          placeholder="Select options"
-        />
-
-      </div>
 
       <h3 class="text-start mt-4 mb-4 text-h6 font-bold">Card Components</h3>
-
       <div class="flex justify-start items-start mt-4">
         <div class="w-1/4 px-2">
           <UiCard size="xl">
@@ -69,8 +54,10 @@
             </template>
           </UiCard>
         </div>
+          
       </div>
-
+ 
+    
       <div class="flex justify-start items-start mt-4">
         <div class="w-1/4 px-2">
           <UiCard size="xl">
@@ -324,42 +311,42 @@
 
           <UiInput
             class="my-4"
-            prefix_icon="Flash"
+            prefixIcon="Flash"
             placeholder="Input with prefix icon"
           />
 
           <UiInput
             class="my-4"
-            prefix_icon="Flash"
+            prefixIcon="Flash"
             :disabled="true"
             placeholder="Input with prefix icon disabled"
           />
 
           <UiInput
             class="my-4"
-            suffix_icon="Flash"
+            suffixIcon="Flash"
             placeholder="Input with suffix icon"
           />
 
           <UiInput
             class="my-4"
-            suffix_icon="Flash"
+            suffixIcon="Flash"
             :disabled="true"
             placeholder="Input with suffix icon disabled"
           />
 
           <UiInput
             class="my-4"
-            prefix_icon="Flash"
-            suffix_icon="Flash"
+            prefixIcon="Flash"
+            suffixIcon="Flash"
             placeholder="Input with prefix and suffix icon"
           />
 
           <UiInput
             class="my-4"
-            prefix_icon="Flash"
+            prefixIcon="Flash"
             :disabled="true"
-            suffix_icon="Flash"
+            suffixIcon="Flash"
             placeholder="Input with prefix and suffix icon disabled"
           />
         </div>
@@ -371,50 +358,50 @@
 
           <UiInput
             class="my-4"
-            prefix_icon="Flash"
-            :prefix_callback="() => {}"
+            prefixIcon="Flash"
+            :prefixCallback="() => {}"
             placeholder="Input with prefix icon"
           />
 
           <UiInput
             class="my-4"
-            prefix_icon="Flash"
+            prefixIcon="Flash" 
             :disabled="true"
-            :prefix_callback="() => {}"
+            :prefixCallback="() => {}"
             placeholder="Input with prefix icon"
           />
 
           <UiInput
             class="my-4"
-            suffix_icon="Flash"
-            :suffix_callback="() => {}"
+            suffixIcon="Flash"
+            :suffixCallback="() => {}"
             placeholder="Input with suffix icon"
           />
 
           <UiInput
             class="my-4"
-            suffix_icon="Flash"
+            suffixIcon="Flash"
             :disabled="true"
-            :suffix_callback="() => {}"
+            :suffixCallback="() => {}"
             placeholder="Input with suffix icon"
           />
 
           <UiInput
             class="my-4"
-            prefix_icon="Flash"
-            :prefix_callback="() => {}"
-            suffix_icon="Flash"
-            :suffix_callback="() => {}"
+            prefixIcon="Flash"
+            :prefixCallback="() => {}"
+            suffixIcon="Flash"
+            :suffixCallback="() => {}"
             placeholder="Input with prefix and suffix icon"
           />
 
           <UiInput
             class="my-4"
-            prefix_icon="Flash"
+            prefixIcon="Flash"
             :disabled="true"
-            :prefix_callback="() => {}"
-            suffix_icon="Flash"
-            :suffix_callback="() => {}"
+            :prefixCallback="() => {}"
+            suffixIcon="Flash"
+            :suffixCallback="() => {}"
             placeholder="Input with prefix and suffix icon"
           />
         </div>
@@ -491,6 +478,25 @@
           />
         </div>
       </div> -->
+       
+
+        <div class="w-1/4 px-2 ">
+          <h3 class="text-start mt-4 mb-4 text-h6 font-bold">
+          DropDown Components
+        </h3>
+          <UiInputDropDown
+            v-model="selectedOption1"
+            :options="options"
+            placeholder="Select an option"
+            class="my-2"
+          />
+
+          <UiInputMultiDropDown
+            v-model="selectedOption"
+            :options="options"
+            placeholder="Select options"
+          />
+        </div>
 
         <div class="w-1/4 px-2">
           <h5 class="text-start mt-4 mb-4 text-xl">Password</h5>
@@ -1198,6 +1204,24 @@
 </template>
 
 <script setup lang="ts">
+import {
+  today,
+  toCalendar,
+  CalendarDate,
+  getLocalTimeZone,
+} from '@internationalized/date'
+// const todayGregorian = today(getLocalTimeZone())
+
+// // Convert to Persian calendar
+// const todayPersian = toCalendar(todayGregorian, 'persian')
+
+// // Format Persian date for display
+// const formattedPersian = new Intl.DateTimeFormat('fa-IR-u-ca-persian', {
+//   year: 'numeric',
+//   month: 'long',
+//   day: 'numeric',
+// }).format(todayPersian.toDate())
+const selectedDate = ref(new Date()) // default to today
 const isToggled = ref(true);
 const isToggled1 = ref(false);
 const isAccepted2 = ref(false);
@@ -1207,11 +1231,11 @@ const showModal = ref(false);
 const showModal1 = ref(false);
 const showModal2 = ref(false);
 const showModal3 = ref(false);
-
+const defaultValue = ref(new CalendarDate(2022, 2, 6))
 const showPopup = ref(false);
 
 const selectedOption = ref<string[]>([]);
-const selectedOption1 = ref<string>('');
+const selectedOption1 = ref<string>("");
 
 const dropdown_options = ref<{ label: string; value: string }[]>([
   { label: "Option 1", value: "option1" },

@@ -3,25 +3,43 @@
     <h2 class="table-title">List A</h2>
     <table class="custom-table">
       <thead>
+        <!-- Titles Row -->
         <tr>
-          <th v-for="(header, colIndex) in headers" :key="header.text" class="table-th" :style="header.width ? { width: header.width } : {}">
+          <th class="table-th">Title:</th>
+          <th
+            v-for="header in headers.slice(1)"
+            :key="header.text + '-title'"
+            class="table-th"
+            :style="header.width ? { width: header.width } : {}"
+          >
+            {{ header.text }}
+          </th>
+        </tr>
+        <!-- Filter Inputs Row -->
+        <tr>
+          <th v-for="header in headers" :key="header.text" class="table-th" :style="header.width ? { width: header.width } : {}">
             <template v-if="header.text === '#'">
-              {{ header.text }}
+              #
             </template>
             <template v-else>
-              <component
-                :is="header.type === 'select' ? 'select' : 'input'"
-                :type="header.type !== 'select' ? header.type : undefined"
+              <UiInputMultiDropDown
+                v-if="header.type === 'option'"
+                v-model="localFilters[header.text] as string[]"
+                :options="(header.options || []).map(opt => ({ label: opt, value: opt }))"
                 :placeholder="header.text"
+                size="sm"
+              />
+              <UiInput
+                v-else
+                :type="header.type"
+                :placeholder="header.text"
+                :suffixIcon="header.suffixIcon"
                 class="table-filter-input"
-                v-model="localFilters[header.text]"
+                size="sm"
+                v-model="localFilters[header.text] as string"
                 @input="onFilterChange"
                 @change="onFilterChange"
-              >
-                <option v-for="option in header.options || []" :key="option" :value="option">
-                  {{ option }}
-                </option>
-              </component>
+              />
             </template>
           </th>
         </tr>
@@ -45,16 +63,24 @@ type HeaderType = {
   type?: string // 'text', 'number', 'select', etc.
   options?: string[] | undefined
   width?: string | undefined
+  suffixIcon?: string // <-- add this
 }
 
 const props = defineProps<{
   headers: HeaderType[]
   rows: any[]
-  filters: Record<string, string>
+  filters: Record<string, string | string[]>
 }>()
 const emit = defineEmits(['update:filters'])
 
-const localFilters = reactive({ ...props.filters })
+const localFilters = reactive(
+  Object.fromEntries(
+    props.headers.map(header => [
+      header.text,
+      header.type === "option" ? ([] as string[]) : ""
+    ])
+  )
+)
 
 watch(
   () => props.filters,
@@ -63,18 +89,18 @@ watch(
   }
 )
 
-function onFilterChange() {
+const onFilterChange = () => {
   emit('update:filters', { ...localFilters })
 }
 
 const headers = [
-  { text: "#", type: "text", options: undefined, width: undefined },
-  { text: "Column 1", type: "text", options: undefined, width: undefined },
-  { text: "Column 2", type: "text", options: undefined, width: undefined },
-  { text: "Column 3", type: "text", options: undefined, width: undefined },
-  { text: "Column 4", type: "text", options: undefined, width: undefined },
-  { text: "Column 5", type: "text", options: undefined, width: undefined },
-  { text: "Column 6", type: "text", options: undefined, width: undefined }
+  { text: "#", type: "text", options: undefined, width: undefined, suffixIcon: "" },
+  { text: "Column 1", type: "option", options: undefined, width: undefined, suffixIcon: "" },
+  { text: "Column 2", type: "text", options: undefined, width: undefined, suffixIcon: "" },
+  { text: "Column 3", type: "text", options: undefined, width: undefined, suffixIcon: "" },
+  { text: "Column 4", type: "text", options: undefined, width: undefined, suffixIcon: "" },
+  { text: "Column 5", type: "text", options: undefined, width: undefined, suffixIcon: "" },
+  { text: "Column 6", type: "text", options: undefined, width: undefined, suffixIcon: "" }
 ];
 
 const rows = Array.from({ length: 8 }, (_, i) => [
@@ -105,7 +131,7 @@ const rows = Array.from({ length: 8 }, (_, i) => [
   @apply px-2 py-2 text-center align-middle;
 }
 .table-th {
-  @apply font-medium bg-white border border-gray-tint-200 text-center;
+  @apply font-medium bg-white border-y border-gray-tint-200 text-center;
 }
 .table-row-odd {
   @apply bg-white;
@@ -116,7 +142,5 @@ const rows = Array.from({ length: 8 }, (_, i) => [
 .table-circle {
   @apply inline-block w-8 h-8 rounded-full bg-gray-shade-200;
 }
-.table-filter-input {
-  @apply border py-1.5 px-3 bg-white text-center placeholder:text-center placeholder:text-gray-shade-400;
-}
+
 </style>

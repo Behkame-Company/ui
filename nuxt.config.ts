@@ -28,5 +28,5 @@ export default defineNuxtConfig({
     port: 3003,
   },
 
-  modules: ["@nuxt/icon"],
+  modules: ["@nuxt/icon", "nuxt-time"],
 });
