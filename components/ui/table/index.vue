@@ -17,24 +17,24 @@
             :key="header.text + '-title'"
             class="table-th-title cursor-pointer hover:bg-gray-shade-50"
             :style="header.text === '#' ? { width: '60px' } : { width: '150px' }"
-            @click="header.type !== 'actions' ? toggleSort(header.text) : null"
+            @click="toggleSort(header.text)"
           >
             <div class="flex items-center justify-center gap-1">
               <VsxIcon
-                v-if="header.type !== 'actions' && sortState[header.text] === 'asc'"
+                v-if="sortState[header.text] === 'asc'"
                 iconName="ArrowCircleUp2"
                 class="w-4 h-4 text-success"
                 :size="16"
                 type="bold"
               />
               <VsxIcon
-                v-else-if="header.type !== 'actions' && sortState[header.text] === 'desc'"
+                v-else-if="sortState[header.text] === 'desc'"
                 iconName="ArrowCircleDown2"
                 class="w-4 h-4 text-error"
                 :size="16"
                 type="bold"
               />
-              <span v-if="header.type !== 'actions'">{{ header.text }}</span>
+              <span>{{ header.text }}</span>
             </div>
           </th>
         </tr>
@@ -88,7 +88,7 @@
               
 
               <UiInput
-                v-else-if="header.type !== 'actions'"
+                v-else
                 :type="header.type"
                 :placeholder="header.text"
                 :suffixIcon="header.suffixIcon"
@@ -98,9 +98,6 @@
                 @input="onFilterChange"
                 @change="onFilterChange"
               />
-              <div v-else class="text-center text-gray-400 text-xs">
-                Actions
-              </div>
             </template>
           </th>
         </tr>
@@ -123,34 +120,8 @@
               :key="header.text"
               class="table-td"
             >
-              <!-- Actions column -->
-              <template v-if="header.type === 'actions'">
-                <div class="flex items-center justify-center gap-2">
-                  <div v-if="isLoadingActions" class="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-500"></div>
-                  <template v-else>
-                    <button
-                      v-for="action in actionIcons[row[0]] || []"
-                      :key="action.id || action.name"
-                      @click="handleActionClick(action, rowIndex, row)"
-                      class="p-1 hover:bg-gray-100 rounded transition-colors"
-                      :title="action.tooltip || action.name"
-                    >
-                      <VsxIcon
-                        v-if="action.icon"
-                        :iconName="action.icon"
-                        :size="16"
-                        :class="action.iconClass || 'text-gray-600 hover:text-blue-600'"
-                      />
-                      <span v-else-if="action.text" class="text-xs">{{ action.text }}</span>
-                    </button>
-                  </template>
-                </div>
-              </template>
-              <!-- Regular columns -->
-              <template v-else>
-                <span v-if="row[colIndex] === 'circle'" class="table-circle"></span>
-                <span v-else>{{ row[colIndex] }}</span>
-              </template>
+              <span v-if="row[colIndex] === 'circle'" class="table-circle"></span>
+              <span v-else>{{ row[colIndex] }}</span>
             </td>
           </tr>
         </slot>
@@ -178,7 +149,6 @@ type HeaderType = {
   width?: string | undefined;
   suffixIcon?: string;
   multiSelect?: boolean; // true for multi-select, false for single-select
-  actionApiUrl?: string; // API URL for fetching action icons
 };
 
 const props = defineProps<{
@@ -187,18 +157,13 @@ const props = defineProps<{
   filters?: Record<string, string | string[]>;
   apiUrl?: string;
   loading?: boolean;
-  actionsApiUrl?: string; // API URL for fetching action icons
 }>();
-const emit = defineEmits(["update:filters", "action-click"]);
+const emit = defineEmits(["update:filters"]);
 
 // API data state
 const apiData = ref<any[]>([]);
 const isLoading = ref(false);
 const totalItems = ref(0);
-
-// Actions API state
-const actionIcons = ref<Record<string, any[]>>({});
-const isLoadingActions = ref(false);
 
 // Pagination state
 const currentPage = ref(1);
@@ -298,8 +263,6 @@ watch(
   }
 );
 
-
-
 const onFilterChange = () => {
   emit("update:filters", { ...localFilters });
 };
@@ -308,45 +271,10 @@ const onDateFilterChange = () => {
   emit("update:filters", { ...dateFilters });
 };
 
-// Actions API fetching function
-const fetchActionIcons = async (rowId: string | number) => {
-  if (!props.actionsApiUrl) return;
-  
-  isLoadingActions.value = true;
-  try {
-    const response = await fetch(`${props.actionsApiUrl}?rowId=${rowId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    const data = await response.json();
-    actionIcons.value[rowId] = data.actions || data.icons || data;
-  } catch (error) {
-    console.error('Error fetching action icons:', error);
-    actionIcons.value[rowId] = [];
-  } finally {
-    isLoadingActions.value = false;
-  }
-};
-
-// Handle action icon click
-const handleActionClick = (action: any, rowIndex: number, rowData: any) => {
-  emit("action-click", { action, rowIndex, rowData });
-};
-
 // Filter and sort rows
 const filteredRows = computed(() => {
   let filtered = tableData.value.filter((row) => {
     return headers.every((header, index) => {
-      // Skip filtering for actions column
-      if (header.type === "actions") return true;
-      
       const filterValue = localFilters[header.text];
       if (!filterValue || filterValue === "") return true;
 
@@ -404,23 +332,6 @@ const paginatedRows = computed(() => {
   return filteredRows.value.slice(start, end);
 });
 
-// Watch for paginated rows changes to fetch action icons
-watch(
-  () => paginatedRows.value,
-  (newRows) => {
-    if (props.actionsApiUrl && newRows.length > 0) {
-      // Fetch action icons for each row
-      newRows.forEach(row => {
-        const rowId = row[0]; // Assuming first column is the ID
-        if (rowId && !actionIcons.value[rowId]) {
-          fetchActionIcons(rowId);
-        }
-      });
-    }
-  },
-  { immediate: true }
-);
-
 const headers = [
   {
     text: "#",
@@ -472,25 +383,27 @@ const headers = [
     suffixIcon: "",
   },
   {
-    text: "Column 7",
+    text: "Column 6",
     type: "text",
     options: undefined,
     width: "120px",
     suffixIcon: "",
   },
   {
-    text: "Column 8",
+    text: "Column 6",
     type: "text",
     options: undefined,
     width: "120px",
     suffixIcon: "",
   },
   {
-    text: "Actions",
-    type: "actions",
-    width: "100px",
+    text: "Column 6",
+    type: "text",
+    options: undefined,
+    width: "120px",
     suffixIcon: "",
   },
+
 ];
 
 const rows = Array.from({ length: 8 }, (_, i) => [
