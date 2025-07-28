@@ -182,7 +182,7 @@ const toggleIcon = computed(() => dropdown_openned.value ? 'ArrowUp2' : 'ArrowDo
 }
 
 .ui-input-dropdown {
-  @apply flex-1 rounded-sm border-0 text-gray-shade-800 transition-all cursor-pointer;
+  @apply flex-1 rounded-sm border-0 text-gray-shade-400 transition-all cursor-pointer;
 }
 
 .ui-input-dropdown-disabled {

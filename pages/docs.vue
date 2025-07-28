@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <UiSidebar
+    <!-- <UiSidebar
       data="Data"
       :topSections="[
         { iconName: 'User', text: 'Profile', to: '/profile' },
@@ -13,10 +13,10 @@
         { iconName: 'User', text: 'Settings', to: '/settings' },
       ]"
       :thirdSections="[{ iconName: 'User', text: 'Profile', to: '/profile' }]"
-    />
+    /> -->
     <div >
       <!-- ...rest of your docs content... -->
- 
+    
 
  
 
@@ -1221,6 +1221,7 @@ import {
 //   month: 'long',
 //   day: 'numeric',
 // }).format(todayPersian.toDate())
+const date = ref(new Date());
 const selectedDate = ref(new Date()) // default to today
 const isToggled = ref(true);
 const isToggled1 = ref(false);

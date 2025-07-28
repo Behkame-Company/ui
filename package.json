@@ -12,7 +12,9 @@
   "dependencies": {
     "@internationalized/date": "^3.8.2",
     "@nuxt/icon": "^1.13.0",
+    "@nuxt/ui": "^3.3.0",
     "@tailwindcss/vite": "^4.1.8",
+    "@vuepic/vue-datepicker": "^11.0.2",
     "@vueuse/components": "^13.5.0",
     "@vueuse/core": "^13.5.0",
     "nuxt": "^3.17.5",

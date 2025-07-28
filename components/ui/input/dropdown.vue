@@ -139,7 +139,7 @@ const selectOption = (option: { label: string; value: string }) => {
 @reference "assets/css/main.css";
 
 .ui-input-dropdown-container {
-  @apply flex justify-between items-center border w-60 border-gray-tint-650 rounded-sm transition-all cursor-pointer relative;
+  @apply flex justify-between items-center border  border-gray-tint-650 rounded-sm transition-all cursor-pointer relative;
 }
 
 .ui-input-dropdown-container-disabled {
@@ -147,11 +147,11 @@ const selectOption = (option: { label: string; value: string }) => {
 }
 
 .ui-input-dropdown-container-openned {
-  @apply border-1 border-primary w-60 ;
+  @apply border-1 border-primary  ;
 }
 
 .ui-input-dropdown {
-  @apply flex-1 rounded-sm border-0 text-gray-shade-800 transition-all cursor-pointer;
+  @apply flex-1 rounded-sm border-0 text-gray-shade-400 transition-all cursor-pointer;
 }
 
 .ui-input-dropdown-disabled {

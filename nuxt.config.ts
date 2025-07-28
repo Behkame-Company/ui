@@ -27,6 +27,9 @@ export default defineNuxtConfig({
   devServer: {
     port: 3003,
   },
+  build: {
+    transpile: ['@vuepic/vue-datepicker']
+},
 
-  modules: ["@nuxt/icon", "nuxt-time"],
+  modules: ["@nuxt/icon", "nuxt-time", "@nuxt/ui"],
 });
