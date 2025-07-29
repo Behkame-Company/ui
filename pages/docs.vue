@@ -16,9 +16,7 @@
     /> -->
     <div >
       <!-- ...rest of your docs content... -->
-    
-
- 
+  
 
       <h1 class="text-center mt-4 mb-4 text-2xl font-bold">
         Behkame Design System

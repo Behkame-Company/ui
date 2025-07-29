@@ -10,7 +10,7 @@
       class="ui-input-dropdown"
       :class="`${dropdown_size_class} ${
         disabled ? 'ui-input-dropdown-disabled' : ''
-      } ${model ? 'ui-input-dropdown-filled' : ''}`"
+      } ${selectedLabels.length > 0 ? 'ui-input-dropdown-filled' : 'ui-input-dropdown-empty'}`"
       :disabled="disabled"
       @click="toggleDropdown"
     >
@@ -190,7 +190,11 @@ const toggleIcon = computed(() => dropdown_openned.value ? 'ArrowUp2' : 'ArrowDo
 }
 
 .ui-input-dropdown-filled {
-  @apply text-gray-shade-800  ;
+  @apply text-gray-shade-800;
+}
+
+.ui-input-dropdown-empty {
+  @apply text-gray-shade-400;
 }
 
 /* ===== size ===== */
