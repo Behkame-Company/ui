@@ -1098,7 +1098,21 @@
         <UiTag text="Closable" type="light-purple" />
         <UiTag text="All" type="success" closeable prefixIcon="InfoCircle" />
       </div>
-      <UiTable :headers="headers" v-model="rows" />
+      <UiTable
+    :headers="headers1"
+    :rows="rows1"
+    v-model:filters="filters"
+    v-model:sort="sort"
+    :currentPage="1"
+    :perPage="5"
+    title="List A"
+    @row-click="(row) => console.log('row', row)"
+  >
+    <!-- Optional custom cell -->
+    <template #cell-action="{ row }">
+      <UiTag color="primary" size="sm" text="Edit" />
+    </template>
+  </UiTable>
       <h6 class="text-start mt-4 mb-4 text-xl">File Input</h6>
 
       <div class="flex flex-row gap-2 my-4">
@@ -1292,4 +1306,32 @@ const list_items = [
   { id: 9, text: "example9" },
   { id: 10, text: "example10" },
 ];
+const headers1 = [
+  { key: "id", text: "#", width: 60, sortable: true, filterable: false },
+  { key: "name", text: "Product Name", type: "select" as const, options: ["Apple","Banana","Cherry"], sortable: true },
+  { key: "color", text: "Color", type: "multiSelect" as const, options: ["Red","Blue","Green"], sortable: true },
+  { key: "createdAt", text: "Created Date", type: "date" as const, sortable: true,},
+  { key: "time", text: "Time", type: "time" as const, sortable: true,  },
+  { key: "code", text: "Product Code", sortable: true, },
+  { key: "status", text: "Status", type: "select" as const, options: ["Active","Inactive","Pending"], sortable: true },
+  { key: "priority", text: "Priority", type: "select" as const, options: ["High","Medium","Low"], sortable: true },
+  { key: "category", text: "Category", type: "select" as const, options: ["Premium","Standard","Basic"], sortable: true },
+  { key: "stock", text: "Stock Status", type: "select" as const, options: ["In Stock","Low Stock","Out of Stock"], sortable: true },
+  { key: "action", text: "Action", type: "action" as const, filterable: false, sortable: false, },
+];
+
+const rows1 = [
+  { id: 1, name: "Apple", color: "Red", createdAt: "2024-01-15", time: "09:30", code: "PROD-001", status: "Active", priority: "High", category: "Premium", stock: "In Stock", action: "Edit" },
+  { id: 2, name: "Banana", color: "Yellow", createdAt: "2024-01-16", time: "10:45", code: "PROD-002", status: "Inactive", priority: "Medium", category: "Standard", stock: "Low Stock", action: "Edit" },
+  { id: 3, name: "Cherry", color: "Red", createdAt: "2024-01-17", time: "11:00", code: "PROD-003", status: "Pending", priority: "Low", category: "Basic", stock: "Out of Stock", action: "Edit" },
+  { id: 4, name: "Date", color: "Green", createdAt: "2024-01-18", time: "12:15", code: "PROD-004", status: "Active", priority: "High", category: "Premium", stock: "In Stock", action: "Edit" },
+  { id: 5, name: "Elderberry", color: "Purple", createdAt: "2024-01-19", time: "13:30", code: "PROD-005", status: "Inactive", priority: "Medium", category: "Standard", stock: "Low Stock", action: "Edit" },
+  { id: 6, name: "Fig", color: "Brown", createdAt: "2024-01-20", time: "14:45", code: "PROD-006", status: "Pending", priority: "Low", category: "Basic", stock: "Out of Stock", action: "Edit" },
+  { id: 7, name: "Grape", color: "Green", createdAt: "2024-01-21", time: "15:00", code: "PROD-007", status: "Active", priority: "High", category: "Premium", stock: "In Stock", action: "Edit" },
+  { id: 8, name: "Honeydew", color: "Yellow", createdAt: "2024-01-22", time: "16:15", code: "PROD-008", status: "Inactive", priority: "Medium", category: "Standard", stock: "Low Stock", action: "Edit" },
+  // ...
+];
+
+const filters = ref({});
+const sort = ref({ key: null, dir: 'asc' as const });
 </script>
