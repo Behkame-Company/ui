@@ -170,7 +170,7 @@ const toggleIcon = computed(() => dropdown_openned.value ? 'ArrowUp2' : 'ArrowDo
 @reference "assets/css/main.css";
 
 .ui-input-dropdown-container {
-  @apply flex justify-between items-center border  border-gray-tint-650 rounded-sm transition-all cursor-pointer relative;
+  @apply flex justify-between items-center border  border-gray-tint-650 rounded-sm transition-all cursor-pointer relative text-nowrap;
 }
 
 .ui-input-dropdown-container-disabled {
@@ -231,7 +231,7 @@ const toggleIcon = computed(() => dropdown_openned.value ? 'ArrowUp2' : 'ArrowDo
 }
 
 .ui-input-dropdown-options {
-  @apply absolute flex flex-col w-full top-10 bg-white border border-gray-tint-200 rounded-sm z-10 pb-2;
+  @apply absolute flex flex-col  top-10 bg-white border border-gray-tint-200 rounded-sm z-10 pb-2;
 }
 
 .ui-input-dropdown-options-sm {
@@ -251,7 +251,7 @@ const toggleIcon = computed(() => dropdown_openned.value ? 'ArrowUp2' : 'ArrowDo
 }
 
 .ui-input-dropdown-search {
-  @apply mx-2 my-2;
+  @apply mx-2 my-2 ;
 }
 .ui-input-dropdown-option {
   @apply flex items-center justify-between text-gray-shade-800 hover:bg-gray-tint-200 cursor-pointer;

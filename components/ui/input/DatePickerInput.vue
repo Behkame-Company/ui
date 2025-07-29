@@ -13,6 +13,7 @@
     <!-- Time Picker Only -->
     <VueDatePicker
       v-if="isOpen && type === 'time'"
+      v-show="isOpen"
       v-model="currentDate"
       :format="'HH:mm'"
       :inline="true"

@@ -1,6 +1,6 @@
 <template>
-  <div class="flex">
-    <!-- <UiSidebar
+  <div class="w-11/12 ">
+    <UiSidebar
       data="Data"
       :topSections="[
         { iconName: 'User', text: 'Profile', to: '/profile' },
@@ -13,8 +13,8 @@
         { iconName: 'User', text: 'Settings', to: '/settings' },
       ]"
       :thirdSections="[{ iconName: 'User', text: 'Profile', to: '/profile' }]"
-    /> -->
-    <div >
+    />
+   
       <!-- ...rest of your docs content... -->
   
 
@@ -484,7 +484,7 @@
         </h3>
           <UiInputDropDown
             v-model="selectedOption1"
-            :options="options"
+            :options="options2"
             placeholder="Select an option"
             class="my-2"
           />
@@ -1028,7 +1028,6 @@
         </div>
       </div>
       <h6 class="text-start mt-4 mb-4 text-xl">Tabs</h6>
-      <div>bordered/rounded/text/defualt/filled</div>
 
       <div class="flex flex-row gap-2 my-4">
         <UiTab type="bordered" />
@@ -1211,7 +1210,7 @@
         @cancel="showPopup = false"
       />
     </div>
-  </div>
+ 
   <!-- <UiButtonIcon icon="User" size="xl" color="error" class="m-4" /> -->
 </template>
 

@@ -139,7 +139,7 @@ const selectOption = (option: { label: string; value: string }) => {
 @reference "assets/css/main.css";
 
 .ui-input-dropdown-container {
-  @apply flex justify-between items-center border  border-gray-tint-650 rounded-sm transition-all cursor-pointer relative;
+  @apply flex justify-between items-center border  border-gray-tint-650 rounded-sm transition-all cursor-pointer relative text-nowrap ;
 }
 
 .ui-input-dropdown-container-disabled {
@@ -151,7 +151,7 @@ const selectOption = (option: { label: string; value: string }) => {
 }
 
 .ui-input-dropdown {
-  @apply flex-1 rounded-sm border-0 text-gray-shade-400 transition-all cursor-pointer;
+  @apply flex rounded-sm border-0 text-gray-shade-400 transition-all cursor-pointer;
 }
 
 .ui-input-dropdown-disabled {
@@ -184,7 +184,7 @@ const selectOption = (option: { label: string; value: string }) => {
 }
 
 .ui-input-dropdown-suffix-icon {
-  @apply flex justify-center items-center text-gray-shade-100 p-2 transition-all;
+  @apply flex justify-center items-center text-gray-shade-100 p-2 ;
 }
 
 .ui-input-dropdown-suffix-icon-openned {
@@ -198,7 +198,7 @@ const selectOption = (option: { label: string; value: string }) => {
 }
 
 .ui-input-dropdown-options {
-  @apply absolute flex flex-col w-full top-10 bg-white border border-gray-tint-200 rounded-sm z-10 pb-2;
+  @apply absolute flex flex-col  bg-white border border-gray-tint-200 rounded-sm z-10 pb-2;
 }
 
 .ui-input-dropdown-options-sm {
@@ -218,7 +218,7 @@ const selectOption = (option: { label: string; value: string }) => {
 }
 
 .ui-input-dropdown-search {
-  @apply mx-2 my-2;
+  @apply mx-2 my-2 ;
 }
 .ui-input-dropdown-option {
   @apply text-gray-shade-800 hover:bg-gray-tint-200 cursor-pointer;

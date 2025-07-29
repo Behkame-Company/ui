@@ -571,11 +571,11 @@ function initFilters(cols: Column[], initial?: Record<string, any>) {
 }
 
 .ui-table-th {
-  @apply font-medium bg-white border-y items-center border-gray-tint-200 text-left px-2 py-2;
+  @apply font-medium bg-white border-y items-center border-gray-tint-200 text-left px-2 py-2 select-none;
 }
 
 .ui-table-th-title {
-  @apply font-medium bg-white text-center px-2 py-2;
+  @apply font-medium bg-white text-center px-2 py-2 select-none;
 }
 
 .ui-table-row-odd {

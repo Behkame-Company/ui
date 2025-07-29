@@ -27,7 +27,7 @@
 
     <input
       type="text"
-      class="ui-input"
+      class="w-full"
       :class="[
         sizeClass,
         !prefixIcon ? 'pl-2' : 'pl-0',
@@ -135,11 +135,11 @@ const onBlur = () => (focused.value = false);
 @reference "assets/css/main.css";
 
 .ui-input-container {
-  @apply overflow-hidden flex justify-center  border border-gray-tint-650 rounded-sm transition-all placeholder:text-gray-shade-400;
+  @apply overflow-hidden flex justify-center  border border-gray-tint-650 rounded-sm transition-all placeholder:text-gray-shade-400 text-nowrap ;
 }
 
 .ui-input-container-disabled {
-  @apply opacity-50;
+  @apply opacity-50 cursor-not-allowed;
 }
 
 .ui-input-container-focused {
@@ -199,18 +199,18 @@ const onBlur = () => (focused.value = false);
 /* ===== size ===== */
 
 .ui-input-sm {
-  @apply py-2 pr-2  text-3xs placeholder:text-3xs placeholder:font-normal;
+  @apply py-2 px-2  text-3xs placeholder:text-3xs placeholder:font-normal;
 }
 
 .ui-input-md {
-  @apply py-2 pr-2 text-2xs placeholder:text-2xs placeholder:font-normal;
+  @apply py-2 px-2 text-2xs placeholder:text-2xs placeholder:font-normal;
 }
 
 .ui-input-lg {
-  @apply py-2.25 pr-2  text-sm placeholder:text-sm placeholder:font-normal;
+  @apply py-2.25 px-2  text-sm placeholder:text-sm placeholder:font-normal;
 }
 
 .ui-input-xl {
-  @apply py-2 pr-3  text-base placeholder:text-base placeholder:font-normal;
+  @apply py-2 px-3  text-base placeholder:text-base placeholder:font-normal;
 }
 </style>
