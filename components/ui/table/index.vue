@@ -1,8 +1,6 @@
 <template>
   <div class="ui-table-container">
     <div class="flex items-center justify-between">
-      <h2 v-if="showTitle" class="ui-table-title">{{ title }}</h2>
-      <slot name="toolbar" :filters="internalFilters" :sort="sortState"></slot>
     </div>
 
     <!-- Loading -->
@@ -11,8 +9,11 @@
     </div>
 
     <table v-else class="ui-custom-table">
+
       <thead>
         <!-- Header titles row -->
+      <h2 v-if="showTitle" class="ui-table-title">{{ title }}</h2>
+
         <tr>
           <th
             v-for="(col, idx) in columns"
@@ -159,9 +160,10 @@
       v-model:current-page="internalCurrentPage"
       v-model:per-page="internalPerPage"
       :total="serverMode ? totalItems : filteredRows.length"
-      class="mt-4"
+      
       @update:current-page="emitPageChange"
       @update:per-page="emitPerPageChange"
+      class="py-2 px-2 mt-2"
     />
   </div>
 </template>
@@ -553,15 +555,15 @@ function initFilters(cols: Column[], initial?: Record<string, any>) {
 @reference "assets/css/main.css";
 
 .ui-table-container {
-  @apply p-2 shadow-md rounded-lg bg-white;
+  @apply m-10 shadow-md rounded-lg bg-white;
 }
 
 .ui-table-title {
-  @apply py-3.5 px-2 text-base font-bold;
+  @apply py-3.5  text-base font-bold;
 }
 
 .ui-custom-table {
-  @apply w-full text-sm table text-gray-shade-500 border-separate border-spacing-0 table-fixed;
+  @apply w-full  text-sm shadow-sm rounded-lg table text-gray-shade-500 border-separate border-spacing-0 table-fixed p-2;
 }
 
 .ui-table-td {
