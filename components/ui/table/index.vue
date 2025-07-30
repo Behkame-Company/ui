@@ -309,48 +309,91 @@ export interface Column {
 // ============================================================================
 // 3. PROPS (Only for components)
 // ============================================================================
-const props = withDefaults(defineProps<{
-  /** Column definitions with configuration */
-  headers: Column[];
-  /** Data rows (objects or arrays) */
-  rows?: any[];
-  /** API URL for server-side data fetching */
-  apiUrl?: string;
-  /** Loading state indicator */
-  loading?: boolean;
-  /** Show/hide filter row */
-  showFilters?: boolean;
-  /** Table title */
-  title?: string;
-  /** Show/hide title */
-  showTitle?: boolean;
-  /** Filters v-model (alias for filters prop) */
-  modelValue?: Record<string, any>;
-  /** Active filters */
-  filters?: Record<string, any>;
-  /** Current page number */
-  currentPage?: number;
-  /** Items per page */
-  perPage?: number;
-  /** Available page sizes (-1 = show all) */
-  pageSizes?: number[];
-  /** Current sort state */
-  sort?: { key: string | number | null; dir: Direction };
-  /** Unique identifier field for rows (when rows are objects) */
-  rowKey?: string;
-}>(), {
-  rows: () => [],
-  showFilters: true,
-  title: "List",
-  showTitle: true,
-  modelValue: undefined,
-  filters: undefined,
-  currentPage: 1,
-  perPage: 10,
-  pageSizes: () => [5, 10, 20, 50, -1],
-  sort: () => ({ key: null, dir: null }),
-  rowKey: "id",
-});
+const props = defineProps({
+  // Column definitions with configuration
+  headers: {
+    type: Array as () => Column[],
+    required: true, // Column definitions with configuration
+  },
+
+  // Data rows (objects or arrays)
+  rows: {
+    type: Array,
+    default: () => [], // Data rows (objects or arrays)
+  },
+
+  // API URL for server-side data fetching
+  apiUrl: {
+    type: String,
+    default: "", // API URL for server-side data fetching
+  },
+
+  // Loading state indicator
+  loading: {
+    type: Boolean,
+    default: false, // Loading state indicator
+  },
+
+  // Show/hide filter row
+  showFilters: {
+    type: Boolean,
+    default: true, // Show/hide filter row
+  },
+
+  // Table title
+  title: {
+    type: String,
+    default: "List", // Table title
+  },
+
+  // Show/hide title
+  showTitle: {
+    type: Boolean,
+    default: true, // Show/hide title
+  },
+
+  // Filters v-model (alias for filters prop)
+  modelValue: {
+    type: Object as () => Record<string, any>,
+    default: undefined, // Filters v-model (alias for filters prop)
+  },
+
+  // Active filters
+  filters: {
+    type: Object as () => Record<string, any>,
+    default: undefined, // Active filters
+  },
+
+  // Current page number
+  currentPage: {
+    type: Number,
+    default: 1, // Current page number
+  },
+
+  // Items per page
+  perPage: {
+    type: Number,
+    default: 10, // Items per page
+  },
+
+  // Available page sizes (-1 = show all)
+  pageSizes: {
+    type: Array as () => number[],
+    default: () => [5, 10, 20, 50, -1], // Available page sizes (-1 = show all)
+  },
+
+  // Current sort state
+  sort: {
+    type: Object as () => { key: string | number | null; dir: Direction },
+    default: () => ({ key: null, dir: null }), // Current sort state
+  },
+
+  // Unique identifier field for rows (when rows are objects)
+  rowKey: {
+    type: String,
+    default: "id", // Unique identifier field for rows (when rows are objects)
+  },
+})
 
 // ============================================================================
 // 4. EMITS (Only for components)
