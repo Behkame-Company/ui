@@ -13,31 +13,28 @@
   
   PARENT COMPONENT USAGE:
   
-  &lt;template&gt;
-    &lt;!-- Basic sidebar with navigation --&gt;
-    &lt;UiSidebar
+  <template>
+    <UiSidebar
       :top-sections="topNavItems"
       :bottom-sections="bottomNavItems"
       :data="userInfo"
-    /&gt;
+    />
     
-    &lt;!-- Sidebar with all sections --&gt;
-    &lt;UiSidebar
+    <UiSidebar
       :top-sections="mainNav"
       :bottom-sections="secondaryNav"
       :third-sections="actionNav"
       :data="userName"
-    /&gt;
+    />
     
-    &lt;!-- Sidebar with custom navigation --&gt;
-    &lt;UiSidebar
+    <UiSidebar
       :top-sections="dashboardNav"
       :bottom-sections="settingsNav"
       :data="currentUser"
-    /&gt;
-  &lt;/template&gt;
+    />
+  </template>
   
-  &lt;script setup&gt;
+  <script setup>
   const userInfo = ref('John Doe')
   const userName = ref('Jane Smith')
   const currentUser = ref('Admin User')
@@ -80,7 +77,7 @@
     { iconName: 'Security', text: 'Security', to: '/settings/security' },
     { iconName: 'Notification', text: 'Notifications', to: '/settings/notifications' }
   ])
-  &lt;/script&gt;
+  </script>
   
   PROPS:
   - topSections?: Section[] - Top navigation section items

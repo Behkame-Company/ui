@@ -9,31 +9,28 @@
   
   PARENT COMPONENT USAGE:
   
-  &lt;template&gt;
-    &lt;!-- Basic toggle --&gt;
-    &lt;UiToggle v-model="isEnabled" /&gt;
+  <template>
+    <UiToggle v-model="isEnabled" />
     
-    &lt;!-- Toggle with custom label --&gt;
-    &lt;UiToggle
+    <UiToggle
       v-model="notifications"
       label="Enable Notifications"
       size="md"
-    /&gt;
+    />
     
-    &lt;!-- Large disabled toggle --&gt;
-    &lt;UiToggle
+    <UiToggle
       v-model="autoSave"
       label="Auto Save"
       size="lg"
       :disabled="true"
-    /&gt;
-  &lt;/template&gt;
+    />
+  </template>
   
-  &lt;script setup&gt;
+  <script setup>
   const isEnabled = ref(false)
   const notifications = ref(true)
   const autoSave = ref(false)
-  &lt;/script&gt;
+  </script>
   
   PROPS:
   - label: string (default: "Title")

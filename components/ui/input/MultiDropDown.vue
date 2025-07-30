@@ -11,9 +11,8 @@
   
   PARENT COMPONENT USAGE:
   
-  &lt;template&gt;
-    &lt;!-- Basic multi-dropdown --&gt;
-    &lt;UiMultiDropDown
+  <template>
+    <UiMultiDropDown
       v-model="selectedOptions"
       :options="[
         { label: 'Option 1', value: 'opt1' },
@@ -21,26 +20,24 @@
         { label: 'Option 3', value: 'opt3' }
       ]"
       placeholder="Select options"
-    /&gt;
+    />
     
-    &lt;!-- Large dropdown with custom size --&gt;
-    &lt;UiMultiDropDown
+    <UiMultiDropDown
       v-model="selectedCategories"
       :options="categoryOptions"
       placeholder="Select categories"
       size="lg"
-    /&gt;
+    />
     
-    &lt;!-- Disabled dropdown --&gt;
-    &lt;UiMultiDropDown
+    <UiMultiDropDown
       v-model="selectedItems"
       :options="itemOptions"
       :disabled="true"
       placeholder="Disabled dropdown"
-    /&gt;
-  &lt;/template&gt;
+    />
+  </template>
   
-  &lt;script setup&gt;
+  <script setup>
   const selectedOptions = ref([])
   const selectedCategories = ref([])
   const selectedItems = ref([])
@@ -55,7 +52,7 @@
     { label: 'Item 1', value: 'item1' },
     { label: 'Item 2', value: 'item2' }
   ]
-  &lt;/script&gt;
+  </script>
   
   PROPS:
   - name: string (optional)

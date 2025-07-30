@@ -12,93 +12,86 @@
   
   PARENT COMPONENT USAGE:
   
-  &lt;template&gt;
-    &lt;!-- Basic icon button --&gt;
-    &lt;UiButtonIcon
+  <template>
+    <UiButtonIcon
       icon="Home"
       @tap="navigateHome"
-    /&gt;
+    />
     
-    &lt;!-- Icon button with custom size and color --&gt;
-    &lt;UiButtonIcon
+    <UiButtonIcon
       icon="Settings"
       size="lg"
       color="outline"
       @tap="openSettings"
-    /&gt;
+    />
     
-    &lt;!-- Disabled icon button --&gt;
-    &lt;UiButtonIcon
+    <UiButtonIcon
       icon="Delete"
       color="error"
       :disabled="true"
       @tap="deleteItem"
-    /&gt;
+    />
     
-    &lt;!-- Large success icon button --&gt;
-    &lt;UiButtonIcon
+    <UiButtonIcon
       icon="Check"
       size="xl"
       color="success"
       icon-type="bold"
       @tap="confirmAction"
-    /&gt;
+    />
     
-    &lt;!-- Text button with custom icon type --&gt;
-    &lt;UiButtonIcon
+    <UiButtonIcon
       icon="User"
       color="text-bt"
       icon-type="linear"
       size="lg"
       @tap="openProfile"
-    /&gt;
+    />
     
-    &lt;!-- Warning icon button --&gt;
-    &lt;UiButtonIcon
+    <UiButtonIcon
       icon="Warning"
       color="warning"
       icon-type="outline"
       @tap="showWarning"
-    /&gt;
+    />
     
-    &lt;!-- Dark themed icon button --&gt;
-    &lt;UiButtonIcon
+    <UiButtonIcon
       icon="Moon"
       color="dark"
       size="xl"
       @tap="toggleTheme"
-    /&gt;
-  &lt;/template&gt;
+    />
+  </template>
   
-  &lt;script setup&gt;
-  const navigateHome = () =&gt; {
+  <script setup>
+  const navigateHome = () => {
     console.log('Navigating to home')
   }
   
-  const openSettings = () =&gt; {
+  const openSettings = () => {
     console.log('Opening settings')
   }
   
-  const deleteItem = () =&gt; {
+  const deleteItem = () => {
     console.log('Deleting item')
   }
   
-  const confirmAction = () =&gt; {
+  const confirmAction = () => {
     console.log('Action confirmed')
   }
   
-  const openProfile = () =&gt; {
+  const openProfile = () => {
     console.log('Opening profile')
   }
   
-  const showWarning = () =&gt; {
+  const showWarning = () => {
     console.log('Showing warning')
   }
   
-  const toggleTheme = () =&gt; {
+  const toggleTheme = () => {
     console.log('Toggling theme')
   }
-  &lt;/script&gt;
+  </script>
   
   PROPS:
   - disabled: boolean (default: false) - Whether button is disabled
@@ -255,19 +248,6 @@ const iconSize = computed<number>(() => {
   }
 })
 
-// ============================================================================
-// 6. LIFECYCLE HOOKS (onMounted, onBeforeMount, onUnmounted, etc.)
-// ============================================================================
-// No lifecycle hooks needed for this component
-
-// ============================================================================
-// 7. WATCHERS (watch, watchEffect)
-// ============================================================================
-// No watchers needed for this component
-
-// ============================================================================
-// 8. FUNCTION DEFINITIONS (helper functions and composables)
-// ============================================================================
 const onTap = (): void => emit("tap")
 </script>
   <style scoped>

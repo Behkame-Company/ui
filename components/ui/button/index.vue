@@ -1,4 +1,4 @@
-<!--
+<!-- 
   Button Component Usage Guide:
   
   A versatile button component that supports:
@@ -12,82 +12,78 @@
   
   PARENT COMPONENT USAGE:
   
-  &lt;template&gt;
-    &lt;!-- Basic primary button --&gt;
-    &lt;UiButton @tap="handleClick"&gt;
-      Click Me
-    &lt;/UiButton&gt;
+  <template>
     
-    &lt;!-- Button with icon and loading state --&gt;
-    &lt;UiButton 
+    <UiButton @tap="handleClick">
+      Click Me
+    </UiButton>
+    
+    <UiButton 
       prefixIcon="Save"
       :loading="isSaving"
       @tap="saveData"
       color="success"
       size="lg"
-    &gt;
+    >
       Save Changes
-    &lt;/UiButton&gt;
+    </UiButton>
     
-    &lt;!-- Outline button with suffix icon --&gt;
-    &lt;UiButton 
+    <UiButton 
       suffixIcon="ArrowRight"
       color="outline"
       size="md"
       @tap="navigateNext"
-    &gt;
+    >
       Next
-    &lt;/UiButton&gt;
+    </UiButton>
     
-    &lt;!-- Disabled button --&gt;
-    &lt;UiButton 
+    <UiButton 
       :disabled="true"
       color="error"
       @tap="deleteItem"
-    &gt;
+    >
       Delete
-    &lt;/UiButton&gt;
+    </UiButton>
     
-    &lt;!-- Small button with custom text alignment --&gt;
-    &lt;UiButton 
+    <UiButton 
       prefixIcon="User"
       textAlign="left"
       size="sm"
       color="secondary"
       @tap="viewProfile"
-    &gt;
+    >
       View Profile
-    &lt;/UiButton&gt;
-  &lt;/template&gt;
+    </UiButton>
+  </template>
   
-  &lt;script setup&gt;
+  <script setup>
   const isSaving = ref(false)
   
-  const handleClick = () =&gt; {
+  const handleClick = () =>; {
     console.log('Button clicked!')
   }
   
-  const saveData = async () =&gt; {
+  const saveData = async () =>; {
     isSaving.value = true
     // Save logic here
-    await new Promise(resolve =&gt; setTimeout(resolve, 2000))
+    await new Promise(resolve =>; setTimeout(resolve, 2000))
     isSaving.value = false
   }
   
-  const navigateNext = () =&gt; {
+  const navigateNext = () =>; {
     // Navigation logic
   }
   
-  const deleteItem = () =&gt; {
+  const deleteItem = () =>; {
     // Delete logic
   }
   
-  const viewProfile = () =&gt; {
+  const viewProfile = () =>; {
     // Profile view logic
   }
-  &lt;/script&gt;
+  -->
   
-  PROPS:
+  <!-- PROPS:
   - disabled: boolean (default: false) - Disable the button
   - loading: boolean (default: false) - Show loading spinner
   - size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' (default: 'sm') - Button size
@@ -107,8 +103,7 @@
   - Loading state with spinner
   - Disabled state
   - Custom text alignment
-  - Responsive design
--->
+  - Responsive design -->
 
 <template>
   <button
@@ -132,7 +127,7 @@
         v-if="prefixIcon"
         :class="prefixIconClass"
         :iconName="prefixIcon"
-        :size="prefixIconSize"
+        :size="IconSize"
         :type="prefixIconType"
       />
       <span :class="`${textSizeClass} ui-button-text text-${props.textAlign}`">
@@ -143,7 +138,7 @@
         v-if="suffixIcon"
         :class="suffixIconClass"
         :iconName="suffixIcon"
-        :size="suffixIconSize"
+        :size="IconSize"
         :type="suffixIconType"
       />
     </template>
@@ -230,18 +225,7 @@ const textSizeClass = computed<string>(() => `ui-button-text-${props.size}`)
 
 const prefixIconClass = computed<string>(() => `ui-button-prefix-icon-${props.size}`)
 
-const prefixIconSize = computed<number>(() => {
-  switch (props.size) {
-    case "xl": return 24
-    case "lg": return 20
-    case "md": return 16
-    case "sm": return 14
-    case "xs": return 12
-    default: return 16
-  }
-})
-
-const suffixIconSize = computed<number>(() => {
+const IconSize = computed<number>(() => {
   switch (props.size) {
     case "xl": return 24
     case "lg": return 20

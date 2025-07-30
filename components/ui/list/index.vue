@@ -12,41 +12,37 @@
   
   PARENT COMPONENT USAGE:
   
-  &lt;template&gt;
-    &lt;!-- Basic list --&gt;
-    &lt;UiList
+  <template>
+    <UiList
       title="Menu Items"
       :items="menuItems"
       :selected="selectedIndex"
       @select="handleItemSelect"
-    /&gt;
+    />
     
-    &lt;!-- List with custom items --&gt;
-    &lt;UiList
+    <UiList
       title="Navigation"
       :items="navigationItems"
       :selected="currentPage"
       @select="navigateToPage"
-    /&gt;
+    />
     
-    &lt;!-- List with default selection --&gt;
-    &lt;UiList
+    <UiList
       title="Settings"
       :items="settingsOptions"
       :selected="2"
       @select="updateSetting"
-    /&gt;
+    />
     
-    &lt;!-- List with custom title --&gt;
-    &lt;UiList
+    <UiList
       title="User Actions"
       :items="userActions"
       :selected="selectedAction"
       @select="performAction"
-    /&gt;
-  &lt;/template&gt;
+    />
+  </template>
   
-  &lt;script setup&gt;
+  <script setup>
   const selectedIndex = ref(0)
   const currentPage = ref(1)
   const selectedAction = ref(-1)
@@ -78,25 +74,25 @@
     'Delete Account'
   ])
   
-  const handleItemSelect = (index: number) =&gt; {
+  const handleItemSelect = (index: number) => {
     selectedIndex.value = index
     console.log('Selected item:', menuItems.value[index])
   }
   
-  const navigateToPage = (index: number) =&gt; {
+  const navigateToPage = (index: number) => {
     currentPage.value = index
     console.log('Navigating to:', navigationItems.value[index])
   }
   
-  const updateSetting = (index: number) =&gt; {
+  const updateSetting = (index: number) => {
     console.log('Updating setting:', settingsOptions.value[index])
   }
   
-  const performAction = (index: number) =&gt; {
+  const performAction = (index: number) => {
     selectedAction.value = index
     console.log('Performing action:', userActions.value[index])
   }
-  &lt;/script&gt;
+  </script>
   
   PROPS:
   - title: string (default: 'Title') - List title to display

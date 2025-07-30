@@ -12,51 +12,46 @@
   
   PARENT COMPONENT USAGE:
   
-  &lt;template&gt;
-    &lt;!-- Basic password input --&gt;
-    &lt;UiPasswordInput
+  <template>
+    <UiPasswordInput
       v-model="password"
       placeholder="Enter your password"
-    /&gt;
+    />
     
-    &lt;!-- Password input with custom name --&gt;
-    &lt;UiPasswordInput
+    <UiPasswordInput
       v-model="userPassword"
       name="userPassword"
       placeholder="Enter password"
       size="lg"
-    /&gt;
+    />
     
-    &lt;!-- Disabled password input --&gt;
-    &lt;UiPasswordInput
+    <UiPasswordInput
       v-model="disabledPassword"
       placeholder="Password (disabled)"
       :disabled="true"
       size="md"
-    /&gt;
+    />
     
-    &lt;!-- Small password input --&gt;
-    &lt;UiPasswordInput
+    <UiPasswordInput
       v-model="smallPassword"
       placeholder="Quick password"
       size="sm"
-    /&gt;
+    />
     
-    &lt;!-- Extra large password input --&gt;
-    &lt;UiPasswordInput
+    <UiPasswordInput
       v-model="largePassword"
       placeholder="Enter your secure password"
       size="xl"
-    /&gt;
-  &lt;/template&gt;
+    />
+  </template>
   
-  &lt;script setup&gt;
+  <script setup>
   const password = ref('')
   const userPassword = ref('')
   const disabledPassword = ref('')
   const smallPassword = ref('')
   const largePassword = ref('')
-  &lt;/script&gt;
+  </script>
   
   PROPS:
   - name: string (default: '') - Input name property

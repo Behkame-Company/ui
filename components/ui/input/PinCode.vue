@@ -13,91 +13,86 @@
   
   PARENT COMPONENT USAGE:
   
-  &lt;template&gt;
-    &lt;!-- Basic 4-digit pin code --&gt;
-    &lt;UiPinCodeInput
+  <template>
+    <UiPinCodeInput
       v-model="pinCode"
       @update="handlePinUpdate"
       @submit="handlePinSubmit"
-    /&gt;
+    />
     
-    &lt;!-- 6-digit pin code with custom size --&gt;
-    &lt;UiPinCodeInput
+    <UiPinCodeInput
       v-model="sixDigitPin"
       :length="6"
       size="lg"
       @update="handleSixDigitUpdate"
       @submit="handleSixDigitSubmit"
-    /&gt;
+    />
     
-    &lt;!-- Small pin code with default value --&gt;
-    &lt;UiPinCodeInput
+    <UiPinCodeInput
       v-model="smallPin"
       size="sm"
       default_value="1234"
       @update="handleSmallPinUpdate"
       @submit="handleSmallPinSubmit"
-    /&gt;
+    />
     
-    &lt;!-- Disabled pin code --&gt;
-    &lt;UiPinCodeInput
+    <UiPinCodeInput
       v-model="disabledPin"
       :disabled="true"
       @update="handleDisabledPinUpdate"
       @submit="handleDisabledPinSubmit"
-    /&gt;
+    />
     
-    &lt;!-- Extra large pin code --&gt;
-    &lt;UiPinCodeInput
+    <UiPinCodeInput
       v-model="largePin"
       size="xl"
       :length="8"
       @update="handleLargePinUpdate"
       @submit="handleLargePinSubmit"
-    /&gt;
-  &lt;/template&gt;
+    />
+  </template>
   
-  &lt;script setup&gt;
+  <script setup>
   const pinCode = ref('')
   const sixDigitPin = ref('')
   const smallPin = ref('')
   const disabledPin = ref('')
   const largePin = ref('')
   
-  const handlePinUpdate = (value: string) =&gt; {
+  const handlePinUpdate = (value: string) => {
     console.log('Pin updated:', value)
   }
   
-  const handlePinSubmit = () =&gt; {
+  const handlePinSubmit = () => {
     console.log('Pin submitted:', pinCode.value)
     // Verify pin logic
   }
   
-  const handleSixDigitUpdate = (value: string) =&gt; {
+  const handleSixDigitUpdate = (value: string) => {
     console.log('6-digit pin updated:', value)
   }
   
-  const handleSixDigitSubmit = () =&gt; {
+  const handleSixDigitSubmit = () => {
     console.log('6-digit pin submitted:', sixDigitPin.value)
   }
   
-  const handleSmallPinUpdate = (value: string) =&gt; {
+  const handleSmallPinUpdate = (value: string) => {
     console.log('Small pin updated:', value)
   }
   
-  const handleSmallPinSubmit = () =&gt; {
+  const handleSmallPinSubmit = () => {
     console.log('Small pin submitted:', smallPin.value)
   }
   
-  const handleDisabledPinUpdate = (value: string) =&gt; {
+  const handleDisabledPinUpdate = (value: string) => {
     console.log('Disabled pin updated:', value)
   }
   
-  const handleDisabledPinSubmit = () =&gt; {
+  const handleDisabledPinSubmit = () => {
     console.log('Disabled pin submitted:', disabledPin.value)
   }
   
-  const handleLargePinUpdate = (value: string) =&gt; {
+  const handleLargePinUpdate = (value: string) => {
     console.log('Large pin updated:', value)
   }
   

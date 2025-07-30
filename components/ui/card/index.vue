@@ -12,72 +12,68 @@
   
   PARENT COMPONENT USAGE:
   
-  &lt;template&gt;
-    &lt;!-- Basic card --&gt;
-    &lt;UiCard size="md"&gt;
-      &lt;template #header&gt;
-        &lt;h3&gt;Card Title&lt;/h3&gt;
-      &lt;/template&gt;
+  <template>
+    <UiCard size="md">
+      <template #header>
+        <h3>Card Title</h3>
+      </template>
       
-      &lt;p&gt;This is the card content.&lt;/p&gt;
-      &lt;p&gt;You can put any content here.&lt;/p&gt;
+      <p>This is the card content.</p>
+      <p>You can put any content here.</p>
       
-      &lt;template #footer&gt;
-        &lt;button :class="buttonClass" @click="handleAction"&gt;Action&lt;/button&gt;
-      &lt;/template&gt;
-    &lt;/UiCard&gt;
+      <template #footer>
+        <button :class="buttonClass" @click="handleAction">Action</button>
+      </template>
+    </UiCard>
     
-    &lt;!-- Card with image --&gt;
-    &lt;UiCard size="lg" image="/path/to/image.jpg" @close="handleClose"&gt;
-      &lt;template #header&gt;
-        &lt;h3&gt;Image Card&lt;/h3&gt;
-      &lt;/template&gt;
+    <UiCard size="lg" image="/path/to/image.jpg" @close="handleClose">
+      <template #header>
+        <h3>Image Card</h3>
+      </template>
       
-      &lt;p&gt;This card shows an image above the content.&lt;/p&gt;
-    &lt;/UiCard&gt;
+      <p>This card shows an image above the content.</p>
+    </UiCard>
     
-    &lt;!-- Small card with custom button color --&gt;
-    &lt;UiCard size="sm" buttonColor="success" @close="handleClose"&gt;
-      &lt;template #header&gt;
-        &lt;h4&gt;Success Card&lt;/h4&gt;
-      &lt;/template&gt;
+    <UiCard size="sm" buttonColor="success" @close="handleClose">
+      <template #header>
+        <h4>Success Card</h4>
+      </template>
       
-      &lt;p&gt;This card has a success-colored button.&lt;/p&gt;
+      <p>This card has a success-colored button.</p>
       
-      &lt;template #footer&gt;
-        &lt;button :class="buttonClass" @click="saveData"&gt;Save&lt;/button&gt;
-      &lt;/template&gt;
-    &lt;/UiCard&gt;
+      <template #footer>
+        <button :class="buttonClass" @click="saveData">Save</button>
+      </template>
+    </UiCard>
     
-    &lt;!-- Large card without footer --&gt;
-    &lt;UiCard size="xl" buttonColor="warning"&gt;
-      &lt;template #header&gt;
-        &lt;h2&gt;Large Card&lt;/h2&gt;
-      &lt;/template&gt;
+    <UiCard size="xl" buttonColor="warning">
+      <template #header>
+        <h2>Large Card</h2>
+      </template>
       
-      &lt;div class="space-y-4"&gt;
-        &lt;h3&gt;Section 1&lt;/h3&gt;
-        &lt;p&gt;Content for section 1...&lt;/p&gt;
+      <div class="space-y-4">
+        <h3>Section 1</h3>
+        <p>Content for section 1...</p>
         
-        &lt;h3&gt;Section 2&lt;/h3&gt;
-        &lt;p&gt;Content for section 2...&lt;/p&gt;
-      &lt;/div&gt;
-    &lt;/UiCard&gt;
-  &lt;/template&gt;
+        <h3>Section 2</h3>
+        <p>Content for section 2...</p>
+      </div>
+    </UiCard>
+  </template>
   
-  &lt;script setup&gt;
-  const handleAction = () =&gt; {
+  <script setup>
+  const handleAction = () => {
     console.log('Action clicked!')
   }
   
-  const handleClose = () =&gt; {
+  const handleClose = () => {
     console.log('Card closed!')
   }
   
-  const saveData = () =&gt; {
+  const saveData = () => {
     console.log('Data saved!')
   }
-  &lt;/script&gt;
+  </script>
   
   PROPS:
   - size: 'sm' | 'md' | 'lg' | 'xl' (default: 'sm') - Card size

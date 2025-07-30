@@ -11,18 +11,16 @@
   
   PARENT COMPONENT USAGE:
   
-  &lt;template&gt;
-    &lt;!-- Basic popup --&gt;
-    &lt;UiPopUp
+  <template>
+    <UiPopUp
       v-if="showPopup"
       title="Success!"
       body="Your action was completed successfully."
       @confirm="handleConfirm"
       @cancel="handleCancel"
-    /&gt;
+    />
     
-    &lt;!-- Custom popup with custom icon and text --&gt;
-    &lt;UiPopUp
+    <UiPopUp
       v-if="showDeletePopup"
       icon="Trash"
       title="Delete Confirmation"
@@ -31,10 +29,9 @@
       cancelText="Keep"
       @confirm="deleteItem"
       @cancel="closeDeletePopup"
-    /&gt;
+    />
     
-    &lt;!-- Warning popup --&gt;
-    &lt;UiPopUp
+    <UiPopUp
       v-if="showWarning"
       icon="Warning2"
       title="Warning"
@@ -43,33 +40,33 @@
       cancelText="Go Back"
       @confirm="continueAction"
       @cancel="saveChanges"
-    /&gt;
-  &lt;/template&gt;
+    />
+  </template>
   
-  &lt;script setup&gt;
+  <script setup>
   const showPopup = ref(false)
   const showDeletePopup = ref(false)
   const showWarning = ref(false)
   
-  const handleConfirm = () =&gt; {
+  const handleConfirm = () => {
     console.log('Confirmed!')
     showPopup.value = false
   }
   
-  const handleCancel = () =&gt; {
+  const handleCancel = () => {
     console.log('Cancelled!')
     showPopup.value = false
   }
   
-  const deleteItem = () =&gt; {
+  const deleteItem = () => {
     // Delete logic here
     showDeletePopup.value = false
   }
   
-  const closeDeletePopup = () =&gt; {
+  const closeDeletePopup = () => {
     showDeletePopup.value = false
   }
-  &lt;/script&gt;
+  </script>
   
   PROPS:
   - icon: string (default: 'closeCircle')

@@ -8,31 +8,28 @@
   
   PARENT COMPONENT USAGE:
   
-  &lt;template&gt;
-    &lt;!-- Basic date picker --&gt;
-    &lt;UiDatePickerInput
+  <template>
+    <UiDatePickerInput
       v-model="selectedDate"
       type="date"
       placeholder="Select date"
       size="md"
-    /&gt;
+    />
     
-    &lt;!-- Time picker with custom icon --&gt;
-    &lt;UiDatePickerInput
+    <UiDatePickerInput
       v-model="selectedTime"
       type="time"
       suffixIcon="Clock"
       placeholder="Select time"
-    /&gt;
+    />
     
-    &lt;!-- DateTime picker with custom format --&gt;
-    &lt;UiDatePickerInput
+    <UiDatePickerInput
       v-model="selectedDateTime"
       type="datetime"
       format="yyyy-MM-dd HH:mm"
       size="lg"
-    /&gt;
-  &lt;/template&gt;
+    />
+  </template>
   
 -->
 

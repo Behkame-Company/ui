@@ -13,69 +13,63 @@
   
   PARENT COMPONENT USAGE:
   
-  &lt;template&gt;
-    &lt;!-- Basic success toast with auto-dismiss --&gt;
-    &lt;UiToastSnackbarAlert
+  <template>
+    <UiToastSnackbarAlert
       title="Success!"
       bodyText="Your action was completed successfully."
       color="success"
       :timer="5"
       :auto_dismiss="true"
-    /&gt;
+    />
     
-    &lt;!-- Error toast with manual dismiss --&gt;
-    &lt;UiToastSnackbarAlert
+    <UiToastSnackbarAlert
       title="Error"
       bodyText="Something went wrong. Please try again."
       color="error"
       :auto_dismiss="false"
       cancelIcon="CloseCircle"
-    /&gt;
+    />
     
-    &lt;!-- Warning toast with prefix icon --&gt;
-    &lt;UiToastSnackbarAlert
+    <UiToastSnackbarAlert
       title="Warning"
       bodyText="Please review your input before proceeding."
       color="warning"
       prefixIcon="Warning2"
       :timer="8"
       size="md"
-    /&gt;
+    />
     
-    &lt;!-- Info toast without body --&gt;
-    &lt;UiToastSnackbarAlert
+    <UiToastSnackbarAlert
       title="New message received"
       color="info"
       prefixIcon="Message"
       :auto_dismiss="true"
       :timer="3"
-    /&gt;
+    />
     
-    &lt;!-- Large primary toast --&gt;
-    &lt;UiToastSnackbarAlert
+    <UiToastSnackbarAlert
       title="Welcome!"
       bodyText="Thank you for joining our platform."
       color="primary"
       size="lg"
       prefixIcon="User"
       :timer="10"
-    /&gt;
+    />
     
-    &lt;!-- Dark themed toast --&gt;
-    &lt;UiToastSnackbarAlert
+    <UiToastSnackbarAlert
       title="System Update"
       bodyText="Your system has been updated to the latest version."
       color="dark"
       size="xl"
       :auto_dismiss="false"
       cancelIcon="CloseCircle"
-    /&gt;
-  &lt;/template&gt;
+    />
+  </template>
   
-  &lt;script setup&gt;
+  <script setup>
   // No additional setup needed for basic usage
   // The component handles all visibility and timing internally
-  &lt;/script&gt;
+  </script>
   
   PROPS:
   - title: string (default: 'Title') - Toast title text

@@ -12,62 +12,56 @@
   
   PARENT COMPONENT USAGE:
   
-  &lt;template&gt;
-    &lt;!-- Basic checkbox --&gt;
-    &lt;UiCheckbox
+  <template>
+    <UiCheckbox
       v-model="isChecked"
       title="Accept terms and conditions"
-    /&gt;
+    />
     
-    &lt;!-- Checkbox with custom size --&gt;
-    &lt;UiCheckbox
+    <UiCheckbox
       v-model="newsletter"
       title="Subscribe to newsletter"
       size="lg"
-    /&gt;
+    />
     
-    &lt;!-- Disabled checkbox --&gt;
-    &lt;UiCheckbox
+    <UiCheckbox
       v-model="disabledOption"
       title="This option is disabled"
       :disabled="true"
-    /&gt;
+    />
     
-    &lt;!-- Small checkbox --&gt;
-    &lt;UiCheckbox
+    <UiCheckbox
       v-model="smallOption"
       title="Small checkbox option"
       size="sm"
-    /&gt;
+    />
     
-    &lt;!-- Medium checkbox with custom title --&gt;
-    &lt;UiCheckbox
+    <UiCheckbox
       v-model="customOption"
       title="Custom option with longer text"
       size="md"
-    /&gt;
+    />
     
-    &lt;!-- Multiple checkboxes in a group --&gt;
-    &lt;div class="space-y-2"&gt;
-      &lt;UiCheckbox
+    <div class="space-y-2">
+      <UiCheckbox
         v-model="options.option1"
         title="Option 1"
         size="md"
-      /&gt;
-      &lt;UiCheckbox
+      />
+      <UiCheckbox
         v-model="options.option2"
         title="Option 2"
         size="md"
-      /&gt;
-      &lt;UiCheckbox
+      />
+      <UiCheckbox
         v-model="options.option3"
         title="Option 3"
         size="md"
-      /&gt;
-    &lt;/div&gt;
-  &lt;/template&gt;
+      />
+    </div>
+  </template>
   
-  &lt;script setup&gt;
+  <script setup>
   const isChecked = ref(false)
   const newsletter = ref(true)
   const disabledOption = ref(false)
@@ -81,10 +75,10 @@
   })
   
   // Watch for changes
-  watch(isChecked, (newValue) =&gt; {
+  watch(isChecked, (newValue) => {
     console.log('Checkbox changed:', newValue)
   })
-  &lt;/script&gt;
+  </script>
   
   PROPS:
   - title: string (default: '') - Checkbox label text

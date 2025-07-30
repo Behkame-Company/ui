@@ -12,58 +12,52 @@
   
   PARENT COMPONENT USAGE:
   
-  &lt;template&gt;
-    &lt;!-- Basic link --&gt;
-    &lt;UiLink
+  <template>
+    <UiLink
       text="Learn More"
       href="/about"
-    /&gt;
+    />
     
-    &lt;!-- Link with custom color and size --&gt;
-    &lt;UiLink
+    <UiLink
       text="Contact Us"
       href="/contact"
       color="success"
       size="lg"
-    /&gt;
+    />
     
-    &lt;!-- Small error link --&gt;
-    &lt;UiLink
+    <UiLink
       text="Delete Account"
       href="/delete-account"
       color="error"
       size="sm"
-    /&gt;
+    />
     
-    &lt;!-- Large warning link --&gt;
-    &lt;UiLink
+    <UiLink
       text="Terms of Service"
       href="/terms"
       color="warning"
       size="xl"
-    /&gt;
+    />
     
-    &lt;!-- Secondary link --&gt;
-    &lt;UiLink
+    <UiLink
       text="Privacy Policy"
       href="/privacy"
       color="secondary"
       size="md"
-    /&gt;
+    />
     
-    &lt;!-- Dark themed link --&gt;
-    &lt;UiLink
+    <UiLink
       text="Documentation"
       href="/docs"
       color="dark"
       size="lg"
-    /&gt;
-  &lt;/template&gt;
+    />
+  </template>
   
-  &lt;script setup&gt;
+  <script setup>
   // No additional setup needed for basic usage
   // The component handles all routing internally via NuxtLink
-  &lt;/script&gt;
+  </script>
   
   PROPS:
   - text: string (default: '') - Link text to display

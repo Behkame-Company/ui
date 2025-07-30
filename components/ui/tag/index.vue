@@ -10,39 +10,35 @@
   
   PARENT COMPONENT USAGE:
   
-  &lt;template&gt;
-    &lt;!-- Basic tag --&gt;
-    &lt;UiTag text="Basic Tag" /&gt;
+  <template>
+    <UiTag text="Basic Tag" />
     
-    &lt;!-- Tag with icon --&gt;
-    &lt;UiTag
+    <UiTag
       text="Success"
       type="success"
       prefixIcon="TickCircle"
-    /&gt;
+    />
     
-    &lt;!-- Closeable tag --&gt;
-    &lt;UiTag
+    <UiTag
       text="Removable"
       type="warning"
       closeable
       @close="handleTagClose"
-    /&gt;
+    />
     
-    &lt;!-- Icon only tag --&gt;
-    &lt;UiTag
+    <UiTag
       prefixIcon="Star"
       type="primary"
       closeable
       @close="handleTagClose"
-    /&gt;
-  &lt;/template&gt;
+    />
+  </template>
   
-  &lt;script setup&gt;
-  const handleTagClose = () =&gt; {
+  <script setup>
+  const handleTagClose = () => {
     console.log('Tag closed')
   }
-  &lt;/script&gt;
+  </script>
   
   PROPS:
   - text: string (optional)

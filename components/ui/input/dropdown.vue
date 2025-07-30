@@ -11,9 +11,8 @@
   
   PARENT COMPONENT USAGE:
   
-  &lt;template&gt;
-    &lt;!-- Basic dropdown --&gt;
-    &lt;UiDropDown
+  <template>
+    <UiDropDown
       v-model="selectedOption"
       :options="[
         { label: 'Option 1', value: 'opt1' },
@@ -21,26 +20,24 @@
         { label: 'Option 3', value: 'opt3' }
       ]"
       placeholder="Select an option"
-    /&gt;
+    />
     
-    &lt;!-- Large dropdown with custom size --&gt;
-    &lt;UiDropDown
+    <UiDropDown
       v-model="selectedCategory"
       :options="categoryOptions"
       placeholder="Select category"
       size="lg"
-    /&gt;
+    />
     
-    &lt;!-- Disabled dropdown --&gt;
-    &lt;UiDropDown
+    <UiDropDown
       v-model="selectedItem"
       :options="itemOptions"
       :disabled="true"
       placeholder="Disabled dropdown"
-    /&gt;
-  &lt;/template&gt;
+    />
+  </template>
   
-  &lt;script setup&gt;
+  <script setup>
   const selectedOption = ref('')
   const selectedCategory = ref('')
   const selectedItem = ref('')
@@ -55,7 +52,7 @@
     { label: 'Item 1', value: 'item1' },
     { label: 'Item 2', value: 'item2' }
   ]
-  &lt;/script&gt;
+  </script>
   
   PROPS:
   - name: string (default: "")

@@ -11,85 +11,80 @@
   
   PARENT COMPONENT USAGE:
   
-  &lt;template&gt;
-    &lt;!-- Basic file input --&gt;
-    &lt;UiFileInput
+  <template>
+    <UiFileInput
       @change="handleFileChange"
       placeholder="Select a file..."
-    /&gt;
+    />
     
-    &lt;!-- File input with custom text --&gt;
-    &lt;UiFileInput
+    <UiFileInput
       text="Upload Document"
       placeholder="No document selected"
       accept=".pdf,.doc,.docx"
       @change="handleDocumentUpload"
-    /&gt;
+    />
     
-    &lt;!-- File input with icon --&gt;
-    &lt;UiFileInput
+    <UiFileInput
       icon="Upload"
       size="24"
       placeholder="Choose image file"
       accept="image/*"
       @change="handleImageUpload"
-    /&gt;
+    />
     
-    &lt;!-- File input for specific file types --&gt;
-    &lt;UiFileInput
+    <UiFileInput
       text="Select CSV"
       placeholder="No CSV file chosen"
       accept=".csv"
       @change="handleCSVUpload"
-    /&gt;
+    />
     
-    &lt;!-- File input with custom styling --&gt;
-    &lt;UiFileInput
+    <UiFileInput
       icon="Folder"
       size="20"
       text="Browse Files"
       placeholder="Select your files..."
       accept="*"
       @change="handleMultipleFiles"
-    /&gt;
-  &lt;/template&gt;
+    />
+  </template>
   
-  &lt;script setup&gt;
-  const handleFileChange = (file: File | null) =&gt; {
+  <script setup>
+  const handleFileChange = (file: File | null) => {
     if (file) {
       console.log('File selected:', file.name)
       // Process the file
     }
   }
   
-  const handleDocumentUpload = (file: File | null) =&gt; {
+  const handleDocumentUpload = (file: File | null) => {
     if (file) {
       console.log('Document uploaded:', file.name)
       // Upload document logic
     }
   }
   
-  const handleImageUpload = (file: File | null) =&gt; {
+  const handleImageUpload = (file: File | null) => {
     if (file) {
       console.log('Image uploaded:', file.name)
       // Process image
     }
   }
   
-  const handleCSVUpload = (file: File | null) =&gt; {
+  const handleCSVUpload = (file: File | null) => {
     if (file) {
       console.log('CSV file:', file.name)
       // Parse CSV logic
     }
   }
   
-  const handleMultipleFiles = (file: File | null) =&gt; {
+  const handleMultipleFiles = (file: File | null) => {
     if (file) {
       console.log('File selected:', file.name)
       // Handle file selection
     }
   }
-  &lt;/script&gt;
+  </script>
   
   PROPS:
   - text: string (default: 'Choose File') - Text to display when no icon is provided

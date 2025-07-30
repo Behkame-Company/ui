@@ -9,35 +9,32 @@
   
   PARENT COMPONENT USAGE:
   
-  &lt;template&gt;
-    &lt;!-- Basic tabs --&gt;
-    &lt;UiTab
+  <template>
+    <UiTab
       :tabs="['Home', 'Profile', 'Settings']"
       @update:selected="handleTabChange"
-    /&gt;
+    />
     
-    &lt;!-- Bordered tabs with custom size --&gt;
-    &lt;UiTab
+    <UiTab
       :tabs="['Tab 1', 'Tab 2', 'Tab 3']"
       type="bordered"
       size="lg"
       @update:selected="handleTabChange"
-    /&gt;
+    />
     
-    &lt;!-- Filled tabs with content --&gt;
-    &lt;UiTab
+    <UiTab
       :tabs="['Overview', 'Details', 'History']"
       :Contents="['Content 1', 'Content 2', 'Content 3']"
       type="filled"
       @update:selected="handleTabChange"
-    /&gt;
-  &lt;/template&gt;
+    />
+  </template>
   
-  &lt;script setup&gt;
-  const handleTabChange = (index) =&gt; {
+  <script setup>
+  const handleTabChange = (index) => {
     console.log('Selected tab:', index)
   }
-  &lt;/script&gt;
+  </script>
   
   PROPS:
   - tabs: string[] (default: ["Tab 1", "Tab 2", "Tab 3", "Tab 4", "Tab 5"])
@@ -46,8 +43,8 @@
   - size: 'sm' | 'md' | 'lg' (default: 'md')
   
   EVENTS:
-  - update:selected: Emitted when a tab is selected (index: number)
--->
+  - update:selected: Emitted when a tab is selected (index: number) -->
+
 
 <template>
   <!-- Container for the entire tab component -->

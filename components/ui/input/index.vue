@@ -10,47 +10,43 @@
   
   PARENT COMPONENT USAGE:
   
-  &lt;template&gt;
-    &lt;!-- Basic input --&gt;
-    &lt;UiInput v-model="username" placeholder="Enter username" /&gt;
+  <template>
+    <UiInput v-model="username" placeholder="Enter username" />
     
-    &lt;!-- Input with prefix icon --&gt;
-    &lt;UiInput
+    <UiInput
       v-model="email"
       placeholder="Enter email"
       prefixIcon="Message"
       size="md"
-    /&gt;
+    />
     
-    &lt;!-- Input with suffix icon and callback --&gt;
-    &lt;UiInput
+    <UiInput
       v-model="password"
       placeholder="Enter password"
       suffixIcon="Eye"
       :suffixCallback="togglePassword"
       type="password"
-    /&gt;
+    />
     
-    &lt;!-- Large input with custom icon type --&gt;
-    &lt;UiInput
+    <UiInput
       v-model="search"
       placeholder="Search..."
       prefixIcon="SearchNormal1"
       prefixIconType="linear"
       size="lg"
-    /&gt;
-  &lt;/template&gt;
+    />
+  </template>
   
-  &lt;script setup&gt;
+  <script setup>
   const username = ref('')
   const email = ref('')
   const password = ref('')
   const search = ref('')
   
-  const togglePassword = () =&gt; {
+  const togglePassword = () => {
     console.log('Toggle password visibility')
   }
-  &lt;/script&gt;
+  </script>
   
   PROPS:
   - name: string (default: "")

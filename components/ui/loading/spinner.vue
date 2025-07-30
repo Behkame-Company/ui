@@ -11,47 +11,39 @@
   
   PARENT COMPONENT USAGE:
   
-  &lt;template&gt;
-    &lt;!-- Basic spinner --&gt;
-    &lt;UiSpinner /&gt;
+  <template>
+    <UiSpinner />
     
-    &lt;!-- Small spinner --&gt;
-    &lt;UiSpinner size="sm" /&gt;
+    <UiSpinner size="sm" />
     
-    &lt;!-- Large spinner --&gt;
-    &lt;UiSpinner size="lg" /&gt;
+    <UiSpinner size="lg" />
     
-    &lt;!-- Extra large spinner --&gt;
-    &lt;UiSpinner size="xl" /&gt;
+    <UiSpinner size="xl" />
     
-    &lt;!-- Extra small spinner --&gt;
-    &lt;UiSpinner size="xs" /&gt;
+    <UiSpinner size="xs" />
     
-    &lt;!-- Medium spinner --&gt;
-    &lt;UiSpinner size="md" /&gt;
+    <UiSpinner size="md" />
     
-    &lt;!-- Spinner with custom styling --&gt;
-    &lt;div class="text-primary"&gt;
-      &lt;UiSpinner size="lg" /&gt;
-    &lt;/div&gt;
+    <div class="text-primary">
+      <UiSpinner size="lg" />
+    </div>
     
-    &lt;!-- Loading state example --&gt;
-    &lt;div v-if="loading" class="flex items-center gap-2"&gt;
-      &lt;UiSpinner size="sm" /&gt;
-      &lt;span&gt;Loading...&lt;/span&gt;
-    &lt;/div&gt;
-  &lt;/template&gt;
+    <div v-if="loading" class="flex items-center gap-2">
+      <UiSpinner size="sm" />
+      <span>Loading...</span>
+    </div>
+  </template>
   
-  &lt;script setup&gt;
+  <script setup>
   const loading = ref(true)
   
   // Simulate loading
-  onMounted(() =&gt; {
-    setTimeout(() =&gt; {
+  onMounted(() => {
+    setTimeout(() => {
       loading.value = false
     }, 3000)
   })
-  &lt;/script&gt;
+  </script>
   
   PROPS:
   - size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' (default: 'sm') - Spinner size

@@ -1,4 +1,4 @@
-<!--
+<!-- 
   TextArea Component Usage Guide:
   
   A customizable textarea component that supports:
@@ -11,44 +11,40 @@
   
   PARENT COMPONENT USAGE:
   
-  &lt;template&gt;
-    &lt;!-- Basic textarea --&gt;
-    &lt;UiTextArea
+  <template>
+    <UiTextArea
       v-model="message"
       placeholder="Enter your message here..."
       size="md"
-    /&gt;
+    />
     
-    &lt;!-- Large textarea with custom name --&gt;
-    &lt;UiTextArea
+    <UiTextArea
       v-model="description"
       name="description"
       placeholder="Enter detailed description..."
       size="lg"
-    /&gt;
+    />
     
-    &lt;!-- Small disabled textarea --&gt;
-    &lt;UiTextArea
+    <UiTextArea
       v-model="notes"
       placeholder="Notes (read-only)"
       size="sm"
       :disabled="true"
-    /&gt;
+    />
     
-    &lt;!-- Extra large textarea --&gt;
-    &lt;UiTextArea
+    <UiTextArea
       v-model="content"
       placeholder="Enter long content..."
       size="xl"
-    /&gt;
-  &lt;/template&gt;
+    />
+  </template>
   
-  &lt;script setup&gt;
+  <script setup>
   const message = ref('')
   const description = ref('')
   const notes = ref('Some read-only notes')
   const content = ref('')
-  &lt;/script&gt;
+  </script>
   
   PROPS:
   - name: string (default: '') - Input textarea name property
@@ -63,8 +59,8 @@
   - v-model support
   - Responsive sizing
   - Focus and disabled states
-  - Customizable placeholder
--->
+  - Customizable placeholder -->
+
 
 <template>
   <textarea 

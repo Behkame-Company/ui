@@ -13,45 +13,40 @@
   
   PARENT COMPONENT USAGE:
   
-  &lt;template&gt;
-    &lt;!-- Basic pagination --&gt;
-    &lt;UiPagination
+  <template>
+    <UiPagination
       v-model:current-page="currentPage"
       v-model:per-page="perPage"
       :total="totalRecords"
-    /&gt;
+    />
     
-    &lt;!-- Bordered pagination style --&gt;
-    &lt;UiPagination
+    <UiPagination
       v-model:current-page="currentPage"
       v-model:per-page="perPage"
       :total="totalRecords"
       type="bordered"
-    /&gt;
+    />
     
-    &lt;!-- Pagination with custom initial values --&gt;
-    &lt;UiPagination
+    <UiPagination
       v-model:current-page="page"
       v-model:per-page="itemsPerPage"
       :total="1000"
-    /&gt;
+    />
     
-    &lt;!-- Pagination with large dataset --&gt;
-    &lt;UiPagination
+    <UiPagination
       v-model:current-page="currentPage"
       v-model:per-page="perPage"
       :total="50000"
-    /&gt;
+    />
     
-    &lt;!-- Pagination with small dataset --&gt;
-    &lt;UiPagination
+    <UiPagination
       v-model:current-page="currentPage"
       v-model:per-page="perPage"
       :total="25"
-    /&gt;
-  &lt;/template&gt;
+    />
+  </template>
   
-  &lt;script setup&gt;
+  <script setup>
   const currentPage = ref(1)
   const perPage = ref(10)
   const totalRecords = ref(150)
@@ -60,18 +55,18 @@
   const itemsPerPage = ref(20)
   
   // Watch for pagination changes
-  watch([currentPage, perPage], ([newPage, newPerPage]) =&gt; {
+  watch([currentPage, perPage], ([newPage, newPerPage]) => {
     console.log('Page changed to:', newPage)
     console.log('Items per page:', newPerPage)
     // Fetch data based on new pagination
     fetchData(newPage, newPerPage)
   })
   
-  const fetchData = (page: number, perPage: number) =&gt; {
+  const fetchData = (page: number, perPage: number) => {
     // API call logic here
     console.log('Fetching data for page:', page, 'per page:', perPage)
   }
-  &lt;/script&gt;
+  </script>
   
   PROPS:
   - currentPage: number (required) - Current active page number

@@ -12,87 +12,83 @@
   
   PARENT COMPONENT USAGE:
   
-  &lt;template&gt;
-    &lt;!-- Basic modal with v-model --&gt;
-    &lt;UiModal v-model="showModal" size="md"&gt;
-      &lt;template #header&gt;
-        &lt;h3&gt;Modal Title&lt;/h3&gt;
-      &lt;/template&gt;
+  <template>
+    <UiModal v-model="showModal" size="md">
+      <template #header>
+        <h3>Modal Title</h3>
+      </template>
       
-      &lt;template #body&gt;
-        &lt;p&gt;This is the modal content.&lt;/p&gt;
-        &lt;p&gt;You can put any content here.&lt;/p&gt;
-      &lt;/template&gt;
+      <template #body>
+        <p>This is the modal content.</p>
+        <p>You can put any content here.</p>
+      </template>
       
-      &lt;template #footer&gt;
-        &lt;button @click="showModal = false"&gt;Close&lt;/button&gt;
-        &lt;button @click="saveData"&gt;Save&lt;/button&gt;
-      &lt;/template&gt;
-    &lt;/UiModal&gt;
+      <template #footer>
+        <button @click="showModal = false">Close</button>
+        <button @click="saveData">Save</button>
+      </template>
+    </UiModal>
     
-    &lt;!-- Modal with image --&gt;
-    &lt;UiModal v-model="showImageModal" size="lg" image="/path/to/image.jpg"&gt;
-      &lt;template #header&gt;
-        &lt;h3&gt;Image Preview&lt;/h3&gt;
-      &lt;/template&gt;
+    <UiModal v-model="showImageModal" size="lg" image="/path/to/image.jpg">
+      <template #header>
+        <h3>Image Preview</h3>
+      </template>
       
-      &lt;template #body&gt;
-        &lt;p&gt;This modal shows an image above the content.&lt;/p&gt;
-      &lt;/template&gt;
-    &lt;/UiModal&gt;
+      <template #body>
+        <p>This modal shows an image above the content.</p>
+      </template>
+    </UiModal>
     
-    &lt;!-- Small modal without footer --&gt;
-    &lt;UiModal v-model="showSmallModal" size="sm"&gt;
-      &lt;template #header&gt;
-        &lt;h4&gt;Quick Info&lt;/h4&gt;
-      &lt;/template&gt;
+    <UiModal v-model="showSmallModal" size="sm">
+      <template #header>
+        <h4>Quick Info</h4>
+      </template>
       
-      &lt;template #body&gt;
-        &lt;p&gt;Simple information display.&lt;/p&gt;
-      &lt;/template&gt;
-    &lt;/UiModal&gt;
+      <template #body>
+        <p>Simple information display.</p>
+      </template>
+    </UiModal>
     
-    &lt;!-- Large modal with custom content --&gt;
-    &lt;UiModal v-model="showLargeModal" size="xl"&gt;
-      &lt;template #header&gt;
-        &lt;h2&gt;Large Modal&lt;/h2&gt;
-      &lt;/template&gt;
+    <UiModal v-model="showLargeModal" size="xl">
+      <template #header>
+        <h2>Large Modal</h2>
+      </template>
       
-      &lt;template #body&gt;
-        &lt;div class="space-y-4"&gt;
-          &lt;h3&gt;Section 1&lt;/h3&gt;
-          &lt;p&gt;Content for section 1...&lt;/p&gt;
+      <template #body>
+        <div class="space-y-4">
+          <h3>Section 1</h3>
+          <p>Content for section 1...</p>
           
-          &lt;h3&gt;Section 2&lt;/h3&gt;
-          &lt;p&gt;Content for section 2...&lt;/p&gt;
-        &lt;/div&gt;
-      &lt;/template&gt;
+          <h3>Section 2</h3>
+          <p>Content for section 2...</p>
+        </div>
+      </template>
       
-      &lt;template #footer&gt;
-        &lt;div class="flex gap-2"&gt;
-          &lt;button @click="showLargeModal = false"&gt;Cancel&lt;/button&gt;
-          &lt;button @click="processData"&gt;Process&lt;/button&gt;
-        &lt;/div&gt;
-      &lt;/template&gt;
-    &lt;/UiModal&gt;
-  &lt;/template&gt;
+      <template #footer>
+        <div class="flex gap-2">
+          <button @click="showLargeModal = false">Cancel</button>
+          <button @click="processData">Process</button>
+        </div>
+      </template>
+    </UiModal>
+  </template>
   
-  &lt;script setup&gt;
+  <script setup>
   const showModal = ref(false)
   const showImageModal = ref(false)
   const showSmallModal = ref(false)
   const showLargeModal = ref(false)
   
-  const saveData = () =&gt; {
+  const saveData = () => {
     // Save logic here
     showModal.value = false
   }
   
-  const processData = () =&gt; {
+  const processData = () => {
     // Process logic here
     showLargeModal.value = false
   }
-  &lt;/script&gt;
+  </script>
   
   PROPS:
   - modelValue: boolean (required) - Controls modal visibility

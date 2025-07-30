@@ -12,90 +12,84 @@
   
   PARENT COMPONENT USAGE:
   
-  &lt;template&gt;
-    &lt;!-- Basic radio button --&gt;
-    &lt;UiRadio
+  <template>
+    <UiRadio
       v-model="selectedOption"
       value="option1"
       label="Option 1"
-    /&gt;
+    />
     
-    &lt;!-- Radio button with custom size --&gt;
-    &lt;UiRadio
+    <UiRadio
       v-model="selectedOption"
       value="option2"
       label="Option 2"
       size="lg"
-    /&gt;
+    />
     
-    &lt;!-- Disabled radio button --&gt;
-    &lt;UiRadio
+    <UiRadio
       v-model="selectedOption"
       value="option3"
       label="Disabled option"
       :disabled="true"
-    /&gt;
+    />
     
-    &lt;!-- Small radio button --&gt;
-    &lt;UiRadio
+    <UiRadio
       v-model="selectedOption"
       value="option4"
       label="Small option"
       size="sm"
-    /&gt;
+    />
     
-    &lt;!-- Radio group example --&gt;
-    &lt;div class="space-y-2"&gt;
-      &lt;h3&gt;Select your preference:&lt;/h3&gt;
-      &lt;UiRadio
+    <div class="space-y-2">
+      <h3>Select your preference:</h3>
+      <UiRadio
         v-model="preference"
         value="light"
         label="Light theme"
         size="md"
-      /&gt;
-      &lt;UiRadio
+      />
+      <UiRadio
         v-model="preference"
         value="dark"
         label="Dark theme"
         size="md"
-      /&gt;
-      &lt;UiRadio
+      />
+      <UiRadio
         v-model="preference"
         value="auto"
         label="Auto (system default)"
         size="md"
-      /&gt;
-    &lt;/div&gt;
+      />
+    </div>
     
-    &lt;!-- Radio with different value types --&gt;
-    &lt;UiRadio
+    <UiRadio
       v-model="numberValue"
       :value="1"
       label="Number value 1"
-    /&gt;
-    &lt;UiRadio
+    />
+    <UiRadio
       v-model="booleanValue"
       :value="true"
       label="Boolean true"
-    /&gt;
-  &lt;/template&gt;
+    />
+  </template>
   
-  &lt;script setup&gt;
+  <script setup>
   const selectedOption = ref('option1')
   const preference = ref('light')
   const numberValue = ref(1)
   const booleanValue = ref(true)
   
   // Watch for changes
-  watch(selectedOption, (newValue) =&gt; {
+  watch(selectedOption, (newValue) => {
     console.log('Selected option:', newValue)
   })
   
-  watch(preference, (newValue) =&gt; {
+  watch(preference, (newValue) => {
     console.log('Theme preference:', newValue)
     // Apply theme logic here
   })
-  &lt;/script&gt;
+  </script>
   
   PROPS:
   - value: string | number | boolean (required) - The value this radio represents
