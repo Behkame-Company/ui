@@ -1,3 +1,73 @@
+<!--
+  Input Component Usage Guide:
+  
+  A customizable input component that supports:
+  - Different sizes (sm, md, lg, xl)
+  - Prefix and suffix icons with callbacks
+  - Disabled state
+  - Focus states and styling
+  - Custom icon types and styling
+  
+  PARENT COMPONENT USAGE:
+  
+  &lt;template&gt;
+    &lt;!-- Basic input --&gt;
+    &lt;UiInput v-model="username" placeholder="Enter username" /&gt;
+    
+    &lt;!-- Input with prefix icon --&gt;
+    &lt;UiInput
+      v-model="email"
+      placeholder="Enter email"
+      prefixIcon="Message"
+      size="md"
+    /&gt;
+    
+    &lt;!-- Input with suffix icon and callback --&gt;
+    &lt;UiInput
+      v-model="password"
+      placeholder="Enter password"
+      suffixIcon="Eye"
+      :suffixCallback="togglePassword"
+      type="password"
+    /&gt;
+    
+    &lt;!-- Large input with custom icon type --&gt;
+    &lt;UiInput
+      v-model="search"
+      placeholder="Search..."
+      prefixIcon="SearchNormal1"
+      prefixIconType="linear"
+      size="lg"
+    /&gt;
+  &lt;/template&gt;
+  
+  &lt;script setup&gt;
+  const username = ref('')
+  const email = ref('')
+  const password = ref('')
+  const search = ref('')
+  
+  const togglePassword = () =&gt; {
+    console.log('Toggle password visibility')
+  }
+  &lt;/script&gt;
+  
+  PROPS:
+  - name: string (default: "")
+  - placeholder: string (default: "")
+  - size: 'sm' | 'md' | 'lg' | 'xl' (default: "md")
+  - prefixIcon: string (default: "")
+  - prefixCallback: Function | null (default: null)
+  - suffixIcon: string (default: "")
+  - suffixCallback: Function | null (default: null)
+  - disabled: boolean (default: false)
+  - prefixIconType: IconType (default: "bold")
+  - suffixIconType: IconType (default: "bold")
+  
+  EVENTS:
+  - update:modelValue: Emitted when input value changes (string)
+-->
+
 <template>
   <div
     class="ui-input-container"
@@ -60,10 +130,12 @@
     </div>
   </div>
 </template>
+
 <script setup lang="ts">
-const model = defineModel<string>({
-  required: true,
-});
+// ============================================================================
+// 1. IMPORTS (External libraries and internal modules)
+// ============================================================================
+// No external imports needed for this component
 
 const props = defineProps({
   name: {
@@ -103,33 +175,60 @@ const props = defineProps({
     type: String,
     default: "bold",
     validator: (value: string) => ["linear", "outline", "bold", "bulk", "broken", "twotone"].includes(value)
-
   },
   suffixIconType: {
     type: String,
     default: "bold",
     validator: (value: string) => ["linear", "outline", "bold", "bulk", "broken", "twotone"].includes(value)
   },
-});
+  type: {
+    type: String,
+    default: "text",
+    validator: (value: string) => ["text", "password", "email", "number", "tel", "url"].includes(value)
+  }
+})
 
-const focused = ref<boolean>(false);
+// ============================================================================
+// 4. EMITS (Only for components)
+// ============================================================================
+// Using defineModel for v-model binding
+const model = defineModel<string>({ required: true })
 
-const sizeClass = computed<string>(() => `ui-input-${props.size}`);
+// ============================================================================
+// 5. VARIABLES (ref, reactive but only for simple state)
+// ============================================================================
+/** Controls the focus state of the input */
+const focused = ref<boolean>(false)
 
+// ============================================================================
+// 6. COMPUTED PROPERTIES (computed declarations)
+// ============================================================================
+/** Size class for the input based on the size prop */
+const sizeClass = computed<string>(() => `ui-input-${props.size}`)
+
+/** Icon size based on the input size */
 const iconSizeClass = computed<number>(() => {
   switch (props.size) {
-    case "xl": return 20;
-    case "lg": return 18;
-    case "md": return 16;
-    case "sm": return 14;
-    default: return 16;
+    case "xl": return 20
+    case "lg": return 18
+    case "md": return 16
+    case "sm": return 14
+    default: return 16
   }
+})
 
-});
+// ============================================================================
+// 9. FUNCTION DEFINITIONS (helper functions and composables)
+// ============================================================================
+/**
+ * Handle input focus event
+ */
+const onFocus = () => (focused.value = true)
 
-const onFocus = () => (focused.value = true);
-
-const onBlur = () => (focused.value = false);
+/**
+ * Handle input blur event
+ */
+const onBlur = () => (focused.value = false)
 </script>
 <style>
 @reference "assets/css/main.css";

@@ -1,22 +1,72 @@
+<!--
+  Toggle Component Usage Guide:
+  
+  A customizable toggle/switch component that supports:
+  - Different sizes (sm, md, lg)
+  - Disabled state
+  - Custom labels
+  - Smooth animations and transitions
+  
+  PARENT COMPONENT USAGE:
+  
+  &lt;template&gt;
+    &lt;!-- Basic toggle --&gt;
+    &lt;UiToggle v-model="isEnabled" /&gt;
+    
+    &lt;!-- Toggle with custom label --&gt;
+    &lt;UiToggle
+      v-model="notifications"
+      label="Enable Notifications"
+      size="md"
+    /&gt;
+    
+    &lt;!-- Large disabled toggle --&gt;
+    &lt;UiToggle
+      v-model="autoSave"
+      label="Auto Save"
+      size="lg"
+      :disabled="true"
+    /&gt;
+  &lt;/template&gt;
+  
+  &lt;script setup&gt;
+  const isEnabled = ref(false)
+  const notifications = ref(true)
+  const autoSave = ref(false)
+  &lt;/script&gt;
+  
+  PROPS:
+  - label: string (default: "Title")
+  - size: 'sm' | 'md' | 'lg' (default: "md")
+  - disabled: boolean (default: false)
+  
+  EVENTS:
+  - update:modelValue: Emitted when toggle state changes (boolean)
+-->
+
 <template>
-  <label class="ui-toggle" :class="disabledClass">
+  <label class="ui-toggle" :class="classes.disabled">
     <input
       type="checkbox"
       class="sr-only"
       :disabled="disabled"
       v-model="model"
     />
-    <span class="ui-toggle-input" :class="[inputBgClass , sizeInputClass]">
-      <span class="ui-toggle-butoon" :class="[buttonBgClass ,sizeButtonClass]"></span>
+    <span class="ui-toggle-input" :class="[classes.inputBg, classes.sizeInput]">
+      <span class="ui-toggle-butoon" :class="[classes.buttonBg, classes.sizeButton]"></span>
     </span>
-    <span class="ui-toggle-title" :class="textSizeClass">
+    <span class="ui-toggle-title" :class="classes.textSize">
       {{ label }}
     </span>
   </label>
 </template>
-<script setup lang="ts">
-const model = defineModel<boolean>({ required: true });
 
+<script setup lang="ts">
+// ============================================================================
+// 1. IMPORTS (External libraries and internal modules)
+// ============================================================================
+// No external imports needed for this component
+const model = defineModel<boolean>({ required: true });
 const props = defineProps({
   label: {
      type: String,
@@ -36,59 +86,30 @@ const props = defineProps({
   
 });
 
-const inputBgClass = computed(() => {
-  return model.value
-    ? "bg-primary border-primary justify-end"
-    : "bg-transparent border border-gray-shade-50 justify-start";
-});
-const buttonBgClass = computed(() => {
-  return model.value ? "bg-white" : "bg-gray-shade-50";
-});
-const disabledClass = computed(() => ({
-  'ui-toggle-disabled': props.disabled,
-}))
-const sizeInputClass = computed<string>(() => {
-  switch (props.size) {
-    
-    case "lg":
-      return "ui-toggle-input-lg";
-    case "md":
-      return "ui-toggle-input-md";
-    case "sm":
-      return "ui-toggle-input-sm";
+// ============================================================================
+// 6. COMPUTED PROPERTIES (computed declarations)
+// ============================================================================
+/** Computed classes object for all size-based styling */
+const classes = computed<{
+  inputBg: string
+  buttonBg: string
+  disabled: { 'ui-toggle-disabled': boolean }
+  sizeInput: string
+  sizeButton: string
+  textSize: string
+}>(() => {
+  const size = props.size;
   
-    default:
-      return "ui-toggle-input-md";
-  }
-});
-const sizeButtonClass = computed<string>(() => {
-  switch (props.size) {
-    
-    case "lg":
-      return "ui-toggle-button-lg";
-    case "md":
-      return "ui-toggle-button-md";
-    case "sm":
-      return "ui-toggle-button-sm";
-  
-    default:
-      return "ui-toggle-button-md";
-  }
-});
-
-const textSizeClass = computed<string>(() => {
-  switch (props.size) {
-    
-    case "lg":
-      return "ui-toggle-title-lg";
-    case "md":
-      return "ui-toggle-titlet-md";
-    case "sm":
-      return "ui-toggle-title-sm";
-       
-    default:
-      return "ui-toggle-title-md";
-  }
+  return {
+    inputBg: model.value
+      ? "bg-primary border-primary justify-end"
+      : "bg-transparent border border-gray-shade-50 justify-start",
+    buttonBg: model.value ? "bg-white" : "bg-gray-shade-50",
+    disabled: { 'ui-toggle-disabled': props.disabled },
+    sizeInput: `ui-toggle-input-${size}`,
+    sizeButton: `ui-toggle-button-${size}`,
+    textSize: size === "lg" ? "text-base" : size === "sm" ? "text-xs" : "text-sm"
+  };
 });
 
 

@@ -1,3 +1,73 @@
+<!--
+  DropDown Component Usage Guide:
+  
+  A customizable single-select dropdown component that supports:
+  - Single option selection
+  - Search functionality to filter options
+  - Different sizes (sm, md, lg, xl)
+  - Disabled state
+  - Custom placeholders and styling
+  - Toggle functionality (click same option to deselect)
+  
+  PARENT COMPONENT USAGE:
+  
+  &lt;template&gt;
+    &lt;!-- Basic dropdown --&gt;
+    &lt;UiDropDown
+      v-model="selectedOption"
+      :options="[
+        { label: 'Option 1', value: 'opt1' },
+        { label: 'Option 2', value: 'opt2' },
+        { label: 'Option 3', value: 'opt3' }
+      ]"
+      placeholder="Select an option"
+    /&gt;
+    
+    &lt;!-- Large dropdown with custom size --&gt;
+    &lt;UiDropDown
+      v-model="selectedCategory"
+      :options="categoryOptions"
+      placeholder="Select category"
+      size="lg"
+    /&gt;
+    
+    &lt;!-- Disabled dropdown --&gt;
+    &lt;UiDropDown
+      v-model="selectedItem"
+      :options="itemOptions"
+      :disabled="true"
+      placeholder="Disabled dropdown"
+    /&gt;
+  &lt;/template&gt;
+  
+  &lt;script setup&gt;
+  const selectedOption = ref('')
+  const selectedCategory = ref('')
+  const selectedItem = ref('')
+  
+  const categoryOptions = [
+    { label: 'Technology', value: 'tech' },
+    { label: 'Design', value: 'design' },
+    { label: 'Marketing', value: 'marketing' }
+  ]
+  
+  const itemOptions = [
+    { label: 'Item 1', value: 'item1' },
+    { label: 'Item 2', value: 'item2' }
+  ]
+  &lt;/script&gt;
+  
+  PROPS:
+  - name: string (default: "")
+  - placeholder: string (default: "")
+  - size: 'sm' | 'md' | 'lg' | 'xl' (default: 'sm')
+  - disabled: boolean (default: false)
+  - options: Array&lt;{label: string, value: string}&gt; (required)
+  
+  EVENTS:
+  - update:modelValue: Emitted when selection changes (string)
+-->
+
 <template>
   <div
     class="ui-input-dropdown-container"
@@ -42,6 +112,7 @@
       :class="classes.options"
       :options="{ ignore: ['.ui-input-dropdown-container'] }"
       @trigger="closeDropdown"
+      style="width: 100%; min-width: 100%;"
     >
       <!-- Search -->
       <UiInput
@@ -69,12 +140,32 @@
 </template>
 
 <script setup lang="ts">
+// ============================================================================
+// 1. IMPORTS (External libraries and internal modules)
+// ============================================================================
 import { OnClickOutside } from "@vueuse/components";
 
-// v-model binding
-const model = defineModel<string>({ required: true });
+// ============================================================================
+// 2. TYPE DEFINITIONS
+// ============================================================================
+type DropdownSize = 'sm' | 'md' | 'lg' | 'xl'
 
-// Props
+interface Option {
+  label: string
+  value: string
+}
+
+interface Props {
+  name?: string
+  placeholder?: string
+  size?: DropdownSize
+  disabled?: boolean
+  options: Option[]
+}
+
+// ============================================================================
+// 3. PROPS (Only for components)
+// ============================================================================
 const props = defineProps({
   name: { type: String, default: "" },
   placeholder: { type: String, default: "" },
@@ -85,18 +176,38 @@ const props = defineProps({
   },
   disabled: { type: Boolean, default: false },
   options: {
-    type: Array<{ label: string; value: string }>,
+    type: Array as () => { label: string; value: string }[],
     default: () => [],
     required: true,
   },
 });
 
-// State
-const dropdown_openned = ref(false);
-const search = ref("");
+// ============================================================================
+// 4. EMITS (Only for components)
+// ============================================================================
+// Using defineModel for v-model binding
+const model = defineModel<string>({ required: true })
 
-// ✅ Combined classes
-const classes = computed(() => {
+// ============================================================================
+// 5. VARIABLES (ref, reactive but only for simple state)
+// ============================================================================
+/** Controls the visibility of the dropdown options */
+const dropdown_openned = ref<boolean>(false)
+
+/** Search term for filtering options */
+const search = ref<string>("")
+
+// ============================================================================
+// 6. COMPUTED PROPERTIES (computed declarations)
+// ============================================================================
+/** Computed classes object for all size-based styling */
+const classes = computed<{
+  dropdown: string
+  options: string
+  search: string
+  option: string
+  iconSize: number
+}>(() => {
   const size = props.size;
   const iconSize = { sm: 14, md: 16, lg: 18, xl: 20 }[size] ?? 0;
 
@@ -109,27 +220,43 @@ const classes = computed(() => {
   };
 });
 
-// Computed
-const filtered_options = computed(() =>
+/** Filtered options based on search term */
+const filtered_options = computed<Option[]>(() =>
   props.options.filter((option) =>
     option.label.toLowerCase().includes(search.value.toLowerCase())
   )
 );
 
-const toggleIcon = computed(() =>
+/** Toggle icon based on dropdown state */
+const toggleIcon = computed<string>(() =>
   dropdown_openned.value ? "ArrowUp2" : "ArrowDown2"
 );
 
-// Methods
-const toggleDropdown = () => {
+// ============================================================================
+// 9. FUNCTION DEFINITIONS (helper functions and composables)
+// ============================================================================
+/**
+ * Toggle dropdown visibility
+ * Prevents toggle if component is disabled
+ */
+const toggleDropdown = (): void => {
   if (!props.disabled) dropdown_openned.value = !dropdown_openned.value;
 };
 
-const closeDropdown = () => {
+/**
+ * Close dropdown
+ * Prevents close if component is disabled
+ */
+const closeDropdown = (): void => {
   if (!props.disabled) dropdown_openned.value = false;
 };
 
-const selectOption = (option: { label: string; value: string }) => {
+/**
+ * Select an option from the dropdown
+ * Toggles selection if the same option is clicked again
+ * @param option - The option to select
+ */
+const selectOption = (option: Option): void => {
   model.value = option.value === model.value ? "" : option.value;
   closeDropdown();
 };

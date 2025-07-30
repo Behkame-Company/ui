@@ -1,136 +1,275 @@
+<!--
+  ButtonIcon Component Usage Guide:
+  
+  A customizable icon-only button component that supports:
+  - Multiple sizes (md, lg, xl)
+  - Multiple colors (primary, outline, secondary, dark, text-bt, error, success, warning, info, low-contrast)
+  - Custom icons with different types (linear, outline, bold, bulk, broken, twotone)
+  - Disabled state
+  - Click events
+  - Responsive design
+  - Hover and focus states
+  
+  PARENT COMPONENT USAGE:
+  
+  &lt;template&gt;
+    &lt;!-- Basic icon button --&gt;
+    &lt;UiButtonIcon
+      icon="Home"
+      @tap="navigateHome"
+    /&gt;
+    
+    &lt;!-- Icon button with custom size and color --&gt;
+    &lt;UiButtonIcon
+      icon="Settings"
+      size="lg"
+      color="outline"
+      @tap="openSettings"
+    /&gt;
+    
+    &lt;!-- Disabled icon button --&gt;
+    &lt;UiButtonIcon
+      icon="Delete"
+      color="error"
+      :disabled="true"
+      @tap="deleteItem"
+    /&gt;
+    
+    &lt;!-- Large success icon button --&gt;
+    &lt;UiButtonIcon
+      icon="Check"
+      size="xl"
+      color="success"
+      icon-type="bold"
+      @tap="confirmAction"
+    /&gt;
+    
+    &lt;!-- Text button with custom icon type --&gt;
+    &lt;UiButtonIcon
+      icon="User"
+      color="text-bt"
+      icon-type="linear"
+      size="lg"
+      @tap="openProfile"
+    /&gt;
+    
+    &lt;!-- Warning icon button --&gt;
+    &lt;UiButtonIcon
+      icon="Warning"
+      color="warning"
+      icon-type="outline"
+      @tap="showWarning"
+    /&gt;
+    
+    &lt;!-- Dark themed icon button --&gt;
+    &lt;UiButtonIcon
+      icon="Moon"
+      color="dark"
+      size="xl"
+      @tap="toggleTheme"
+    /&gt;
+  &lt;/template&gt;
+  
+  &lt;script setup&gt;
+  const navigateHome = () =&gt; {
+    console.log('Navigating to home')
+  }
+  
+  const openSettings = () =&gt; {
+    console.log('Opening settings')
+  }
+  
+  const deleteItem = () =&gt; {
+    console.log('Deleting item')
+  }
+  
+  const confirmAction = () =&gt; {
+    console.log('Action confirmed')
+  }
+  
+  const openProfile = () =&gt; {
+    console.log('Opening profile')
+  }
+  
+  const showWarning = () =&gt; {
+    console.log('Showing warning')
+  }
+  
+  const toggleTheme = () =&gt; {
+    console.log('Toggling theme')
+  }
+  &lt;/script&gt;
+  
+  PROPS:
+  - disabled: boolean (default: false) - Whether button is disabled
+  - size: 'md' | 'lg' | 'xl' (default: 'sm') - Button size
+  - color: 'primary' | 'outline' | 'secondary' | 'dark' | 'text-bt' | 'error' | 'success' | 'warning' | 'info' | 'low-contrast' (default: 'primary') - Button color
+  - icon: string (default: '') - Icon name to display
+  - iconType: 'linear' | 'outline' | 'bold' | 'bulk' | 'broken' | 'twotone' (default: 'bold') - Icon style type
+  
+  EVENTS:
+  - tap: Emitted when button is clicked
+  
+  FEATURES:
+  - Icon-only design
+  - Multiple sizes and colors
+  - Custom icon types
+  - Disabled state
+  - Hover and focus effects
+  - Responsive design
+-->
+
 <template>
-    <button
-      class="ui-button"
-      @click="onTap"
-      :disabled="disabled"
-      :class="{
-        [sizeClass]: true,
-        [colorClass]: true,
-        'ui-button-disabled': disabled,
-      }"
-    >
-  
-      
-    
-        <VsxIcon
-          v-if="icon"
-          :iconName="icon"
-          :size="iconSize"
-          :type="iconType"
-        />
-       
-      
-     
-    
-    </button>
-  </template>
-  <script setup lang="ts">
-  const props = defineProps({
-    disabled: {
-      type: Boolean,
-      default: false, // set this to true to disable the button
-    },
-  
-  
-    size: {
-      type: String,
-      default: "sm", // set this to the size of the button
-      validator: (value: string) =>
-        ["md", "lg", "xl"].includes(value),
-    },
-    color: {
-      type: String,
-      default: "primary", // set this to the color of the button
-      validator: (value: string) =>
-        [
-          "primary",
-          "outline",
-          "secondary",
-          "dark",
-          "text-bt",
-          "error",
-          "success",
-          "warning",
-          "info",
-          "low-contrast",
-        ].includes(value),
-    },
-  
-    icon: {
-      type: String,
-      default: "", // set this name of the icon to add to the prefix of the button
-    },
-  
-    iconType: {
-      type: String,
-      default: "bold",
-      validator: (value: string) => ["linear", "outline", "bold", "bulk", "broken", "twotone"].includes(value),
-    },
-  });
-  
-  const emit = defineEmits<{
-    (e: "tap"): void;
-  }>();
-  
-  const onTap = () => emit("tap");
-  
-  const colorClass = computed<string>(() => {
-    switch (props.color) {
-      case "primary":
-        return "ui-button-primary";
-      case "outline":
-        return "ui-button-outline";
-      case "secondary":
-        return "ui-button-secondary";
-      case "dark":
-        return "ui-button-dark";
-      case "text-bt":
-        return "ui-button-text-bt";
-      case "gray":
-        return "ui-button-gray";
-      case "error":
-        return "ui-button-error";
-      case "success":
-        return "ui-button-success";
-      case "warning":
-        return "ui-button-warning";
-      case "info":
-        return "ui-button-info";
-      default:
-        return "ui-button-primary";
-    }
-  });
-  
-  const sizeClass = computed<string>(() => {
-    switch (props.size) {
-      case "xl":
-        return "ui-button-xl";
-      case "lg":
-        return "ui-button-lg";
-      case "md":
-        return "ui-button-md";
-      case "sm":
-        return "ui-button-sm";
-      case "xs":
-        return "ui-button-xs";
-      default:
-        return "ui-button-xl";
-    }
-  });
-  
+  <button
+    class="ui-button"
+    @click="onTap"
+    :disabled="disabled"
+    :class="{
+      [sizeClass]: true,
+      [colorClass]: true,
+      'ui-button-disabled': disabled,
+    }"
+  >
+    <VsxIcon
+      v-if="icon"
+      :iconName="icon"
+      :size="iconSize"
+      :type="iconType"
+    />
+  </button>
+</template>
 
-  
-  const iconSize = computed<number>(() => {
-    switch (props.size) {
-      case "xl": return 24;
-      case "lg": return 20;
-      case "md": return 16;
-      default: return 16;
-    }
-  });
- 
+<script setup lang="ts">
+// ============================================================================
+// 1. IMPORTS (External libraries and internal modules)
+// ============================================================================
+// No external imports needed for this component
 
-  </script>
+// ============================================================================
+// 2. PROPS (Only for components)
+// ============================================================================
+const props = defineProps({
+  disabled: {
+    type: Boolean,
+    default: false, // Whether button is disabled
+  },
+  size: {
+    type: String,
+    default: "sm", // Button size
+    validator: (value: string) =>
+      ["md", "lg", "xl"].includes(value),
+  },
+  color: {
+    type: String,
+    default: "primary", // Button color
+    validator: (value: string) =>
+      [
+        "primary",
+        "outline",
+        "secondary",
+        "dark",
+        "text-bt",
+        "error",
+        "success",
+        "warning",
+        "info",
+        "low-contrast",
+      ].includes(value),
+  },
+  icon: {
+    type: String,
+    default: "", // Icon name to display
+  },
+  iconType: {
+    type: String,
+    default: "bold", // Icon style type
+    validator: (value: string) => ["linear", "outline", "bold", "bulk", "broken", "twotone"].includes(value),
+  },
+})
+
+// ============================================================================
+// 3. EMITS (Only for components)
+// ============================================================================
+const emit = defineEmits<{
+  (e: "tap"): void
+}>()
+
+// ============================================================================
+// 4. VARIABLES (ref, reactive but only for simple state)
+// ============================================================================
+// No additional variables needed for this component
+
+// ============================================================================
+// 5. COMPUTED PROPERTIES (computed declarations)
+// ============================================================================
+const colorClass = computed<string>(() => {
+  switch (props.color) {
+    case "primary":
+      return "ui-button-primary"
+    case "outline":
+      return "ui-button-outline"
+    case "secondary":
+      return "ui-button-secondary"
+    case "dark":
+      return "ui-button-dark"
+    case "text-bt":
+      return "ui-button-text-bt"
+    case "gray":
+      return "ui-button-gray"
+    case "error":
+      return "ui-button-error"
+    case "success":
+      return "ui-button-success"
+    case "warning":
+      return "ui-button-warning"
+    case "info":
+      return "ui-button-info"
+    default:
+      return "ui-button-primary"
+  }
+})
+
+const sizeClass = computed<string>(() => {
+  switch (props.size) {
+    case "xl":
+      return "ui-button-xl"
+    case "lg":
+      return "ui-button-lg"
+    case "md":
+      return "ui-button-md"
+    case "sm":
+      return "ui-button-sm"
+    case "xs":
+      return "ui-button-xs"
+    default:
+      return "ui-button-xl"
+  }
+})
+
+const iconSize = computed<number>(() => {
+  switch (props.size) {
+    case "xl": return 24
+    case "lg": return 20
+    case "md": return 16
+    default: return 16
+  }
+})
+
+// ============================================================================
+// 6. LIFECYCLE HOOKS (onMounted, onBeforeMount, onUnmounted, etc.)
+// ============================================================================
+// No lifecycle hooks needed for this component
+
+// ============================================================================
+// 7. WATCHERS (watch, watchEffect)
+// ============================================================================
+// No watchers needed for this component
+
+// ============================================================================
+// 8. FUNCTION DEFINITIONS (helper functions and composables)
+// ============================================================================
+const onTap = (): void => emit("tap")
+</script>
   <style scoped>
   @reference "assets/css/main.css";
   

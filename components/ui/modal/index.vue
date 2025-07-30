@@ -1,3 +1,119 @@
+<!--
+  Modal Component Usage Guide:
+  
+  A flexible modal component that supports:
+  - Multiple sizes (sm, md, lg, xl)
+  - Custom header, body, and footer slots
+  - Optional image display
+  - Backdrop click to close
+  - Close button in header
+  - Responsive design
+  - v-model support for show/hide
+  
+  PARENT COMPONENT USAGE:
+  
+  &lt;template&gt;
+    &lt;!-- Basic modal with v-model --&gt;
+    &lt;UiModal v-model="showModal" size="md"&gt;
+      &lt;template #header&gt;
+        &lt;h3&gt;Modal Title&lt;/h3&gt;
+      &lt;/template&gt;
+      
+      &lt;template #body&gt;
+        &lt;p&gt;This is the modal content.&lt;/p&gt;
+        &lt;p&gt;You can put any content here.&lt;/p&gt;
+      &lt;/template&gt;
+      
+      &lt;template #footer&gt;
+        &lt;button @click="showModal = false"&gt;Close&lt;/button&gt;
+        &lt;button @click="saveData"&gt;Save&lt;/button&gt;
+      &lt;/template&gt;
+    &lt;/UiModal&gt;
+    
+    &lt;!-- Modal with image --&gt;
+    &lt;UiModal v-model="showImageModal" size="lg" image="/path/to/image.jpg"&gt;
+      &lt;template #header&gt;
+        &lt;h3&gt;Image Preview&lt;/h3&gt;
+      &lt;/template&gt;
+      
+      &lt;template #body&gt;
+        &lt;p&gt;This modal shows an image above the content.&lt;/p&gt;
+      &lt;/template&gt;
+    &lt;/UiModal&gt;
+    
+    &lt;!-- Small modal without footer --&gt;
+    &lt;UiModal v-model="showSmallModal" size="sm"&gt;
+      &lt;template #header&gt;
+        &lt;h4&gt;Quick Info&lt;/h4&gt;
+      &lt;/template&gt;
+      
+      &lt;template #body&gt;
+        &lt;p&gt;Simple information display.&lt;/p&gt;
+      &lt;/template&gt;
+    &lt;/UiModal&gt;
+    
+    &lt;!-- Large modal with custom content --&gt;
+    &lt;UiModal v-model="showLargeModal" size="xl"&gt;
+      &lt;template #header&gt;
+        &lt;h2&gt;Large Modal&lt;/h2&gt;
+      &lt;/template&gt;
+      
+      &lt;template #body&gt;
+        &lt;div class="space-y-4"&gt;
+          &lt;h3&gt;Section 1&lt;/h3&gt;
+          &lt;p&gt;Content for section 1...&lt;/p&gt;
+          
+          &lt;h3&gt;Section 2&lt;/h3&gt;
+          &lt;p&gt;Content for section 2...&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/template&gt;
+      
+      &lt;template #footer&gt;
+        &lt;div class="flex gap-2"&gt;
+          &lt;button @click="showLargeModal = false"&gt;Cancel&lt;/button&gt;
+          &lt;button @click="processData"&gt;Process&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/template&gt;
+    &lt;/UiModal&gt;
+  &lt;/template&gt;
+  
+  &lt;script setup&gt;
+  const showModal = ref(false)
+  const showImageModal = ref(false)
+  const showSmallModal = ref(false)
+  const showLargeModal = ref(false)
+  
+  const saveData = () =&gt; {
+    // Save logic here
+    showModal.value = false
+  }
+  
+  const processData = () =&gt; {
+    // Process logic here
+    showLargeModal.value = false
+  }
+  &lt;/script&gt;
+  
+  PROPS:
+  - modelValue: boolean (required) - Controls modal visibility
+  - size: 'sm' | 'md' | 'lg' | 'xl' (default: 'md') - Modal size
+  - image: string (optional) - URL of image to display above body content
+  
+  EVENTS:
+  - update:modelValue: Emitted when modal should be shown/hidden
+  
+  SLOTS:
+  - header: Modal header content (optional)
+  - body: Modal body content (required)
+  - footer: Modal footer content (optional)
+  
+  FEATURES:
+  - Click outside to close
+  - Close button in header (when header slot is used)
+  - Responsive sizing
+  - Image support
+  - Customizable content via slots
+-->
 
 <template>
   <div v-if="modelValue" class="ui-modal-backdrop" @click="onBackdropClick">
@@ -6,83 +122,104 @@
       <div class="ui-modal-header" v-if="$slots.header" :class="headerTitleClass">
         <slot name="header" />
         <button class="ui-modal-close-btn" @click="closeModal" type="button">
-    <VsxIcon  v-if="sizeIconClass"
-          iconName="CloseCircle"
-          class="ui-modal-header-icon"
-          :size="sizeIconClass"
-          type="bold" />
-  </button>
+          <VsxIcon 
+            v-if="sizeIconClass"
+            iconName="CloseCircle"
+            class="ui-modal-header-icon"
+            :size="sizeIconClass"
+            type="bold" 
+          />
+        </button>
       </div>
       <!-- Body Slot -->
       <div class="ui-modal-body" :class="bodyTextClass">
-        <div v-if="image" class="mb-4" >
+        <div v-if="image" class="mb-4">
           <img :src="image" alt="Modal image" class="w-full h-auto rounded object-cover max-h-60" />
         </div>
-        <slot name="body" ></slot>
+        <slot name="body"></slot>
       </div>
       <!-- Footer Slot -->
-      <div class="ui-modal-footer" v-if="$slots.footer"  >
-        <slot name="footer" ></slot>
+      <div class="ui-modal-footer" v-if="$slots.footer">
+        <slot name="footer"></slot>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+
 const props = defineProps({
-  modelValue: { type: Boolean, required: true },
+  modelValue: {
+    type: Boolean,
+    required: true, // Controls modal visibility
+  },
   size: {
     type: String,
-    default: 'md',
-    validator: (v: string) => ['sm', 'md', 'lg', 'xl'].includes(v),
+    default: "md", // valid values: sm, md, lg, xl
+    validator: (value: string) => ["sm", "md", "lg", "xl"].includes(value),
   },
   image: {
     type: String,
-    default: '',
-  },
-});
-const sizeIconClass = computed(() => {
-    switch (props.size) {
-      case "xl": return 28;
-      case "lg": return 24;
-      case "md": return 22;
-      case "sm":
-      default: return 18;
-    }
-  });
-  const sizeClass = computed(() => `ui-modal-${props.size}`);
-
-const headerTitleClass = computed(() => {
-  switch (props.size) {
-    case 'sm': return 'modal-header-title-sm';
-    case 'md': return 'modal-header-title-md';
-    case 'lg': return 'modal-header-title-lg';
-    case 'xl': return 'modal-header-title-xl';
-    default: return 'modal-header-title-md';
+    default: "", // URL of image to display above body content
   }
-});
+})
 
-const bodyTextClass = computed(() => {
+// ============================================================================
+// 4. EMITS (Only for components)
+// ============================================================================
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: boolean): void
+}>()
+
+// ============================================================================
+// 6. COMPUTED PROPERTIES (computed declarations)
+// ============================================================================
+/**
+ * Computed icon size based on modal size
+ */
+const sizeIconClass = computed<number>(() => {
   switch (props.size) {
-    case 'sm': return 'modal-body-text-sm';
-    case 'md': return 'modal-body-text-md';
-    case 'lg': return 'modal-body-text-lg';
-    case 'xl': return 'modal-body-text-xl';
-    default: return 'modal-body-text-md';
+    case 'xl': return 28
+    case 'lg': return 24
+    case 'md': return 22
+    case 'sm':
+    default: return 18
   }
-});
+})
 
+/**
+ * Computed modal size class
+ */
+const sizeClass = computed<string>(() => `ui-modal-${props.size}`)
 
+/**
+ * Computed header title class based on modal size
+ */
+const headerTitleClass = computed<string>(() => `modal-header-title-${props.size}`)
 
-const emit = defineEmits(['update:modelValue']);
-function closeModal() {
-  emit('update:modelValue', false);
+/**
+ * Computed body text class based on modal size
+ */
+const bodyTextClass = computed<string>(() => `modal-body-text-${props.size}`)
+
+// ============================================================================
+// 9. FUNCTION DEFINITIONS (helper functions and composables)
+// ============================================================================
+/**
+ * Close the modal by emitting update:modelValue event
+ */
+const closeModal = (): void => {
+  emit('update:modelValue', false)
 }
 
-function onBackdropClick(event: MouseEvent) {
+/**
+ * Handle backdrop click to close modal
+ * Only closes if click is on backdrop, not inside modal content
+ */
+const onBackdropClick = (event: MouseEvent): void => {
   // Only close if the click is on the backdrop, not inside the modal
   if (event.target === event.currentTarget) {
-    closeModal();
+    closeModal()
   }
 }
 </script>

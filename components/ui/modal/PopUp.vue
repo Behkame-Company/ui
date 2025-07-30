@@ -1,10 +1,93 @@
+<!--
+  PopUp Component Usage Guide:
+  
+  A customizable popup/modal component that supports:
+  - Custom icons with different sizes
+  - Customizable title and body text
+  - Confirm and cancel actions
+  - Custom button text
+  - Backdrop overlay
+  - Responsive design
+  
+  PARENT COMPONENT USAGE:
+  
+  &lt;template&gt;
+    &lt;!-- Basic popup --&gt;
+    &lt;UiPopUp
+      v-if="showPopup"
+      title="Success!"
+      body="Your action was completed successfully."
+      @confirm="handleConfirm"
+      @cancel="handleCancel"
+    /&gt;
+    
+    &lt;!-- Custom popup with custom icon and text --&gt;
+    &lt;UiPopUp
+      v-if="showDeletePopup"
+      icon="Trash"
+      title="Delete Confirmation"
+      body="Are you sure you want to delete this item?\nThis action cannot be undone."
+      confirmText="Delete"
+      cancelText="Keep"
+      @confirm="deleteItem"
+      @cancel="closeDeletePopup"
+    /&gt;
+    
+    &lt;!-- Warning popup --&gt;
+    &lt;UiPopUp
+      v-if="showWarning"
+      icon="Warning2"
+      title="Warning"
+      body="You have unsaved changes.\nDo you want to continue?"
+      confirmText="Continue"
+      cancelText="Go Back"
+      @confirm="continueAction"
+      @cancel="saveChanges"
+    /&gt;
+  &lt;/template&gt;
+  
+  &lt;script setup&gt;
+  const showPopup = ref(false)
+  const showDeletePopup = ref(false)
+  const showWarning = ref(false)
+  
+  const handleConfirm = () =&gt; {
+    console.log('Confirmed!')
+    showPopup.value = false
+  }
+  
+  const handleCancel = () =&gt; {
+    console.log('Cancelled!')
+    showPopup.value = false
+  }
+  
+  const deleteItem = () =&gt; {
+    // Delete logic here
+    showDeletePopup.value = false
+  }
+  
+  const closeDeletePopup = () =&gt; {
+    showDeletePopup.value = false
+  }
+  &lt;/script&gt;
+  
+  PROPS:
+  - icon: string (default: 'closeCircle')
+  - title: string (default: 'Success')
+  - body: string (default: 'Body text.\nyou can type anything here')
+  - confirmText: string (default: 'Confirm')
+  - cancelText: string (default: 'Cancel')
+  
+  EVENTS:
+  - confirm: Emitted when confirm button is clicked
+  - cancel: Emitted when cancel button is clicked
+-->
+
 <template>
   <div class="popup-backdrop">
     <div class="popup-modal">
       <div class="flex justify-center mb-4">
-        
-          <VsxIcon :iconName="icon" class="popup-icon" :size="48" />
-        
+        <VsxIcon :iconName="icon" class="popup-icon" :size="48" />
       </div>
       <div class="popup-title">
          {{ title }}
@@ -25,21 +108,42 @@
 </template>
 
 <script setup lang="ts">
+// ============================================================================
+// 3. PROPS (Only for components)
+// ============================================================================
 const props = defineProps({
   icon: { type: String, default: 'closeCircle' },
   title: { type: String, default: 'Success' },
-  body: { type: String, default: 'Body text.\nyou can type anything here' },
+  body: { type: String, default: 'Body you can type anything here' },
   confirmText: { type: String, default: 'Confirm' },
   cancelText: { type: String, default: 'Cancel' }
 });
 
-const emit = defineEmits(['confirm', 'cancel']);
+// ============================================================================
+// 4. EMITS (Only for components)
+// ============================================================================
+const emit = defineEmits<{
+  (e: 'confirm'): void
+  (e: 'cancel'): void
+}>();
 
-function onConfirm() {
-  emit('confirm');
+// ============================================================================
+// 9. FUNCTION DEFINITIONS (helper functions and composables)
+// ============================================================================
+/**
+ * Handle confirm button click
+ * Emits the confirm event to parent component
+ */
+const onConfirm = (): void => {
+  emit('confirm')
 }
-function onCancel() {
-  emit('cancel');
+
+/**
+ * Handle cancel button click
+ * Emits the cancel event to parent component
+ */
+const onCancel = (): void => {
+  emit('cancel')
 }
 </script>
 

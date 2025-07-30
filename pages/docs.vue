@@ -1,6 +1,6 @@
 <template>
   <div class="w-11/12 ">
-    <UiSidebar
+    <!-- <UiSidebar
       data="Data"
       :topSections="[
         { iconName: 'User', text: 'Profile', to: '/profile' },
@@ -13,7 +13,7 @@
         { iconName: 'User', text: 'Settings', to: '/settings' },
       ]"
       :thirdSections="[{ iconName: 'User', text: 'Profile', to: '/profile' }]"
-    />
+    /> -->
    
       <!-- ...rest of your docs content... -->
   
@@ -828,71 +828,71 @@
           <UiToastSnackbarAlert
             color="primary"
             size="lg"
-            cancel_icon="material-symbols:cancel-outline"
-            body_text="hi its my message"
+            cancelIcon="CloseCircle"
+            bodyText="hi its my message"
             title="Message"
-            icon_size="lg"
-            prefix_icon="material-symbols:electric-bolt-rounded"
+            iconSize="lg"
+            prefixIcon="Flash"
             :auto_dismiss="false"
           />
           <UiToastSnackbarAlert
             color="outline"
             size="lg"
-            cancel_icon="material-symbols:cancel-outline"
-            body_text="hi its my message"
+            cancelIcon="CloseCircle"
+            bodyText="hi its my message"
             title="Message"
-            icon_size="lg"
-            prefix_icon="material-symbols:electric-bolt-rounded"
+            iconSize="lg"
+            prefixIcon="Flash"
             :auto_dismiss="false"
           />
           <UiToastSnackbarAlert
             color="dark"
             size="lg"
-            cancel_icon="material-symbols:cancel-outline"
-            body_text="hi it my message"
+            cancelIcon="CloseCircle"
+            bodyText="hi it my message"
             title="Message"
-            icon_size="lg"
-            prefix_icon="material-symbols:electric-bolt-rounded"
+            iconSize="lg"
+            prefixIcon="Flash"
             :auto_dismiss="false"
           />
           <UiToastSnackbarAlert
             color="error"
             size="lg"
-            cancel_icon="material-symbols:cancel-outline"
-            body_text="hi it my message"
+            cancelIcon="CloseCircle"
+            bodyText="hi it my message"
             title="Message"
-            icon_size="lg"
-            prefix_icon="material-symbols:electric-bolt-rounded"
+            iconSize="lg"
+            prefixIcon="Flash"
             :auto_dismiss="false"
           />
           <UiToastSnackbarAlert
             color="success"
             size="lg"
-            cancel_icon="material-symbols:cancel-outline"
-            body_text="hi it my message"
+            cancelIcon="CloseCircle"
+            bodyText="hi it my message"
             title="Message"
-            icon_size="lg"
-            prefix_icon="material-symbols:electric-bolt-rounded"
+            iconSize="lg"
+            prefixIcon="Flash"
             :auto_dismiss="false"
           />
           <UiToastSnackbarAlert
             color="warning"
             size="lg"
-            cancel_icon="material-symbols:cancel-outline"
-            body_text="hi it my message"
+            cancelIcon="CloseCircle"
+            bodyText="hi it my message"
             title="Message"
-            icon_size="lg"
-            prefix_icon="material-symbols:electric-bolt-rounded"
+            iconSize="lg"
+            prefixIcon="Flash"
             :auto_dismiss="false"
           />
           <UiToastSnackbarAlert
             color="info"
             size="lg"
-            cancel_icon="material-symbols:cancel-outline"
-            body_text="hi it my message"
+            cancelIcon="CloseCircle"
+            bodyText="hi it my message"
             title="Message"
-            icon_size="lg"
-            prefix_icon="material-symbols:electric-bolt-rounded"
+            iconSize="lg"
+            prefixIcon="Flash"
             :auto_dismiss="false"
           />
         </div>
@@ -900,64 +900,64 @@
           <UiToastSnackbarAlert
             color="primary"
             size="lg"
-            cancel_icon="material-symbols:cancel-outline"
+            cancelIcon="CloseCircle"
             title="Message"
-            icon_size="lg"
-            prefix_icon="material-symbols:electric-bolt-rounded"
+            iconSize="lg"
+            prefixIcon="Flash"
             :auto_dismiss="false"
           />
           <UiToastSnackbarAlert
             color="outline"
             size="lg"
-            cancel_icon="material-symbols:cancel-outline"
+            cancelIcon="CloseCircle"
             title="Message"
-            icon_size="lg"
-            prefix_icon="material-symbols:electric-bolt-rounded"
+            iconSize="lg"
+            prefixIcon="Flash"
             :auto_dismiss="false"
           />
           <UiToastSnackbarAlert
             color="dark"
             size="lg"
-            cancel_icon="material-symbols:cancel-outline"
+            cancelIcon="CloseCircle"
             title="Message"
-            icon_size="lg"
-            prefix_icon="material-symbols:electric-bolt-rounded"
+            iconSize="lg"
+            prefixIcon="Flash"
             :auto_dismiss="false"
           />
           <UiToastSnackbarAlert
             color="error"
             size="lg"
-            cancel_icon="material-symbols:cancel-outline"
+            cancelIcon="CloseCircle"
             title="Message"
-            icon_size="lg"
-            prefix_icon="material-symbols:electric-bolt-rounded"
+            iconSize="lg"
+            prefixIcon="Flash"
             :auto_dismiss="false"
           />
           <UiToastSnackbarAlert
             color="success"
             size="lg"
-            cancel_icon="material-symbols:cancel-outline"
+            cancelIcon="CloseCircle"
             title="Message"
-            icon_size="lg"
-            prefix_icon="material-symbols:electric-bolt-rounded"
+            iconSize="lg"
+            prefixIcon="Flash"
             :auto_dismiss="false"
           />
           <UiToastSnackbarAlert
             color="warning"
             size="lg"
-            cancel_icon="material-symbols:cancel-outline"
+            cancelIcon="CloseCircle"
             title="Message"
-            icon_size="lg"
-            prefix_icon="material-symbols:electric-bolt-rounded"
+            iconSize="lg"
+            prefixIcon="Flash"
             :auto_dismiss="false"
           />
           <UiToastSnackbarAlert
             color="info"
             size="lg"
-            cancel_icon="material-symbols:cancel-outline"
+            cancelIcon="CloseCircle"
             title="Message"
-            icon_size="lg"
-            prefix_icon="material-symbols:electric-bolt-rounded"
+            iconSize="lg"
+            prefixIcon="Flash"
             :auto_dismiss="false"
           />
         </div>
@@ -966,8 +966,8 @@
             color="primary"
             size="sm"
             title="Message"
-            icon_size="sm"
-            prefix_icon="material-symbols:electric-bolt-rounded"
+            iconSize="sm"
+            prefixIcon="Flash"
             :auto_dismiss="true"
             :timer="30"
           />
@@ -975,8 +975,8 @@
             color="outline"
             size="sm"
             title="Message"
-            icon_size="sm"
-            prefix_icon="material-symbols:electric-bolt-rounded"
+            iconSize="sm"
+            prefixIcon="Flash"
             :auto_dismiss="true"
             :timer="30"
           />
@@ -984,8 +984,8 @@
             color="dark"
             size="sm"
             title="Message"
-            icon_size="sm"
-            prefix_icon="material-symbols:electric-bolt-rounded"
+            iconSize="sm"
+            prefixIcon="Flash"
             :auto_dismiss="true"
             :timer="30"
           />
@@ -993,8 +993,8 @@
             color="error"
             size="sm"
             title="Message"
-            icon_size="sm"
-            prefix_icon="material-symbols:electric-bolt-rounded"
+            iconSize="sm"
+            prefixIcon="Flash"
             :auto_dismiss="true"
             :timer="30"
           />
@@ -1002,8 +1002,8 @@
             color="success"
             size="sm"
             title="Message"
-            icon_size="sm"
-            prefix_icon="material-symbols:electric-bolt-rounded"
+            iconSize="sm"
+            prefixIcon="Flash"
             :auto_dismiss="true"
             :timer="30"
           />
@@ -1011,8 +1011,8 @@
             color="warning"
             size="sm"
             title="Message"
-            icon_size="sm"
-            prefix_icon="material-symbols:electric-bolt-rounded"
+            iconSize="sm"
+            prefixIcon="Flash"
             :auto_dismiss="true"
             :timer="30"
           />
@@ -1020,8 +1020,8 @@
             color="info"
             size="sm"
             title="Message"
-            icon_size="sm"
-            prefix_icon="material-symbols:electric-bolt-rounded"
+            iconSize="sm"
+            prefixIcon="Flash"
             :auto_dismiss="true"
             :timer="30"
           />

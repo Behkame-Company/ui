@@ -1,3 +1,41 @@
+<!--
+  DatePickerInput Component Usage Guide:
+  
+  This component provides a customizable date/time picker with three modes:
+  - date: Select date only (yyyy-MM-dd format)
+  - time: Select time only (HH:mm format) 
+  - datetime: Select both date and time (yyyy-MM-dd HH:mm format)
+  
+  PARENT COMPONENT USAGE:
+  
+  &lt;template&gt;
+    &lt;!-- Basic date picker --&gt;
+    &lt;UiDatePickerInput
+      v-model="selectedDate"
+      type="date"
+      placeholder="Select date"
+      size="md"
+    /&gt;
+    
+    &lt;!-- Time picker with custom icon --&gt;
+    &lt;UiDatePickerInput
+      v-model="selectedTime"
+      type="time"
+      suffixIcon="Clock"
+      placeholder="Select time"
+    /&gt;
+    
+    &lt;!-- DateTime picker with custom format --&gt;
+    &lt;UiDatePickerInput
+      v-model="selectedDateTime"
+      type="datetime"
+      format="yyyy-MM-dd HH:mm"
+      size="lg"
+    /&gt;
+  &lt;/template&gt;
+  
+-->
+
 <template>
   <div class="date-picker-container" ref="datePickerRef">
     <!-- Custom Input -->
@@ -41,90 +79,113 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * DatePickerInput Component
+ * 
+ * A customizable date/time picker component that supports:
+ * - Date selection (yyyy-MM-dd)
+ * - Time selection (HH:mm)
+ * - DateTime selection (yyyy-MM-dd HH:mm)
+ * - Custom formatting
+ * - Different sizes (sm, md, lg)
+ * - Custom icons and placeholders
+ * 
+ * USAGE EXAMPLE:
+ * 
+ * // Basic date picker
+ * <UiDatePickerInput
+ *   v-model="selectedDate"
+ *   type="date"
+ *   placeholder="Select date"
+ *   size="md"
+ * />
+ * 
+ * // Time picker with custom icon
+ * <UiDatePickerInput
+ *   v-model="selectedTime"
+ *   type="time"
+ *   suffixIcon="Clock"
+ *   placeholder="Select time"
+ * />
+ * 
+ * // DateTime picker
+ * <UiDatePickerInput
+ *   v-model="selectedDateTime"
+ *   type="datetime"
+ *   format="yyyy-MM-dd HH:mm"
+ *   size="lg"
+ * />
+ * 
+ * // Parent component setup
+ * const selectedDate = ref('')
+ * const selectedTime = ref('')
+ * const selectedDateTime = ref('')
+ */
+
+// ============================================================================
+// 1. IMPORTS (External libraries and internal modules)
+// ============================================================================
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 
-// Props
-const props = defineProps({
-  modelValue: {
-    type: [String, Date],
-    default: '',
-  },
-  placeholder: {
-    type: String,
-    default: 'Select date/time',
-  },
-  suffixIcon: {
-    type: String,
-    default: 'CalendarTime',
-  },
-  size: {
-    type: String,
-    default: 'sm',
-    validator: (value: string) => ['sm', 'md', 'lg'].includes(value),
-  },
-  type: {
-    type: String,
-    default: 'datetime',
-    validator: (val: string) => ['date', 'time', 'datetime'].includes(val),
-  },
-  format: {
-    type: String,
-    default: 'yyyy-MM-dd HH:mm',
-  },
-})
+// ============================================================================
+// 2. TYPE DEFINITIONS
+// ============================================================================
+type DatePickerType = 'date' | 'time' | 'datetime'
+type DatePickerSize = 'sm' | 'md' | 'lg'
 
-// Emits
-const emit = defineEmits(['update:modelValue'])
-
-// State
-const isOpen = ref(false)
-const datePickerRef = ref<HTMLElement | null>(null)
-const currentDate = ref<Date | null>(null)
-
-// Initialize currentDate
-const initializeDate = () => {
-  if (!props.modelValue) {
-    currentDate.value = null
-    return
-  }
-  
-  try {
-    if (props.type === 'time') {
-      // For time-only, create a date with today's date and the specified time
-      const today = new Date()
-      const timeString = String(props.modelValue)
-      const [hours, minutes] = timeString.split(':').map(Number)
-      
-      if (!isNaN(hours) && !isNaN(minutes)) {
-        today.setHours(hours, minutes, 0, 0)
-        currentDate.value = today
-      } else {
-        currentDate.value = null
-      }
-    } else {
-      currentDate.value = new Date(props.modelValue)
-    }
-  } catch (e) {
-    console.warn('Invalid date value:', props.modelValue)
-    currentDate.value = null
-  }
+interface Props {
+  modelValue?: string | Date
+  placeholder?: string
+  suffixIcon?: string
+  size?: DatePickerSize
+  type?: DatePickerType
+  format?: string
 }
 
-// Initialize on mount
-initializeDate()
+// ============================================================================
+// 3. PROPS (Only for components)
+// ============================================================================
+const props = withDefaults(defineProps<Props>(), {
+  modelValue: undefined,
+  placeholder: 'Select date/time',
+  suffixIcon: 'CalendarTime',
+  size: 'sm',
+  type: 'datetime',
+  format: 'yyyy-MM-dd HH:mm',
+})
 
-// Computed format based on type
+// ============================================================================
+// 4. EMITS (Only for components)
+// ============================================================================
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: string | Date): void
+}>()
+
+// ============================================================================
+// 5. VARIABLES (ref, reactive but only for simple state)
+// ============================================================================
+/** Controls the visibility of the date picker popup */
+const isOpen = ref(false)
+
+/** Reference to the date picker container for click outside detection */
+const datePickerRef = ref<HTMLElement | null>(null)
+
+/** Internal date value for the picker component */
+const currentDate = ref<Date | null>(null)
+
+// ============================================================================
+// 6. COMPUTED PROPERTIES (computed declarations)
+// ============================================================================
+/** Computed format based on picker type */
 const computedFormat = computed(() => {
   if (props.type === 'time') return 'HH:mm'
   if (props.type === 'date') return 'yyyy-MM-dd'
   return 'yyyy-MM-dd HH:mm'
 })
 
-// Display Value
+/** Display value for the input field */
 const displayValue = computed(() => {
-  console.log('Computing display value:', currentDate.value, 'Type:', props.type)
-  
   if (!currentDate.value) return ''
   
   try {
@@ -166,14 +227,76 @@ const displayValue = computed(() => {
   }
 })
 
-// Handlers
+// ============================================================================
+// 7. LIFECYCLE HOOKS (onMounted, onBeforeMount, onUnmounted, etc.)
+// ============================================================================
+onMounted(() => {
+  // Initialize date when component mounts
+  initializeDate()
+  
+  // Add click outside listener to close picker
+  document.addEventListener('click', (e) => {
+    if (datePickerRef.value && !datePickerRef.value.contains(e.target as Node)) {
+      isOpen.value = false
+    }
+  })
+})
+
+// ============================================================================
+// 8. WATCHERS (watch, watchEffect)
+// ============================================================================
+/** Watch for external modelValue changes and reinitialize */
+watch(() => props.modelValue, () => {
+  initializeDate()
+})
+
+// ============================================================================
+// 9. FUNCTION DEFINITIONS (helper functions and composables)
+// ============================================================================
+/**
+ * Initialize the current date from the modelValue prop
+ * Handles different input formats and picker types
+ */
+const initializeDate = () => {
+  if (!props.modelValue) {
+    currentDate.value = null
+    return
+  }
+  
+  try {
+    if (props.type === 'time') {
+      // For time-only, create a date with today's date and the specified time
+      const today = new Date()
+      const timeString = String(props.modelValue)
+      const [hours, minutes] = timeString.split(':').map(Number)
+      
+      if (!isNaN(hours) && !isNaN(minutes)) {
+        today.setHours(hours, minutes, 0, 0)
+        currentDate.value = today
+      } else {
+        currentDate.value = null
+      }
+    } else {
+      currentDate.value = new Date(props.modelValue)
+    }
+  } catch (e) {
+    console.warn('Invalid date value:', props.modelValue)
+    currentDate.value = null
+  }
+}
+
+/**
+ * Toggle the date picker popup visibility
+ */
 const toggleDatePicker = () => {
   isOpen.value = !isOpen.value
 }
 
+/**
+ * Handle date selection from the picker
+ * Formats the value based on picker type and emits the update
+ */
 const onDateSelect = (val: Date | any) => {
-  console.log('Date selected:', val, 'Type:', props.type)
-  
   if (props.type === 'time') {
     // Handle time object format from VueDatePicker
     if (typeof val === 'object' && 'hours' in val && 'minutes' in val) {
@@ -200,35 +323,22 @@ const onDateSelect = (val: Date | any) => {
     isOpen.value = false
   }
 }
-
-// Watch for external modelValue changes
-watch(() => props.modelValue, () => {
-  initializeDate()
-})
-
-// Close on outside click
-onMounted(() => {
-  document.addEventListener('click', (e) => {
-    if (datePickerRef.value && !datePickerRef.value.contains(e.target as Node)) {
-      isOpen.value = false
-    }
-  })
-})
 </script>
 
 <style scoped>
 @reference "assets/css/main.css";
 
 .date-picker-container {
-  @apply flex flex-col space-y-1 relative;
+  @apply flex flex-col relative;
 }
 
 .date-picker-popup {
-  @apply z-50 border border-gray-shade-200 rounded-lg shadow-lg bg-white absolute top-full left-0;
-  width: 100%;
-  min-width: 100%;
+  @apply z-50 border border-gray-shade-200 rounded-lg shadow-lg bg-white absolute top-full left-0 ;
+ 
 }
-
+:deep(.dp__outer_menu_wrap) {
+  @apply mt-1;
+}
 /* Hide default input + icon */
 :deep(.dp__input),
 :deep(.dp__input_wrap),
@@ -241,8 +351,5 @@ onMounted(() => {
   @apply p-0 m-0 border-0 shadow-none bg-transparent;
 }
 
-/* Optional transparent calendar */
-:deep(.dp__calendar) {
-  background-color: transparent;
-}
+
 </style>

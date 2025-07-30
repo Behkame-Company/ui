@@ -1,3 +1,80 @@
+<!--
+  Password Input Component Usage Guide:
+  
+  A secure password input component that supports:
+  - Show/hide password toggle
+  - Multiple sizes (sm, md, lg, xl)
+  - Focus and disabled states
+  - Custom placeholder text
+  - v-model support
+  - Responsive design
+  - Eye icon toggle functionality
+  
+  PARENT COMPONENT USAGE:
+  
+  &lt;template&gt;
+    &lt;!-- Basic password input --&gt;
+    &lt;UiPasswordInput
+      v-model="password"
+      placeholder="Enter your password"
+    /&gt;
+    
+    &lt;!-- Password input with custom name --&gt;
+    &lt;UiPasswordInput
+      v-model="userPassword"
+      name="userPassword"
+      placeholder="Enter password"
+      size="lg"
+    /&gt;
+    
+    &lt;!-- Disabled password input --&gt;
+    &lt;UiPasswordInput
+      v-model="disabledPassword"
+      placeholder="Password (disabled)"
+      :disabled="true"
+      size="md"
+    /&gt;
+    
+    &lt;!-- Small password input --&gt;
+    &lt;UiPasswordInput
+      v-model="smallPassword"
+      placeholder="Quick password"
+      size="sm"
+    /&gt;
+    
+    &lt;!-- Extra large password input --&gt;
+    &lt;UiPasswordInput
+      v-model="largePassword"
+      placeholder="Enter your secure password"
+      size="xl"
+    /&gt;
+  &lt;/template&gt;
+  
+  &lt;script setup&gt;
+  const password = ref('')
+  const userPassword = ref('')
+  const disabledPassword = ref('')
+  const smallPassword = ref('')
+  const largePassword = ref('')
+  &lt;/script&gt;
+  
+  PROPS:
+  - name: string (default: '') - Input name property
+  - placeholder: string (default: '') - Placeholder text to show in input
+  - size: 'sm' | 'md' | 'lg' | 'xl' (default: 'md') - Input size
+  - disabled: boolean (default: false) - Disable the input
+  
+  EVENTS:
+  - update:modelValue: Emitted when password value changes (v-model)
+  
+  FEATURES:
+  - Show/hide password toggle with eye icon
+  - v-model support
+  - Responsive sizing
+  - Focus and disabled states
+  - Customizable placeholder
+-->
+
 <template>
   <div
     class="ui-input-password-container"
@@ -22,20 +99,19 @@
 
     <div
       class="ui-input-password-suffix-icon"
-      :class="{ 'ui-input-password-suffix-icon-disabled': disabled , 'ui-input-password-suffix-icon-focused' : focused}"
+      :class="{ 'ui-input-password-suffix-icon-disabled': disabled, 'ui-input-password-suffix-icon-focused': focused }"
       :disabled="disabled"
-     
       @click="toggleShowPassword"
     >
-      <VsxIcon :iconName="iconName" :size="iconSizeClass"  type="linear" />
+      <VsxIcon :iconName="iconName" :size="iconSizeClass" type="linear" />
     </div>
   </div>
 </template>
-<script setup lang="ts">
-const model = defineModel<string>({
-  required: true,
-});
 
+<script setup lang="ts">
+// ============================================================================
+// 2. PROPS (Only for components)
+// ============================================================================
 const props = defineProps({
   name: {
     type: String,
@@ -54,46 +130,73 @@ const props = defineProps({
     type: Boolean,
     default: false, // pass this variable true if you want the input to get disabled
   },
-});
+})
 
-const showPassword = ref<boolean>(false);
+// ============================================================================
+// 4. VARIABLES (ref, reactive but only for simple state)
+// ============================================================================
+const model = defineModel<string>({
+  required: true,
+})
 
-const focused = ref<boolean>(false);
+const showPassword = ref<boolean>(false)
+const focused = ref<boolean>(false)
 
-const sizeClass = computed<string>(() => `ui-input-${props.size}`);
+// ============================================================================
+// 5. COMPUTED PROPERTIES (computed declarations)
+// ============================================================================
+const sizeClass = computed<string>(() => `ui-input-${props.size}`)
 
 const inputType = computed<string>(() =>
   showPassword.value ? "text" : "password"
-);
+)
 
 const iconName = computed<string>(() =>
   showPassword.value ? "Eye" : "EyeSlash"
-);
+)
 
 const iconSizeClass = computed<string>(() => {
   switch (props.size) {
     case "sm":
-      return "14px";
+      return "14px"
     case "md":
-      return "16px";
+      return "16px"
     case "lg":
-      return "18px";
+      return "18px"
     case "xl":
-      return "20px";
+      return "20px"
   }
+  return "0px"
+})
 
-  return "0px";
-});
 
-const toggleShowPassword = () => {
-  if (props.disabled) return;
+// ============================================================================
+// 8. FUNCTION DEFINITIONS (helper functions and composables)
+// ============================================================================
+/**
+ * Toggle password visibility
+ * Switches between showing and hiding the password
+ */
+const toggleShowPassword = (): void => {
+  if (props.disabled) return
+  showPassword.value = !showPassword.value
+}
 
-  showPassword.value = !showPassword.value;
-};
+/**
+ * Handle input focus event
+ * Sets the focused state to true
+ */
+const onFocus = (): void => {
+  focused.value = true
+}
 
-const onFocus = () => (focused.value = true);
-
-const onBlur = () => (focused.value = false);
+/**
+ * Handle input blur event
+ * Sets the focused state to false
+ */
+const onBlur = (): void => {
+  focused.value = false
+}
 </script>
 <style>
 @reference "assets/css/main.css";

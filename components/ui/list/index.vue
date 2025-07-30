@@ -1,3 +1,119 @@
+<!--
+  List Component Usage Guide:
+  
+  A customizable list component that supports:
+  - Custom title display
+  - Selectable list items
+  - Hover and selected states
+  - Custom item content
+  - Selection events
+  - Responsive design
+  - Border styling between items
+  
+  PARENT COMPONENT USAGE:
+  
+  &lt;template&gt;
+    &lt;!-- Basic list --&gt;
+    &lt;UiList
+      title="Menu Items"
+      :items="menuItems"
+      :selected="selectedIndex"
+      @select="handleItemSelect"
+    /&gt;
+    
+    &lt;!-- List with custom items --&gt;
+    &lt;UiList
+      title="Navigation"
+      :items="navigationItems"
+      :selected="currentPage"
+      @select="navigateToPage"
+    /&gt;
+    
+    &lt;!-- List with default selection --&gt;
+    &lt;UiList
+      title="Settings"
+      :items="settingsOptions"
+      :selected="2"
+      @select="updateSetting"
+    /&gt;
+    
+    &lt;!-- List with custom title --&gt;
+    &lt;UiList
+      title="User Actions"
+      :items="userActions"
+      :selected="selectedAction"
+      @select="performAction"
+    /&gt;
+  &lt;/template&gt;
+  
+  &lt;script setup&gt;
+  const selectedIndex = ref(0)
+  const currentPage = ref(1)
+  const selectedAction = ref(-1)
+  
+  const menuItems = ref([
+    'Dashboard',
+    'Profile',
+    'Settings',
+    'Logout'
+  ])
+  
+  const navigationItems = ref([
+    'Home',
+    'About',
+    'Contact',
+    'Services'
+  ])
+  
+  const settingsOptions = ref([
+    'Account',
+    'Privacy',
+    'Notifications',
+    'Security'
+  ])
+  
+  const userActions = ref([
+    'Edit Profile',
+    'Change Password',
+    'Delete Account'
+  ])
+  
+  const handleItemSelect = (index: number) =&gt; {
+    selectedIndex.value = index
+    console.log('Selected item:', menuItems.value[index])
+  }
+  
+  const navigateToPage = (index: number) =&gt; {
+    currentPage.value = index
+    console.log('Navigating to:', navigationItems.value[index])
+  }
+  
+  const updateSetting = (index: number) =&gt; {
+    console.log('Updating setting:', settingsOptions.value[index])
+  }
+  
+  const performAction = (index: number) =&gt; {
+    selectedAction.value = index
+    console.log('Performing action:', userActions.value[index])
+  }
+  &lt;/script&gt;
+  
+  PROPS:
+  - title: string (default: 'Title') - List title to display
+  - items: string[] (default: example items) - Array of list items
+  - selected: number (default: 1) - Index of currently selected item
+  
+  EVENTS:
+  - select: Emitted when an item is clicked, passes the item index
+  
+  FEATURES:
+  - Selectable list items with visual feedback
+  - Hover and selected states
+  - Custom title and items
+  - Border styling between items
+  - Responsive design
+-->
+
 <template>
   <div class="ui-list-card">
     <div class="ui-list-title">{{ title }}</div>
@@ -19,10 +135,13 @@
 </template>
 
 <script setup lang="ts">
+// ============================================================================
+// 2. PROPS (Only for components)
+// ============================================================================
 const props = defineProps({
   title: {
     type: String,
-    default: 'Title',
+    default: 'Title', // List title to display
   },
   items: {
     type: Array as () => string[],
@@ -34,13 +153,14 @@ const props = defineProps({
       'Example 5',
       'Example 6',
       'Example 7',
-    ],
+    ], // Array of list items
   },
   selected: {
     type: Number,
-    default: 1,
+    default: 1, // Index of currently selected item
   },
-});
+})
+
 </script>
 
 <style scoped>

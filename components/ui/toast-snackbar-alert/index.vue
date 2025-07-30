@@ -1,3 +1,106 @@
+<!--
+  Toast/Snackbar Alert Component Usage Guide:
+  
+  A customizable toast notification component that supports:
+  - Multiple colors (primary, outline, dark, error, success, warning, info)
+  - Multiple sizes (sm, md, lg, xl)
+  - Auto-dismiss with countdown timer
+  - Manual dismiss with cancel icon
+  - Optional prefix and cancel icons
+  - Custom title and body text
+  - Smooth fade transitions
+  - Responsive design
+  
+  PARENT COMPONENT USAGE:
+  
+  &lt;template&gt;
+    &lt;!-- Basic success toast with auto-dismiss --&gt;
+    &lt;UiToastSnackbarAlert
+      title="Success!"
+      bodyText="Your action was completed successfully."
+      color="success"
+      :timer="5"
+      :auto_dismiss="true"
+    /&gt;
+    
+    &lt;!-- Error toast with manual dismiss --&gt;
+    &lt;UiToastSnackbarAlert
+      title="Error"
+      bodyText="Something went wrong. Please try again."
+      color="error"
+      :auto_dismiss="false"
+      cancelIcon="CloseCircle"
+    /&gt;
+    
+    &lt;!-- Warning toast with prefix icon --&gt;
+    &lt;UiToastSnackbarAlert
+      title="Warning"
+      bodyText="Please review your input before proceeding."
+      color="warning"
+      prefixIcon="Warning2"
+      :timer="8"
+      size="md"
+    /&gt;
+    
+    &lt;!-- Info toast without body --&gt;
+    &lt;UiToastSnackbarAlert
+      title="New message received"
+      color="info"
+      prefixIcon="Message"
+      :auto_dismiss="true"
+      :timer="3"
+    /&gt;
+    
+    &lt;!-- Large primary toast --&gt;
+    &lt;UiToastSnackbarAlert
+      title="Welcome!"
+      bodyText="Thank you for joining our platform."
+      color="primary"
+      size="lg"
+      prefixIcon="User"
+      :timer="10"
+    /&gt;
+    
+    &lt;!-- Dark themed toast --&gt;
+    &lt;UiToastSnackbarAlert
+      title="System Update"
+      bodyText="Your system has been updated to the latest version."
+      color="dark"
+      size="xl"
+      :auto_dismiss="false"
+      cancelIcon="CloseCircle"
+    /&gt;
+  &lt;/template&gt;
+  
+  &lt;script setup&gt;
+  // No additional setup needed for basic usage
+  // The component handles all visibility and timing internally
+  &lt;/script&gt;
+  
+  PROPS:
+  - title: string (default: 'Title') - Toast title text
+  - bodyText: string (default: '') - Optional body message text
+  - color: 'primary' | 'outline' | 'dark' | 'error' | 'success' | 'warning' | 'info' (default: 'primary') - Toast color theme
+  - size: 'sm' | 'md' | 'lg' | 'xl' (default: 'sm') - Toast size (also controls icon size)
+  - prefixIcon: string (default: '') - Optional icon name for prefix
+  - cancelIcon: string (default: '') - Optional icon name for cancel button
+  - timer: number (default: 10) - Countdown time in seconds
+  - auto_dismiss: boolean (default: true) - Whether to auto-hide after timer
+  
+  EVENTS:
+  - No custom events (handles visibility internally)
+  
+  FEATURES:
+  - Auto-dismiss with countdown timer
+  - Manual dismiss with cancel icon
+  - Smooth fade transitions
+  - Multiple color themes
+  - Responsive sizing
+  - Icon support
+  - Optional body text
+  - Icon size automatically matches toast size
+-->
+
 <template>
   <!-- Fade transition wrapper for smooth show/hide -->
   <Transition name="fade">
@@ -14,31 +117,22 @@
         <!-- Left: icon and title -->
         <div class="ui-toast-header-left">
           <!-- Optional prefix icon (e.g. lightning bolt) -->
-
-          <Icon
-            v-if="prefix_icon"
-            :name="prefix_icon"
-            :size="icon_size_class"
-          />
+        
+          <VsxIcon v-if="prefixIcon" :iconName="prefixIcon" :size="iconSizeClass" />
 
           <!-- Title text -->
-          <div :class="text_size_class">{{ props.title }}</div>
+          <div :class="textSizeClass">{{ props.title }}</div>
         </div>
 
         <!-- Right: countdown timer or cancel icon -->
         <div class="ui-toast-header-right">
           <!-- Timer countdown shown if auto_dismiss is active -->
-
           <span v-if="showTimer">{{ countdown }}s</span>
 
           <!-- Cancel icon shown if auto_dismiss is false -->
-          <Icon
-            v-else-if="showCancelIcon"
-            :name="cancel_icon"
-            :size="icon_size_class"
-            class="cursor-pointer items-center"
-            @click="close()"
-          />
+          <button v-if="showCancelIcon" @click="close()">
+            <VsxIcon :iconName="cancelIcon" class="cursor-pointer items-center" />
+          </button>
         </div>
       </div>
 
@@ -46,32 +140,34 @@
       <div
         class="ui-toast-body"
         v-if="has_body"
-        :class="{ [color_body_class]: true }"
+        :class="{ [colorBodyClass]: true }"
       >
-        <div :class="text_size_class">{{ props.body_text }}</div>
+        <div :class="textSizeClass">{{ props.bodyText }}</div>
       </div>
     </div>
   </Transition>
 </template>
 
 <script setup lang="ts">
-// --- Props Configuration ---
+// ============================================================================
+// 2. PROPS (Only for components)
+// ============================================================================
 const props = defineProps({
   // Title text displayed in header
   title: {
     type: String,
-    default: "Title",
+    default: "Title", // Toast title text
   },
 
   // Optional body message
-  body_text: {
+  bodyText: {
     type: String,
-    default: "",
+    default: "", // Optional body message text
   },
 
   color: {
     type: String,
-    default: "primary",
+    default: "primary", // Toast color theme
     validator: (value: string) =>
       [
         "primary",
@@ -87,115 +183,119 @@ const props = defineProps({
   // Text and icon sizing
   size: {
     type: String,
-    default: "sm",
+    default: "sm", // Toast size
     validator: (value: string) =>
      ["sm", "md", "lg", "xl"].includes(value),
   },
 
   // Optional icon at the beginning (left)
-  prefix_icon: {
+  prefixIcon: {
     type: String,
-    default: "",
+    default: "", // Optional icon name for prefix
   },
 
   // Optional cancel icon (shown when auto_dismiss is false)
-  cancel_icon: {
+  cancelIcon: {
     type: String,
-    default: "",
+    default: "", // Optional icon name for cancel button
   },
 
-  // Icon sizes
-  icon_size: {
-    default: "sm",
-    validator: (value: string) => 
-    ["sm", "md", "lg", "xl"].includes(value),
-  },
 
   // Countdown time in seconds
   timer: {
     type: Number,
-    default: 10,
+    default: 10, // Countdown time in seconds
   },
 
   // Automatically hide after timer runs out
   auto_dismiss: {
     type: Boolean,
-    default: true,
+    default: true, // Whether to auto-hide after timer
   },
-});
+})
 
-// --- Reactive State ---
-const visible = ref<boolean>(true); // Controls toast visibility
-const countdown = ref<number>(props.timer); // Timer countdown value
+// ============================================================================
+// 4. VARIABLES (ref, reactive but only for simple state)
+// ============================================================================
+const visible = ref<boolean>(true) // Controls toast visibility
+const countdown = ref<number>(props.timer) // Timer countdown value
 
-// --- Computed States ---
-
+// ============================================================================
+// 5. COMPUTED PROPERTIES (computed declarations)
+// ============================================================================
 // True if a body message exists
-const has_body = computed<boolean>(() => props.body_text.trim().length > 0);
+const has_body = computed<boolean>(() => props.bodyText.trim().length > 0)
 
 // Show timer if auto_dismiss is true and countdown is active
 const showTimer = computed<boolean>(() => {
-  return props.auto_dismiss && countdown.value > 0 && !props.cancel_icon;
-});
+  return props.auto_dismiss && countdown.value > 0 && !props.cancelIcon
+})
 
-// Show cancel icon if not auto dismissing and cancel_icon is defined
+// Show cancel icon if not auto dismissing and cancelIcon is defined
 const showCancelIcon = computed<string | null>(() => {
-  return !props.auto_dismiss && props.cancel_icon ? props.cancel_icon : null;
-});
+  return !props.auto_dismiss && props.cancelIcon ? props.cancelIcon : null
+})
 
-// --- Timer Countdown Logic ---
+// Helper for icon size classes
+const iconSizeClass = computed<string>(() => {
+  switch (props.size) {
+    case "sm":
+      return "14px"
+    case "md":
+      return "16px"
+    case "lg":
+      return "18px"
+    case "xl":
+      return "20px"
+  }
+  return "0px"
+})
+
+// Font size class
+const textSizeClass = computed<string>(() => {
+  switch (props.size) {
+    case "2xs":
+      return "9px"
+    case "xs":
+      return "10px"
+    case "sm":
+      return "11px"
+    case "md":
+      return "14px"
+    default:
+      return "sm"
+  }
+})
+
+const color_header_class = computed<string>(() => {
+  return `ui-toast-${props.color}`
+})
+
+const colorBodyClass = computed<string>(() => {
+  return `ui-toast-body-${props.color}`
+})
+
+// ============================================================================
+// 6. LIFECYCLE HOOKS (onMounted, onBeforeMount, onUnmounted, etc.)
+// ============================================================================
 onMounted(() => {
   if (props.auto_dismiss && countdown.value > 0) {
     const timer = setInterval(() => {
-      countdown.value--;
+      countdown.value--
       if (countdown.value <= 0) {
-        clearInterval(timer);
-        visible.value = false; // Hide toast when countdown ends
+        clearInterval(timer)
+        visible.value = false // Hide toast when countdown ends
       }
-    }, 1000);
+    }, 1000)
   }
-});
+})
 
-// --- Helper for icon size classes ---
-const icon_size_class = computed<string>(() => {
-  switch (props.icon_size) {
-    case "sm":
-      return "14px";
-    case "md":
-      return "16px";
-    case "lg":
-      return "18px";
-    case "xl":
-      return "20px";
-  }
-  return "0px";
-});
-// --- Font size class ---
-const text_size_class = computed<string>(() => {
-  switch (props.size) {
-    case "2xs":
-      return "9px";
-    case "xs":
-      return "10px";
-    case "sm":
-      return "11px";
-    case "md":
-      return "14px";
-    default:
-      return "sm";
-  }
-});
-const color_header_class = computed<string>(() => {
-  return `ui-toast-${props.color}`;
-});
-
-const color_body_class = computed<string>(() => {
-  return `ui-toast-body-${props.color}`;
-});
-
+// ============================================================================
+// 8. FUNCTION DEFINITIONS (helper functions and composables)
+// ============================================================================
 const close = (): void => {
-  visible.value = false;
-};
+  visible.value = false
+}
 </script>
 
 <style scoped>

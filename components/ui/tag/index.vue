@@ -1,3 +1,59 @@
+<!--
+  Tag Component Usage Guide:
+  
+  A customizable tag component that supports:
+  - Multiple color types (primary, info, success, warning, error, etc.)
+  - Optional prefix icons
+  - Closeable functionality
+  - Dynamic spacing based on content
+  - Custom styling and interactions
+  
+  PARENT COMPONENT USAGE:
+  
+  &lt;template&gt;
+    &lt;!-- Basic tag --&gt;
+    &lt;UiTag text="Basic Tag" /&gt;
+    
+    &lt;!-- Tag with icon --&gt;
+    &lt;UiTag
+      text="Success"
+      type="success"
+      prefixIcon="TickCircle"
+    /&gt;
+    
+    &lt;!-- Closeable tag --&gt;
+    &lt;UiTag
+      text="Removable"
+      type="warning"
+      closeable
+      @close="handleTagClose"
+    /&gt;
+    
+    &lt;!-- Icon only tag --&gt;
+    &lt;UiTag
+      prefixIcon="Star"
+      type="primary"
+      closeable
+      @close="handleTagClose"
+    /&gt;
+  &lt;/template&gt;
+  
+  &lt;script setup&gt;
+  const handleTagClose = () =&gt; {
+    console.log('Tag closed')
+  }
+  &lt;/script&gt;
+  
+  PROPS:
+  - text: string (optional)
+  - type: TagType (default: 'primary')
+  - prefixIcon: string (optional)
+  - closeable: boolean (default: false)
+  
+  EVENTS:
+  - close: Emitted when the close button is clicked
+-->
+
 <template>
   <!-- Only render the tag if it's visible -->
   <div v-if="visible" class="ui-tag" :class="[typeClass, spacingClass]">
@@ -15,19 +71,17 @@
 </template>
 
 <script setup lang="ts">
-// ------------------------------
-//  Define Props with Defaults
-// ------------------------------
+// ============================================================================
+// 2. PROPS (Only for components)
+// ============================================================================
 const props = defineProps({
-  // The text content displayed in the tag
   text: {
     type: String,
-    default: "",
+    default: "", // The text content displayed in the tag
   },
-  // The visual type/style of the tag; validates allowed values
   type: {
     type: String,
-    default: "primary",
+    default: "primary", // The visual type/style of the tag
     validator: (value: string) =>
       [
         "primary",
@@ -47,58 +101,53 @@ const props = defineProps({
         "black",
       ].includes(value),
   },
-  // Optional icon displayed before the text
   prefixIcon: {
     type: String,
-    default: "",
+    default: "", // Optional icon displayed before the text
   },
-  // Determines if the tag should be closeable (show close icon)
   closeable: {
     type: Boolean,
-    default: false,
+    default: false, // Determines if the tag should be closeable
   },
-});
+})
 
-// ------------------------------
-//  Emit Definition
-// ------------------------------
+// ============================================================================
+// 4. EMITS (Only for components)
+// ============================================================================
 const emit = defineEmits<{
-  (e: "close"): void;
-}>();
+  (e: "close"): void
+}>()
 
-// ------------------------------
-//  Internal State
-// ------------------------------
-// Used to conditionally show/hide the tag (after closing)
-const visible = ref<boolean>(true);
+// ============================================================================
+// 5. VARIABLES (ref, reactive but only for simple state)
+// ============================================================================
+/** Controls tag visibility (used when tag is closed) */
+const visible = ref<boolean>(true)
 
-
-
-// ------------------------------
-// Dynamic Spacing Class Logic
-// ------------------------------
-// Determine padding and gap styles based on tag content
+// ============================================================================
+// 6. COMPUTED PROPERTIES (computed declarations)
+// ============================================================================
+/** Determine padding and gap styles based on tag content */
 const spacingClass = computed<string>(() => {
-  if (props.prefixIcon && !props.closeable) return "py-1.5 pl-4 pr-7 gap-x-1";
-  if (!props.prefixIcon && props.closeable && !props.text) return "py-1 px-4";
-  if (!props.prefixIcon && props.closeable && props.text) return "py-1 pl-3 pr-2 gap-x-1";
-  if (props.prefixIcon && props.closeable && props.text) return "py-1 pr-6 pl-2 gap-x-1";
-  return "py-1 px-3";
-});
+  if (props.prefixIcon && !props.closeable) return "py-1.5 pl-4 pr-7 gap-x-1"
+  if (!props.prefixIcon && props.closeable && !props.text) return "py-1 px-4"
+  if (!props.prefixIcon && props.closeable && props.text) return "py-1 pl-3 pr-2 gap-x-1"
+  if (props.prefixIcon && props.closeable && props.text) return "py-1 pr-6 pl-2 gap-x-1"
+  return "py-1 px-3"
+})
 
-// ------------------------------
-// Type-based Class
-// ------------------------------
-// Builds class like "ui-tag-color-primary" based on the `type` prop
-const typeClass = computed<string>(() => `ui-tag-color-${props.type}`);
+/** Builds class like "ui-tag-color-primary" based on the `type` prop */
+const typeClass = computed<string>(() => `ui-tag-color-${props.type}`)
 
-// ------------------------------
-// Close Button Handler
-// ------------------------------
-// Hides the tag and emits a close event when the close button is clicked
-function handleClose(): void {
-  visible.value = false;
-  emit("close");
+// ============================================================================
+// 7. FUNCTION DEFINITIONS (helper functions and composables)
+// ============================================================================
+/**
+ * Hide the tag and emit a close event when the close button is clicked
+ */
+const handleClose = (): void => {
+  visible.value = false
+  emit("close")
 }
 </script>
 

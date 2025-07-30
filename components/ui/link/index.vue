@@ -1,20 +1,112 @@
+<!--
+  Link Component Usage Guide:
+  
+  A customizable link component that supports:
+  - Multiple sizes (xs, sm, md, lg, xl)
+  - Multiple colors (primary, secondary, dark, error, success, warning, info, gray)
+  - NuxtLink integration
+  - Custom text and href
+  - Responsive design
+  - Underline styling
+  - Hover effects
+  
+  PARENT COMPONENT USAGE:
+  
+  &lt;template&gt;
+    &lt;!-- Basic link --&gt;
+    &lt;UiLink
+      text="Learn More"
+      href="/about"
+    /&gt;
+    
+    &lt;!-- Link with custom color and size --&gt;
+    &lt;UiLink
+      text="Contact Us"
+      href="/contact"
+      color="success"
+      size="lg"
+    /&gt;
+    
+    &lt;!-- Small error link --&gt;
+    &lt;UiLink
+      text="Delete Account"
+      href="/delete-account"
+      color="error"
+      size="sm"
+    /&gt;
+    
+    &lt;!-- Large warning link --&gt;
+    &lt;UiLink
+      text="Terms of Service"
+      href="/terms"
+      color="warning"
+      size="xl"
+    /&gt;
+    
+    &lt;!-- Secondary link --&gt;
+    &lt;UiLink
+      text="Privacy Policy"
+      href="/privacy"
+      color="secondary"
+      size="md"
+    /&gt;
+    
+    &lt;!-- Dark themed link --&gt;
+    &lt;UiLink
+      text="Documentation"
+      href="/docs"
+      color="dark"
+      size="lg"
+    /&gt;
+  &lt;/template&gt;
+  
+  &lt;script setup&gt;
+  // No additional setup needed for basic usage
+  // The component handles all routing internally via NuxtLink
+  &lt;/script&gt;
+  
+  PROPS:
+  - text: string (default: '') - Link text to display
+  - href: string (default: '') - URL or route path
+  - color: 'primary' | 'secondary' | 'dark' | 'error' | 'success' | 'warning' | 'info' | 'gray' (default: 'primary') - Link color
+  - size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' (default: 'md') - Link size
+  
+  EVENTS:
+  - No custom events (uses NuxtLink navigation)
+  
+  FEATURES:
+  - NuxtLink integration for client-side routing
+  - Multiple color themes
+  - Responsive sizing
+  - Underline styling
+  - Hover effects
+  - Customizable text and href
+-->
+
 <template>
   <NuxtLink
     class="ui-link-text"
     :to="href"
     :class="[sizeClass, colorClass]"
-  >{{ text }}</NuxtLink>
+  >
+    {{ text }}
+  </NuxtLink>
 </template>
-<script lang="ts" setup>
+
+<script setup lang="ts">
+
+// ============================================================================
+// 2. PROPS (Only for components)
+// ============================================================================
 const props = defineProps({
   text: {
     type: String,
-    default: "",
+    default: "", // Link text to display
   },
- href:{
-  type:String,
-  default: "",
- },
+  href: {
+    type: String,
+    default: "", // URL or route path
+  },
   color: {
     type: String,
     default: "primary", // set this to the color of the link
@@ -34,54 +126,17 @@ const props = defineProps({
     type: String,
     default: "md", // set this to the size of the link
     validator: (value: string) =>
-      ["xs", "sm", "md", "lg", "xl"]
-      .includes(value),
+      ["xs", "sm", "md", "lg", "xl"].includes(value),
   },
-});
+})
 
-const colorClass = computed<string>(() => {
-  switch (props.color) {
-    case "primary":
-      return "ui-link-primary";
-    case "outline":
-      return "ui-link-outline";
-    case "secondary":
-      return "ui-link-secondary";
-    case "gray":
-      return "ui-link-gray";
-    case "text-bt":
-      return "ui-link-text-bt";
-    case "dark":
-      return "ui-link-dark";
-    case "error":
-      return "ui-link-error";
-    case "success":
-      return "ui-link-success";
-    case "warning":
-      return "ui-link-warning";
-    case "info":
-      return "ui-link-info";
-    default:
-      return "ui-link-primary";
-  }
-});
+// ============================================================================
+// 5. COMPUTED PROPERTIES (computed declarations)
+// ============================================================================
 
-const sizeClass = computed<string>(() => {
-  switch (props.size) {
-    case "xl":
-      return "ui-link-text-xl";
-    case "lg":
-      return "ui-link-text-lg";
-    case "md":
-      return "ui-link-text-md";
-    case "sm":
-      return "ui-link-text-sm";
-    case "xs":
-      return "ui-link-text-xs";
-    default:
-      return "ui-link-text-md";
-  }
-});
+const colorClass = computed<string>(() => `ui-link-${props.color}`)
+
+const sizeClass = computed<string>(() => `ui-link-text-${props.size}`)
 </script>
 
 <style scoped>

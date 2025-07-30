@@ -1,3 +1,115 @@
+<!--
+  Button Component Usage Guide:
+  
+  A versatile button component that supports:
+  - Multiple sizes (xs, sm, md, lg, xl)
+  - Multiple colors (primary, outline, secondary, dark, text-bt, error, success, warning, info, low-contrast)
+  - Prefix and suffix icons
+  - Loading state with spinner
+  - Disabled state
+  - Custom text alignment
+  - Icon types (linear, outline, bold, bulk, broken, twotone)
+  
+  PARENT COMPONENT USAGE:
+  
+  &lt;template&gt;
+    &lt;!-- Basic primary button --&gt;
+    &lt;UiButton @tap="handleClick"&gt;
+      Click Me
+    &lt;/UiButton&gt;
+    
+    &lt;!-- Button with icon and loading state --&gt;
+    &lt;UiButton 
+      prefixIcon="Save"
+      :loading="isSaving"
+      @tap="saveData"
+      color="success"
+      size="lg"
+    &gt;
+      Save Changes
+    &lt;/UiButton&gt;
+    
+    &lt;!-- Outline button with suffix icon --&gt;
+    &lt;UiButton 
+      suffixIcon="ArrowRight"
+      color="outline"
+      size="md"
+      @tap="navigateNext"
+    &gt;
+      Next
+    &lt;/UiButton&gt;
+    
+    &lt;!-- Disabled button --&gt;
+    &lt;UiButton 
+      :disabled="true"
+      color="error"
+      @tap="deleteItem"
+    &gt;
+      Delete
+    &lt;/UiButton&gt;
+    
+    &lt;!-- Small button with custom text alignment --&gt;
+    &lt;UiButton 
+      prefixIcon="User"
+      textAlign="left"
+      size="sm"
+      color="secondary"
+      @tap="viewProfile"
+    &gt;
+      View Profile
+    &lt;/UiButton&gt;
+  &lt;/template&gt;
+  
+  &lt;script setup&gt;
+  const isSaving = ref(false)
+  
+  const handleClick = () =&gt; {
+    console.log('Button clicked!')
+  }
+  
+  const saveData = async () =&gt; {
+    isSaving.value = true
+    // Save logic here
+    await new Promise(resolve =&gt; setTimeout(resolve, 2000))
+    isSaving.value = false
+  }
+  
+  const navigateNext = () =&gt; {
+    // Navigation logic
+  }
+  
+  const deleteItem = () =&gt; {
+    // Delete logic
+  }
+  
+  const viewProfile = () =&gt; {
+    // Profile view logic
+  }
+  &lt;/script&gt;
+  
+  PROPS:
+  - disabled: boolean (default: false) - Disable the button
+  - loading: boolean (default: false) - Show loading spinner
+  - size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' (default: 'sm') - Button size
+  - color: 'primary' | 'outline' | 'secondary' | 'dark' | 'text-bt' | 'error' | 'success' | 'warning' | 'info' | 'low-contrast' (default: 'primary') - Button color
+  - suffixIcon: string (default: '') - Icon name for suffix
+  - prefixIcon: string (default: '') - Icon name for prefix
+  - textAlign: 'left' | 'center' | 'right' (default: 'center') - Text alignment
+  - prefixIconType: 'linear' | 'outline' | 'bold' | 'bulk' | 'broken' | 'twotone' (default: 'bold') - Prefix icon type
+  - suffixIconType: 'linear' | 'outline' | 'bold' | 'bulk' | 'broken' | 'twotone' (default: 'bold') - Suffix icon type
+  
+  EVENTS:
+  - tap: Emitted when button is clicked
+  
+  FEATURES:
+  - Multiple sizes and colors
+  - Icon support (prefix and suffix)
+  - Loading state with spinner
+  - Disabled state
+  - Custom text alignment
+  - Responsive design
+-->
+
 <template>
   <button
     class="ui-button"
@@ -13,10 +125,9 @@
       'ui-button-with-both-icons': prefixIcon && suffixIcon,
     }"
   >
-    <UiLoadingSpinner v-if="loading" :size="props.size"  />
+    <UiLoadingSpinner v-if="loading" :size="props.size" />
 
     <template v-else>
-  
       <VsxIcon
         v-if="prefixIcon"
         :class="prefixIconClass"
@@ -27,24 +138,28 @@
       <span :class="`${textSizeClass} ui-button-text text-${props.textAlign}`">
         <slot />
       </span>
-    
+
       <VsxIcon
         v-if="suffixIcon"
         :class="suffixIconClass"
         :iconName="suffixIcon"
-        :size="suffixIconSize "
+        :size="suffixIconSize"
         :type="suffixIconType"
       />
     </template>
   </button>
 </template>
+
 <script setup lang="ts">
+
+// ============================================================================
+// 2. PROPS (Only for components)
+// ============================================================================
 const props = defineProps({
   disabled: {
     type: Boolean,
     default: false, // set this to true to disable the button
   },
-
   loading: {
     type: Boolean,
     default: false, // set this to true to show the loading spinner
@@ -52,8 +167,7 @@ const props = defineProps({
   size: {
     type: String,
     default: "sm", // set this to the size of the button
-    validator: (value: string) =>
-      ["xs", "sm", "md", "lg", "xl"].includes(value),
+    validator: (value: string) => ["xs", "sm", "md", "lg", "xl"].includes(value),
   },
   color: {
     type: String,
@@ -95,122 +209,55 @@ const props = defineProps({
     default: "bold",
     validator: (value: string) => ["linear", "outline", "bold", "bulk", "broken", "twotone"].includes(value),
   },
-});
+})
 
+// ============================================================================
+// 3. EMITS (Only for components)
+// ============================================================================
 const emit = defineEmits<{
-  (e: "tap"): void;
-}>();
+  (e: "tap"): void
+}>()
 
-const onTap = () => emit("tap");
+// ============================================================================
+// 5. COMPUTED PROPERTIES (computed declarations)
+// ============================================================================
 
-const colorClass = computed<string>(() => {
-  switch (props.color) {
-    case "primary":
-      return "ui-button-primary";
-    case "outline":
-      return "ui-button-outline";
-    case "secondary":
-      return "ui-button-secondary";
-    case "dark":
-      return "ui-button-dark";
-    case "text-bt":
-      return "ui-button-text-bt";
-    case "gray":
-      return "ui-button-gray";
-    case "error":
-      return "ui-button-error";
-    case "success":
-      return "ui-button-success";
-    case "warning":
-      return "ui-button-warning";
-    case "info":
-      return "ui-button-info";
-    default:
-      return "ui-button-primary";
-  }
-});
+const colorClass = computed<string>(() => `ui-button-${props.color}`)
 
-const sizeClass = computed<string>(() => {
-  switch (props.size) {
-    case "xl":
-      return "ui-button-xl";
-    case "lg":
-      return "ui-button-lg";
-    case "md":
-      return "ui-button-md";
-    case "sm":
-      return "ui-button-sm";
-    case "xs":
-      return "ui-button-xs";
-    default:
-      return "ui-button-xl";
-  }
-});
+const sizeClass = computed<string>(() => `ui-button-${props.size}`)
 
-const textSizeClass = computed<string>(() => {
-  switch (props.size) {
-    case "xl":
-      return "ui-button-text-xl";
-    case "lg":
-      return "ui-button-text-lg";
-    case "md":
-      return "ui-button-text-md";
-    case "sm":
-      return "ui-button-text-sm";
-    case "xs":
-      return "ui-button-text-xs";
-    default:
-      return "ui-button-text-xl";
-  }
-});
+const textSizeClass = computed<string>(() => `ui-button-text-${props.size}`)
 
-const prefixIconClass = computed<string>(() => {
-  switch (props.size) {
-    case "xl": return "ui-button-prefix-icon-xl";
-    case "lg": return "ui-button-prefix-icon-lg";
-    case "md": return "ui-button-prefix-icon-md";
-    case "sm": return "ui-button-prefix-icon-sm";
-    case "xs": return "ui-button-prefix-icon-xs";
-    default: return "ui-button-prefix-icon-md";
-  }
-});
+const prefixIconClass = computed<string>(() => `ui-button-prefix-icon-${props.size}`)
 
 const prefixIconSize = computed<number>(() => {
   switch (props.size) {
-    case "xl": return 24;
-    case "lg": return 20;
-    case "md": return 16;
-    case "sm": return 14;
-    case "xs": return 12;
-    default: return 16;
+    case "xl": return 24
+    case "lg": return 20
+    case "md": return 16
+    case "sm": return 14
+    case "xs": return 12
+    default: return 16
   }
-});
+})
+
 const suffixIconSize = computed<number>(() => {
   switch (props.size) {
-    case "xl": return 24;
-    case "lg": return 20;
-    case "md": return 16;
-    case "sm": return 14;
-    case "xs": return 12;
-    default: return 16;
+    case "xl": return 24
+    case "lg": return 20
+    case "md": return 16
+    case "sm": return 14
+    case "xs": return 12
+    default: return 16
   }
-});
-const suffixIconClass = computed<string>(() => {
-  switch (props.size) {
-    case "xl":
-      return "ui-button-suffix-icon-xl";
-    case "lg":
-      return "ui-button-suffix-icon-lg";
-    case "md":
-      return "ui-button-suffix-icon-md";
-    case "sm":
-      return "ui-button-suffix-icon-sm";
-    case "xs":
-      return "ui-button-suffix-icon-xs";
-    default:
-      return "ui-button-suffix-icon-xl";
-  }
-});
+})
+
+const suffixIconClass = computed<string>(() => `ui-button-suffix-icon-${props.size}`)
+
+// ============================================================================
+// 8. FUNCTION DEFINITIONS (helper functions and composables)
+// ============================================================================
+const onTap = (): void => emit("tap")
 </script>
 <style scoped>
 @reference "assets/css/main.css";

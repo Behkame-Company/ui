@@ -1,11 +1,97 @@
+<!--
+<!-- /**
+ * Reusable Data Table Component
+ * 
+ * Features:
+ * - Client-side and server-side data handling
+ * - Sorting, filtering, and pagination
+ * - Customizable columns with different input types
+ * - Scoped slots for custom cell rendering
+ * - Responsive design with Tailwind CSS
+ * 
+ * PARENT COMPONENT USAGE:
+ * 
+ * // 1. Define column configuration
+ * const columns = [
+ *   { key: 'id', text: 'ID', type: 'number', sortable: true },
+ *   { key: 'name', text: 'Name', type: 'text', filterable: true },
+ *   { key: 'email', text: 'Email', type: 'text', filterable: true },
+ *   { key: 'status', text: 'Status', type: 'select', options: ['Active', 'Inactive'], filterable: true },
+ *   { key: 'createdAt', text: 'Created', type: 'date', sortable: true },
+ *   { key: 'actions', text: 'Actions', type: 'action', filterable: false, sortable: false }
+ * ];
+ * 
+ * // 2. Define data
+ * const data = ref([
+ *   { id: 1, name: 'John Doe', email: 'john@example.com', status: 'Active', createdAt: '2024-01-15' },
+ *   { id: 2, name: 'Jane Smith', email: 'jane@example.com', status: 'Inactive', createdAt: '2024-01-10' }
+ * ]);
+ * 
+ * // 3. Reactive state for table
+ * const currentPage = ref(1);
+ * const perPage = ref(10);
+ * const filters = ref({});
+ * const sort = ref({ key: null, dir: null });
+ * 
+ * // 4. Event handlers
+ * const handleRowClick = (row) => {
+ *   console.log('Row clicked:', row);
+ * };
+ * 
+ * const handleFilterChange = (newFilters) => {
+ *   filters.value = newFilters;
+ *   // Optionally fetch new data from API
+ * };
+ * 
+ * const handlePageChange = (page) => {
+ *   currentPage.value = page;
+ *   // Optionally fetch new data from API
+ * };
+ * 
+ * // 5. Template usage
+ * <template>
+ *   <UiTable
+ *     :headers="columns"
+ *     :rows="data"
+ *     :show-filters="true"
+ *     :title="'User Management'"
+ *     :current-page="currentPage"
+ *     :per-page="perPage"
+ *     :filters="filters"
+ *     :sort="sort"
+ *     @row-click="handleRowClick"
+ *     @update:filters="handleFilterChange"
+ *     @update:current-page="handlePageChange"
+ *     @update:per-page="(val) => perPage = val"
+ *     @update:sort="(val) => sort = val"
+ *   >
+ *    
+ *     <template #cell-actions="{ row }">
+  *       <button @click="editUser(row)">Edit</button>
+  *       <button @click="deleteUser(row)">Delete</button>
+  *     </template>
+  *   </UiTable>
+  * </template>
+  * 
+  * // 6. Server-side usage (with API)
+  * <UiTable
+  *   :headers="columns"
+  *   :api-url="/api/users"
+  *   :loading="loading"
+  *   :show-filters="true"
+  *   :title="'Users from API'"
+     @fetch-error="handleApiError"
+   />
+-->
+
 <template>
   <div class="ui-table-container">
     <div class="flex items-center justify-between">
     </div>
 
     <!-- Loading -->
-    <div v-if="isBusy" class="flex justify-center items-center py-8">
-      <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+    <div v-if="loading" class="flex justify-center items-center py-8">
+      <UiSpinner size="lg" />
     </div>
 
     <table v-else class="ui-custom-table">
@@ -118,7 +204,7 @@
           </th>
         </tr>
       </thead>
-
+        <!-- Body -->
       <tbody>
         <template v-if="pagedRows.length">
           <tr
@@ -159,7 +245,7 @@
     <UiPagination
       v-model:current-page="internalCurrentPage"
       v-model:per-page="internalPerPage"
-      :total="serverMode ? totalItems : filteredRows.length"
+      :total="filteredRows.length"
       
       @update:current-page="emitPageChange"
       @update:per-page="emitPerPageChange"
@@ -169,20 +255,20 @@
 </template>
 
 <script setup lang="ts">
-/**
- * Reusable Data Table
- * - Works with object or array rows
- * - Client-side or Server-side (apiUrl) modes
- * - Sorting, filtering, pagination
- * - Scoped slots for per-column customization
- */
-
+// ============================================================================
+// 1. IMPORTS (External libraries and internal modules)
+// ============================================================================
 import UiInput from "../input/index.vue";
 import UiInputDropDown from "../input/DropDown.vue";
 import UiInputMultiDropDown from "../input/MultiDropDown.vue";
 import UiInputDatePicker from "../input/DatePickerInput.vue";
 import UiPagination from "../pagination/index.vue";
 
+// ============================================================================
+// 2. TYPE DEFINITIONS
+// ============================================================================
+
+/** Supported column input types for filtering */
 type ColumnType =
   | "text"
   | "number"
@@ -193,50 +279,64 @@ type ColumnType =
   | "datetime"
   | "action";
 
+/** Sort direction */
 type Direction = "asc" | "desc" | null;
 
+/** Column configuration interface */
 export interface Column {
   /** Unique key to access cell value: object key (string) or positional index (number) */
   key: string | number;
   /** Column header text */
   text: string;
-  /** Optional UI/behavior hints */
+  /** Input type for filtering (optional) */
   type?: ColumnType;
+  /** Options for select/multiSelect types */
   options?: string[];
+  /** Column width (CSS value or number in pixels) */
   width?: string | number;
+  /** Icon to display in filter input */
   suffixIcon?: string;
-  /** Enable/disable filtering/sorting per column */
+  /** Enable/disable filtering for this column (default: true) */
   filterable?: boolean;
+  /** Enable/disable sorting for this column (default: false) */
   sortable?: boolean;
-  /** Custom filter/sort comparators (optional) */
+  /** Custom filter function (optional) */
   customFilter?: (cell: unknown, filter: unknown, row: any) => boolean;
+  /** Custom sort function (optional) */
   customSort?: (a: any, b: any) => number;
 }
 
+// ============================================================================
+// 3. PROPS (Only for components)
+// ============================================================================
 const props = withDefaults(defineProps<{
-  /** Column definitions */
+  /** Column definitions with configuration */
   headers: Column[];
-  /** Data rows; object or array-based */
+  /** Data rows (objects or arrays) */
   rows?: any[];
-  /** Server-side fetch URL; enable serverMode when provided */
+  /** API URL for server-side data fetching */
   apiUrl?: string;
-  /** Pass true to treat rows as already loading */
+  /** Loading state indicator */
   loading?: boolean;
-  /** Show the filters row */
+  /** Show/hide filter row */
   showFilters?: boolean;
-  /** Optional title */
+  /** Table title */
   title?: string;
+  /** Show/hide title */
   showTitle?: boolean;
-  /** v-models */
-  modelValue?: Record<string, any>; // alias of filters (for convenience)
+  /** Filters v-model (alias for filters prop) */
+  modelValue?: Record<string, any>;
+  /** Active filters */
   filters?: Record<string, any>;
+  /** Current page number */
   currentPage?: number;
+  /** Items per page */
   perPage?: number;
-  /** -1 means "show all" */
+  /** Available page sizes (-1 = show all) */
   pageSizes?: number[];
-  /** Sort state */
+  /** Current sort state */
   sort?: { key: string | number | null; dir: Direction };
-  /** Unique row key field (when rows are objects) */
+  /** Unique identifier field for rows (when rows are objects) */
   rowKey?: string;
 }>(), {
   rows: () => [],
@@ -252,24 +352,55 @@ const props = withDefaults(defineProps<{
   rowKey: "id",
 });
 
+// ============================================================================
+// 4. EMITS (Only for components)
+// ============================================================================
 const emit = defineEmits<{
+  /** Filters changed */
   (e: "update:filters", v: Record<string, any>): void;
+  /** Model value changed (alias for filters) */
   (e: "update:modelValue", v: Record<string, any>): void;
+  /** Current page changed */
   (e: "update:currentPage", v: number): void;
+  /** Items per page changed */
   (e: "update:perPage", v: number): void;
+  /** Sort state changed */
   (e: "update:sort", v: { key: string | number | null; dir: Direction }): void;
+  /** Row clicked */
   (e: "row-click", row: any): void;
+  /** API fetch error */
   (e: "fetch-error", err: unknown): void;
+  /** Sort changed (alias for update:sort) */
   (e: "sort-change", v: { key: string | number | null; dir: Direction }): void;
 }>();
 
-/* ---------- State ---------- */
+// ============================================================================
+// 5. VARIABLES (ref, reactive but only for simple state)
+// ============================================================================
 
-const serverMode = computed(() => !!props.apiUrl);
+/** Current page number (internal state) */
+const internalCurrentPage = ref(props.currentPage || 1);
 
-const isBusy = computed(() => busy.value || !!props.loading);
-const busy = ref(false);
+/** Items per page (internal state) */
+const internalPerPage = ref(props.perPage || 10);
 
+/** Current sort state */
+const sortState = reactive<{ key: string | number | null; dir: Direction }>({
+  key: props.sort?.key ?? null,
+  dir: props.sort?.dir ?? null,
+});
+
+/** Server-side data rows */
+const apiRows = ref<any[]>([]);
+
+/** Active filters state */
+const internalFilters = reactive<Record<string | number, any>>({});
+
+// ============================================================================
+// 6. COMPUTED PROPERTIES (computed declarations)
+// ============================================================================
+
+/** Processed columns with defaults */
 const columns = computed<Column[]>(() =>
   (props.headers || []).map((c) => ({
     filterable: true,
@@ -278,176 +409,37 @@ const columns = computed<Column[]>(() =>
   })),
 );
 
-const internalFilters = reactive<Record<string | number, any>>(
-  initFilters(columns.value, props.filters ?? props.modelValue),
-);
-
-const internalCurrentPage = ref(props.currentPage || 1);
-const internalPerPage = ref(props.perPage || 10);
-
-const sortState = reactive<{ key: string | number | null; dir: Direction }>({
-  key: props.sort?.key ?? null,
-  dir: props.sort?.dir ?? null,
-});
-
-const totalItems = ref(0);
-const apiRows = ref<any[]>([]);
-
-/* ---------- Watchers ---------- */
-
-watch(
-  () => props.filters,
-  (v) => {
-    if (v) Object.assign(internalFilters, v);
-  },
-  { deep: true },
-);
-
-watch(
-  () => props.modelValue,
-  (v) => {
-    if (v) Object.assign(internalFilters, v);
-  },
-  { deep: true },
-);
-
-watch(
-  () => props.sort,
-  (v) => {
-    if (!v) return;
-    sortState.key = v.key ?? null;
-    sortState.dir = v.dir ?? null;
-  },
-  { deep: true },
-);
-
-watch(
-  () => [props.currentPage, props.perPage],
-  () => {
-    if (props.currentPage) internalCurrentPage.value = props.currentPage;
-    if (props.perPage) internalPerPage.value = props.perPage;
-  },
-);
-
-/** Server-side auto-fetch on deps change */
-watch(
-  () => [props.apiUrl, internalCurrentPage.value, internalPerPage.value, JSON.stringify(sortState), JSON.stringify(internalFilters)],
-  async () => {
-    if (!serverMode.value) return;
-    await fetchServer();
-  },
-  { immediate: true },
-);
-
-/* ---------- Methods ---------- */
-
-function colKey(col: Column) {
-  return col.key;
-}
-
-function colWidthStyle(col: Column) {
-  if (col.width === undefined || col.width === null || col.width === "") return undefined;
-  const w = typeof col.width === "number" ? `${col.width}px` : col.width;
-  return { width: w };
-}
-
-function toOptions(opts?: string[]) {
-  return (opts || []).map((o) => ({ label: o, value: o }));
-}
-
-function applyFilter(key: string | number, value: any) {
-  internalFilters[key] = value;
-  onFilterChange();
-}
-
-function onFilterChange() {
-  internalCurrentPage.value = 1;
-  emit("update:filters", { ...internalFilters });
-  emit("update:modelValue", { ...internalFilters });
-}
-
-function emitPageChange(v: number) {
-  emit("update:currentPage", v);
-}
-
-function emitPerPageChange(v: number) {
-  emit("update:perPage", v);
-}
-
-function ariaSort(col: Column) {
-  if (sortState.key !== colKey(col) || !sortState.dir) return "none";
-  return sortState.dir === "asc" ? "ascending" : "descending";
-}
-
-function toggleSort(col: Column) {
-  const key = colKey(col);
-  if (sortState.key === key) {
-    // asc -> desc -> none
-    sortState.dir = sortState.dir === "asc" ? "desc" : sortState.dir === "desc" ? null : "asc";
-    if (!sortState.dir) sortState.key = null;
-  } else {
-    sortState.key = key;
-    sortState.dir = "asc";
-  }
-  emit("update:sort", { ...sortState });
-  emit("sort-change", { ...sortState });
-}
-
-/** Get cell value supporting object or array rows */
-function getCell(row: any, col: Column, index: number) {
-  const key = colKey(col);
-  if (typeof key === "number") return row?.[key];
-  if (row && typeof row === "object" && key in row) return row[key as keyof typeof row];
-  // Fallback positional for array rows
-  return Array.isArray(row) ? row[index] : undefined;
-}
-
-/** v-for row key */
-function rowKeyValue(row: any, idx: number) {
-  if (row && typeof row === "object" && props.rowKey in row) return row[props.rowKey as keyof typeof row] as any;
-  return idx;
-}
-
-/* ---------- Client-side pipeline ---------- */
-
-const sourceRows = computed(() => (serverMode.value ? apiRows.value : props.rows || []));
-
+/** Filtered data rows */
 const filteredRows = computed(() => {
-  const data = sourceRows.value || [];
-  const activeCols = columns.value;
+  const data = props.apiUrl ? apiRows.value : props.rows || [];
+  if (!data.length) return data;
 
-  return data.filter((row) =>
-    activeCols.every((col, idx) => {
-      if (col.filterable === false) return true;
-      const filter = internalFilters[colKey(col)];
-      if (filter == null || (Array.isArray(filter) && filter.length === 0) || (typeof filter === "string" && filter.trim() === "")) {
-        return true;
+  return data.filter((row) => {
+    return columns.value.every((col) => {
+      const filterValue = internalFilters[colKey(col)];
+      if (!filterValue || (Array.isArray(filterValue) && !filterValue.length)) return true;
+
+      const cellValue = getCell(row, col, columns.value.indexOf(col));
+
+      // Use custom filter if provided
+      if (col.customFilter) {
+        return col.customFilter(cellValue, filterValue, row);
       }
-      const cell = getCell(row, col, idx);
 
-      // Custom filter takes precedence
-      if (col.customFilter) return !!col.customFilter(cell, filter, row);
-
-      switch (col.type) {
-        case "number":
-          return String(cell ?? "").includes(String(filter ?? ""));
-        case "select":
-          return String(cell ?? "").toLowerCase().includes(String(filter ?? "").toLowerCase());
-        case "multiSelect":
-          if (!Array.isArray(filter)) return true;
-          return filter.some((f) => String(cell ?? "").toLowerCase().includes(String(f).toLowerCase()));
-        case "date":
-        case "time":
-        case "datetime":
-          // exact match (can customize to ranges if needed)
-          return cell === filter;
-        default:
-          return String(cell ?? "").toLowerCase().includes(String(filter ?? "").toLowerCase());
+      // Handle array-based filters (multi-select)
+      if (Array.isArray(filterValue)) {
+        return filterValue.includes(String(cellValue));
       }
-    }),
-  );
+
+      // Default string-based filtering
+      const filterStr = String(filterValue).toLowerCase();
+      const cellStr = String(cellValue).toLowerCase();
+      return cellStr.includes(filterStr);
+    });
+  });
 });
 
+/** Sorted data rows */
 const sortedRows = computed(() => {
   const data = [...filteredRows.value];
   const { key, dir } = sortState;
@@ -465,6 +457,7 @@ const sortedRows = computed(() => {
       const av = getCell(a, col, idx);
       const bv = getCell(b, col, idx);
 
+      // Number sorting
       if (col.type === "number") {
         const an = Number(av);
         const bn = Number(bv);
@@ -472,6 +465,7 @@ const sortedRows = computed(() => {
         return an === bn ? 0 : an < bn ? -1 : 1;
       }
 
+      // Date/datetime sorting
       if (col.type === "date" || col.type === "datetime") {
         const ad = av instanceof Date ? av : new Date(av);
         const bd = bv instanceof Date ? bv : new Date(bv);
@@ -480,17 +474,19 @@ const sortedRows = computed(() => {
         return at === bt ? 0 : at < bt ? -1 : 1;
       }
 
-      // time-only (HH:mm) basic compare
+      // Time sorting (HH:mm format)
       if (col.type === "time") {
         return String(av ?? "").localeCompare(String(bv ?? ""), undefined, { numeric: true });
       }
 
+      // Default string sorting
       return String(av ?? "").localeCompare(String(bv ?? ""), undefined, { numeric: true, sensitivity: "base" });
     });
 
   return data.sort((a, b) => mult * comparator(a, b));
 });
 
+/** Paginated data rows */
 const pagedRows = computed(() => {
   const all = sortedRows.value;
   if (internalPerPage.value === -1) return all;
@@ -498,57 +494,176 @@ const pagedRows = computed(() => {
   return all.slice(start, start + internalPerPage.value);
 });
 
+/** Empty state message */
 const emptyMessage = computed(() => {
   const hasFilters = Object.values(internalFilters).some((f) => (Array.isArray(f) ? f.length : String(f ?? "").trim().length));
   if (hasFilters) return "Record not found";
   return "No records";
 });
 
-/* ---------- Server-side fetch ---------- */
+// ============================================================================
+// 7. LIFECYCLE HOOKS (onMounted, onBeforeMount, onUnmounted, etc.)
+// ============================================================================
 
-async function fetchServer() {
-  if (!props.apiUrl) return;
-  busy.value = true;
-  try {
-    const url = new URL(props.apiUrl, typeof window !== "undefined" ? window.location.origin : "http://localhost");
-    // Attach query params
-    url.searchParams.set("page", String(internalCurrentPage.value));
-    url.searchParams.set("perPage", String(internalPerPage.value));
-    if (sortState.key && sortState.dir) {
-      url.searchParams.set("sortKey", String(sortState.key));
-      url.searchParams.set("sortDir", String(sortState.dir));
-    }
-    // Flatten filters
-    Object.entries(internalFilters).forEach(([k, v]) => {
-      if (v == null || v === "" || (Array.isArray(v) && v.length === 0)) return;
-      url.searchParams.set(`filters[${k}]`, Array.isArray(v) ? v.join(",") : String(v));
-    });
+onMounted(() => {
+  // Initialize filters when component mounts
+  Object.assign(internalFilters, initFilters(columns.value, props.filters ?? props.modelValue));
+});
 
-    const res = await fetch(url.toString(), { method: "GET", headers: { "Content-Type": "application/json" } });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    // Try common shapes
-    apiRows.value = data.rows ?? data.data ?? data.items ?? data.results ?? [];
-    totalItems.value = data.total ?? data.count ?? apiRows.value.length ?? 0;
-  } catch (err) {
-    emit("fetch-error", err);
-    apiRows.value = [];
-    totalItems.value = 0;
-    // console.error(err);
-  } finally {
-    busy.value = false;
-  }
-}
+// ============================================================================
+// 8. WATCHERS (watch, watchEffect)
+// ============================================================================
 
-/* ---------- Utils ---------- */
+// Sync external filters with internal state
+watch(
+  () => props.filters,
+  (v) => {
+    if (v) Object.assign(internalFilters, v);
+  },
+  { deep: true },
+);
 
-function initFilters(cols: Column[], initial?: Record<string, any>) {
+// Sync modelValue with internal state
+watch(
+  () => props.modelValue,
+  (v) => {
+    if (v) Object.assign(internalFilters, v);
+  },
+  { deep: true },
+);
+
+// Sync external sort state
+watch(
+  () => props.sort,
+  (v) => {
+    if (!v) return;
+    sortState.key = v.key ?? null;
+    sortState.dir = v.dir ?? null;
+  },
+  { deep: true },
+);
+
+// Sync external pagination state
+watch(
+  () => [props.currentPage, props.perPage],
+  () => {
+    if (props.currentPage) internalCurrentPage.value = props.currentPage;
+    if (props.perPage) internalPerPage.value = props.perPage;
+  },
+);
+
+// ============================================================================
+// 9. FUNCTION DEFINITIONS (helper functions and composables)
+// ============================================================================
+
+/**
+ * Get column key (string or number)
+ */
+const colKey = (col: Column) => {
+  return col.key;
+};
+
+/**
+ * Generate CSS width style for column
+ */
+const colWidthStyle = (col: Column) => {
+  if (col.width === undefined || col.width === null || col.width === "") return undefined;
+  const w = typeof col.width === "number" ? `${col.width}px` : col.width;
+  return { width: w };
+};
+
+/**
+ * Convert string array to options format for dropdowns
+ */
+const toOptions = (opts?: string[]) => {
+  return (opts || []).map((o) => ({ label: o, value: o }));
+};
+
+/**
+ * Initialize filter state for all columns
+ */
+const initFilters = (cols: Column[], initial?: Record<string, any>) => {
   const base: Record<string | number, any> = {};
   cols.forEach((c) => {
     base[colKey(c)] = c.type === "multiSelect" ? [] : "";
   });
   return { ...base, ...(initial || {}) };
-}
+};
+
+/**
+ * Get cell value from row (supports object and array rows)
+ */
+const getCell = (row: any, col: Column, index: number) => {
+  const key = colKey(col);
+  if (typeof key === "number") return row?.[key];
+  if (row && typeof row === "object" && key in row) return row[key as keyof typeof row];
+  // Fallback positional for array rows
+  return Array.isArray(row) ? row[index] : undefined;
+};
+
+/**
+ * Generate unique key for v-for row rendering
+ */
+const rowKeyValue = (row: any, idx: number) => {
+  if (row && typeof row === "object" && props.rowKey in row) return row[props.rowKey as keyof typeof row] as any;
+  return idx;
+};
+
+/**
+ * Apply filter to specific column
+ */
+const applyFilter = (key: string | number, value: any) => {
+  internalFilters[key] = value;
+  onFilterChange();
+};
+
+/**
+ * Handle filter changes (reset to page 1 and emit events)
+ */
+const onFilterChange = () => {
+  internalCurrentPage.value = 1;
+  emit("update:filters", { ...internalFilters });
+  emit("update:modelValue", { ...internalFilters });
+};
+
+/**
+ * Handle page change
+ */
+const emitPageChange = (v: number) => {
+  emit("update:currentPage", v);
+};
+
+/**
+ * Handle per-page change
+ */
+const emitPerPageChange = (v: number) => {
+  emit("update:perPage", v);
+};
+
+/**
+ * Generate ARIA sort attribute for accessibility
+ */
+const ariaSort = (col: Column) => {
+  if (sortState.key !== colKey(col) || !sortState.dir) return "none";
+  return sortState.dir === "asc" ? "ascending" : "descending";
+};
+
+/**
+ * Toggle sort for column (asc -> desc -> none)
+ */
+const toggleSort = (col: Column) => {
+  const key = colKey(col);
+  if (sortState.key === key) {
+    // Cycle: asc -> desc -> none
+    sortState.dir = sortState.dir === "asc" ? "desc" : sortState.dir === "desc" ? null : "asc";
+    if (!sortState.dir) sortState.key = null;
+  } else {
+    sortState.key = key;
+    sortState.dir = "asc";
+  }
+  emit("update:sort", { ...sortState });
+  emit("sort-change", { ...sortState });
+};
 </script>
 
 <style scoped>

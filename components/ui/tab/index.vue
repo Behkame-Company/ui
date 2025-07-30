@@ -1,3 +1,54 @@
+<!--
+  Tab Component Usage Guide:
+  
+  A customizable tab component that supports:
+  - Multiple tab types (default, bordered, rounded, text, filled)
+  - Different sizes (sm, md, lg)
+  - Dynamic tab content
+  - Custom styling and interactions
+  
+  PARENT COMPONENT USAGE:
+  
+  &lt;template&gt;
+    &lt;!-- Basic tabs --&gt;
+    &lt;UiTab
+      :tabs="['Home', 'Profile', 'Settings']"
+      @update:selected="handleTabChange"
+    /&gt;
+    
+    &lt;!-- Bordered tabs with custom size --&gt;
+    &lt;UiTab
+      :tabs="['Tab 1', 'Tab 2', 'Tab 3']"
+      type="bordered"
+      size="lg"
+      @update:selected="handleTabChange"
+    /&gt;
+    
+    &lt;!-- Filled tabs with content --&gt;
+    &lt;UiTab
+      :tabs="['Overview', 'Details', 'History']"
+      :Contents="['Content 1', 'Content 2', 'Content 3']"
+      type="filled"
+      @update:selected="handleTabChange"
+    /&gt;
+  &lt;/template&gt;
+  
+  &lt;script setup&gt;
+  const handleTabChange = (index) =&gt; {
+    console.log('Selected tab:', index)
+  }
+  &lt;/script&gt;
+  
+  PROPS:
+  - tabs: string[] (default: ["Tab 1", "Tab 2", "Tab 3", "Tab 4", "Tab 5"])
+  - Contents: (string | number | VNode)[] (optional)
+  - type: 'default' | 'bordered' | 'rounded' | 'text' | 'filled' (default: 'default')
+  - size: 'sm' | 'md' | 'lg' (default: 'md')
+  
+  EVENTS:
+  - update:selected: Emitted when a tab is selected (index: number)
+-->
+
 <template>
   <!-- Container for the entire tab component -->
   <div class="ui-tab">
@@ -29,9 +80,9 @@
 </template>
 
 <script setup lang="ts">
-/**
- * Props definition
- */
+
+// Props definition
+
 const props = defineProps({
   // Array of tab titles
   tabs: {
@@ -59,46 +110,41 @@ const props = defineProps({
   },
 });
 
-// Emit handler for selected tab index change
+// ============================================================================
+// 4. EMITS (Only for components)
+// ============================================================================
 const emit = defineEmits<{
-  (e: "update:selected", index: number): void;
-}>();
+  (e: "update:selected", index: number): void
+}>()
 
-// Selected tab index
-const selectedIndex = ref<number>(0);
+// ============================================================================
+// 5. VARIABLES (ref, reactive but only for simple state)
+// ============================================================================
+/** Currently selected tab index */
+const selectedIndex = ref<number>(0)
 
-// Emit event and update selected index when a tab is clicked
-function select_tab(index: number) {
-  selectedIndex.value = index;
-  emit("update:selected", index);
+// ============================================================================
+// 6. COMPUTED PROPERTIES (computed declarations)
+// ============================================================================
+/** Compute tab style class based on the `type` prop */
+
+const tabStyle = computed<string>(() => `ui-tab-${props.type}`)
+/** Compute size class based on the `size` prop */
+
+const sizeClass = computed<string>(() => `ui-tab-text-${props.size}`)
+
+
+// ============================================================================
+// 7. FUNCTION DEFINITIONS (helper functions and composables)
+// ============================================================================
+/**
+ * Handle tab selection and emit the selected index
+ * @param index - The index of the selected tab
+ */
+const select_tab = (index: number) => {
+  selectedIndex.value = index
+  emit("update:selected", index)
 }
-
-// Compute tab style class based on the `type` prop
-const tabStyle = computed(() => {
-  switch (props.type) {
-    case "filled":
-      return "ui-tab-filled";
-    case "bordered":
-      return "ui-tab-bordered";
-    case "text":
-      return "ui-tab-text";
-    case "rounded":
-      return "ui-tab-rounded";
-    default:
-      return "ui-tab-default";
-  }
-});
-
-const sizeClass = computed(() => {
-  switch (props.size) {
-    case "sm":
-      return "ui-tab-text-sm";
-    case "lg":
-      return "ui-tab-text-lg";
-    default:
-      return "ui-tab-text-md";
-  }
-});
 </script>
 
 <style scoped>

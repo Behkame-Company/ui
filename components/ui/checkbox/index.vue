@@ -1,3 +1,108 @@
+<!--
+  Checkbox Component Usage Guide:
+  
+  A customizable checkbox component that supports:
+  - Multiple sizes (sm, md, lg)
+  - Disabled state
+  - Custom title/label
+  - Two-way data binding with v-model
+  - Visual feedback states
+  - Icon integration
+  - Responsive design
+  
+  PARENT COMPONENT USAGE:
+  
+  &lt;template&gt;
+    &lt;!-- Basic checkbox --&gt;
+    &lt;UiCheckbox
+      v-model="isChecked"
+      title="Accept terms and conditions"
+    /&gt;
+    
+    &lt;!-- Checkbox with custom size --&gt;
+    &lt;UiCheckbox
+      v-model="newsletter"
+      title="Subscribe to newsletter"
+      size="lg"
+    /&gt;
+    
+    &lt;!-- Disabled checkbox --&gt;
+    &lt;UiCheckbox
+      v-model="disabledOption"
+      title="This option is disabled"
+      :disabled="true"
+    /&gt;
+    
+    &lt;!-- Small checkbox --&gt;
+    &lt;UiCheckbox
+      v-model="smallOption"
+      title="Small checkbox option"
+      size="sm"
+    /&gt;
+    
+    &lt;!-- Medium checkbox with custom title --&gt;
+    &lt;UiCheckbox
+      v-model="customOption"
+      title="Custom option with longer text"
+      size="md"
+    /&gt;
+    
+    &lt;!-- Multiple checkboxes in a group --&gt;
+    &lt;div class="space-y-2"&gt;
+      &lt;UiCheckbox
+        v-model="options.option1"
+        title="Option 1"
+        size="md"
+      /&gt;
+      &lt;UiCheckbox
+        v-model="options.option2"
+        title="Option 2"
+        size="md"
+      /&gt;
+      &lt;UiCheckbox
+        v-model="options.option3"
+        title="Option 3"
+        size="md"
+      /&gt;
+    &lt;/div&gt;
+  &lt;/template&gt;
+  
+  &lt;script setup&gt;
+  const isChecked = ref(false)
+  const newsletter = ref(true)
+  const disabledOption = ref(false)
+  const smallOption = ref(false)
+  const customOption = ref(false)
+  
+  const options = ref({
+    option1: false,
+    option2: true,
+    option3: false
+  })
+  
+  // Watch for changes
+  watch(isChecked, (newValue) =&gt; {
+    console.log('Checkbox changed:', newValue)
+  })
+  &lt;/script&gt;
+  
+  PROPS:
+  - title: string (default: '') - Checkbox label text
+  - size: 'sm' | 'md' | 'lg' (default: 'sm') - Checkbox size
+  - disabled: boolean (default: false) - Whether checkbox is disabled
+  
+  EVENTS:
+  - No custom events (uses v-model internally)
+  
+  FEATURES:
+  - Two-way data binding with v-model
+  - Multiple sizes
+  - Disabled state
+  - Visual feedback
+  - Icon integration
+  - Responsive design
+-->
+
 <template>
   <div class="ui-checkbox">
     <input
@@ -22,89 +127,81 @@
             class="ui-checkbox-icon-color"
             :size="sizeIconClass"
             type="bold"
-        /></span>
+          />
+        </span>
       </div>
 
-      <span :class="[textSizeClass]" class="ui-checkbox-title">{{
-        title
-      }}</span>
+      <span :class="[textSizeClass]" class="ui-checkbox-title">
+        {{ title }}
+      </span>
     </label>
   </div>
 </template>
 
 <script setup lang="ts">
-const model = defineModel<boolean>({ required: true });
 
+// ============================================================================
+// 2. PROPS (Only for components)
+// ============================================================================
 const props = defineProps({
   title: {
     type: String,
-    default: "",
+    default: "", // Checkbox label text
   },
   size: {
     type: String,
-    default: "sm",
+    default: "sm", // Checkbox size
     validator: (value: string) => ["sm", "md", "lg"].includes(value),
   },
   disabled: {
     type: Boolean,
-    default: false,
+    default: false, // Whether checkbox is disabled
   },
-});
+})
 
-const checkboxClass = computed(() => {
+// ============================================================================
+// 4. VARIABLES (ref, reactive but only for simple state)
+// ============================================================================
+const model = defineModel<boolean>({ required: true })
+
+// ============================================================================
+// 5. COMPUTED PROPERTIES (computed declarations)
+// ============================================================================
+const checkboxClass = computed<string>(() => {
   return model.value
     ? "border-none"
-    : "border-1 border-gray-shade-50 bg-transparent";
-});
+    : "border-1 border-gray-shade-50 bg-transparent"
+})
 
-const disabledClass = computed(() => ({
+const disabledClass = computed<{ 'ui-checkbox-disabled': boolean }>(() => ({
   "ui-checkbox-disabled": props.disabled,
-}));
+}))
 
-const sizeClass = computed(() => {
+const sizeClass = computed<string>(() => `ui-checkbox-${props.size}`)
+
+const sizeIconClass = computed<number>(() => {
   switch (props.size) {
     case "lg":
-      return "ui-checkbox-lg";
+      return 24
     case "md":
-      return "ui-checkbox-md";
+      return 20
     case "sm":
-      return "ui-checkbox-sm";
+      return 18
     default:
-      return "ui-checkbox-md";
+      return 20
   }
-});
+})
 
-const sizeIconClass = computed(() => {
-  switch (props.size) {
-    case "lg":
-      return 24;
-    case "md":
-      return 20;
-    case "sm":
-      return 18;
-    default:
-      return 20;
-  }
-});
+const textSizeClass = computed<string>(() => `ui-checkbox-text-${props.size}`)
 
-const textSizeClass = computed(() => {
-  switch (props.size) {
-    case "lg":
-      return "ui-checkbox-text-lg";
-    case "md":
-      return "ui-checkbox-text-md";
-    case "sm":
-      return "ui-checkbox-text-sm";
-    default:
-      return "ui-checkbox-text-md";
-  }
-});
-
-const toggleCheckbox = () => {
+// ============================================================================
+// 8. FUNCTION DEFINITIONS (helper functions and composables)
+// ============================================================================
+const toggleCheckbox = (): void => {
   if (!props.disabled) {
-    model.value = !model.value;
+    model.value = !model.value
   }
-};
+}
 </script>
 
 <style scoped>

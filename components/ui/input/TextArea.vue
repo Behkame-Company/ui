@@ -1,28 +1,115 @@
+<!--
+  TextArea Component Usage Guide:
+  
+  A customizable textarea component that supports:
+  - Multiple sizes (sm, md, lg, xl)
+  - Placeholder text
+  - Disabled state
+  - v-model support
+  - Responsive design
+  - Focus and disabled states
+  
+  PARENT COMPONENT USAGE:
+  
+  &lt;template&gt;
+    &lt;!-- Basic textarea --&gt;
+    &lt;UiTextArea
+      v-model="message"
+      placeholder="Enter your message here..."
+      size="md"
+    /&gt;
+    
+    &lt;!-- Large textarea with custom name --&gt;
+    &lt;UiTextArea
+      v-model="description"
+      name="description"
+      placeholder="Enter detailed description..."
+      size="lg"
+    /&gt;
+    
+    &lt;!-- Small disabled textarea --&gt;
+    &lt;UiTextArea
+      v-model="notes"
+      placeholder="Notes (read-only)"
+      size="sm"
+      :disabled="true"
+    /&gt;
+    
+    &lt;!-- Extra large textarea --&gt;
+    &lt;UiTextArea
+      v-model="content"
+      placeholder="Enter long content..."
+      size="xl"
+    /&gt;
+  &lt;/template&gt;
+  
+  &lt;script setup&gt;
+  const message = ref('')
+  const description = ref('')
+  const notes = ref('Some read-only notes')
+  const content = ref('')
+  &lt;/script&gt;
+  
+  PROPS:
+  - name: string (default: '') - Input textarea name property
+  - placeholder: string (default: '') - Placeholder text to show in textarea
+  - size: 'sm' | 'md' | 'lg' | 'xl' (default: 'md') - Textarea size
+  - disabled: boolean (default: false) - Disable the textarea
+  
+  EVENTS:
+  - update:modelValue: Emitted when textarea value changes
+  
+  FEATURES:
+  - v-model support
+  - Responsive sizing
+  - Focus and disabled states
+  - Customizable placeholder
+-->
+
 <template>
-  <textarea class="ui-input-text-area" :class="sizeClass" :name="name" :placeholder="placeholder" :disabled="disabled" v-model="localData" />
+  <textarea 
+    class="ui-input-text-area" 
+    :class="sizeClass" 
+    :name="name" 
+    :placeholder="placeholder" 
+    :disabled="disabled" 
+    v-model="localData" 
+  />
 </template>
+
 <script setup lang="ts">
+
+// ============================================================================
+// 2. PROPS (Only for components)
+// ============================================================================
 const props = defineProps({
   name: {
     type: String,
-    default: ''  // input text area name property 
+    default: '', // input text area name property
   },
   placeholder: {
     type: String,
-    default: '' // place holder to show in input text area 
+    default: '', // place holder to show in input text area
   },
   size: {
     type: String,
     default: 'md', // valid values: sm, md, lg, xl
-    validator: (value: string) => ['sm', 'md', 'lg', 'xl'].includes(value)
+    validator: (value: string) => ['sm', 'md', 'lg', 'xl'].includes(value),
   },
   disabled: {
-    type: Boolean, 
-    default: false, // pass this variable true if you want the input text area to get disabled 
-  }, 
-}) 
-const localData = ref<string>("")
+    type: Boolean,
+    default: false, // pass this variable true if you want the input text area to get disabled
+  },
+})
 
+// ============================================================================
+// 4. VARIABLES (ref, reactive but only for simple state)
+// ============================================================================
+const localData = ref<string>('')
+
+// ============================================================================
+// 5. COMPUTED PROPERTIES (computed declarations)
+// ============================================================================
 const sizeClass = computed<string>(() => `ui-input-text-area-${props.size}`)
 
 </script>
