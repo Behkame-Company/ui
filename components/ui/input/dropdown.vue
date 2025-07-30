@@ -69,7 +69,7 @@
   <div
     class="ui-input-dropdown-container"
     :class="{
-      'ui-input-dropdown-container-openned': dropdown_openned,
+      'ui-input-dropdown-container-openned': dropdownOpenned,
       'ui-input-dropdown-container-disabled': disabled,
     }"
   >
@@ -85,8 +85,9 @@
       ]"
       :disabled="disabled"
       @click="toggleDropdown"
+      
     >
-      {{ model || placeholder }}
+      {{ selectedOptionLabel || placeholder }}
     </div>
 
     <!-- Suffix icon -->
@@ -94,17 +95,17 @@
       class="ui-input-dropdown-suffix-icon"
       :class="{
         'ui-input-dropdown-suffix-icon-disabled': disabled,
-        'ui-input-dropdown-suffix-icon-openned': dropdown_openned,
+        'ui-input-dropdown-suffix-icon-openned': dropdownOpenned,
       }"
       :disabled="disabled"
-      @click="toggleDropdown"
+      @click="onSuffixIconClick"
     >
       <VsxIcon :iconName="toggleIcon" :size="classes.iconSize" />
     </div>
 
     <!-- Dropdown -->
     <OnClickOutside
-      v-if="dropdown_openned"
+      v-if="dropdownOpenned"
       class="ui-input-dropdown-options"
       :class="classes.options"
       :options="{ ignore: ['.ui-input-dropdown-container'] }"
@@ -189,7 +190,7 @@ const model = defineModel<string>({ required: true })
 // 5. VARIABLES (ref, reactive but only for simple state)
 // ============================================================================
 /** Controls the visibility of the dropdown options */
-const dropdown_openned = ref<boolean>(false)
+const dropdownOpenned = ref<boolean>(false)
 
 /** Search term for filtering options */
 const search = ref<string>("")
@@ -225,9 +226,28 @@ const filtered_options = computed<Option[]>(() =>
 );
 
 /** Toggle icon based on dropdown state */
-const toggleIcon = computed<string>(() =>
-  dropdown_openned.value ? "ArrowUp2" : "ArrowDown2"
-);
+const toggleIcon = computed<string>(() => {
+  if (model.value) {
+    return "CloseCircle";
+  }
+  return dropdownOpenned.value ? "ArrowUp2" : "ArrowDown2";
+});
+
+const onSuffixIconClick = () => {
+  if (model.value) {
+    model.value = "";
+    dropdownOpenned.value = false;
+  } else {
+    toggleDropdown();
+  }
+};
+
+/** Selected option label for display */
+const selectedOptionLabel = computed<string>(() => {
+  if (!model.value) return "";
+  const selectedOption = props.options.find(option => option.value === model.value);
+  return selectedOption ? selectedOption.label : "";
+});
 
 // ============================================================================
 // 9. FUNCTION DEFINITIONS (helper functions and composables)
@@ -237,7 +257,7 @@ const toggleIcon = computed<string>(() =>
  * Prevents toggle if component is disabled
  */
 const toggleDropdown = (): void => {
-  if (!props.disabled) dropdown_openned.value = !dropdown_openned.value;
+  if (!props.disabled) dropdownOpenned.value = !dropdownOpenned.value;
 };
 
 /**
@@ -245,7 +265,7 @@ const toggleDropdown = (): void => {
  * Prevents close if component is disabled
  */
 const closeDropdown = (): void => {
-  if (!props.disabled) dropdown_openned.value = false;
+  if (!props.disabled) dropdownOpenned.value = false;
 };
 
 /**

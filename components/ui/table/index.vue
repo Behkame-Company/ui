@@ -733,7 +733,7 @@ const toggleSort = (col: Column) => {
 }
 
 .ui-table-th-title {
-  @apply font-medium bg-white text-center px-2 py-2 select-none;
+  @apply font-medium bg-white text-center  py-2 select-none;
 }
 
 .ui-table-row-odd {

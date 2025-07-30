@@ -121,6 +121,7 @@
           : '',
       ]"
       :disabled="disabled"
+      @click="!disabled && suffixCallback && suffixCallback()"
     >
       <VsxIcon :iconName="suffixIcon" :size="iconSizeClass" :type="suffixIconType" />
     </div>

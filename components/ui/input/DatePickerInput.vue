@@ -37,12 +37,13 @@
   <div class="date-picker-container" ref="datePickerRef">
     <!-- Custom Input -->
     <UiInput
-      :model-value="displayValue"
+      :modelValue="displayValue"
       :placeholder="placeholder"
-      :suffixIcon="suffixIcon"
+      :suffixIcon="dynamicIcon"
       :size="size"
-      readonly
+      :readonly="true"
       @click="toggleDatePicker"
+      :suffixCallback="onIconClick"
     />
 
     <!-- Time Picker Only -->
@@ -76,48 +77,6 @@
 </template>
 
 <script setup lang="ts">
-/**
- * DatePickerInput Component
- * 
- * A customizable date/time picker component that supports:
- * - Date selection (yyyy-MM-dd)
- * - Time selection (HH:mm)
- * - DateTime selection (yyyy-MM-dd HH:mm)
- * - Custom formatting
- * - Different sizes (sm, md, lg)
- * - Custom icons and placeholders
- * 
- * USAGE EXAMPLE:
- * 
- * // Basic date picker
- * <UiDatePickerInput
- *   v-model="selectedDate"
- *   type="date"
- *   placeholder="Select date"
- *   size="md"
- * />
- * 
- * // Time picker with custom icon
- * <UiDatePickerInput
- *   v-model="selectedTime"
- *   type="time"
- *   suffixIcon="Clock"
- *   placeholder="Select time"
- * />
- * 
- * // DateTime picker
- * <UiDatePickerInput
- *   v-model="selectedDateTime"
- *   type="datetime"
- *   format="yyyy-MM-dd HH:mm"
- *   size="lg"
- * />
- * 
- * // Parent component setup
- * const selectedDate = ref('')
- * const selectedTime = ref('')
- * const selectedDateTime = ref('')
- */
 
 // ============================================================================
 // 1. IMPORTS (External libraries and internal modules)
@@ -126,31 +85,36 @@ import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 
 // ============================================================================
-// 2. TYPE DEFINITIONS
+// 2. PROPS (Only for components)
 // ============================================================================
-type DatePickerType = 'date' | 'time' | 'datetime'
-type DatePickerSize = 'sm' | 'md' | 'lg'
-
-interface Props {
-  modelValue?: string | Date
-  placeholder?: string
-  suffixIcon?: string
-  size?: DatePickerSize
-  type?: DatePickerType
-  format?: string
-}
-
-// ============================================================================
-// 3. PROPS (Only for components)
-// ============================================================================
-const props = withDefaults(defineProps<Props>(), {
-  modelValue: undefined,
-  placeholder: 'Select date/time',
-  suffixIcon: 'CalendarTime',
-  size: 'sm',
-  type: 'datetime',
-  format: 'yyyy-MM-dd HH:mm',
-})
+const props = defineProps({
+  modelValue: {
+    type: [String, Date],
+    default: undefined,
+  },
+  placeholder: {
+    type: String,
+    default: 'Select date/time',
+  },
+  suffixIcon: {
+    type: String,
+    default: 'CalendarTime',
+  },
+  size: {
+    type: String,
+    default: 'sm',
+    validator: (value: string) => ['sm', 'md', 'lg'].includes(value),
+  },
+  type: {
+    type: String,
+    default: 'datetime',
+    validator: (value: string) => ['date', 'time', 'datetime'].includes(value),
+  },
+  format: {
+    type: String,
+    default: 'yyyy-MM-dd HH:mm',
+  },
+});
 
 // ============================================================================
 // 4. EMITS (Only for components)
@@ -223,6 +187,19 @@ const displayValue = computed(() => {
     return ''
   }
 })
+
+const dynamicIcon = computed(() => {
+  return displayValue.value ? 'CloseCircle' : props.suffixIcon;
+});
+
+   const onIconClick = () => {
+     if (displayValue.value) {
+       isOpen.value = false;
+       currentDate.value = null;
+       emit('update:modelValue', '');
+     }
+   }
+
 
 // ============================================================================
 // 7. LIFECYCLE HOOKS (onMounted, onBeforeMount, onUnmounted, etc.)
@@ -348,5 +325,7 @@ const onDateSelect = (val: Date | any) => {
   @apply p-0 m-0 border-0 shadow-none bg-transparent;
 }
 
-
+:deep(.ui-input-suffix-icon) {
+  background: transparent !important;
+}
 </style>

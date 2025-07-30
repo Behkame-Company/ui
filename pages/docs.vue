@@ -248,6 +248,7 @@
             name="name"
             size="sm"
             placeholder="Input size sm"
+            v-model="inputValue1"
           />
 
           <UiInput
@@ -483,8 +484,8 @@
           DropDown Components
         </h3>
           <UiInputDropDown
-            v-model="selectedOption1"
-            :options="options2"
+            v-model="selectedCategory"
+            :options="categoryOptions"
             placeholder="Select an option"
             class="my-2"
           />
@@ -1247,7 +1248,7 @@ const defaultValue = ref(new CalendarDate(2022, 2, 6))
 const showPopup = ref(false);
 
 const selectedOption = ref<string[]>([]);
-const selectedOption1 = ref<string>("");
+const selectedCategory = ref<string>("");
 
 const dropdown_options = ref<{ label: string; value: string }[]>([
   { label: "Option 1", value: "option1" },
@@ -1273,10 +1274,15 @@ const options = [
   { value: "c", label: " C" },
 ];
 const options2 = [
-  { value: "a", title: " A" },
-  { value: "b", title: " B" },
-  { value: "c", title: " C" },
+  { value: "a", label: " A" },
+  { value: "b", label: " B" },
+  { value: "c", label: " C" },
 ];
+const categoryOptions = [
+    { label: 'Technology', value: 'tech' },
+    { label: 'Design', value: 'design' },
+    { label: 'Marketing', value: 'marketing' }
+  ]
 const currentPage = ref(1);
 const perPage = ref(5);
 const total = ref(100);
