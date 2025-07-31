@@ -69,13 +69,13 @@
   <div
     class="ui-input-dropdown-container"
     :class="{
-      'ui-input-dropdown-container-openned': dropdown_openned,
+      'ui-input-dropdown-container-openned': dropdownOpenned,
       'ui-input-dropdown-container-disabled': disabled,
     }"
   >
     <div
       class="ui-input-dropdown"
-      :class="`${dropdown_size_class} ${
+      :class="`${dropdownSizeClass} ${
         disabled ? 'ui-input-dropdown-disabled' : ''
       } ${selectedLabels.length > 0 ? 'ui-input-dropdown-filled' : 'ui-input-dropdown-empty'}`"
       :disabled="disabled"
@@ -93,21 +93,21 @@
       class="ui-input-dropdown-suffix-icon"
       :class="{
         'ui-input-dropdown-suffix-icon-disabled': disabled,
-        'ui-input-dropdown-suffix-icon-openned': dropdown_openned,
+        'ui-input-dropdown-suffix-icon-openned': dropdownOpenned,
       }"
       :disabled="disabled"
       @click="toggleDropdown"
     >
       <VsxIcon
         :iconName="toggleIcon"
-        :size="icon_size_class"
+        :size="iconSizeClass"
       />
     </div>
 
     <OnClickOutside
-      v-if="dropdown_openned"
+      v-if="dropdownOpenned"
       class="ui-input-dropdown-options"
-      :class="dropdown_options_size_class"
+      :class="dropdownOptionsSizeClass"
       :options="{ ignore: ['.ui-input-dropdown-container'] }"
       @trigger="closeDropdown"
       style="width: 100%; min-width: 100%;"
@@ -115,11 +115,12 @@
       <UiInput
         class="ui-input-dropdown-search"
         :size="size"
-        :class="dropdown_search_size_class"
+        :class="dropdownSearchSizeClass"
         v-model="search"
         placeholder="Search"
         suffixIcon="SearchNormal1"
         suffixIconType="linear"
+       
       />
       <!-- Select All Checkbox -->
       <div class="ui-input-dropdown-option">
@@ -135,8 +136,8 @@
       <!-- Option Checkboxes -->
       <div
         class="ui-input-dropdown-option"
-        :class="dropdown_option_size_class"
-        v-for="option in filtered_options"
+        :class="dropdownOptionSizeClass"
+        v-for="option in filteredOptions"
         :key="option.value"
         @click.stop
       >
@@ -182,7 +183,7 @@ const model = defineModel<string[]>({ required: true })
 // 5. VARIABLES (ref, reactive but only for simple state)
 // ============================================================================
 /** Controls the visibility of the dropdown options */
-const dropdown_openned = ref<boolean>(false)
+const dropdownOpenned = ref<boolean>(false)
 
 /** Search term for filtering options */
 const search = ref<string>('')
@@ -191,19 +192,19 @@ const search = ref<string>('')
 // 6. COMPUTED PROPERTIES (computed declarations)
 // ============================================================================
 /** Size class for the dropdown container */
-const dropdown_size_class = computed<string>(() => `ui-input-dropdown-${props.size}`)
+const dropdownSizeClass = computed<string>(() => `ui-input-dropdown-${props.size}`)
 
 /** Size class for the dropdown options container */
-const dropdown_options_size_class = computed<string>(() => `ui-input-dropdown-options-${props.size}`)
+const dropdownOptionsSizeClass = computed<string>(() => `ui-input-dropdown-options-${props.size}`)
 
 /** Size class for the search input */
-const dropdown_search_size_class = computed<string>(() => `ui-input-dropdown-search-${props.size}`)
+const dropdownSearchSizeClass = computed<string>(() => `ui-input-dropdown-search-${props.size}`)
 
 /** Size class for individual dropdown options */
-const dropdown_option_size_class = computed<string>(() => `ui-input-dropdown-option-${props.size}`)
+const dropdownOptionSizeClass = computed<string>(() => `ui-input-dropdown-option-${props.size}`)
 
 /** Icon size based on dropdown size */
-const icon_size_class = computed<number>(() => {
+const iconSizeClass = computed<number>(() => {
   switch (props.size) {
     case 'sm': return 14;
     case 'md': return 16;
@@ -214,7 +215,7 @@ const icon_size_class = computed<number>(() => {
 })
 
 /** Filtered options based on search term */
-const filtered_options = computed<{ label: string; value: string }[]>(() =>
+const filteredOptions = computed<{ label: string; value: string }[]>(() =>
   props.options.filter(option =>
     option.label.toLowerCase().includes(search.value.toLowerCase())
   )
@@ -232,7 +233,18 @@ const selectedLabels = computed<string[]>(() =>
 )
 
 /** Toggle icon based on dropdown state */
-const toggleIcon = computed<string>(() => dropdown_openned.value ? 'ArrowUp2' : 'ArrowDown2')
+/** Toggle icon based on dropdown state */
+const toggleIcon = computed<string>(() => 
+  // if (model.value) {
+  //   return "CloseCircle";
+  // }
+  dropdownOpenned.value ? "ArrowUp2" : "ArrowDown2"
+);
+
+// const iconType = computed<string>(() => {
+//   return model.value ? "bold" : "linear";
+// });
+
 
 
 // ============================================================================
@@ -269,7 +281,7 @@ const toggleOption = (value: string): void => {
  */
 const toggleDropdown = (): void => {
   if (props.disabled) return;
-  dropdown_openned.value = !dropdown_openned.value;
+  dropdownOpenned.value = !dropdownOpenned.value;
 }
 
 /**
@@ -278,8 +290,16 @@ const toggleDropdown = (): void => {
  */
 const closeDropdown = (): void => {
   if (props.disabled) return;
-  dropdown_openned.value = false;
+  dropdownOpenned.value = false;
 }
+const onSuffixIconClick = () => {
+  if (model.value && model.value.length > 0) {
+    model.value = [];
+    dropdownOpenned.value = false;
+  } else {
+    toggleDropdown();
+  }
+};
 </script>
 
 <style scoped>
@@ -335,7 +355,10 @@ const closeDropdown = (): void => {
 }
 
 .ui-input-dropdown-suffix-icon {
-  @apply flex justify-center items-center text-gray-shade-100 p-2 transition-all;
+  @apply flex justify-center items-center text-gray-shade-400 p-2 transition-all;
+}
+.ui-input-dropdown-suffix-icon:hover {
+  @apply text-primary cursor-pointer;
 }
 
 .ui-input-dropdown-suffix-icon-openned {

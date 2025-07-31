@@ -100,7 +100,7 @@
       :disabled="disabled"
       @click="onSuffixIconClick"
     >
-      <VsxIcon :iconName="toggleIcon" :size="classes.iconSize" />
+      <VsxIcon :iconName="toggleIcon" :size="classes.iconSize" :type="iconType" />
     </div>
 
     <!-- Dropdown -->
@@ -233,14 +233,11 @@ const toggleIcon = computed<string>(() => {
   return dropdownOpenned.value ? "ArrowUp2" : "ArrowDown2";
 });
 
-const onSuffixIconClick = () => {
-  if (model.value) {
-    model.value = "";
-    dropdownOpenned.value = false;
-  } else {
-    toggleDropdown();
-  }
-};
+const iconType = computed<string>(() => {
+  return model.value ? "bold" : "linear";
+});
+
+
 
 /** Selected option label for display */
 const selectedOptionLabel = computed<string>(() => {
@@ -276,6 +273,14 @@ const closeDropdown = (): void => {
 const selectOption = (option: Option): void => {
   model.value = option.value === model.value ? "" : option.value;
   closeDropdown();
+};
+const onSuffixIconClick = () => {
+  if (model.value) {
+    model.value = "";
+    dropdownOpenned.value = false;
+  } else {
+    toggleDropdown();
+  }
 };
 </script>
 
@@ -328,7 +333,11 @@ const selectOption = (option: Option): void => {
 }
 
 .ui-input-dropdown-suffix-icon {
-  @apply flex justify-center items-center text-gray-shade-100 p-2 ;
+  @apply flex justify-center items-center text-gray-shade-400 p-2 ;
+}
+
+.ui-input-dropdown-suffix-icon:hover {
+  @apply text-primary cursor-pointer;
 }
 
 .ui-input-dropdown-suffix-icon-openned {
