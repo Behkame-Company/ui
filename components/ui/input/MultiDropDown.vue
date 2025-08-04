@@ -1,26 +1,8 @@
 <!--
   MultiDropDown Component Usage Guide:
   
-  A customizable multi-select dropdown component that supports:
-  - Multiple option selection with checkboxes
-  - Search functionality to filter options
-  - Select all/deselect all functionality
-  - Different sizes (sm, md, lg, xl)
-  - Disabled state
-  - Custom placeholders and styling
   
   PARENT COMPONENT USAGE:
-  
-  <template>
-    <UiMultiDropDown
-      v-model="selectedOptions"
-      :options="[
-        { label: 'Option 1', value: 'opt1' },
-        { label: 'Option 2', value: 'opt2' },
-        { label: 'Option 3', value: 'opt3' }
-      ]"
-      placeholder="Select options"
-    />
     
     <UiMultiDropDown
       v-model="selectedCategories"
@@ -29,30 +11,6 @@
       size="lg"
     />
     
-    <UiMultiDropDown
-      v-model="selectedItems"
-      :options="itemOptions"
-      :disabled="true"
-      placeholder="Disabled dropdown"
-    />
-  </template>
-  
-  <script setup>
-  const selectedOptions = ref([])
-  const selectedCategories = ref([])
-  const selectedItems = ref([])
-  
-  const categoryOptions = [
-    { label: 'Technology', value: 'tech' },
-    { label: 'Design', value: 'design' },
-    { label: 'Marketing', value: 'marketing' }
-  ]
-  
-  const itemOptions = [
-    { label: 'Item 1', value: 'item1' },
-    { label: 'Item 2', value: 'item2' }
-  ]
-  </script>
   
   PROPS:
   - name: string (optional)
@@ -60,24 +18,22 @@
   - size: 'sm' | 'md' | 'lg' | 'xl' (default: 'sm')
   - disabled: boolean (default: false)
   - options: Array&lt;{label: string, value: string}&gt; (required)
-  
-  EVENTS:
-  - update:modelValue: Emitted when selection changes (string[])
+ 
 -->
 
 <template>
   <div
-    class="ui-input-dropdown-container"
+    class="ui-dropdown__container"
     :class="{
-      'ui-input-dropdown-container-openned': dropdownOpenned,
-      'ui-input-dropdown-container-disabled': disabled,
+      'ui-dropdown__container__openned': dropdownOpenned,
+      'ui-dropdown__container__disabled': disabled,
     }"
   >
     <div
-      class="ui-input-dropdown"
+      class="ui-dropdown"
       :class="`${dropdownSizeClass} ${
-        disabled ? 'ui-input-dropdown-disabled' : ''
-      } ${selectedLabels.length > 0 ? 'ui-input-dropdown-filled' : 'ui-input-dropdown-empty'}`"
+        disabled ? 'ui-dropdown__disabled' : ''
+      } ${selectedLabels.length > 0 ? 'ui-dropdown__filled' : 'ui-dropdown__empty'}`"
       :disabled="disabled"
       @click="toggleDropdown"
     >
@@ -90,10 +46,10 @@
     </div>
 
     <div
-      class="ui-input-dropdown-suffix-icon"
+      class="ui-dropdown__suffix__icon"
       :class="{
-        'ui-input-dropdown-suffix-icon-disabled': disabled,
-        'ui-input-dropdown-suffix-icon-openned': dropdownOpenned,
+        'ui-dropdown__suffix__icon__disabled': disabled,
+        'ui-dropdown__suffix__icon__openned': dropdownOpenned,
       }"
       :disabled="disabled"
       @click="toggleDropdown"
@@ -106,14 +62,14 @@
 
     <OnClickOutside
       v-if="dropdownOpenned"
-      class="ui-input-dropdown-options"
+      class="ui-dropdown__options"
       :class="dropdownOptionsSizeClass"
-      :options="{ ignore: ['.ui-input-dropdown-container'] }"
+      :options="{ ignore: ['.ui-dropdown__container'] }"
       @trigger="closeDropdown"
       style="width: 100%; min-width: 100%;"
     >
       <UiInput
-        class="ui-input-dropdown-search"
+        class="ui-dropdown__search"
         :size="size"
         :class="dropdownSearchSizeClass"
         v-model="search"
@@ -123,7 +79,7 @@
        
       />
       <!-- Select All Checkbox -->
-      <div class="ui-input-dropdown-option">
+      <div class="ui-dropdown__option">
         <span class="text-gray text-3xs px-2 py-3">Select All</span>
         <UiCheckbox
           class="p-3"
@@ -135,7 +91,7 @@
       <hr class="text-gray-tint-650 mx-2">
       <!-- Option Checkboxes -->
       <div
-        class="ui-input-dropdown-option"
+        class="ui-dropdown__option"
         :class="dropdownOptionSizeClass"
         v-for="option in filteredOptions"
         :key="option.value"
@@ -192,16 +148,16 @@ const search = ref<string>('')
 // 6. COMPUTED PROPERTIES (computed declarations)
 // ============================================================================
 /** Size class for the dropdown container */
-const dropdownSizeClass = computed<string>(() => `ui-input-dropdown-${props.size}`)
+const dropdownSizeClass = computed<string>(() => `ui-dropdown__${props.size}`)
 
 /** Size class for the dropdown options container */
-const dropdownOptionsSizeClass = computed<string>(() => `ui-input-dropdown-options-${props.size}`)
+const dropdownOptionsSizeClass = computed<string>(() => `ui-dropdown__options__${props.size}`)
 
 /** Size class for the search input */
-const dropdownSearchSizeClass = computed<string>(() => `ui-input-dropdown-search-${props.size}`)
+const dropdownSearchSizeClass = computed<string>(() => `ui-dropdown__search__${props.size}`)
 
 /** Size class for individual dropdown options */
-const dropdownOptionSizeClass = computed<string>(() => `ui-input-dropdown-option-${props.size}`)
+const dropdownOptionSizeClass = computed<string>(() => `ui-dropdown__option__${props.size}`)
 
 /** Icon size based on dropdown size */
 const iconSizeClass = computed<number>(() => {
@@ -292,123 +248,116 @@ const closeDropdown = (): void => {
   if (props.disabled) return;
   dropdownOpenned.value = false;
 }
-const onSuffixIconClick = () => {
-  if (model.value && model.value.length > 0) {
-    model.value = [];
-    dropdownOpenned.value = false;
-  } else {
-    toggleDropdown();
-  }
-};
+
 </script>
 
 <style scoped>
 @reference "assets/css/main.css";
 
-.ui-input-dropdown-container {
+.ui-dropdown__container {
   @apply flex justify-between items-center border  border-gray-tint-650 rounded-sm transition-all cursor-pointer relative text-nowrap;
 }
 
-.ui-input-dropdown-container-disabled {
+.ui-dropdown__container__disabled {
   @apply opacity-50 cursor-not-allowed;
 }
 
-.ui-input-dropdown-container-openned {
+.ui-dropdown__container__openned {
   @apply border-1 border-primary 
 }
 
-.ui-input-dropdown {
+.ui-dropdown {
   @apply flex-1 rounded-sm border-0 text-gray-shade-400 transition-all cursor-pointer;
 }
 
-.ui-input-dropdown-disabled {
+.ui-dropdown__disabled {
   @apply cursor-not-allowed;
 }
 
-.ui-input-dropdown-filled {
+.ui-dropdown__filled {
   @apply text-gray-shade-800;
 }
 
-.ui-input-dropdown-empty {
+.ui-dropdown__empty {
   @apply text-gray-shade-400;
 }
 
 /* ===== size ===== */
 
-.ui-input-dropdown-sm {
+.ui-dropdown__sm {
   @apply py-2 px-3 text-3xs placeholder:text-3xs;
 }
 
-.ui-input-dropdown-md {
+.ui-dropdown__md {
   @apply py-2 px-3 text-2xs placeholder:text-2xs;
   line-height: 18px;
 }
 
-.ui-input-dropdown-lg {
+.ui-dropdown__lg {
   @apply py-2 px-3 text-sm placeholder:text-sm;
   line-height: 20px;
 }
 
-.ui-input-dropdown-xl {
+.ui-dropdown__xl {
   @apply py-3 px-4 text-base placeholder:text-base;
   line-height: 17px;
 }
 
-.ui-input-dropdown-suffix-icon {
+.ui-dropdown__suffix__icon {
   @apply flex justify-center items-center text-gray-shade-400 p-2 transition-all;
 }
-.ui-input-dropdown-suffix-icon:hover {
+.ui-dropdown__suffix__icon:hover {
   @apply text-primary cursor-pointer;
 }
 
-.ui-input-dropdown-suffix-icon-openned {
+.ui-dropdown__suffix__icon__openned {
   @apply text-gray;
 }
 
-.ui-input-dropdown-suffix-icon.ui-input-dropdown-suffix-icon-disabled {
+.ui-dropdown__suffix__icon.ui-dropdown__suffix__icon__disabled {
   @apply cursor-not-allowed;
 }
 
-.ui-input-dropdown-options {
+.ui-dropdown__options {
   @apply absolute flex flex-col top-10 bg-white border border-gray-tint-200 rounded-sm z-10 pb-2 w-full;
 }
 
-.ui-input-dropdown-options-sm {
+.ui-dropdown__options__sm {
   @apply top-10;
 }
 
-.ui-input-dropdown-options-md {
+.ui-dropdown__options__md {
   @apply top-10.5;
 }
 
-.ui-input-dropdown-options-lg {
+.ui-dropdown__options__lg {
   @apply top-11;
 }
 
-.ui-input-dropdown-options-xl {
+.ui-dropdown__options__xl {
   @apply top-12;
 }
 
-.ui-input-dropdown-search {
+.ui-dropdown__search {
   @apply mx-2 my-2 ;
 }
-.ui-input-dropdown-option {
+.ui-dropdown__option {
   @apply flex items-center justify-between text-gray-shade-800 hover:bg-gray-tint-200 cursor-pointer;
 }
 
-.ui-input-dropdown-option-sm {
+.ui-dropdown__option__sm {
   @apply px-3 py-2 text-3xs;
 }
 
-.ui-input-dropdown-option-md {
+.ui-dropdown__option__md {
   @apply px-3 py-2.5 text-xs;
 }
 
-.ui-input-dropdown-option-lg {
+.ui-dropdown__option__lg {
   @apply px-3 py-2.5 text-sm;
 }
 
-.ui-input-dropdown-option-xl {
+.ui-dropdown__option__xl {
   @apply px-3 py-3 text-base ;
 }
 </style>

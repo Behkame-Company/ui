@@ -1,110 +1,27 @@
 <!--
   Sidebar Component Usage Guide:
-  
-  A customizable sidebar navigation component that supports:
-  - Collapsible sidebar with toggle functionality
-  - Multiple navigation sections (top, bottom, third)
-  - User info display
-  - Icon-based navigation
-  - Text-based navigation when expanded
-  - Router integration
-  - Responsive design
-  - Smooth transitions
-  
   PARENT COMPONENT USAGE:
-  
-  <template>
-    <UiSidebar
-      :top-sections="topNavItems"
-      :bottom-sections="bottomNavItems"
-      :data="userInfo"
-    />
-    
     <UiSidebar
       :top-sections="mainNav"
       :bottom-sections="secondaryNav"
       :third-sections="actionNav"
       :data="userName"
     />
-    
-    <UiSidebar
-      :top-sections="dashboardNav"
-      :bottom-sections="settingsNav"
-      :data="currentUser"
-    />
-  </template>
-  
-  <script setup>
-  const userInfo = ref('John Doe')
-  const userName = ref('Jane Smith')
-  const currentUser = ref('Admin User')
-  
-  const topNavItems = ref([
-    { iconName: 'Home', text: 'Dashboard', to: '/dashboard' },
-    { iconName: 'User', text: 'Profile', to: '/profile' },
-    { iconName: 'Document', text: 'Documents', to: '/documents' }
-  ])
-  
-  const bottomNavItems = ref([
-    { iconName: 'Setting', text: 'Settings', to: '/settings' },
-    { iconName: 'Help', text: 'Help', to: '/help' }
-  ])
-  
-  const mainNav = ref([
-    { iconName: 'Home', text: 'Home', to: '/home' },
-    { iconName: 'Search', text: 'Search', to: '/search' },
-    { iconName: 'Notification', text: 'Notifications', to: '/notifications' }
-  ])
-  
-  const secondaryNav = ref([
-    { iconName: 'Setting', text: 'Settings', to: '/settings' },
-    { iconName: 'User', text: 'Account', to: '/account' }
-  ])
-  
-  const actionNav = ref([
-    { iconName: 'Logout', text: 'Logout', to: '/logout' },
-    { iconName: 'Trash', text: 'Delete Account', to: '/delete-account' }
-  ])
-  
-  const dashboardNav = ref([
-    { iconName: 'Chart', text: 'Analytics', to: '/analytics' },
-    { iconName: 'Users', text: 'Users', to: '/users' },
-    { iconName: 'Document', text: 'Reports', to: '/reports' }
-  ])
-  
-  const settingsNav = ref([
-    { iconName: 'Setting', text: 'General', to: '/settings/general' },
-    { iconName: 'Security', text: 'Security', to: '/settings/security' },
-    { iconName: 'Notification', text: 'Notifications', to: '/settings/notifications' }
-  ])
-  </script>
-  
   PROPS:
   - topSections?: Section[] - Top navigation section items
   - bottomSections?: Section[] - Bottom navigation section items
   - thirdSections?: Section[] - Third navigation section items (error-themed)
   - data?: string - User info text to display
   
-  EVENTS:
-  - No custom events (handles navigation internally via router)
-  
-  FEATURES:
-  - Collapsible sidebar
-  - Multiple navigation sections
-  - User info display
-  - Router integration
-  - Icon and text navigation
-  - Smooth transitions
-  - Responsive design
 -->
 
 <template>
   <div
-    :class="['ui-sidebar', isOpen ? 'ui-sidebar-open' : 'ui-sidebar-closed']"
+    :class="['ui-sidebar', isOpen ? 'ui-sidebar__open' : 'ui-sidebar__closed']"
   >
     <!-- Toggle Sidebar Button -->
     <button
-      class="ui-sidebar__toggle-btn"
+      class="ui-sidebar__toggle__btn"
       @click="toggleSidebar"
       aria-label="Toggle sidebar"
     >
@@ -114,15 +31,15 @@
     <!-- Sidebar Navigation -->
     <nav class="ui-sidebar__nav">
       <!-- Optional User Info -->
-      <div v-if="isOpen" class="ui-sidebar__user-info">
-        <div class="ui-sidebar__user-icon">
-          <VsxIcon iconName="User" :size="24" class="text-gray" type="linear" />
+      <div v-if="isOpen" class="ui-sidebar__user__info">
+        <div class="ui-sidebar__user__info">
+          <VsxIcon iconName="User" :size="24" class=" ui-sidebar__user__icon" type="linear" />
         </div>
-        <span class="ui-sidebar__user-text">{{ data }}</span>
+        <span class="ui-sidebar__user__text">{{ data }}</span>
       </div>
 
       <!-- Navigation Sections -->
-      <div class="ui-sidebar__nav-items">
+      <div class="ui-sidebar__nav__items">
         <!-- Top group -->
         <template v-if="isOpen">
           <UiButton
@@ -299,19 +216,19 @@ const selectSection = (index: number): void => {
 .ui-sidebar {
   @apply fixed top-0 left-0 h-screen z-20 bg-white flex flex-col justify-between transition-all duration-300 ;
 }
-.ui-sidebar-open {
+.ui-sidebar__open {
   @apply w-74.5 rounded-r-3xl;
 }
-.ui-sidebar-closed {
+.ui-sidebar__closed {
   @apply w-18 rounded-r-2xl;
 }
-.ui-sidebar__user-info {
+.ui-sidebar__user__info {
   @apply flex items-center justify-between bg-gray-tint-200 py-2 px-4 rounded-lg gap-2;
 }
-.ui-sidebar__nav-items {
+.ui-sidebar__nav__items {
   @apply flex flex-col gap-4 mt-3;
 }
-.ui-sidebar__toggle-btn {
+.ui-sidebar__toggle__btn {
   @apply absolute bottom-25 -right-4 w-8 h-8 bg-gray-tint-650 text-gray-shade-800 rounded-full flex items-center hover:bg-gray-tint-800 justify-center cursor-pointer z-10 transition-colors duration-300;
 }
 .ui-sidebar__nav {
@@ -320,10 +237,10 @@ const selectSection = (index: number): void => {
 .ui-sidebar__icon {
   @apply w-5 h-5 text-gray-shade-800 flex items-center justify-center;
 }
-.ui-sidebar__user-icon {
-  @apply bg-white w-10 h-10 rounded-full border border-blue-tint-650 p-1.5;
+.ui-sidebar__user__icon {
+  @apply bg-white w-10 h-10 rounded-full border border-blue-tint-650 p-1.5 text-gray;
 }
-.ui-sidebar__user-text {
+.ui-sidebar__user__text {
   @apply text-gray-shade-800 text-sm font-normal;
 }
 </style>

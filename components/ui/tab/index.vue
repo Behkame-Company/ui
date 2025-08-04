@@ -1,40 +1,15 @@
 <!--
   Tab Component Usage Guide:
   
-  A customizable tab component that supports:
-  - Multiple tab types (default, bordered, rounded, text, filled)
-  - Different sizes (sm, md, lg)
-  - Dynamic tab content
-  - Custom styling and interactions
-  
   PARENT COMPONENT USAGE:
   
-  <template>
-    <UiTab
-      :tabs="['Home', 'Profile', 'Settings']"
-      @update:selected="handleTabChange"
-    />
-    
-    <UiTab
-      :tabs="['Tab 1', 'Tab 2', 'Tab 3']"
-      type="bordered"
-      size="lg"
-      @update:selected="handleTabChange"
-    />
-    
     <UiTab
       :tabs="['Overview', 'Details', 'History']"
       :Contents="['Content 1', 'Content 2', 'Content 3']"
       type="filled"
       @update:selected="handleTabChange"
     />
-  </template>
-  
-  <script setup>
-  const handleTabChange = (index) => {
-    console.log('Selected tab:', index)
-  }
-  </script>
+
   
   PROPS:
   - tabs: string[] (default: ["Tab 1", "Tab 2", "Tab 3", "Tab 4", "Tab 5"])
@@ -51,13 +26,13 @@
   <div class="ui-tab">
 
     <!-- Tab buttons rendered dynamically from `tabs` prop -->
-    <div class="ui-tab-wrapper">
+    <div class="ui-tab__wrapper">
       <button
         v-for="(tab, index) in tabs"
         :key="index"
         @click="select_tab(index)"
         :class="[
-          'ui-tab-base',        // Base styles for all tabs
+          'ui-tab__base',        // Base styles for all tabs
           tabStyle,            // Dynamic style class based on `type` prop
           sizeClass,
           selectedIndex === index
@@ -125,10 +100,10 @@ const selectedIndex = ref<number>(0)
 // ============================================================================
 /** Compute tab style class based on the `type` prop */
 
-const tabStyle = computed<string>(() => `ui-tab-${props.type}`)
+const tabStyle = computed<string>(() => `ui-tab__${props.type}`)
 /** Compute size class based on the `size` prop */
 
-const sizeClass = computed<string>(() => `ui-tab-text-${props.size}`)
+const sizeClass = computed<string>(() => `ui-tab__text__${props.size}`)
 
 
 // ============================================================================
@@ -153,77 +128,77 @@ const select_tab = (index: number) => {
 }
 
 /* Wrapper for tab buttons */
-.ui-tab-wrapper {
+.ui-tab__wrapper {
   @apply flex gap-1.5 p-2 whitespace-nowrap;
 }
 
 /* Base styles shared by all tab buttons */
-.ui-tab-base {
+.ui-tab__base {
   @apply transition-all duration-300 text-gray-shade-400 p-2 cursor-pointer;
 }
 
 /* Filled type styles */
-.ui-tab-filled {
+.ui-tab__filled {
   @apply rounded-lg 
 }
-.ui-tab-filled-active {
+.ui-tab__filled-active {
   @apply text-white bg-primary;
-}
-.ui-tab-filled-inactive {
+}__
+.ui-tab__filled-inactive {
   @apply text-gray-shade-400 hover:bg-blue-100  hover:text-primary;
 }
 
 /* Default underline type styles */
-.ui-tab-default {
+.ui-tab__default {
   @apply border-b-2 border-transparent;
 }
-.ui-tab-default-active {
+.ui-tab__default-active {
   @apply border-primary text-primary;
 }
-.ui-tab-default-inactive {
+.ui-tab__default-inactive {
   @apply text-gray-shade-400  hover:text-blue-500 hover:border-none;
 }
 
 /* Bordered tab styles */
-.ui-tab-bordered {
+.ui-tab__bordered {
   @apply rounded-lg  ;
 }
-.ui-tab-bordered-active {
+.ui-tab__bordered-active {
   @apply bg-transparent text-primary border border-primary;
 }
-.ui-tab-bordered-inactive {
+.ui-tab__bordered-inactive {
   @apply text-gray-shade-400 bg-transparent hover:border hover:border-blue-300  hover:text-blue-400;
 }
 
 /* Text type (minimal styling) */
-.ui-tab-text {
+.ui-tab__text {
   @apply bg-transparent 
 }
-.ui-tab-text-active {
+.ui-tab__text-active {
   @apply text-primary;
 }
-.ui-tab-text-inactive {
+.ui-tab__text-inactive {
   @apply text-gray-shade-400 hover:text-blue-500;
 }
 
 /* Rounded-top tabs */
-.ui-tab-rounded {
+.ui-tab__rounded {
   @apply rounded-t-lg 
 }
-.ui-tab-rounded-active {
+.ui-tab__rounded-active {
   @apply bg-primary text-white;
 }
-.ui-tab-rounded-inactive {
+.ui-tab__rounded-inactive {
   @apply text-gray-shade-400 hover:bg-blue-100  hover:text-primary;
 }
  /* Size styles */
- .ui-tab-text-sm {
+ .ui-tab__text-sm {
   @apply text-xs font-bold;
- }
- .ui-tab-text-md {
+ }__
+ .ui-tab__text-md {
   @apply text-sm font-bold ;
  }
- .ui-tab-text-lg {
+ .ui-tab__text-lg {
   @apply text-base font-bold;
  }
 </style>

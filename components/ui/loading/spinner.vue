@@ -1,63 +1,18 @@
 <!--
   Spinner Component Usage Guide:
   
-  A customizable loading spinner component that supports:
-  - Multiple sizes (xs, sm, md, lg, xl)
-  - Smooth spinning animation
-  - Accessible design with aria-hidden
-  - SVG-based rendering for crisp display
-  - Customizable via CSS classes
-  - Responsive design
-  
   PARENT COMPONENT USAGE:
-  
-  <template>
-    <UiSpinner />
-    
-    <UiSpinner size="sm" />
-    
-    <UiSpinner size="lg" />
-    
-    <UiSpinner size="xl" />
-    
-    <UiSpinner size="xs" />
-    
-    <UiSpinner size="md" />
-    
-    <div class="text-primary">
-      <UiSpinner size="lg" />
-    </div>
     
     <div v-if="loading" class="flex items-center gap-2">
       <UiSpinner size="sm" />
       <span>Loading...</span>
     </div>
-  </template>
   
-  <script setup>
-  const loading = ref(true)
   
-  // Simulate loading
-  onMounted(() => {
-    setTimeout(() => {
-      loading.value = false
-    }, 3000)
-  })
-  </script>
   
   PROPS:
   - size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' (default: 'sm') - Spinner size
-  
-  EVENTS:
-  - No custom events
-  
-  FEATURES:
-  - Multiple sizes
-  - Smooth animation
-  - Accessible design
-  - SVG-based rendering
-  - Customizable styling
-  - Responsive design
+
 -->
 
 <template>
@@ -95,28 +50,28 @@ const props = defineProps({
 // ============================================================================
 // 5. COMPUTED PROPERTIES (computed declarations)
 // ============================================================================
-const sizeClass = computed<string>(() => "spinner-size-" + props.size)
+const sizeClass = computed<string>(() => `spinner-size__${props.size}`)
 
 </script>
 <style>
 
 @reference "assets/css/main.css";
-.spinner-size-xs {
+.spinner-size__xs {
     @apply w-3.5 h-3.5;
 }
-.spinner-size-sm {
+.spinner-size__sm {
     @apply w-4 h-4;
 }
 
-.spinner-size-md {
+.spinner-size__md {
     @apply w-4 h-4;
 }
 
-.spinner-size-lg {
+.spinner-size__lg {
     @apply w-5 h-5;
 }
 
-.spinner-size-xl {
+.spinner-size__xl {
     @apply w-6 h-6;
 }
 

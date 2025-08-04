@@ -1,72 +1,12 @@
 <!--
   Pagination Component Usage Guide:
-  
-  A customizable pagination component that supports:
-  - Previous/Next navigation buttons
-  - Page number buttons with ellipsis
-  - Per-page selector (5, 10, 15, 20, all)
-  - Two pagination types (default, bordered)
-  - Current page tracking
-  - Total records display
-  - Responsive design
-  - Disabled states for navigation
-  
-  PARENT COMPONENT USAGE:
-  
-  <template>
-    <UiPagination
-      v-model:current-page="currentPage"
-      v-model:per-page="perPage"
-      :total="totalRecords"
-    />
-    
-    <UiPagination
-      v-model:current-page="currentPage"
-      v-model:per-page="perPage"
-      :total="totalRecords"
-      type="bordered"
-    />
-    
-    <UiPagination
-      v-model:current-page="page"
-      v-model:per-page="itemsPerPage"
-      :total="1000"
-    />
-    
-    <UiPagination
-      v-model:current-page="currentPage"
-      v-model:per-page="perPage"
-      :total="50000"
-    />
     
     <UiPagination
       v-model:current-page="currentPage"
       v-model:per-page="perPage"
       :total="25"
     />
-  </template>
-  
-  <script setup>
-  const currentPage = ref(1)
-  const perPage = ref(10)
-  const totalRecords = ref(150)
-  
-  const page = ref(3)
-  const itemsPerPage = ref(20)
-  
-  // Watch for pagination changes
-  watch([currentPage, perPage], ([newPage, newPerPage]) => {
-    console.log('Page changed to:', newPage)
-    console.log('Items per page:', newPerPage)
-    // Fetch data based on new pagination
-    fetchData(newPage, newPerPage)
-  })
-  
-  const fetchData = (page: number, perPage: number) => {
-    // API call logic here
-    console.log('Fetching data for page:', page, 'per page:', perPage)
-  }
-  </script>
+
   
   PROPS:
   - currentPage: number (required) - Current active page number
@@ -78,23 +18,15 @@
   - update:currentPage: Emitted when page changes
   - update:perPage: Emitted when items per page changes
   
-  FEATURES:
-  - Previous/Next navigation
-  - Page number buttons with ellipsis
-  - Per-page selector
-  - Two visual styles
-  - Current page tracking
-  - Total records display
-  - Responsive design
 -->
 
 <template>
-  <div class="ui-pagination-container">
+  <div class="ui-pagination__container">
     <!-- Pagination Controls (Prev / Pages / Next) -->
-    <div class="ui-pagination-wrapper">
+    <div class="ui-pagination__wrapper">
       <!-- Previous Button -->
-      <button class="ui-button-arrow" @click="prev" :disabled="isFirstPage">
-        <VsxIcon iconName="ArrowLeft2" class="ui-icon" :size="18" type="linear" />
+      <button class="ui-pagination__button__arrow" @click="prev" :disabled="isFirstPage">
+        <VsxIcon iconName="ArrowLeft2" class="ui-pagination__icon" :size="18" type="linear" />
       </button>
 
       <!-- Page Number Buttons: Hidden when 'All' is selected -->
@@ -104,34 +36,34 @@
             v-if="page !== -1"
             @click="() => goToPage(page)"
             :class="[
-              'ui-page-button',
+              'ui-pagination__page__button',
               page === currentPage
-                ? 'ui-page-button-active'
+                ? 'ui-pagination__page__button-active'
                 : type === 'bordered'
-                ? 'ui-page-button-inactive-bordered'
-                : 'ui-page-button-inactive',
+                ? 'ui-pagination__page__button-inactive-bordered'
+                : 'ui-pagination__page__button-inactive',
             ]"
           >
             {{ page }}
           </button>
-          <span v-else class="ui-page-ellipsis">...</span>
+          <span v-else class="ui-page__ellipsis">...</span>
         </template>
       </template>
 
       <!-- Next Button -->
-      <button class="ui-button-arrow" @click="next" :disabled="isLastPage">
-        <VsxIcon iconName="ArrowRight2" class="ui-icon" :size="18" type="linear" />
+      <button class="ui-pagination__button__arrow" @click="next" :disabled="isLastPage">
+        <VsxIcon iconName="ArrowRight2" class="ui-pagination__icon" :size="18" type="linear" />
       </button>
     </div>
 
     <!-- Page Info + Per Page Selector -->
-    <div class="ui-pagination-info">
+    <div class="ui-pagination__info">
       From {{ from }} to {{ to }} of {{ total }} records
 
       <select
         v-model.number="localPerPage"
         @change="changePerPage"
-        class="ui-page-size-select"
+        class="ui-page__size__select"
       >
         <option v-for="n in [5, 10, 15, 20]" :key="n" :value="n">
           {{ n }}
@@ -265,46 +197,46 @@ const changePerPage = (): void => {
 <style scoped>
 @reference "assets/css/main.css";
 
-.ui-pagination-container {
+.ui-pagination__container {
   @apply flex justify-between items-center w-full text-sm;
 }
 
-.ui-pagination-wrapper {
+.ui-pagination__wrapper {
   @apply flex items-center justify-center gap-2;
 }
 
-.ui-page-button {
+.ui-pagination__page__button {
   @apply w-5.5 h-7 p-1.5 flex items-center justify-center rounded-sm text-sm transition duration-300 cursor-pointer;
 }
 
-.ui-page-button-inactive {
+.ui-pagination__page__button-inactive {
   @apply py-1 px-0 bg-transparent text-gray-shade-400;
 }
 
-.ui-page-button-inactive-bordered {
+.ui-pagination__page__button-inactive-bordered {
   @apply bg-transparent text-primary border border-gray-tint-650;
 }
 
-.ui-page-button-active {
+.ui-pagination__page__button-active {
   @apply bg-primary text-white;
 }
 
-.ui-pagination-info {
+.ui-pagination__info {
   @apply flex items-center tracking-wide gap-6 text-gray-shade-400;
 }
 
-.ui-page-size-select {
+.ui-page__size__select {
   @apply border border-gray-tint-650 rounded-sm py-1 px-2 text-sm text-primary cursor-pointer;
 }
 
-.ui-icon {
+.ui-pagination__icon {
   @apply text-gray-shade-800 cursor-pointer;
 }
-.ui-button-arrow:disabled {
+.ui-pagination__button__arrow:disabled {
  @apply opacity-50 cursor-not-allowed;
 }
 
-.ui-page-ellipsis {
+.ui-page__ellipsis {
   @apply px-2 text-gray-shade-400 select-none;
 }
 </style>

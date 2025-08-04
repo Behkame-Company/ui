@@ -1,36 +1,7 @@
 <!--
   PopUp Component Usage Guide:
-  
-  A customizable popup/modal component that supports:
-  - Custom icons with different sizes
-  - Customizable title and body text
-  - Confirm and cancel actions
-  - Custom button text
-  - Backdrop overlay
-  - Responsive design
-  
+
   PARENT COMPONENT USAGE:
-  
-  <template>
-    <UiPopUp
-      v-if="showPopup"
-      title="Success!"
-      body="Your action was completed successfully."
-      @confirm="handleConfirm"
-      @cancel="handleCancel"
-    />
-    
-    <UiPopUp
-      v-if="showDeletePopup"
-      icon="Trash"
-      title="Delete Confirmation"
-      body="Are you sure you want to delete this item?\nThis action cannot be undone."
-      confirmText="Delete"
-      cancelText="Keep"
-      @confirm="deleteItem"
-      @cancel="closeDeletePopup"
-    />
-    
     <UiPopUp
       v-if="showWarning"
       icon="Warning2"
@@ -41,32 +12,7 @@
       @confirm="continueAction"
       @cancel="saveChanges"
     />
-  </template>
-  
-  <script setup>
-  const showPopup = ref(false)
-  const showDeletePopup = ref(false)
-  const showWarning = ref(false)
-  
-  const handleConfirm = () => {
-    console.log('Confirmed!')
-    showPopup.value = false
-  }
-  
-  const handleCancel = () => {
-    console.log('Cancelled!')
-    showPopup.value = false
-  }
-  
-  const deleteItem = () => {
-    // Delete logic here
-    showDeletePopup.value = false
-  }
-  
-  const closeDeletePopup = () => {
-    showDeletePopup.value = false
-  }
-  </script>
+
   
   PROPS:
   - icon: string (default: 'closeCircle')
@@ -74,29 +20,26 @@
   - body: string (default: 'Body text.\nyou can type anything here')
   - confirmText: string (default: 'Confirm')
   - cancelText: string (default: 'Cancel')
-  
-  EVENTS:
-  - confirm: Emitted when confirm button is clicked
-  - cancel: Emitted when cancel button is clicked
+
 -->
 
 <template>
-  <div class="popup-backdrop">
-    <div class="popup-modal">
-      <div class="flex justify-center mb-4">
-        <VsxIcon :iconName="icon" class="popup-icon" :size="48" />
+  <div class="ui-popup__backdrop">
+    <div class="ui-popup__modal">
+      <div class="ui-popup__container">
+        <VsxIcon :iconName="icon" class="ui-popup__icon" :size="48" />
       </div>
-      <div class="popup-title">
+      <div class="ui-popup__title">
          {{ title }}
       </div>
-      <div class="popup-body">
+      <div class="ui-popup__body">
         {{ body }}
       </div>
-      <div class="popup-actions">
-        <button @click="onConfirm" class="popup-btn-yes">
+      <div class="ui-popup__actions">
+        <button @click="onConfirm" class="ui-popup__btn__yes">
          {{ confirmText }}
         </button>
-        <button @click="onCancel" class="popup-btn-no">
+        <button @click="onCancel" class="ui-popup__btn__no">
          {{ cancelText }}
         </button>
       </div>
@@ -147,28 +90,31 @@ const onCancel = (): void => {
 <style scoped>
 @reference "assets/css/main.css";
 
-.popup-backdrop {
+.ui-popup__backdrop {
   @apply fixed inset-0 z-50 flex items-center justify-center bg-black/60;
 }
-.popup-modal {
+.ui-popup__modal {
   @apply bg-white rounded-lg shadow-sm p-4 w-90 text-center;
 }
-.popup-icon {
+.ui-popup__container{
+  @apply flex justify-center mb-4;
+}
+.ui-popup__icon {
   @apply w-14 h-14 my-4;
 }
-.popup-title {
+.ui-popup__title {
   @apply font-semibold text-sm mb-4 text-gray;
 }
-.popup-body {
+.ui-popup__body {
   @apply text-gray-shade-800 mb-4 whitespace-pre-line;
 }
-.popup-actions {
+.ui-popup__actions {
   @apply flex justify-center gap-2;
 }
-.popup-btn-yes {
+.ui-popup__btn__yes {
   @apply bg-primary text-white text-center w-1/2 py-2 rounded-md font-medium text-xs;
 }
-.popup-btn-no {
+.ui-popup__btn__no {
   @apply bg-error text-white text-center w-1/2  py-2 rounded-md font-medium text-xs;
 }
 </style>

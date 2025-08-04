@@ -1,52 +1,7 @@
 <!--
   Toast/Snackbar Alert Component Usage Guide:
   
-  A customizable toast notification component that supports:
-  - Multiple colors (primary, outline, dark, error, success, warning, info)
-  - Multiple sizes (sm, md, lg, xl)
-  - Auto-dismiss with countdown timer
-  - Manual dismiss with cancel icon
-  - Optional prefix and cancel icons
-  - Custom title and body text
-  - Smooth fade transitions
-  - Responsive design
-  
   PARENT COMPONENT USAGE:
-  
-  <template>
-    <UiToastSnackbarAlert
-      title="Success!"
-      bodyText="Your action was completed successfully."
-      color="success"
-      :timer="5"
-      :auto_dismiss="true"
-    />
-    
-    <UiToastSnackbarAlert
-      title="Error"
-      bodyText="Something went wrong. Please try again."
-      color="error"
-      :auto_dismiss="false"
-      cancelIcon="CloseCircle"
-    />
-    
-    <UiToastSnackbarAlert
-      title="Warning"
-      bodyText="Please review your input before proceeding."
-      color="warning"
-      prefixIcon="Warning2"
-      :timer="8"
-      size="md"
-    />
-    
-    <UiToastSnackbarAlert
-      title="New message received"
-      color="info"
-      prefixIcon="Message"
-      :auto_dismiss="true"
-      :timer="3"
-    />
-    
     <UiToastSnackbarAlert
       title="Welcome!"
       bodyText="Thank you for joining our platform."
@@ -64,12 +19,7 @@
       :auto_dismiss="false"
       cancelIcon="CloseCircle"
     />
-  </template>
-  
-  <script setup>
-  // No additional setup needed for basic usage
-  // The component handles all visibility and timing internally
-  </script>
+ 
   
   PROPS:
   - title: string (default: 'Title') - Toast title text
@@ -80,19 +30,6 @@
   - cancelIcon: string (default: '') - Optional icon name for cancel button
   - timer: number (default: 10) - Countdown time in seconds
   - auto_dismiss: boolean (default: true) - Whether to auto-hide after timer
-  
-  EVENTS:
-  - No custom events (handles visibility internally)
-  
-  FEATURES:
-  - Auto-dismiss with countdown timer
-  - Manual dismiss with cancel icon
-  - Smooth fade transitions
-  - Multiple color themes
-  - Responsive sizing
-  - Icon support
-  - Optional body text
-  - Icon size automatically matches toast size
 -->
 
 <template>
@@ -102,14 +39,14 @@
     <div class="ui-toast" v-if="visible">
       <!-- Header section with dynamic background and optional no-message style -->
       <div
-        class="ui-toast-header"
+        class="ui-toast__header"
         :class="{
           [color_header_class]: true,
-          'ui-toast-no-message': !has_body,
+          'ui-toast__no-message': !has_body,
         }"
       >
         <!-- Left: icon and title -->
-        <div class="ui-toast-header-left">
+        <div class="ui-toast__header__left">
           <!-- Optional prefix icon (e.g. lightning bolt) -->
         
           <VsxIcon v-if="prefixIcon" :iconName="prefixIcon" :size="iconSizeClass" />
@@ -119,7 +56,7 @@
         </div>
 
         <!-- Right: countdown timer or cancel icon -->
-        <div class="ui-toast-header-right">
+        <div class="ui-toast__header__right">
           <!-- Timer countdown shown if auto_dismiss is active -->
           <span v-if="showTimer">{{ countdown }}s</span>
 
@@ -132,7 +69,7 @@
 
       <!-- Optional body section (message), only shown if has_body is true -->
       <div
-        class="ui-toast-body"
+        class="ui-toast__body"
         v-if="has_body"
         :class="{ [colorBodyClass]: true }"
       >
@@ -262,11 +199,11 @@ const textSizeClass = computed<string>(() => {
 })
 
 const color_header_class = computed<string>(() => {
-  return `ui-toast-${props.color}`
+  return `ui-toast__${props.color}`
 })
 
 const colorBodyClass = computed<string>(() => {
-  return `ui-toast-body-${props.color}`
+  return `ui-toast__body__${props.color}`
 })
 
 // ============================================================================
@@ -300,70 +237,70 @@ const close = (): void => {
   @apply flex flex-col justify-around  rounded-lg shadow-xs border-gray-tint-400;
 }
 
-.ui-toast-header {
+.ui-toast__header {
   @apply flex flex-row justify-between items-center border-b-1 rounded-t-lg p-2 text-white;
 }
-.ui-toast-header-left {
+.ui-toast__header__left {
   @apply flex gap-1 items-center;
 }
-.ui-toast-header-right {
+.ui-toast__header__right {
   @apply flex items-center;
 }
-.ui-toast-no-message {
+.ui-toast__no-message {
   @apply rounded-md p-2.5;
 }
 
-.ui-toast-body {
+.ui-toast__body {
   @apply text-nowrap p-3;
 }
 
 /* === Color Schemes === */
-.ui-toast-primary {
+.ui-toast__primary {
   @apply text-white bg-primary border-primary;
 }
-.ui-toast-body-primary {
+.ui-toast__body__primary {
   @apply text-gray-shade-800 bg-blue-50 border-gray-tint-400;
 }
 
-.ui-toast-outline {
+.ui-toast__outline {
   @apply text-gray-shade-800 bg-white border-gray-tint-400;
 }
-.ui-toast-body-outline {
+.ui-toast__body__outline {
   @apply text-gray-shade-800 bg-white border-gray-tint-400;
 }
 
-.ui-toast-dark {
+.ui-toast__dark {
   @apply text-white bg-gray-shade-800 border-gray-tint-400;
 }
-.ui-toast-body-dark {
+.ui-toast__body__dark {
   @apply text-gray-shade-800 bg-gray-tint-50 border-gray-tint-400;
 }
 
-.ui-toast-error {
+.ui-toast__error {
   @apply text-white bg-error border-gray-tint-400;
 }
-.ui-toast-body-error {
+.ui-toast__body__error {
   @apply text-gray-shade-800 bg-red-50 border-gray-tint-400;
 }
 
-.ui-toast-success {
+.ui-toast__success {
   @apply text-white bg-success border-gray-tint-400;
 }
-.ui-toast-body-success {
+.ui-toast__body__success {
   @apply text-gray-shade-800 bg-green-50 border-gray-tint-400;
 }
 
-.ui-toast-warning {
+.ui-toast__warning {
   @apply text-white bg-warning border-gray-tint-400;
 }
-.ui-toast-body-warning {
+.ui-toast__body__warning {
   @apply text-gray-shade-800 bg-yellow-50 border-gray-tint-400;
 }
 
-.ui-toast-info {
+.ui-toast__info {
   @apply text-white bg-info border-gray-tint-400;
 }
-.ui-toast-body-info {
+.ui-toast__body__info {
   @apply text-gray-shade-800 bg-purple-50 ;
 }
 </style>

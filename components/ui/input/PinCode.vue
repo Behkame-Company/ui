@@ -1,48 +1,8 @@
 <!--
   Pin Code Input Component Usage Guide:
-  
-  A customizable pin code input component that supports:
-  - Multiple input lengths (configurable)
-  - Multiple sizes (xs, sm, md, lg, xl)
-  - Auto-focus navigation between inputs
-  - Focus and disabled states
-  - Custom default values
-  - Submit on completion
-  - Responsive design
-  - Number-only input validation
-  
+
   PARENT COMPONENT USAGE:
-  
-  <template>
-    <UiPinCodeInput
-      v-model="pinCode"
-      @update="handlePinUpdate"
-      @submit="handlePinSubmit"
-    />
-    
-    <UiPinCodeInput
-      v-model="sixDigitPin"
-      :length="6"
-      size="lg"
-      @update="handleSixDigitUpdate"
-      @submit="handleSixDigitSubmit"
-    />
-    
-    <UiPinCodeInput
-      v-model="smallPin"
-      size="sm"
-      default_value="1234"
-      @update="handleSmallPinUpdate"
-      @submit="handleSmallPinSubmit"
-    />
-    
-    <UiPinCodeInput
-      v-model="disabledPin"
-      :disabled="true"
-      @update="handleDisabledPinUpdate"
-      @submit="handleDisabledPinSubmit"
-    />
-    
+
     <UiPinCodeInput
       v-model="largePin"
       size="xl"
@@ -50,56 +10,7 @@
       @update="handleLargePinUpdate"
       @submit="handleLargePinSubmit"
     />
-  </template>
   
-  <script setup>
-  const pinCode = ref('')
-  const sixDigitPin = ref('')
-  const smallPin = ref('')
-  const disabledPin = ref('')
-  const largePin = ref('')
-  
-  const handlePinUpdate = (value: string) => {
-    console.log('Pin updated:', value)
-  }
-  
-  const handlePinSubmit = () => {
-    console.log('Pin submitted:', pinCode.value)
-    // Verify pin logic
-  }
-  
-  const handleSixDigitUpdate = (value: string) => {
-    console.log('6-digit pin updated:', value)
-  }
-  
-  const handleSixDigitSubmit = () => {
-    console.log('6-digit pin submitted:', sixDigitPin.value)
-  }
-  
-  const handleSmallPinUpdate = (value: string) => {
-    console.log('Small pin updated:', value)
-  }
-  
-  const handleSmallPinSubmit = () => {
-    console.log('Small pin submitted:', smallPin.value)
-  }
-  
-  const handleDisabledPinUpdate = (value: string) => {
-    console.log('Disabled pin updated:', value)
-  }
-  
-  const handleDisabledPinSubmit = () => {
-    console.log('Disabled pin submitted:', disabledPin.value)
-  }
-  
-  const handleLargePinUpdate = (value: string) => {
-    console.log('Large pin updated:', value)
-  }
-  
-  const handleLargePinSubmit = () =&gt; {
-    console.log('Large pin submitted:', largePin.value)
-  }
-  &lt;/script&gt;
   
   PROPS:
   - default_value: string (default: '') - Default pin code value
@@ -110,23 +21,15 @@
   EVENTS:
   - update: Emitted when pin code value changes
   - submit: Emitted when all digits are filled (auto-submit)
-  
-  FEATURES:
-  - Auto-focus navigation between inputs
-  - Number-only input validation
-  - Auto-submit on completion
-  - Responsive sizing
-  - Focus and disabled states
-  - Customizable length
 -->
 
 <template>
   <div
     :class="[
-      'ui-input-pin-code-container',
-      `ui-input-pin-code-container-${props.size}`,
+      'ui-pin-code__container',
+      `ui-pin-code__container__${props.size}`,
       gapClass,
-      { 'ui-input-pin-code-container-focused': focused, 'ui-input-pin-code-container-disabled': disabled }
+      { 'ui-pin-code__container__focused': focused, 'ui-pin-code__container__disabled': disabled }
     ]"
   >
     <input 
@@ -134,7 +37,7 @@
       min="0" 
       :key="i"  
       type="number" 
-      class="ui-input-pin-code no-spinner" 
+      class="ui-pin-code no-spinner" 
       :class="`${sizeClass} ${disabledClass} ${elementFocusedClass[i-1]}`" 
       :disabled="disabled" 
       maxlength="1" 
@@ -204,21 +107,21 @@ const gapClass = computed<string>(() => {
 const elementFocusedClass = computed<Record<number, string>>(() => {
   const data: Record<number, string> = {}
   for (let i = 0; i < props.length; i++) {
-    data[i] = elemetFocused.value[i] ? 'ui-input-pin-code-element-focused' : ''
+    data[i] = elemetFocused.value[i] ? 'ui-pin-code-element__focused' : ''
   }
   return data
 })
 
-const disabledClass = computed<string>(() => props.disabled ? 'ui-input-pin-code-disabled' : '')
+const disabledClass = computed<string>(() => props.disabled ? 'ui-pin-code__disabled' : '')
 
-const sizeClass = computed<string>(() => `ui-input-pin-code-${props.size}`)
+const sizeClass = computed<string>(() => `ui-pin-code__${props.size}`)
 
 // ============================================================================
 // 6. LIFECYCLE HOOKS (onMounted, onBeforeMount, onUnmounted, etc.)
 // ============================================================================
 onMounted(() => {
   for (let i = 0; i < props.length; i++) {
-    localIds.value[i] = Math.random().toString(36).substring(2, 15) + `ui-input-pin-code-${i}`
+    localIds.value[i] = Math.random().toString(36).substring(2, 15) + `ui-pin-code-${i}`
     elemetFocused.value[i] = false
   }
 })
@@ -273,67 +176,67 @@ const onBlur = (index: number): void => {
 
 @reference "assets/css/main.css";
 
-.ui-input-pin-code-container {
+.ui-pin-code__container {
   @apply flex w-[max-content] items-center border border-gray-tint-650 transition-all overflow-hidden rounded-sm;
 }
-.ui-input-pin-code-container-xs {
+.ui-pin-code__container__xs {
   @apply py-2 px-1.5; /* 8px 6px */
 }
-.ui-input-pin-code-container-sm {
+.ui-pin-code__container__sm {
   @apply py-2.5 px-2; /* 10px 8px */
 }
-.ui-input-pin-code-container-md {
+.ui-pin-code__container__md {
   @apply py-3 px-2.5; /* 12px 10px */
 }
-.ui-input-pin-code-container-lg {
+.ui-pin-code__container__lg {
   @apply py-3 px-3; /* 12px 12px */
 }
-.ui-input-pin-code-container-xl {
+.ui-pin-code__container__xl {
   @apply py-4 px-4; /* 16px 16px */
 }
-.ui-input-pin-code-container-disabled {
+.ui-pin-code__container__disabled {
   @apply opacity-50 cursor-not-allowed ;
 }
 
-.ui-input-pin-code-container-focused {
+.ui-pin-code__container__focused {
   @apply border-1 border-primary;
 }
 
-.ui-input-pin-code {
+.ui-pin-code {
     @apply ring-0 focus:ring-0 text-gray-shade-800 placeholder:text-gray-shade-400  transition-all text-center border-b-1 border-gray-shade-400;    
 }
 
-.ui-input-pin-code-focus {
+.ui-pin-code__focused {
     @apply text-gray-shade-800 ;              
 }
 
-.ui-input-pin-code-disabled {
+.ui-pin-code__disabled {
   @apply cursor-not-allowed ;
 }
 
-.ui-input-pin-code-element-focused{
+.ui-pin-code-element__focused{
   @apply text-gray-shade-800 border-b-1 border-primary;
 }
 
 /* ===== size ===== */
 
-.ui-input-pin-code-xs {
+.ui-pin-code__xs {
   @apply w-4.5 pb-1  text-2xs; 
 }
 
-.ui-input-pin-code-sm {
+.ui-pin-code__sm {
   @apply w-5 pb-1 text-xs ;
 }
 
-.ui-input-pin-code-md {
+.ui-pin-code__md {
   @apply w-6  pb-1  text-sm; 
 }
 
-.ui-input-pin-code-lg {
+.ui-pin-code__lg {
   @apply w-6  pb-1  text-base; 
 }
 
-.ui-input-pin-code-xl {
+.ui-pin-code__xl {
   @apply w-6 pb-1 text-h6; /* 8px horizontal space */
 }
 

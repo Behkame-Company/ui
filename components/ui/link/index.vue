@@ -1,50 +1,8 @@
 <!--
   Link Component Usage Guide:
-  
-  A customizable link component that supports:
-  - Multiple sizes (xs, sm, md, lg, xl)
-  - Multiple colors (primary, secondary, dark, error, success, warning, info, gray)
-  - NuxtLink integration
-  - Custom text and href
-  - Responsive design
-  - Underline styling
-  - Hover effects
+ 
   
   PARENT COMPONENT USAGE:
-  
-  <template>
-    <UiLink
-      text="Learn More"
-      href="/about"
-    />
-    
-    <UiLink
-      text="Contact Us"
-      href="/contact"
-      color="success"
-      size="lg"
-    />
-    
-    <UiLink
-      text="Delete Account"
-      href="/delete-account"
-      color="error"
-      size="sm"
-    />
-    
-    <UiLink
-      text="Terms of Service"
-      href="/terms"
-      color="warning"
-      size="xl"
-    />
-    
-    <UiLink
-      text="Privacy Policy"
-      href="/privacy"
-      color="secondary"
-      size="md"
-    />
     
     <UiLink
       text="Documentation"
@@ -52,12 +10,6 @@
       color="dark"
       size="lg"
     />
-  </template>
-  
-  <script setup>
-  // No additional setup needed for basic usage
-  // The component handles all routing internally via NuxtLink
-  </script>
   
   PROPS:
   - text: string (default: '') - Link text to display
@@ -65,21 +17,11 @@
   - color: 'primary' | 'secondary' | 'dark' | 'error' | 'success' | 'warning' | 'info' | 'gray' (default: 'primary') - Link color
   - size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' (default: 'md') - Link size
   
-  EVENTS:
-  - No custom events (uses NuxtLink navigation)
-  
-  FEATURES:
-  - NuxtLink integration for client-side routing
-  - Multiple color themes
-  - Responsive sizing
-  - Underline styling
-  - Hover effects
-  - Customizable text and href
 -->
 
 <template>
   <NuxtLink
-    class="ui-link-text"
+    class="ui-link__text"
     :to="href"
     :class="[sizeClass, colorClass]"
   >
@@ -128,59 +70,59 @@ const props = defineProps({
 // 5. COMPUTED PROPERTIES (computed declarations)
 // ============================================================================
 
-const colorClass = computed<string>(() => `ui-link-${props.color}`)
+const colorClass = computed<string>(() => `ui-link__${props.color}`)
 
-const sizeClass = computed<string>(() => `ui-link-text-${props.size}`)
+const sizeClass = computed<string>(() => `ui-link__text__${props.size}`)
 </script>
 
 <style scoped>
 @reference "assets/css/main.css";
 
 
-.ui-link-text {
+.ui-link__text {
   @apply flex justify-center items-center px-8 py-4 underline underline-offset-4 cursor-pointer text-nowrap ;
 }
-.ui-link-primary {
+.ui-link__primary {
   @apply text-primary decoration-primary;
 }
-.ui-link-gray {
+.ui-link__gray {
   @apply text-gray decoration-gray;
 }
-.ui-link-secondary {
+.ui-link__secondary {
   @apply text-blue-200 decoration-blue-200;
 }
-.ui-link-dark {
+.ui-link__dark {
   @apply text-cyan-lc-shade-999 decoration-cyan-lc-shade-999;
 }
-.ui-link-error {
+.ui-link__error {
   @apply text-error decoration-error;
 }
-.ui-link-success {
+.ui-link__success {
   @apply text-success decoration-success;
 }
-.ui-link-warning {
+.ui-link__warning {
   @apply text-warning decoration-warning;
 }
-.ui-link-info {
+.ui-link__info {
   @apply text-info decoration-info;
 }
 
-.ui-link-text-xl {
+.ui-link__text__xl {
   @apply text-h6 font-medium;
 }
 
-.ui-link-text-lg {
+.ui-link__text__lg {
   @apply text-base font-medium;
 }
 
-.ui-link-text-md {
+.ui-link__text__md {
   @apply text-sm font-medium;
 }
 
-.ui-link-text-sm {
+.ui-link__text__sm {
   @apply text-xs font-medium;
 }
-.ui-link-text-xs {
+.ui-link__text__xs {
   @apply text-2xs font-medium;
 }
 </style>

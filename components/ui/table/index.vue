@@ -1,55 +1,7 @@
 <!--
 <!-- /**
  * Reusable Data Table Component
- * 
- * Features:
- * - Client-side and server-side data handling
- * - Sorting, filtering, and pagination
- * - Customizable columns with different input types
- * - Scoped slots for custom cell rendering
- * - Responsive design with Tailwind CSS
- * 
- * PARENT COMPONENT USAGE:
- * 
- * // 1. Define column configuration
- * const columns = [
- *   { key: 'id', text: 'ID', type: 'number', sortable: true },
- *   { key: 'name', text: 'Name', type: 'text', filterable: true },
- *   { key: 'email', text: 'Email', type: 'text', filterable: true },
- *   { key: 'status', text: 'Status', type: 'select', options: ['Active', 'Inactive'], filterable: true },
- *   { key: 'createdAt', text: 'Created', type: 'date', sortable: true },
- *   { key: 'actions', text: 'Actions', type: 'action', filterable: false, sortable: false }
- * ];
- * 
- * // 2. Define data
- * const data = ref([
- *   { id: 1, name: 'John Doe', email: 'john@example.com', status: 'Active', createdAt: '2024-01-15' },
- *   { id: 2, name: 'Jane Smith', email: 'jane@example.com', status: 'Inactive', createdAt: '2024-01-10' }
- * ]);
- * 
- * // 3. Reactive state for table
- * const currentPage = ref(1);
- * const perPage = ref(10);
- * const filters = ref({});
- * const sort = ref({ key: null, dir: null });
- * 
- * // 4. Event handlers
- * const handleRowClick = (row) => {
- *   console.log('Row clicked:', row);
- * };
- * 
- * const handleFilterChange = (newFilters) => {
- *   filters.value = newFilters;
- *   // Optionally fetch new data from API
- * };
- * 
- * const handlePageChange = (page) => {
- *   currentPage.value = page;
- *   // Optionally fetch new data from API
- * };
- * 
- * // 5. Template usage
- * <template>
+ *
  *   <UiTable
  *     :headers="columns"
  *     :rows="data"
@@ -71,23 +23,13 @@
   *       <button @click="deleteUser(row)">Delete</button>
   *     </template>
   *   </UiTable>
-  * </template>
-  * 
-  * // 6. Server-side usage (with API)
-  * <UiTable
-  *   :headers="columns"
-  *   :api-url="/api/users"
-  *   :loading="loading"
-  *   :show-filters="true"
-  *   :title="'Users from API'"
-     @fetch-error="handleApiError"
-   />
+  
+
 -->
 
 <template>
-  <div class="ui-table-container">
-    <div class="flex items-center justify-between">
-    </div>
+  <div class="ui-table__container">
+    
 
     <!-- Loading -->
     <div v-if="loading" class="flex justify-center items-center py-8">
@@ -98,29 +40,29 @@
 
       <thead>
         <!-- Header titles row -->
-      <h2 v-if="showTitle" class="ui-table-title">{{ title }}</h2>
+      <h2 v-if="showTitle" class="ui-table__title">{{ title }}</h2>
 
         <tr>
           <th
             v-for="(col, idx) in columns"
             :key="`th-${idx}-${colKey(col)}`"
-            class="ui-table-th-title"
+            class="ui-table__th__title"
             :style="colWidthStyle(col)"
             :aria-sort="ariaSort(col)"
             @click="col.sortable ? toggleSort(col) : null"
           >
-            <div class="ui-table-sort-icon" :class="{ 'cursor-pointer': col.sortable }">
+            <div class="ui-table__sort__icon" :class="{ 'cursor-pointer': col.sortable }">
               <VsxIcon
                 v-if="col.sortable && sortState.key === colKey(col) && sortState.dir === 'asc'"
                 iconName="ArrowCircleUp2"
-                class="ui-table-sort-icon-asc"
+                class="ui-table__sort__icon-asc"
                 :size="16"
                 type="bold"
               />
               <VsxIcon
                 v-else-if="col.sortable && sortState.key === colKey(col) && sortState.dir === 'desc'"
                 iconName="ArrowCircleDown2"
-                class="ui-table-sort-icon-desc"
+                class="ui-table__sort__icon-desc"
                 :size="16"
                 type="bold"
               />
@@ -136,7 +78,7 @@
           <th
             v-for="(col, idx) in columns"
             :key="`filter-${idx}-${colKey(col)}`"
-            class="ui-table-th"
+            class="ui-table__th"
             :style="colWidthStyle(col)"
           >
             <slot :name="`filter-${colKey(col)}`" :column="col" :filters="internalFilters" :update="applyFilter">
@@ -147,7 +89,7 @@
                   :options="toOptions(col.options)"
                   :placeholder="col.text"
                   size="sm"
-                  class="table-filter-input"
+                  class="ui-table__filter__input"
                   @change="onFilterChange"
                 />
                 <UiInputDropDown
@@ -156,7 +98,7 @@
                   :options="toOptions(col.options)"
                   :placeholder="col.text"
                   size="sm"
-                  class="table-filter-input"
+                  class="ui-table__filter__input"
                   @change="onFilterChange"
                 />
                 <UiInputDatePicker
@@ -166,7 +108,7 @@
                   :suffixIcon="col.suffixIcon || 'CalendarTime'"
                   size="sm"
                   type="datetime"
-                  class="table-filter-input"
+                  class="ui-table__filter__input"
                   @update:modelValue="onFilterChange"
                 />
                 <UiInputDatePicker
@@ -176,7 +118,7 @@
                   :suffixIcon="col.suffixIcon || 'CalendarAdd'"
                   size="sm"
                   type="date"
-                  class="table-filter-input"
+                  class="ui-table__filter__input"
                   @update:modelValue="onFilterChange"
                 />
                 <UiInputDatePicker
@@ -186,7 +128,7 @@
                   :suffixIcon="col.suffixIcon || 'Clock'"
                   size="sm"
                   type="time"
-                  class="table-filter-input"
+                  class="ui-table__filter__input"
                   @update:modelValue="onFilterChange"
                 />
                 <UiInput
@@ -196,7 +138,7 @@
                   :placeholder="col.text"
                   :suffixIcon="col.suffixIcon"
                   size="sm"
-                  class="table-filter-input"
+                  class="ui-table__filter__input"
                   @input="onFilterChange"
                 />
               </template>
@@ -210,13 +152,13 @@
           <tr
             v-for="(row, rIndex) in pagedRows"
             :key="rowKeyValue(row, rIndex)"
-            :class="rIndex % 2 === 1 ? 'ui-table-row-even' : 'ui-table-row-odd'"
+            :class="rIndex % 2 === 1 ? 'ui-table__row__even' : 'ui-table__row__odd'"
             @click="$emit('row-click', row)"
           >
             <td
               v-for="(col, cIndex) in columns"
               :key="`td-${rIndex}-${cIndex}-${colKey(col)}`"
-              class="ui-table-td"
+              class="ui-table__td"
             >
               <slot
                 :name="`cell-${colKey(col)}`"
@@ -226,7 +168,7 @@
                 :rowIndex="rIndex"
                 :colIndex="cIndex"
               >
-                <span v-if="getCell(row, col, cIndex) === 'circle'" class="ui-table-circle"></span>
+                <span v-if="getCell(row, col, cIndex) === 'circle'" class="ui-table__circle"></span>
                 <span v-else>{{ getCell(row, col, cIndex) }}</span>
               </slot>
             </td>
@@ -234,7 +176,7 @@
         </template>
 
         <tr v-else>
-          <td :colspan="columns.length" class="ui-table-no-records">
+          <td :colspan="columns.length" class="ui-table__no-records">
             {{ emptyMessage }}
           </td>
         </tr>
@@ -712,11 +654,11 @@ const toggleSort = (col: Column) => {
 <style scoped>
 @reference "assets/css/main.css";
 
-.ui-table-container {
+.ui-table__container {
   @apply m-10 shadow-md rounded-lg bg-white;
 }
 
-.ui-table-title {
+.ui-table__title {
   @apply py-3.5  text-base font-bold;
 }
 
@@ -724,47 +666,48 @@ const toggleSort = (col: Column) => {
   @apply w-full  text-sm shadow-sm rounded-lg table text-gray-shade-500 border-separate border-spacing-0 table-fixed p-2;
 }
 
-.ui-table-td {
+.ui-table__td {
   @apply px-2 py-2 text-center align-middle;
 }
 
-.ui-table-th {
+.ui-table__th {
   @apply font-medium bg-white border-y items-center border-gray-tint-200 text-left  py-2 select-none;
 }
 
-.ui-table-th-title {
+.ui-table__th__title {
   @apply font-medium bg-white text-center  py-2 select-none;
 }
 
-.ui-table-row-odd {
+.ui-table__row__odd {
   @apply bg-white py-4 px-2;
 }
 
-.ui-table-row-even {
+.ui-table__row__even {
   @apply bg-gray-tint-200 rounded-sm py-4 px-2;
 }
 
-.ui-table-circle {
+.ui-table__circle {
   @apply inline-block w-8 h-8 rounded-full bg-gray-shade-200;
 }
 
-.ui-table-no-records {
+.ui-table__no-records {
   @apply text-center text-gray-shade-400 py-8 px-2;
 }
 
-.ui-table-sort-icon {
+.ui-table__sort__icon {
   @apply flex items-center justify-center gap-1;
 }
 
-.ui-table-sort-icon-asc {
+.ui-table__sort__icon-asc {
   @apply w-4 h-4 text-success;
 }
 
-.ui-table-sort-icon-desc {
+.ui-table__sort__icon-desc {
   @apply w-4 h-4 text-error;
 }
 
-.table-filter-input {
+.ui-table__filter__input {
   @apply mx-2 text-left;
 }
+
 </style>

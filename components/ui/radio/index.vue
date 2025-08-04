@@ -1,23 +1,8 @@
 <!--
   Radio Component Usage Guide:
   
-  A customizable radio button component that supports:
-  - Multiple sizes (sm, md, lg)
-  - Disabled state
-  - Custom label text
-  - Two-way data binding with v-model
-  - Radio group functionality
-  - Visual feedback states
-  - Responsive design
-  
   PARENT COMPONENT USAGE:
   
-  <template>
-    <UiRadio
-      v-model="selectedOption"
-      value="option1"
-      label="Option 1"
-    />
     
     <UiRadio
       v-model="selectedOption"
@@ -32,64 +17,6 @@
       label="Disabled option"
       :disabled="true"
     />
-    
-    <UiRadio
-      v-model="selectedOption"
-      value="option4"
-      label="Small option"
-      size="sm"
-    />
-    
-    <div class="space-y-2">
-      <h3>Select your preference:</h3>
-      <UiRadio
-        v-model="preference"
-        value="light"
-        label="Light theme"
-        size="md"
-      />
-      <UiRadio
-        v-model="preference"
-        value="dark"
-        label="Dark theme"
-        size="md"
-      />
-      <UiRadio
-        v-model="preference"
-        value="auto"
-        label="Auto (system default)"
-        size="md"
-      />
-    </div>
-    
-    <UiRadio
-      v-model="numberValue"
-      :value="1"
-      label="Number value 1"
-    />
-    <UiRadio
-      v-model="booleanValue"
-      :value="true"
-      label="Boolean true"
-    />
-  </template>
-  
-  <script setup>
-  const selectedOption = ref('option1')
-  const preference = ref('light')
-  const numberValue = ref(1)
-  const booleanValue = ref(true)
-  
-  // Watch for changes
-  watch(selectedOption, (newValue) => {
-    console.log('Selected option:', newValue)
-  })
-  
-  watch(preference, (newValue) => {
-    console.log('Theme preference:', newValue)
-    // Apply theme logic here
-  })
-  </script>
   
   PROPS:
   - value: string | number | boolean (required) - The value this radio represents
@@ -97,16 +24,6 @@
   - size: 'sm' | 'md' | 'lg' (default: 'md') - Radio button size
   - disabled: boolean (default: false) - Whether radio is disabled
   
-  EVENTS:
-  - No custom events (uses v-model internally)
-  
-  FEATURES:
-  - Two-way data binding with v-model
-  - Radio group functionality
-  - Multiple sizes
-  - Disabled state
-  - Visual feedback
-  - Responsive design
 -->
 
 <template>
@@ -118,7 +35,7 @@
       v-model="model"
       :disabled="disabled"
     />
-    <div class="ui-radio-input" :class="[sizeClass]"></div>
+    <div class="ui-radio__input" :class="[sizeClass]"></div>
     <span :class="textSizeClass">{{ label }}</span>
   </label>
 </template>
@@ -155,13 +72,13 @@ const model = defineModel<any>({ required: true })
 // ============================================================================
 // 5. COMPUTED PROPERTIES (computed declarations)
 // ============================================================================
-const disabledClass = computed<{ 'ui-radio-disabled': boolean }>(() => ({
-  "ui-radio-disabled": props.disabled,
+const disabledClass = computed<{ 'ui-radio__disabled': boolean }>(() => ({
+  "ui-radio__disabled": props.disabled,
 }))
 
-const sizeClass = computed<string>(() => `ui-radio-${props.size}`)
+const sizeClass = computed<string>(() => `ui-radio__${props.size}`)
 
-const textSizeClass = computed<string>(() => `ui-radio-label-${props.size}`)
+const textSizeClass = computed<string>(() => `ui-radio_-label__${props.size}`)
 
 </script>
 <style scoped>
@@ -170,28 +87,28 @@ const textSizeClass = computed<string>(() => `ui-radio-label-${props.size}`)
 .ui-radio {
   @apply flex items-center gap-2 cursor-pointer ;
 }
-.ui-radio-input {
+.ui-radio__input {
   @apply rounded-full bg-transparent border border-gray-shade-50 peer-checked:bg-transparent peer-checked:border-primary peer-checked:border-4 p-0.5  peer-checked:p-0.5 ;
 }
-.ui-radio-disabled {
+.ui-radio__disabled {
   @apply opacity-50 cursor-not-allowed;
 }
-.ui-radio-sm {
+.ui-radio__sm {
   @apply w-5 h-5 ;
 }
-.ui-radio-md {
+.ui-radio__md {
   @apply w-5.5 h-5.5 ;
 }
-.ui-radio-lg {
+.ui-radio__lg {
   @apply w-6 h-6 ;
 }
-.ui-radio-label-sm {
+.ui-radio__label__sm {
   @apply text-2xs font-medium;
 }
-.ui-radio-label-md {
+.ui-radio__label__md {
   @apply text-xs font-medium;
 }
-.ui-radio-label-lg {
+.ui-radio__label__lg {
   @apply text-base font-medium;
 } 
 

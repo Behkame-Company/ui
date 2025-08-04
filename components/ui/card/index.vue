@@ -1,38 +1,8 @@
 <!--
   Card Component Usage Guide:
   
-  A flexible card component that supports:
-  - Multiple sizes (sm, md, lg, xl)
-  - Custom header, body, and footer slots
-  - Optional image display
-  - Close button in header
-  - Multiple button colors
-  - Responsive design
-  - Shadow effects
-  
   PARENT COMPONENT USAGE:
   
-  <template>
-    <UiCard size="md">
-      <template #header>
-        <h3>Card Title</h3>
-      </template>
-      
-      <p>This is the card content.</p>
-      <p>You can put any content here.</p>
-      
-      <template #footer>
-        <button :class="buttonClass" @click="handleAction">Action</button>
-      </template>
-    </UiCard>
-    
-    <UiCard size="lg" image="/path/to/image.jpg" @close="handleClose">
-      <template #header>
-        <h3>Image Card</h3>
-      </template>
-      
-      <p>This card shows an image above the content.</p>
-    </UiCard>
     
     <UiCard size="sm" buttonColor="success" @close="handleClose">
       <template #header>
@@ -59,50 +29,29 @@
         <p>Content for section 2...</p>
       </div>
     </UiCard>
-  </template>
   
-  <script setup>
-  const handleAction = () => {
-    console.log('Action clicked!')
-  }
   
-  const handleClose = () => {
-    console.log('Card closed!')
-  }
-  
-  const saveData = () => {
-    console.log('Data saved!')
-  }
-  </script>
   
   PROPS:
   - size: 'sm' | 'md' | 'lg' | 'xl' (default: 'sm') - Card size
   - buttonColor: 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'gray' (default: 'primary') - Button color
   - image: string (default: '') - URL of image to display above body content
   
-  EVENTS:
-  - close: Emitted when close button is clicked
   
   SLOTS:
   - header: Card header content (optional)
   - default: Card body content (required)
   - footer: Card footer content (optional) - receives buttonClass and buttonColorClass as slot props
   
-  FEATURES:
-  - Close button in header (when header slot is used)
-  - Responsive sizing
-  - Image support
-  - Customizable content via slots
-  - Shadow effects on hover
 -->
 
 <template>
   <div v-if="visible" class="ui-card" :class="sizeClass">
     <!-- Header -->
-    <div class="ui-card-header" :class="headerClass" v-if="$slots.header">
+    <div class="ui-card__header" :class="headerClass" v-if="$slots.header">
       <slot name="header" />
       <!-- Icon rendering with guards -->
-      <button @click="closeCard" class="ui-card-header-icon">
+      <button @click="closeCard" class="ui-card__header__icon">
         <VsxIcon
           v-if="sizeIcon"
           iconName="CloseCircle"
@@ -113,15 +62,15 @@
     </div>
 
     <!-- Body -->
-    <div class="ui-card-body" :class="bodyClass">
+    <div class="ui-card__body" :class="bodyClass">
       <div v-if="image" :class="imageSize">
-        <img :src="image" alt="Card image" class="ui-card-image w-full block" />
+        <img :src="image" alt="Card image" class="ui-card__image " />
       </div>
       <slot />
     </div>
 
     <!-- Footer -->
-    <div class="ui-card-footer" v-if="$slots.footer">
+    <div  v-if="$slots.footer">
       <slot
         name="footer"
         :button-class="`${buttonClass} ${buttonColorClass}`"
@@ -168,15 +117,15 @@ const visible = ref<boolean>(true)
 // ============================================================================
 // 5. COMPUTED PROPERTIES (computed declarations)
 // ============================================================================
-const sizeClass = computed<string>(() => `ui-card-${props.size}`)
+const sizeClass = computed<string>(() => `ui-card__${props.size}`)
 
-const headerClass = computed<string>(() => `ui-card-header-${props.size}`)
+const headerClass = computed<string>(() => `ui-card__header__${props.size}`)
 
-const bodyClass = computed<string>(() => `ui-card-body-${props.size}`)
+const bodyClass = computed<string>(() => `ui-card__body__${props.size}`)
 
-const buttonClass = computed<string>(() => `ui-card-button-${props.size}`)
+const buttonClass = computed<string>(() => `ui-card__button__${props.size}`)
 
-const buttonColorClass = computed<string>(() => `ui-card-button-${props.buttonColor}`)
+const buttonColorClass = computed<string>(() => `ui-card__button__${props.buttonColor}`)
 
 const sizeIcon = computed<number>(() => {
   switch (props.size) {
@@ -214,63 +163,63 @@ const closeCard = (): void => {
   @apply rounded-lg bg-white transition-all duration-300;
 }
 
-.ui-card-header {
+.ui-card__header {
   @apply flex flex-row justify-between items-center border-b border-gray-tint-400;
 }
 
-.ui-card-header-icon {
+.ui-card__header__icon {
   @apply cursor-pointer p-0.5  text-gray-shade-800 ;
 }
 /* shadow */
 
-.ui-card-xl {
+.ui-card__xl {
   @apply shadow-xs hover:shadow-lg;
 }
 
-.ui-card-lg {
+.ui-card__lg {
   @apply shadow-2xs hover:shadow-sm;
 }
 
-.ui-card-md {
+.ui-card__md {
   @apply shadow-2xs hover:shadow-sm;
 }
 
-.ui-card-sm {
+.ui-card__sm {
   @apply shadow-2xs hover:shadow-sm;
 }
 
 /* size header */
-.ui-card-xl > .ui-card-header {
+.ui-card__xl > .ui-card__header {
   @apply pb-4;
 }
 
-.ui-card-lg > .ui-card-header {
+.ui-card__lg > .ui-card__header {
   @apply pb-3;
 }
 
-.ui-card-md > .ui-card-header {
+.ui-card__md > .ui-card__header {
   @apply pb-3;
 }
 
-.ui-card-sm > .ui-card-header {
+.ui-card__sm > .ui-card__header {
   @apply pb-2;
 }
 
 /* size body */
 
-.ui-card-xl > .ui-card-body {
+.ui-card__xl > .ui-card__body {
   @apply py-6;
 }
 
-.ui-card-lg > .ui-card-body {
+.ui-card__lg > .ui-card__body {
   @apply py-4;
 }
 
-.ui-card-md > .ui-card-body {
+.ui-card__md > .ui-card__body {
   @apply py-4;
 }
 
-.ui-card-sm > .ui-card-body {
+.ui-card__sm > .ui-card__body {
   @apply py-4;
 }
 
@@ -293,67 +242,67 @@ const closeCard = (): void => {
 }   */
 
 /* Header font sizes */
-.ui-card-header-sm {
+.ui-card____header____sm {
   @apply text-sm font-bold;
 }
-.ui-card-header-md {
+.ui-card____header____md {
   @apply text-base font-bold;
 }
-.ui-card-header-lg {
+.ui-card____header____lg {
   @apply text-h6 font-semibold;
 }
-.ui-card-header-xl {
+.ui-card____header____xl {
   @apply text-h5 font-semibold;
 }
 
 /* Body font sizes */
-.ui-card-body-sm {
+.ui-card__body__sm {
   @apply text-2xs;
 }
-.ui-card-body-md {
+.ui-card__body__md {
   @apply text-xs;
 }
-.ui-card-body-lg {
+.ui-card__body__lg {
   @apply text-sm;
 }
-.ui-card-body-xl {
+.ui-card__body__xl {
   @apply text-base;
 }
 
-.ui-card-sm {
+.ui-card__sm {
   @apply p-2;
 }
-.ui-card-md {
+.ui-card__md {
   @apply p-3;
 }
-.ui-card-lg {
+.ui-card__lg {
   @apply p-4;
 }
-.ui-card-xl {
+.ui-card__xl {
   @apply p-4;
 }
 
-.ui-card-button-primary {
+.ui-card__button__primary {
   @apply bg-primary  text-white;
 }
-.ui-card-button-success {
+.ui-card__button__success {
   @apply bg-success  text-white;
 }
-.ui-card-button-warning {
+.ui-card__button__warning {
   @apply bg-warning  text-white;
 }
-.ui-card-button-danger {
+.ui-card__button__anger {
   @apply bg-error  text-white;
 }
-.ui-card-button-info {
+.ui-card__button__info {
   @apply bg-info  text-white;
 }
-.ui-card-button-gray {
+.ui-card__button__gray {
   @apply bg-gray  text-white;
 }
 
-.ui-card-image {
-  @apply w-full h-auto rounded-t-lg object-cover;
+.ui-card__image {
+  @apply w-full h-auto rounded-t-lg object-cover ;
   max-height: 200px; /* or any value you prefer */
   display: block;
 }

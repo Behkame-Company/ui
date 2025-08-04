@@ -1,11 +1,6 @@
 <!--
   DatePickerInput Component Usage Guide:
   
-  This component provides a customizable date/time picker with three modes:
-  - date: Select date only (yyyy-MM-dd format)
-  - time: Select time only (HH:mm format) 
-  - datetime: Select both date and time (yyyy-MM-dd HH:mm format)
-  
   PARENT COMPONENT USAGE:
   
   <template>
@@ -29,12 +24,12 @@
       format="yyyy-MM-dd HH:mm"
       size="lg"
     />
-  </template>
+
   
 -->
 
 <template>
-  <div class="date-picker-container" ref="datePickerRef">
+  <div class="ui-date-picker__container" ref="datePickerRef">
     <!-- Custom Input -->
     <UiInput
       :modelValue="displayValue"
@@ -58,7 +53,7 @@
       :time-picker="true"
       :auto-apply="true"
       @update:model-value="onDateSelect"
-      class="date-picker-popup"
+      class="ui-date-picker__popup"
     />
     
     <!-- Date/DateTime Picker -->
@@ -71,7 +66,7 @@
       :calendar-only="type === 'date'"
       :auto-apply="true"
       @update:model-value="onDateSelect"
-      class="date-picker-popup"
+      class="ui-date-picker__popup"
     />
   </div>
 </template>
@@ -127,7 +122,7 @@ const emit = defineEmits<{
 // 5. VARIABLES (ref, reactive but only for simple state)
 // ============================================================================
 /** Controls the visibility of the date picker popup */
-const isOpen = ref(false)
+const isOpen = ref<boolean>(false)
 
 /** Reference to the date picker container for click outside detection */
 const datePickerRef = ref<HTMLElement | null>(null)
@@ -139,66 +134,68 @@ const currentDate = ref<Date | null>(null)
 // 6. COMPUTED PROPERTIES (computed declarations)
 // ============================================================================
 /** Computed format based on picker type */
-const computedFormat = computed(() => {
+const computedFormat = computed<string>(() => {
   if (props.type === 'time') return 'HH:mm'
   if (props.type === 'date') return 'yyyy-MM-dd'
   return 'yyyy-MM-dd HH:mm'
 })
 
+
 /** Display value for the input field */
-const displayValue = computed(() => {
-  if (!currentDate.value) return ''
-  
+const displayValue = computed<string>(() => {
+  const val = currentDate.value
+  if (!val) return ''
+
   try {
     if (props.type === 'time') {
-      // Handle time object format from VueDatePicker
-      if (typeof currentDate.value === 'object' && 
-          'hours' in currentDate.value && 
-          'minutes' in currentDate.value) {
-        const timeObj = currentDate.value as any
+      // Handle plain time object (not a Date)
+      if (typeof val === 'object' && 'hours' in val && 'minutes' in val) {
+        const timeObj = val as { hours: number; minutes: number }
         const hh = String(timeObj.hours).padStart(2, '0')
         const mi = String(timeObj.minutes).padStart(2, '0')
         return `${hh}:${mi}`
       }
-      // Handle Date object format
-      if (currentDate.value instanceof Date) {
-        const hh = String(currentDate.value.getHours()).padStart(2, '0')
-        const mi = String(currentDate.value.getMinutes()).padStart(2, '0')
+
+      // Handle Date object
+      if (val instanceof Date) {
+        const hh = String(val.getHours()).padStart(2, '0')
+        const mi = String(val.getMinutes()).padStart(2, '0')
         return `${hh}:${mi}`
       }
-      return ''
-    }
-    
-    // For date and datetime, ensure we have a Date object
-    if (!(currentDate.value instanceof Date)) {
-      return ''
-    }
-    
-    const yyyy = currentDate.value.getFullYear()
-    const mm = String(currentDate.value.getMonth() + 1).padStart(2, '0')
-    const dd = String(currentDate.value.getDate()).padStart(2, '0')
-    const hh = String(currentDate.value.getHours()).padStart(2, '0')
-    const mi = String(currentDate.value.getMinutes()).padStart(2, '0')
 
-    if (props.type === 'date') return `${yyyy}-${mm}-${dd}`
-    return `${yyyy}-${mm}-${dd} ${hh}:${mi}`
+      return ''
+    }
+
+    // Must be a Date object for date/datetime
+    if (!(val instanceof Date)) return ''
+
+    const yyyy = val.getFullYear()
+    const mm = String(val.getMonth() + 1).padStart(2, '0')
+    const dd = String(val.getDate()).padStart(2, '0')
+    const hh = String(val.getHours()).padStart(2, '0')
+    const mi = String(val.getMinutes()).padStart(2, '0')
+
+    return props.type === 'date'
+      ? `${yyyy}-${mm}-${dd}`
+      : `${yyyy}-${mm}-${dd} ${hh}:${mi}`
+
   } catch (error) {
-    console.error('Error formatting date:', error, currentDate.value)
+    console.error('Error formatting date:', error, val)
     return ''
   }
 })
 
-const dynamicIcon = computed(() => {
-  return displayValue.value ? 'CloseCircle' : props.suffixIcon;
-});
 
-   const onIconClick = () => {
-     if (displayValue.value) {
-       isOpen.value = false;
-       currentDate.value = null;
-       emit('update:modelValue', '');
-     }
-   }
+const dynamicIcon = computed<string | undefined>(() => {
+  return displayValue.value ? 'CloseCircle' : props.suffixIcon
+})
+const onIconClick = (): void => {
+  if (displayValue.value) {
+    isOpen.value = false
+    currentDate.value = null
+    emit('update:modelValue', '')
+  }
+}
 
 
 // ============================================================================
@@ -231,30 +228,37 @@ watch(() => props.modelValue, () => {
  * Initialize the current date from the modelValue prop
  * Handles different input formats and picker types
  */
-const initializeDate = () => {
+ const initializeDate = (): void => {
   if (!props.modelValue) {
     currentDate.value = null
     return
   }
-  
+
   try {
     if (props.type === 'time') {
-      // For time-only, create a date with today's date and the specified time
-      const today = new Date()
       const timeString = String(props.modelValue)
-      const [hours, minutes] = timeString.split(':').map(Number)
-      
+      const [hoursStr, minutesStr] = timeString.split(':')
+      const hours = Number(hoursStr)
+      const minutes = Number(minutesStr)
+
       if (!isNaN(hours) && !isNaN(minutes)) {
+        const today = new Date()
         today.setHours(hours, minutes, 0, 0)
         currentDate.value = today
       } else {
         currentDate.value = null
       }
     } else {
-      currentDate.value = new Date(props.modelValue)
+      const parsedDate = new Date(props.modelValue as string | number | Date)
+      if (isNaN(parsedDate.getTime())) {
+        currentDate.value = null
+        console.warn('Invalid date format:', props.modelValue)
+      } else {
+        currentDate.value = parsedDate
+      }
     }
   } catch (e) {
-    console.warn('Invalid date value:', props.modelValue)
+    console.warn('Failed to parse date:', e)
     currentDate.value = null
   }
 }
@@ -262,7 +266,7 @@ const initializeDate = () => {
 /**
  * Toggle the date picker popup visibility
  */
-const toggleDatePicker = () => {
+ const toggleDatePicker = (): void => {
   isOpen.value = !isOpen.value
 }
 
@@ -270,43 +274,49 @@ const toggleDatePicker = () => {
  * Handle date selection from the picker
  * Formats the value based on picker type and emits the update
  */
-const onDateSelect = (val: Date | any) => {
+ const onDateSelect = (val: Date ) => {
   if (props.type === 'time') {
-    // Handle time object format from VueDatePicker
-    if (typeof val === 'object' && 'hours' in val && 'minutes' in val) {
-      const hours = String(val.hours).padStart(2, '0')
-      const minutes = String(val.minutes).padStart(2, '0')
-      const timeString = `${hours}:${minutes}`
-      currentDate.value = val
-      emit('update:modelValue', timeString)
-    } else if (val instanceof Date) {
-      // Handle Date object format
-      const hours = String(val.getHours()).padStart(2, '0')
-      const minutes = String(val.getMinutes()).padStart(2, '0')
-      const timeString = `${hours}:${minutes}`
-      currentDate.value = val
-      emit('update:modelValue', timeString)
+    if (val && typeof val === 'object') {
+      // Check if val is a time object (not a Date instance)
+      if ('hours' in val && 'minutes' in val) {
+        const hours = String(val.hours).padStart(2, '0')
+        const minutes = String(val.minutes).padStart(2, '0')
+        const timeString = `${hours}:${minutes}`
+        currentDate.value = val
+        emit('update:modelValue', timeString)
+        return
+      }
+
+      // If val is a Date instance
+      if (val instanceof Date) {
+        const hours = String(val.getHours()).padStart(2, '0')
+        const minutes = String(val.getMinutes()).padStart(2, '0')
+        const timeString = `${hours}:${minutes}`
+        currentDate.value = val
+        emit('update:modelValue', timeString)
+        return
+      }
     }
   } else {
     currentDate.value = val
     emit('update:modelValue', val)
   }
 
-  // Keep time picker open for time selection, close for date/datetime
   if (props.type !== 'time') {
     isOpen.value = false
   }
 }
+
 </script>
 
 <style scoped>
 @reference "assets/css/main.css";
 
-.date-picker-container {
+.ui-date-picker__container {
   @apply flex flex-col relative;
 }
 
-.date-picker-popup {
+.ui-date-picker__popup {
   @apply z-50 border border-gray-shade-200 rounded-lg shadow-lg bg-white absolute top-full left-0 ;
  
 }
@@ -325,7 +335,7 @@ const onDateSelect = (val: Date | any) => {
   @apply p-0 m-0 border-0 shadow-none bg-transparent;
 }
 
-:deep(.ui-input-suffix-icon) {
+:deep(.ui-input__suffix__icon) {
   background: transparent !important;
 }
 </style>
