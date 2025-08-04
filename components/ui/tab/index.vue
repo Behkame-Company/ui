@@ -103,7 +103,7 @@ const selectedIndex = ref<number>(0)
 const tabStyle = computed<string>(() => `ui-tab__${props.type}`)
 /** Compute size class based on the `size` prop */
 
-const sizeClass = computed<string>(() => `ui-tab__text__${props.size}`)
+const sizeClass = computed<string>(() => `ui-tab__size__${props.size}`)
 
 
 // ============================================================================
@@ -192,13 +192,13 @@ const select_tab = (index: number) => {
   @apply text-gray-shade-400 hover:bg-blue-100  hover:text-primary;
 }
  /* Size styles */
- .ui-tab__text-sm {
+ .ui-tab__size__sm {
   @apply text-xs font-bold;
  }__
- .ui-tab__text-md {
+ .ui-tab__size__md {
   @apply text-sm font-bold ;
  }
- .ui-tab__text-lg {
+ .ui-tab__size__lg {
   @apply text-base font-bold;
  }
 </style>
