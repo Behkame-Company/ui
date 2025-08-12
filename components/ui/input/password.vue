@@ -119,7 +119,7 @@ const props = defineProps({
   size: {
     type: String,
     default: "md", // valid values: sm, md, lg, xl
-    validator: (value: string) => ["sm", "md", "lg", "xl"].includes(value),
+    validator: (value: string) => ['xs',"sm", "md", "lg", "xl"].includes(value),
   },
   disabled: {
     type: Boolean,
@@ -152,6 +152,8 @@ const iconName = computed<string>(() =>
 
 const iconSizeClass = computed<string>(() => {
   switch (props.size) {
+       case "sm":
+      return "12px"
     case "sm":
       return "14px"
     case "md":
@@ -209,7 +211,7 @@ const onBlur = (): void => {
 }
 
 .ui-password {
-  @apply flex-1 rounded-sm ring-0 focus:ring-0 border-0 text-gray-shade-400 placeholder:text-gray-shade-400 transition-all;
+  @apply flex-1 rounded-sm ring-0 focus:ring-0 border-0 text-gray-shade-800 placeholder:text-gray-shade-400 transition-all;
 }
 .ui-password__focused {
   @apply text-gray-shade-800 placeholder:text-gray-shade-800;
@@ -219,23 +221,25 @@ const onBlur = (): void => {
 }
 
 /* ===== size ===== */
-
+.ui-password__xs {
+  @apply py-3  text-3xs placeholder:text-sm;
+}
 .ui-password__sm {
-  @apply py-3  text-sm placeholder:text-sm;
+  @apply py-3  text-3xs placeholder:text-sm;
 }
 
 .ui-password__md {
-  @apply  py-3.25 text-base placeholder:text-base;
+  @apply  py-3.25 text-2xs placeholder:text-base;
   /* line-height: 18px; */
 }
 
 .ui-password__lg {
-  @apply py-4  text-h6 placeholder:text-h6;
+  @apply py-4  text-sm placeholder:text-h6;
   /* line-height: 20px; */
 }
 
 .ui-password__xl {
-  @apply py-4.5  text-h6 placeholder:text-h6;
+  @apply py-4.5  text-base placeholder:text-h6;
   /* line-height: 17px; */
 }
 

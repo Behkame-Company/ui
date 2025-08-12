@@ -88,7 +88,9 @@ const props = defineProps({
     default: "", // URL of image to display above body content
   }
 })
-
+const model = defineModel<string>({
+  required: true,
+})
 // ============================================================================
 // 4. EMITS (Only for components)
 // ============================================================================
@@ -184,7 +186,7 @@ const onBackdropClick = (event: MouseEvent): void => {
 }
 
 .ui-modal__img{
-  @apply w-full h-auto rounded object-cover max-h-60
+  @apply w-full h-auto rounded-md object-cover max-h-60
 }
 
 </style>

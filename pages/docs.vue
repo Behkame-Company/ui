@@ -1,6 +1,6 @@
 <template>
   <div class="w-11/12 p-5">
-     <UiSidebar
+     <!-- <UiSidebar
       data="Data"
       :topSections="[
         { iconName: 'User', text: 'Profile', to: '/profile' },
@@ -13,7 +13,7 @@
         { iconName: 'User', text: 'Settings', to: '/settings' },
       ]"
       :thirdSections="[{ iconName: 'User', text: 'Profile', to: '/profile' }]"
-    /> 
+    />  -->
    
       <!-- ...rest of your docs content... -->
   
