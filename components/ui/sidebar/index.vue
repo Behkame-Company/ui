@@ -17,7 +17,8 @@
 
 <template>
   <div
-    :class="['ui-sidebar', isOpen ? 'ui-sidebar__open' : 'ui-sidebar__closed']"
+    :class="['ui-sidebar', isOpen ? 'ui-sidebar__open' : 'ui-sidebar__closed']",
+    sidebarBg
   >
     <!-- Toggle Sidebar Button -->
     <button
@@ -50,7 +51,7 @@
               'ui-sidebar__button',
               selectedIndex === idx && 'text-primary',
             ]"
-            color="text-bt"
+            :color="buttonColor"
             text-align="left"
             size="lg"
             @click="selectSection(idx)"
@@ -64,7 +65,7 @@
             :key="'top-' + idx"
             :icon="section.iconName || 'User'"
             size="lg"
-            color="text-bt"
+            :color="buttonColor"
             @click="() => section.to && router.push(section.to)"
           />
         </template>
@@ -80,7 +81,7 @@
               'ui-sidebar__button',
               selectedIndex === (topSections.length + idx) && 'text-primary',
             ]"
-            color="text-bt"
+            :color="buttonColor"
             text-align="left"
             size="lg"
             @click="selectSection(topSections.length + idx)"
@@ -157,6 +158,15 @@ const props = defineProps({
   data1:{
     type :String,
     default : ""
+  },
+  sidebarBg: {
+    type: String,
+    default: "bg-white" // default color
+  },
+  // NEW: Button color
+  buttonColor: {
+    type: String,
+    default: "text-bt" // your existing color variable/class
   }
 })
 
