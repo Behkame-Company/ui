@@ -69,6 +69,7 @@ const props = defineProps({
         "warning",
         "info",
         "low-contrast",
+        "white"
       ].includes(value),
   },
   icon: {
@@ -208,7 +209,9 @@ const onTap = (): void => emit("tap");
 .ui-button__info:disabled {
   @apply hover:bg-info hover:border-info;
 }
-
+.ui-button__white {
+  @apply text-white bg-transparent hover:bg-white/10 border-transparent hover:border-white/10 focus:bg-white/10  focus:border-white/10;
+}
 /* ===== size ===== */
 
 .ui-button__xl {
