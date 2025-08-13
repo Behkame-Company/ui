@@ -99,6 +99,7 @@ const props = defineProps({
         "warning",
         "info",
         "low-contrast",
+        "white"
       ].includes(value),
   },
   suffixIcon: {
@@ -245,6 +246,9 @@ const onTap = (): void => emit("tap")
 
 .ui-button__info {
   @apply text-white bg-info hover:bg-purple-700 border-info hover:border-purple-700 focus:bg-purple-850 focus:border-purple-850;
+}
+.ui-button__white {
+  @apply text-white bg-transparent hover:bg-white/10 border-transparent hover:border-white/10 focus:bg-white/10  focus:border-white/10;
 }
 
 .ui-button__info:disabled {
