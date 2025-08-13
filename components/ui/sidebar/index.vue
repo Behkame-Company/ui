@@ -17,7 +17,7 @@
 
 <template>
   <div
-    :class="['ui-sidebar', isOpen ? 'ui-sidebar__open' : 'ui-sidebar__closed']",
+    :class="['ui-sidebar', isOpen ? 'ui-sidebar__open' : 'ui-sidebar__closed']"
     sidebarBg
   >
     <!-- Toggle Sidebar Button -->
@@ -167,6 +167,10 @@ const props = defineProps({
   buttonColor: {
     type: String,
     default: "text-bt" // your existing color variable/class
+  },
+  navBgColor: {
+    type: String,
+    default: "bg-white" // Tailwind color class or custom class
   }
 })
 
@@ -228,7 +232,7 @@ const selectSection = (index: number): void => {
 @reference "assets/css/main.css";
 
 .ui-sidebar {
-  @apply fixed top-0 left-0 h-screen z-20 bg-white flex flex-col justify-between transition-all duration-300 ;
+  @apply sticky top-0 left-0 h-screen z-20 bg-white flex flex-col justify-between transition-all duration-300 ;
 }
 .ui-sidebar__open {
   @apply w-74.5 rounded-r-3xl;
