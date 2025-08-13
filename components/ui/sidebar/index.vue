@@ -244,7 +244,7 @@ const selectSection = (index: number): void => {
   @apply flex items-center justify-between bg-gray-tint-200 py-2 px-4 rounded-lg gap-2;
 }
 .ui-sidebar__nav__items {
-  @apply flex flex-col gap-4 mt-3;
+  @apply flex flex-col gap-1 mt-3;
 }
 .ui-sidebar__toggle__btn {
   @apply absolute bottom-25 -right-4 w-8 h-8 bg-gray-tint-650 text-gray-shade-800 rounded-full flex items-center hover:bg-gray-tint-800 justify-center cursor-pointer z-10 transition-colors duration-300;
