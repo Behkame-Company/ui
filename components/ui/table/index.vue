@@ -29,19 +29,16 @@
 
 <template>
   <div class="ui-table__container">
-    
-
     <!-- Loading -->
     <div v-if="loading" class="flex justify-center items-center py-8">
       <UiSpinner size="lg" />
     </div>
 
     <table v-else class="ui-custom-table">
-
-      <thead>
+      <thead class="flex flex-row justify-between">
         <!-- Header titles row -->
-      <h2 v-if="showTitle" class="ui-table__title">{{ title }}</h2>
-
+        <h2 v-if="showTitle" class="ui-table__title">{{ title }}</h2>
+        <NuxtLink v-if="linkPage" :to="linkPage"> See page </NuxtLink>
         <tr>
           <th
             v-for="(col, idx) in columns"
@@ -51,16 +48,27 @@
             :aria-sort="ariaSort(col)"
             @click="col.sortable ? toggleSort(col) : null"
           >
-            <div class="ui-table__sort__icon" :class="{ 'cursor-pointer': col.sortable }">
+            <div
+              class="ui-table__sort__icon"
+              :class="{ 'cursor-pointer': col.sortable }"
+            >
               <VsxIcon
-                v-if="col.sortable && sortState.key === colKey(col) && sortState.dir === 'asc'"
+                v-if="
+                  col.sortable &&
+                  sortState.key === colKey(col) &&
+                  sortState.dir === 'asc'
+                "
                 iconName="ArrowCircleUp2"
                 class="ui-table__sort__icon-asc"
                 :size="16"
                 type="bold"
               />
               <VsxIcon
-                v-else-if="col.sortable && sortState.key === colKey(col) && sortState.dir === 'desc'"
+                v-else-if="
+                  col.sortable &&
+                  sortState.key === colKey(col) &&
+                  sortState.dir === 'desc'
+                "
                 iconName="ArrowCircleDown2"
                 class="ui-table__sort__icon-desc"
                 :size="16"
@@ -81,7 +89,12 @@
             class="ui-table__th"
             :style="colWidthStyle(col)"
           >
-            <slot :name="`filter-${colKey(col)}`" :column="col" :filters="internalFilters" :update="applyFilter">
+            <slot
+              :name="`filter-${colKey(col)}`"
+              :column="col"
+              :filters="internalFilters"
+              :update="applyFilter"
+            >
               <template v-if="col.filterable !== false">
                 <UiInputMultiDropDown
                   v-if="col.type === 'multiSelect'"
@@ -146,13 +159,15 @@
           </th>
         </tr>
       </thead>
-        <!-- Body -->
+      <!-- Body -->
       <tbody>
         <template v-if="pagedRows.length">
           <tr
             v-for="(row, rIndex) in pagedRows"
             :key="rowKeyValue(row, rIndex)"
-            :class="rIndex % 2 === 1 ? 'ui-table__row__even' : 'ui-table__row__odd'"
+            :class="
+              rIndex % 2 === 1 ? 'ui-table__row__even' : 'ui-table__row__odd'
+            "
             @click="$emit('row-click', row)"
           >
             <td
@@ -168,7 +183,10 @@
                 :rowIndex="rIndex"
                 :colIndex="cIndex"
               >
-                <span v-if="getCell(row, col, cIndex) === 'circle'" class="ui-table__circle"></span>
+                <span
+                  v-if="getCell(row, col, cIndex) === 'circle'"
+                  class="ui-table__circle"
+                ></span>
                 <span v-else>{{ getCell(row, col, cIndex) }}</span>
               </slot>
             </td>
@@ -185,10 +203,10 @@
 
     <!-- Pagination -->
     <UiPagination
+      v-if="showPagination"
       v-model:current-page="internalCurrentPage"
       v-model:per-page="internalPerPage"
       :total="filteredRows.length"
-      
       @update:current-page="emitPageChange"
       @update:per-page="emitPerPageChange"
       class="py-2 px-2 mt-2"
@@ -335,7 +353,12 @@ const props = defineProps({
     type: String,
     default: "id", // Unique identifier field for rows (when rows are objects)
   },
-})
+  showPagination: {
+    type: Boolean,
+    default: true,
+  },
+  linkPage: {},
+});
 
 // ============================================================================
 // 4. EMITS (Only for components)
@@ -391,7 +414,7 @@ const columns = computed<Column[]>(() =>
     filterable: true,
     sortable: false,
     ...c,
-  })),
+  }))
 );
 
 /** Filtered data rows */
@@ -402,7 +425,8 @@ const filteredRows = computed(() => {
   return data.filter((row) => {
     return columns.value.every((col) => {
       const filterValue = internalFilters[colKey(col)];
-      if (!filterValue || (Array.isArray(filterValue) && !filterValue.length)) return true;
+      if (!filterValue || (Array.isArray(filterValue) && !filterValue.length))
+        return true;
 
       const cellValue = getCell(row, col, columns.value.indexOf(col));
 
@@ -446,7 +470,10 @@ const sortedRows = computed(() => {
       if (col.type === "number") {
         const an = Number(av);
         const bn = Number(bv);
-        if (isNaN(an) || isNaN(bn)) return String(av ?? "").localeCompare(String(bv ?? ""), undefined, { numeric: true });
+        if (isNaN(an) || isNaN(bn))
+          return String(av ?? "").localeCompare(String(bv ?? ""), undefined, {
+            numeric: true,
+          });
         return an === bn ? 0 : an < bn ? -1 : 1;
       }
 
@@ -461,11 +488,16 @@ const sortedRows = computed(() => {
 
       // Time sorting (HH:mm format)
       if (col.type === "time") {
-        return String(av ?? "").localeCompare(String(bv ?? ""), undefined, { numeric: true });
+        return String(av ?? "").localeCompare(String(bv ?? ""), undefined, {
+          numeric: true,
+        });
       }
 
       // Default string sorting
-      return String(av ?? "").localeCompare(String(bv ?? ""), undefined, { numeric: true, sensitivity: "base" });
+      return String(av ?? "").localeCompare(String(bv ?? ""), undefined, {
+        numeric: true,
+        sensitivity: "base",
+      });
     });
 
   return data.sort((a, b) => mult * comparator(a, b));
@@ -481,7 +513,9 @@ const pagedRows = computed(() => {
 
 /** Empty state message */
 const emptyMessage = computed(() => {
-  const hasFilters = Object.values(internalFilters).some((f) => (Array.isArray(f) ? f.length : String(f ?? "").trim().length));
+  const hasFilters = Object.values(internalFilters).some((f) =>
+    Array.isArray(f) ? f.length : String(f ?? "").trim().length
+  );
   if (hasFilters) return "Record not found";
   return "No records";
 });
@@ -492,7 +526,10 @@ const emptyMessage = computed(() => {
 
 onMounted(() => {
   // Initialize filters when component mounts
-  Object.assign(internalFilters, initFilters(columns.value, props.filters ?? props.modelValue));
+  Object.assign(
+    internalFilters,
+    initFilters(columns.value, props.filters ?? props.modelValue)
+  );
 });
 
 // ============================================================================
@@ -505,7 +542,7 @@ watch(
   (v) => {
     if (v) Object.assign(internalFilters, v);
   },
-  { deep: true },
+  { deep: true }
 );
 
 // Sync modelValue with internal state
@@ -514,7 +551,7 @@ watch(
   (v) => {
     if (v) Object.assign(internalFilters, v);
   },
-  { deep: true },
+  { deep: true }
 );
 
 // Sync external sort state
@@ -525,7 +562,7 @@ watch(
     sortState.key = v.key ?? null;
     sortState.dir = v.dir ?? null;
   },
-  { deep: true },
+  { deep: true }
 );
 
 // Sync external pagination state
@@ -534,7 +571,7 @@ watch(
   () => {
     if (props.currentPage) internalCurrentPage.value = props.currentPage;
     if (props.perPage) internalPerPage.value = props.perPage;
-  },
+  }
 );
 
 // ============================================================================
@@ -552,7 +589,8 @@ const colKey = (col: Column) => {
  * Generate CSS width style for column
  */
 const colWidthStyle = (col: Column) => {
-  if (col.width === undefined || col.width === null || col.width === "") return undefined;
+  if (col.width === undefined || col.width === null || col.width === "")
+    return undefined;
   const w = typeof col.width === "number" ? `${col.width}px` : col.width;
   return { width: w };
 };
@@ -581,7 +619,8 @@ const initFilters = (cols: Column[], initial?: Record<string, any>) => {
 const getCell = (row: any, col: Column, index: number) => {
   const key = colKey(col);
   if (typeof key === "number") return row?.[key];
-  if (row && typeof row === "object" && key in row) return row[key as keyof typeof row];
+  if (row && typeof row === "object" && key in row)
+    return row[key as keyof typeof row];
   // Fallback positional for array rows
   return Array.isArray(row) ? row[index] : undefined;
 };
@@ -590,7 +629,8 @@ const getCell = (row: any, col: Column, index: number) => {
  * Generate unique key for v-for row rendering
  */
 const rowKeyValue = (row: any, idx: number) => {
-  if (row && typeof row === "object" && props.rowKey in row) return row[props.rowKey as keyof typeof row] as any;
+  if (row && typeof row === "object" && props.rowKey in row)
+    return row[props.rowKey as keyof typeof row] as any;
   return idx;
 };
 
@@ -640,7 +680,12 @@ const toggleSort = (col: Column) => {
   const key = colKey(col);
   if (sortState.key === key) {
     // Cycle: asc -> desc -> none
-    sortState.dir = sortState.dir === "asc" ? "desc" : sortState.dir === "desc" ? null : "asc";
+    sortState.dir =
+      sortState.dir === "asc"
+        ? "desc"
+        : sortState.dir === "desc"
+        ? null
+        : "asc";
     if (!sortState.dir) sortState.key = null;
   } else {
     sortState.key = key;
@@ -709,5 +754,4 @@ const toggleSort = (col: Column) => {
 .ui-table__filter__input {
   @apply mx-2 text-left;
 }
-
 </style>

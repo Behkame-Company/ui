@@ -33,7 +33,7 @@
       <!-- Optional User Info -->
       <div v-if="isOpen" class="ui-sidebar__user__info">
         <div class="ui-sidebar__user__info">
-          <VsxIcon iconName="User" :size="24" class=" ui-sidebar__user__icon" type="linear" />
+          {{ data1 }}
         </div>
         <span class="ui-sidebar__user__text">{{ data }}</span>
       </div>
@@ -154,6 +154,10 @@ const props = defineProps({
     type: String,
     default: "", // User info text to display
   },
+  data1:{
+    type :String,
+    default : ""
+  }
 })
 
 
