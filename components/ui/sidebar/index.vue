@@ -17,8 +17,8 @@
 
 <template>
   <div
-    :class="['ui-sidebar', isOpen ? 'ui-sidebar__open' : 'ui-sidebar__closed']"
-    sidebarBg
+    :class="['ui-sidebar', isOpen ? 'ui-sidebar__open' : 'ui-sidebar__closed' , sidebarBg]"
+    :style="{ backgroundColor: sidebarBg }"
   >
     <!-- Toggle Sidebar Button -->
     <button
@@ -95,7 +95,7 @@
             :key="'bottom-' + idx"
             :icon="section.iconName || 'User'"
             size="lg"
-            color="text-bt"
+            :color="buttonColor"
             @click="() => section.to && router.push(section.to)"
           />
         </template>

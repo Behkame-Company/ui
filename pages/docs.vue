@@ -2,6 +2,8 @@
   <div class="flex flex-row">
     <UiSidebar
       data="Data"
+      button-color="info"
+      sidebar-bg="#2F4F4F"
       :topSections="[
         { iconName: 'User', text: 'Profile', to: '/profile' },
         { iconName: 'UserAdd', text: 'Home', to: '/' },
