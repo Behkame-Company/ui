@@ -213,7 +213,7 @@ const onBlur = (): void => {
   @apply flex-1 rounded-sm ring-0 focus:ring-0 border-0 text-gray-shade-800 placeholder:text-gray-shade-400 transition-all;
 }
 .ui-password__focused {
-  @apply text-gray-shade-800 placeholder:text-gray-shade-800;
+  @apply text-gray-shade-800 ;
 }
 .ui-password__disabled {
   @apply cursor-not-allowed;
@@ -222,21 +222,21 @@ const onBlur = (): void => {
 /* ===== size ===== */
 
 .ui-password__sm {
-  @apply py-2 px-2  text-3xs placeholder:text-3xs placeholder:font-normal;
+  @apply py-2   text-3xs placeholder:text-3xs placeholder:font-normal;
 }
 
 .ui-password__md {
-  @apply   py-2 px-2 text-2xs placeholder:text-2xs placeholder:font-normal;
+  @apply   py-2  text-2xs placeholder:text-2xs placeholder:font-normal;
   /* line-height: 18px; */
 }
 
 .ui-password__lg {
-  @apply py-2.25 px-2  text-sm placeholder:text-sm placeholder:font-normal;
+  @apply py-2.25   text-sm placeholder:text-sm placeholder:font-normal;
   /* line-height: 20px; */
 }
 
 .ui-password__xl {
-  @apply py-2 px-3  text-base placeholder:text-base placeholder:font-normal;
+  @apply py-2   text-base placeholder:text-base placeholder:font-normal;
   /* line-height: 17px; */
 }
 
