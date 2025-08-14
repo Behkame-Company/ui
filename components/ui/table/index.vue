@@ -35,13 +35,17 @@
     </div>
 
     <table v-else class="ui-custom-table">
-      <thead >
+      <thead>
         <!-- Header titles row -->
-         <div class="flex justify-between items-center">
-          <h2 v-if="showTitle" class="ui-table__title">{{ title }}</h2>
-          <NuxtLink v-if="linkPage" :to="linkPageUrl" class="text-sm hover:text-primary"> See page </NuxtLink>
-         </div>
-        
+        <div class="flex flex-row justify-between items-center">
+          <NuxtLink
+            v-if="linkPage"
+            :to="linkPageUrl"
+            class="text-sm hover:text-primary"
+          >
+            <h2 v-if="showTitle" class="ui-table__title">{{ title }}</h2>
+          </NuxtLink>
+        </div>
         <tr>
           <th
             v-for="(col, idx) in columns"
@@ -360,8 +364,8 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  linkPage: {type: Boolean, default: false},
-  linkPageUrl: {type: String, default: ""},
+  linkPage: { type: Boolean, default: false },
+  linkPageUrl: { type: String, default: "" },
 });
 
 // ============================================================================
@@ -704,11 +708,11 @@ const toggleSort = (col: Column) => {
 @reference "assets/css/main.css";
 
 .ui-table__container {
-  @apply  shadow-md rounded-lg bg-white;
+  @apply shadow-md rounded-lg bg-white;
 }
 
 .ui-table__title {
-  @apply py-3.5  text-base font-semibold;
+  @apply py-3.5  text-base font-semibold text-nowrap;
 }
 
 .ui-custom-table {

@@ -1110,6 +1110,8 @@ v-model:filters="filters"
 v-model:sort="sort"
 :currentPage="1"
 :perPage="5"
+:link-page="true"
+:link-page-url="'/docs'"
 title="List A"
 @row-click="(row) => console.log('row', row)"
 >
