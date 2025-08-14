@@ -241,7 +241,7 @@ const selectSection = (index: number): void => {
   @apply w-18 rounded-r-2xl;
 }
 .ui-sidebar__user__info {
-  @apply flex items-center justify-between bg-gray-tint-200 py-1 px-2 rounded-lg gap-1;
+  @apply flex items-center justify-between bg-gray-tint-200 py-2 px-2 rounded-lg gap-1;
 }
 .ui-sidebar__nav__items {
   @apply flex flex-col gap-1 mt-2;
@@ -250,7 +250,7 @@ const selectSection = (index: number): void => {
   @apply absolute bottom-25 -right-4 w-8 h-8 bg-gray-tint-650 text-gray-shade-800 rounded-full flex items-center hover:bg-gray-tint-800 justify-center cursor-pointer z-10 transition-colors duration-300;
 }
 .ui-sidebar__nav {
-  @apply p-4 flex-1;
+  @apply p-2 flex-1;
 }
 .ui-sidebar__icon {
   @apply w-5 h-5 text-gray-shade-800 flex items-center justify-center;
