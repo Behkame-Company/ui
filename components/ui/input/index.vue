@@ -252,7 +252,7 @@ const onBlur = ():void =>{
 }
 
 .ui-input__focus {
-  @apply text-gray-shade-800 :
+  @apply text-gray-shade-800 ;
 }
 
 .ui-input__disabled {
