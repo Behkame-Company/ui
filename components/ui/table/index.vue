@@ -37,8 +37,11 @@
     <table v-else class="ui-custom-table">
       <thead >
         <!-- Header titles row -->
-        <h2 v-if="showTitle" class="ui-table__title">{{ title }}</h2>
-        <NuxtLink v-if="linkPage" :to="linkPageUrl"> See page </NuxtLink>
+         <div class="flex justify-between items-center">
+          <h2 v-if="showTitle" class="ui-table__title">{{ title }}</h2>
+          <NuxtLink v-if="linkPage" :to="linkPageUrl" class="text-sm hover:text-primary"> See page </NuxtLink>
+         </div>
+        
         <tr>
           <th
             v-for="(col, idx) in columns"
@@ -705,7 +708,7 @@ const toggleSort = (col: Column) => {
 }
 
 .ui-table__title {
-  @apply py-3.5  text-base font-bold;
+  @apply py-3.5  text-base font-semibold;
 }
 
 .ui-custom-table {
