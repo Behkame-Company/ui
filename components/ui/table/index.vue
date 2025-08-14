@@ -38,7 +38,7 @@
       <thead >
         <!-- Header titles row -->
         <h2 v-if="showTitle" class="ui-table__title">{{ title }}</h2>
-        <NuxtLink v-if="linkPage" :to="linkPage"> See page </NuxtLink>
+        <NuxtLink v-if="linkPage" :to="linkPageUrl"> See page </NuxtLink>
         <tr>
           <th
             v-for="(col, idx) in columns"
@@ -357,7 +357,8 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  linkPage: {},
+  linkPage: {type: Boolean, default: false},
+  linkPageUrl: {type: String, default: ""},
 });
 
 // ============================================================================
