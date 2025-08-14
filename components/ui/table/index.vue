@@ -35,7 +35,7 @@
     </div>
 
     <table v-else class="ui-custom-table">
-      <thead class="flex flex-row justify-between">
+      <thead >
         <!-- Header titles row -->
         <h2 v-if="showTitle" class="ui-table__title">{{ title }}</h2>
         <NuxtLink v-if="linkPage" :to="linkPage"> See page </NuxtLink>
@@ -700,7 +700,7 @@ const toggleSort = (col: Column) => {
 @reference "assets/css/main.css";
 
 .ui-table__container {
-  @apply m-10 shadow-md rounded-lg bg-white;
+  @apply  shadow-md rounded-lg bg-white;
 }
 
 .ui-table__title {
