@@ -152,8 +152,7 @@ const iconName = computed<string>(() =>
 
 const iconSizeClass = computed<string>(() => {
   switch (props.size) {
-       case "sm":
-      return "12px"
+     
     case "sm":
       return "14px"
     case "md":
@@ -221,25 +220,23 @@ const onBlur = (): void => {
 }
 
 /* ===== size ===== */
-.ui-password__xs {
-  @apply py-3  text-3xs placeholder:text-sm;
-}
+
 .ui-password__sm {
-  @apply py-3  text-3xs placeholder:text-sm;
+  @apply py-2 px-2  text-3xs placeholder:text-3xs placeholder:font-normal;
 }
 
 .ui-password__md {
-  @apply  py-3.25 text-2xs placeholder:text-base;
+  @apply   py-2 px-2 text-2xs placeholder:text-2xs placeholder:font-normal;
   /* line-height: 18px; */
 }
 
 .ui-password__lg {
-  @apply py-4  text-sm placeholder:text-h6;
+  @apply py-2.25 px-2  text-sm placeholder:text-sm placeholder:font-normal;
   /* line-height: 20px; */
 }
 
 .ui-password__xl {
-  @apply py-4.5  text-base placeholder:text-h6;
+  @apply py-2 px-3  text-base placeholder:text-base placeholder:font-normal;
   /* line-height: 17px; */
 }
 

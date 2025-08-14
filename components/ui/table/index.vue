@@ -41,7 +41,7 @@
           <NuxtLink
             v-if="linkPage"
             :to="linkPageUrl"
-            class="text-sm hover:text-primary"
+            
           >
             <h2 v-if="showTitle" class="ui-table__title">{{ title }}</h2>
           </NuxtLink>
@@ -712,7 +712,7 @@ const toggleSort = (col: Column) => {
 }
 
 .ui-table__title {
-  @apply py-3.5  text-base font-semibold text-nowrap;
+  @apply py-3.5  text-base font-semibold text-nowrap  hover:text-primary;
 }
 
 .ui-custom-table {
