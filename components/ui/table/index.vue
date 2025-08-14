@@ -42,7 +42,7 @@
         >
           See Page
         </NuxtLink>
-        <UiButton v-if="addToTable" color="secondary" prefix-icon="AddCircle" size="sm">Add Record</UiButton>
+        <UiButton v-if="addToTable"  @click="handleAddToTable" color="secondary" prefix-icon="AddCircle" size="sm">Add Record</UiButton>
       </div>
     </div>
 
@@ -288,8 +288,12 @@ const props = defineProps({
   linkPage: { type: Boolean, default: false },
   linkPageUrl: { type: String, default: "" },
   addToTable: {
-    type: Boolean,
-    default: "false",
+  type: Boolean,
+  default: false,
+},
+onAddToTable: {
+    type: Function as PropType<() => void>,
+    default: undefined,
   },
 });
 
@@ -313,6 +317,7 @@ const emit = defineEmits<{
   (e: "fetch-error", err: unknown): void;
   /** Sort changed (alias for update:sort) */
   (e: "sort-change", v: { key: string | number | null; dir: Direction }): void;
+  (e: "add-to-table"): void;
 }>();
 
 // ============================================================================
@@ -626,6 +631,14 @@ const toggleSort = (col: Column) => {
   }
   emit("update:sort", { ...sortState });
   emit("sort-change", { ...sortState });
+};
+
+const handleAddToTable = () => {
+  if (props.onAddToTable) {
+    props.onAddToTable(); // Call function from parent
+  } else {
+    emit("add-to-table"); // Or emit event for parent
+  }
 };
 </script>
 
