@@ -16,6 +16,8 @@
       ]"
       :thirdSections="[{ iconName: 'User', text: 'Profile', to: '/profile' }]"
     />  
+        
+   
       
   <div class="w-11/12 p-5">
   
@@ -30,6 +32,7 @@
   <h3 class="text-start mt-4 mb-4 text-h6 font-bold">Card Components</h3>
   <div class="flex justify-start items-start mt-4">
     <div class="w-1/4 px-2">
+
       <UiCard size="xl">
         <template #default>
           <span class="text-start text-h5">Card Body XL</span>
@@ -1110,7 +1113,8 @@ v-model:filters="filters"
 v-model:sort="sort"
 :currentPage="1"
 :perPage="5"
-:link-page="true"
+:link-page="false"
+:add-to-table="true"
 :link-page-url="'/docs'"
 title="List A"
 @row-click="(row) => console.log('row', row)"
@@ -1328,7 +1332,7 @@ const headers1 = [
   { key: "time", text: "Time", type: "time" as const, sortable: true,  },
   { key: "code", text: "Product Code", sortable: true, },
   { key: "status", text: "Status", type: "select" as const, options: ["Active","Inactive","Pending"], sortable: true },
-  { key: "priority", text: "Priority", type: "select" as const, options: ["High","Medium","Low"], sortable: true },
+  { key: "priority", text: "Priority", type: "datetime" as const, options: ["High","Medium","Low"], sortable: true },
   { key: "category", text: "Category", type: "select" as const, options: ["Premium","Standard","Basic"], sortable: true },
   { key: "stock", text: "Stock Status", type: "select" as const, options: ["In Stock","Low Stock","Out of Stock"], sortable: true },
   { key: "action", text: "Action", type: "action" as const, filterable: false, sortable: false, },
