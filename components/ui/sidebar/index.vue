@@ -241,7 +241,7 @@ const selectSection = (index: number): void => {
   @apply w-18 rounded-r-2xl;
 }
 .ui-sidebar__user__info {
-  @apply flex items-center justify-between bg-gray-tint-200 py-2 px-4 rounded-lg gap-2;
+  @apply flex items-center justify-between bg-gray-tint-200 py-1 px-2 rounded-lg gap-1;
 }
 .ui-sidebar__nav__items {
   @apply flex flex-col gap-1 mt-2;
