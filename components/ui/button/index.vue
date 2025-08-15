@@ -279,7 +279,7 @@ const onTap = (): void => emit("tap")
 /* ===== text size ===== */
 
 .ui-button-text__xl {
-  @apply text-h6 font-medium;
+  @apply text-h5 font-medium;
 }
 
 .ui-button-text__lg {
@@ -291,10 +291,10 @@ const onTap = (): void => emit("tap")
 }
 
 .ui-button-text__sm {
-  @apply text-xs font-medium;
+  @apply text-2xs font-medium;
 }
 .ui-button-text__xs {
-  @apply text-2xs font-medium;
+  @apply text-3xs font-medium;
 }
 
 /* ===== loading ===== */

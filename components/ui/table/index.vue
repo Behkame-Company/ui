@@ -697,7 +697,7 @@ const toggleSort = (col: Column) => {
 @reference "assets/css/main.css";
 
 .ui-table__container {
-  @apply m-10  rounded-lg bg-white;
+  @apply rounded-lg bg-white;
 }
 
 .ui-table__title {
