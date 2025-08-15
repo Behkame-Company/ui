@@ -1119,6 +1119,7 @@ v-model:sort="sort"
 title="List A"
 @row-click="(row) => console.log('row', row)"
 >
+
 <!-- Optional custom cell -->
 <template #cell-action="{ row }">
   <UiTag color="primary" size="sm" text="Edit" />
@@ -1348,6 +1349,32 @@ const rows1 = [
   { id: 7, name: "Grape", color: "Green", createdAt: "2024-01-21", time: "15:00", code: "PROD-007", status: "Active", priority: "High", category: "Premium", stock: "In Stock", action: "Edit" },
   { id: 8, name: "Honeydew", color: "Yellow", createdAt: "2024-01-22", time: "16:15", code: "PROD-008", status: "Inactive", priority: "Medium", category: "Standard", stock: "Low Stock", action: "Edit" },
   // ...
+];
+const activeTab = ref("users");
+
+const userData = [
+  { id: 1, name: "John Doe", email: "john@example.com", role: "User" },
+  { id: 2, name: "Jane Smith", email: "jane@example.com", role: "User" },
+  { id: 3, name: "Bob Brown", email: "bob@example.com", role: "User" },
+];
+
+const adminData = [
+  { id: 101, name: "Alice Johnson", email: "alice@example.com", role: "Admin" },
+  { id: 102, name: "Mark Wilson", email: "mark@example.com", role: "Admin" },
+];
+
+const allRows = computed(() => {
+  console.log(allRows.value) 
+  if (activeTab.value === "users") return userData;
+  if (activeTab.value === "admins") return adminData;
+  return [];
+});
+
+const columns = [
+  { key: "id", text: "ID", sortable: true },
+  { key: "name", text: "Name", sortable: true },
+  { key: "email", text: "Email" },
+  { key: "role", text: "Role" },
 ];
 
 const filters = ref({});

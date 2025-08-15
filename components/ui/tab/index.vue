@@ -129,7 +129,7 @@ const select_tab = (index: number) => {
 
 /* Wrapper for tab buttons */
 .ui-tab__wrapper {
-  @apply flex gap-1.5 p-2 whitespace-nowrap;
+  @apply flex gap-1.5  whitespace-nowrap;
 }
 
 /* Base styles shared by all tab buttons */
