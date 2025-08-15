@@ -29,22 +29,7 @@
 
 <template>
   <div class="ui-table__container">
-    <!-- Header: Title + See Page -->
-    <div class="flex w-full justify-between items-center bg-gray-100 p-2">
-      <h2 v-if="showTitle" class="ui-table__title">
-        {{ title }}
-      </h2>
-      <div>
-        <NuxtLink
-          v-if="linkPage"
-          :to="linkPageUrl"
-          class="text-blue-600 hover:underline"
-        >
-          See Page
-        </NuxtLink>
-        <UiButton v-if="addToTable"  @click="handleAddToTable" color="secondary" prefix-icon="AddCircle" size="sm">Add Record</UiButton>
-      </div>
-    </div>
+  
 
     <!-- Loading -->
     <div v-if="loading" class="flex justify-center items-center py-8">
@@ -654,7 +639,7 @@ const handleAddToTable = () => {
 }
 
 .ui-custom-table {
-  @apply w-full  text-sm shadow-sm rounded-lg table text-gray-shade-500 border-separate border-spacing-0 table-fixed p-2;
+  @apply w-full  text-sm  rounded-lg table text-gray-shade-500 border-separate border-spacing-0 table-fixed p-2;
 }
 
 .ui-table__td {
