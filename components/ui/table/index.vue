@@ -29,16 +29,13 @@
 
 <template>
   <div class="ui-table__container">
-  
-
     <!-- Loading -->
     <div v-if="loading" class="flex justify-center items-center py-8">
       <UiSpinner size="lg" />
     </div>
 
-    <!-- Table -->
     <table v-else class="ui-custom-table">
-      <thead>
+      <thead >
         <tr>
           <th
             v-for="(col, idx) in columns"
@@ -52,6 +49,28 @@
               class="ui-table__sort__icon"
               :class="{ 'cursor-pointer': col.sortable }"
             >
+              <VsxIcon
+                v-if="
+                  col.sortable &&
+                  sortState.key === colKey(col) &&
+                  sortState.dir === 'asc'
+                "
+                iconName="ArrowCircleUp2"
+                class="ui-table__sort__icon-asc"
+                :size="16"
+                type="bold"
+              />
+              <VsxIcon
+                v-else-if="
+                  col.sortable &&
+                  sortState.key === colKey(col) &&
+                  sortState.dir === 'desc'
+                "
+                iconName="ArrowCircleDown2"
+                class="ui-table__sort__icon-desc"
+                :size="16"
+                type="bold"
+              />
               <slot :name="`header-${colKey(col)}`" :column="col">
                 <span>{{ col.text }}</span>
               </slot>
@@ -72,13 +91,73 @@
               :column="col"
               :filters="internalFilters"
               :update="applyFilter"
-            />
+            >
+              <template v-if="col.filterable !== false">
+                <UiInputMultiDropDown
+                  v-if="col.type === 'multiSelect'"
+                  v-model="internalFilters[colKey(col)]"
+                  :options="toOptions(col.options)"
+                  :placeholder="col.text"
+                  size="sm"
+                  class="ui-table__filter__input"
+                  @change="onFilterChange"
+                />
+                <UiInputDropDown
+                  v-else-if="col.type === 'select'"
+                  v-model="internalFilters[colKey(col)]"
+                  :options="toOptions(col.options)"
+                  :placeholder="col.text"
+                  size="sm"
+                  class="ui-table__filter__input"
+                  @change="onFilterChange"
+                />
+                <UiInputDatePicker
+                  v-else-if="col.type === 'datetime'"
+                  v-model="internalFilters[colKey(col)]"
+                  :placeholder="col.text"
+                  :suffixIcon="col.suffixIcon || 'CalendarAdd'"
+                  size="sm"
+                  type="datetime"
+                  class="ui-table__filter__input"
+                  @update:modelValue="onFilterChange"
+                />
+                <UiInputDatePicker
+                  v-else-if="col.type === 'date'"
+                  v-model="internalFilters[colKey(col)]"
+                  :placeholder="col.text"
+                  :suffixIcon="col.suffixIcon || 'CalendarAdd'"
+                  size="sm"
+                  type="date"
+                  class="ui-table__filter__input"
+                  @update:modelValue="onFilterChange"
+                />
+                <UiInputDatePicker
+                  v-else-if="col.type === 'time'"
+                  v-model="internalFilters[colKey(col)]"
+                  :placeholder="col.text"
+                  :suffixIcon="col.suffixIcon || 'Clock'"
+                  size="sm"
+                  type="time"
+                  class="ui-table__filter__input"
+                  @update:modelValue="onFilterChange"
+                />
+                <UiInput
+                  v-else
+                  v-model="internalFilters[colKey(col)]"
+                  :type="col.type || 'text'"
+                  :placeholder="col.text"
+                  :suffixIcon="col.suffixIcon"
+                  size="sm"
+                  class="ui-table__filter__input"
+                  @input="onFilterChange"
+                />
+              </template>
+            </slot>
           </th>
         </tr>
       </thead>
-
+      <!-- Body -->
       <tbody>
-        <!-- Table rows -->
         <template v-if="pagedRows.length">
           <tr
             v-for="(row, rIndex) in pagedRows"
@@ -98,14 +177,19 @@
                 :row="row"
                 :value="getCell(row, col, cIndex)"
                 :column="col"
+                :rowIndex="rIndex"
+                :colIndex="cIndex"
               >
-                {{ getCell(row, col, cIndex) }}
+                <span
+                  v-if="getCell(row, col, cIndex) === 'circle'"
+                  class="ui-table__circle"
+                ></span>
+                <span v-else>{{ getCell(row, col, cIndex) }}</span>
               </slot>
             </td>
           </tr>
         </template>
 
-        <!-- No data -->
         <tr v-else>
           <td :colspan="columns.length" class="ui-table__no-records">
             {{ emptyMessage }}
@@ -270,16 +354,7 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  linkPage: { type: Boolean, default: false },
-  linkPageUrl: { type: String, default: "" },
-  addToTable: {
-  type: Boolean,
-  default: false,
-},
-onAddToTable: {
-    type: Function as PropType<() => void>,
-    default: undefined,
-  },
+  linkPage: {},
 });
 
 // ============================================================================
@@ -302,7 +377,6 @@ const emit = defineEmits<{
   (e: "fetch-error", err: unknown): void;
   /** Sort changed (alias for update:sort) */
   (e: "sort-change", v: { key: string | number | null; dir: Direction }): void;
-  (e: "add-to-table"): void;
 }>();
 
 // ============================================================================
@@ -617,25 +691,17 @@ const toggleSort = (col: Column) => {
   emit("update:sort", { ...sortState });
   emit("sort-change", { ...sortState });
 };
-
-const handleAddToTable = () => {
-  if (props.onAddToTable) {
-    props.onAddToTable(); // Call function from parent
-  } else {
-    emit("add-to-table"); // Or emit event for parent
-  }
-};
 </script>
 
 <style scoped>
 @reference "assets/css/main.css";
 
 .ui-table__container {
-  @apply  rounded-lg bg-white;
+  @apply m-10  rounded-lg bg-white;
 }
 
 .ui-table__title {
-  @apply py-3.5  text-base font-semibold text-nowrap  hover:text-primary;
+  @apply py-3.5  text-base font-bold;
 }
 
 .ui-custom-table {
