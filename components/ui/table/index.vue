@@ -631,7 +631,7 @@ const handleAddToTable = () => {
 @reference "assets/css/main.css";
 
 .ui-table__container {
-  @apply shadow-md rounded-lg bg-white;
+  @apply  rounded-lg bg-white;
 }
 
 .ui-table__title {
