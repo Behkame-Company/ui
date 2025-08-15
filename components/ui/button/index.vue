@@ -146,9 +146,9 @@ const IconSize = computed<number>(() => {
   switch (props.size) {
     case "xl": return 24
     case "lg": return 20
-    case "md": return 16
-    case "sm": return 14
-    case "xs": return 12
+    case "md": return 18
+    case "sm": return 16
+    case "xs": return 14
     default: return 16
   }
 })
