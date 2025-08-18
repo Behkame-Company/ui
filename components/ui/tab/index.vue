@@ -80,6 +80,7 @@ const props = defineProps({
     default: "md",
     validator: (value: string) => ["md", "sm", "lg"].includes(value),
   },
+  selected: { type: Number, default: 0 }
 });
 
 // ============================================================================
@@ -93,7 +94,7 @@ const emit = defineEmits<{
 // 5. VARIABLES (ref, reactive but only for simple state)
 // ============================================================================
 /** Currently selected tab index */
-const selectedIndex = ref<number>(0)
+const selectedIndex = ref<number>(props.selected)
 
 // ============================================================================
 // 6. COMPUTED PROPERTIES (computed declarations)
@@ -110,9 +111,9 @@ const sizeClass = computed<string>(() => `ui-tab__size__${props.size}`)
 // 7. FUNCTION DEFINITIONS (helper functions and composables)
 // ============================================================================
 /**
- * Handle tab selection and emit the selected index
- * @param index - The index of the selected tab
+
  */
+ watch(() => props.selected, v => (selectedIndex.value = v))
 const select_tab = (index: number) => {
   selectedIndex.value = index
   emit("update:selected", index)
