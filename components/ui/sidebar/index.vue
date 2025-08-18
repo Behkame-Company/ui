@@ -52,7 +52,7 @@
               selectedIndex === idx && 'text-primary',
             ]"
             :color="buttonColor"
-            text-align="left"
+            textAlign="left"
             size="sm"
             @click="selectSection(idx)"
           >
@@ -82,7 +82,7 @@
               selectedIndex === (topSections.length + idx) && 'text-primary',
             ]"
             :color="buttonColor"
-            text-align="left"
+            textAlign="left"
             size="sm"
             @click="selectSection(topSections.length + idx)"
           >
@@ -113,7 +113,7 @@
         ]"
         class="m-4"
         color="error"
-        text-align="left"
+        textAlign="left"
         size="sm"
         @click="selectSection(idx)"
       >
