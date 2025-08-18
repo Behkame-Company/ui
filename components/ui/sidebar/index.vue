@@ -53,7 +53,7 @@
             ]"
             :color="buttonColor"
             text-align="left"
-            size="md"
+            size="sm"
             @click="selectSection(idx)"
           >
             {{ section.text }}
@@ -69,7 +69,7 @@
             @click="() => section.to && router.push(section.to)"
           />
         </template>
-        <hr class="text-gray-tint-650">
+        <!-- <hr class="text-gray-tint-650"> -->
         
         <!-- Bottom group -->
         <template v-if="isOpen">
@@ -83,7 +83,7 @@
             ]"
             :color="buttonColor"
             text-align="left"
-            size="md"
+            size="sm"
             @click="selectSection(topSections.length + idx)"
           >
             {{ section.text }}
@@ -114,7 +114,7 @@
         class="m-4"
         color="error"
         text-align="left"
-        size="md"
+        size="sm"
         @click="selectSection(idx)"
       >
         {{ section.text }}
