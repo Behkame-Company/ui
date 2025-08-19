@@ -195,7 +195,7 @@ const onBlur = (): void => {
 }
 </script>
 <style>
-@reference "assets/css/main.css";
+@reference "~/assets/css/main.css";
 
 .ui-password__container {
   @apply overflow-hidden flex justify-center items-center pl-3 pr-2 border border-gray-tint-650 rounded-sm transition-all;

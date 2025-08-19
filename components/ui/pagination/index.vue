@@ -195,7 +195,7 @@ const changePerPage = (): void => {
 </script>
 
 <style scoped>
-@reference "assets/css/main.css";
+@reference "~/assets/css/main.css";
 
 .ui-pagination__container {
   @apply flex justify-between items-center w-full text-sm;

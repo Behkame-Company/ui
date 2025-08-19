@@ -229,7 +229,7 @@ const selectSection = (index: number): void => {
 </script>
 
 <style scoped>
-@reference "assets/css/main.css";
+@reference "~/assets/css/main.css";
 
 .ui-sidebar {
   @apply sticky top-0 left-0 h-screen z-20 bg-white flex flex-col justify-between transition-all duration-300 ;

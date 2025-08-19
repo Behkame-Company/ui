@@ -67,7 +67,7 @@ const props = defineProps({
 </script>
 
 <style scoped>
-@reference "assets/css/main.css";
+@reference "~/assets/css/main.css";
 .ui-list__card {
   @apply border border-gray-tint-400 rounded-lg  w-60 bg-transparent box-border;
 }

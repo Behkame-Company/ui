@@ -127,7 +127,7 @@ const toggleCheckbox = (): void => {
 </script>
 
 <style scoped>
-@reference "assets/css/main.css";
+@reference "~/assets/css/main.css";
 
 .ui-checkbox {
   @apply flex items-center gap-8;

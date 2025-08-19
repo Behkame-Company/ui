@@ -310,7 +310,7 @@ watch(() => props.modelValue, () => {
 </script>
 
 <style scoped>
-@reference "assets/css/main.css";
+@reference "~/assets/css/main.css";
 
 .ui-date-picker__container {
   @apply flex flex-col relative;

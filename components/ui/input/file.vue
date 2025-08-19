@@ -97,7 +97,7 @@ const onFileChange = (e: Event): void => {
 </script>
 
 <style scoped>
-@reference "assets/css/main.css";
+@reference "~/assets/css/main.css";
 
 .ui-file__container {
   @apply w-1/4  h-11 flex items-center gap-2;

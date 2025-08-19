@@ -73,7 +73,7 @@ const sizeClass = computed<string>(() => `ui-text-area__${props.size}`)
 </script>
 <style>
 
-@reference "assets/css/main.css";
+@reference "~/assets/css/main.css";
 
 .ui-text-area {
   @apply border-1 border-gray-tint-650 text-gray-shade-800 placeholder:text-gray-shade-400 rounded-lg ;

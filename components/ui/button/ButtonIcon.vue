@@ -119,7 +119,7 @@ const iconSize = computed<number>(() => {
 const onTap = (): void => emit("tap");
 </script>
 <style scoped>
-@reference "assets/css/main.css";
+@reference "~/assets/css/main.css";
 
 .ui-button {
   @apply flex items-center justify-center border-1 rounded-md transition-all cursor-pointer text-nowrap;

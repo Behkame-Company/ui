@@ -157,7 +157,7 @@ const closeCard = (): void => {
 </script>
   
 <style scoped>
-@reference "assets/css/main.css";
+@reference "~/assets/css/main.css";
 
 .ui-card {
   @apply rounded-lg bg-white transition-all duration-300;

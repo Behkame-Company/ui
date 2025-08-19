@@ -232,7 +232,7 @@ const close = (): void => {
 <style scoped>
 /* === Base Styles === */
 
-@reference "assets/css/main.css";
+@reference "~/assets/css/main.css";
 .ui-toast {
   @apply flex flex-col justify-around  rounded-lg shadow-xs border-gray-tint-400;
 }

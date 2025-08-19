@@ -82,7 +82,7 @@ const textSizeClass = computed<string>(() => `ui-radio_-label__${props.size}`)
 
 </script>
 <style scoped>
-@reference "assets/css/main.css";
+@reference "~/assets/css/main.css";
 
 .ui-radio {
   @apply flex items-center gap-2 cursor-pointer ;

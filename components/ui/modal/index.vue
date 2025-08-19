@@ -152,7 +152,7 @@ const onBackdropClick = (event: MouseEvent): void => {
 </script>
 
 <style scoped>
-@reference "assets/css/main.css";
+@reference "~/assets/css/main.css";
 .ui-modal__backdrop {
   @apply fixed inset-0 bg-black/60  flex items-center justify-center z-50;
 }

@@ -87,7 +87,7 @@ const classes = computed<{
 
 </script>
 <style scoped>
-@reference "assets/css/main.css";
+@reference "~/assets/css/main.css";
 
 .ui-toggle {
   @apply inline-flex items-center cursor-pointer  gap-2;

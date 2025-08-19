@@ -121,7 +121,7 @@ const select_tab = (index: number) => {
 </script>
 
 <style scoped>
-@reference "assets/css/main.css";
+@reference "~/assets/css/main.css";
 
 /* Root container styles */
 .ui-tab {

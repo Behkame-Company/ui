@@ -694,8 +694,7 @@ const toggleSort = (col: Column) => {
 </script>
 
 <style scoped>
-@reference "assets/css/main.css";
-
+@reference "~/assets/css/main.css";
 .ui-table__container {
   @apply rounded-lg bg-white;
 }

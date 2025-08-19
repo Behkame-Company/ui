@@ -195,8 +195,7 @@ const onBlur = ():void =>{
 } 
 </script>
 <style>
-@reference "assets/css/main.css";
-
+@reference "~/assets/css/main.css";
 .ui-input__container {
   @apply overflow-hidden flex justify-center  border border-gray-tint-650 rounded-sm transition-all placeholder:text-gray-shade-400 text-nowrap ;
 }

@@ -55,7 +55,7 @@ const sizeClass = computed<string>(() => `spinner-size__${props.size}`)
 </script>
 <style>
 
-@reference "assets/css/main.css";
+@reference "~/assets/css/main.css";
 .spinner-size__xs {
     @apply w-3.5 h-3.5;
 }

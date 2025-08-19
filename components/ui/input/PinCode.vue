@@ -174,7 +174,7 @@ const onBlur = (index: number): void => {
 </script>
 <style>
 
-@reference "assets/css/main.css";
+@reference "~/assets/css/main.css";
 
 .ui-pin-code__container {
   @apply flex w-[max-content] items-center border border-gray-tint-650 transition-all overflow-hidden rounded-sm;
