@@ -52,7 +52,8 @@
               selectedIndex === idx && 'text-primary',
             ]"
             :color="buttonColor"
-            textAlign="left"
+            class="text-left"
+            
             size="sm"
             @click="selectSection(idx)"
           >
@@ -82,7 +83,8 @@
               selectedIndex === (topSections.length + idx) && 'text-primary',
             ]"
             :color="buttonColor"
-            textAlign="left"
+            class="text-left"
+
             size="sm"
             @click="selectSection(topSections.length + idx)"
           >
@@ -111,9 +113,10 @@
           'ui-sidebar__button',
           selectedIndex === idx && 'text-primary',
         ]"
-        class="m-4"
+        class="m-4 text-left"
         color="error"
-        textAlign="left"
+            
+        
         size="sm"
         @click="selectSection(idx)"
       >
@@ -230,6 +233,8 @@ const selectSection = (index: number): void => {
 
 <style scoped>
 @reference "~/assets/css/main.css";
+
+
 
 .ui-sidebar {
   @apply sticky top-0 left-0 h-screen z-20 bg-white flex flex-col justify-between transition-all duration-300 ;
