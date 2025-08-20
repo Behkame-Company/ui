@@ -112,7 +112,7 @@ const props = defineProps({
   },
   textAlign: {
     type: String,
-    default: "center", // "left", "center", "right"
+    default: "", // "left", "center", "right"
     validator: (value: string) => ["left", "center", "right"].includes(value),
   },
   iconType: {
