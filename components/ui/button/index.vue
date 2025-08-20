@@ -50,7 +50,13 @@
         :size="IconSize"
         :type="iconType"
       />
-      <span :class="`${textSizeClass} ui-button-text text-${props.textAlign}`">
+      <span   :class="[
+        textSizeClass,
+        'ui-button-text',
+        props.textAlign === 'left' && 'text-left',
+        props.textAlign === 'center' && 'text-center',
+        props.textAlign === 'right' && 'text-right',
+      ]">
         <slot />
       </span>
 
