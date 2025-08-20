@@ -231,7 +231,7 @@ const selectSection = (index: number): void => {
 }
 </script>
 
-<style scoped>
+<style>
 @reference "~/assets/css/main.css";
 
 

@@ -86,7 +86,7 @@ const classes = computed<{
 
 
 </script>
-<style scoped>
+<style >
 @reference "~/assets/css/main.css";
 
 .ui-toggle {
