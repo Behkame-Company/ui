@@ -65,7 +65,7 @@ const props = defineProps({
 const classes = computed<{
   inputBg: string
   buttonBg: string
-  disabled: { 'ui-switch__disabled': boolean }
+  disabled: { 'ui-switch-disabled': boolean }
   sizeInput: string
   sizeButton: string
   textSize: string
@@ -77,9 +77,9 @@ const classes = computed<{
       ? "bg-primary border-primary justify-end"
       : "bg-transparent border border-gray-shade-50 justify-start",
     buttonBg: model.value ? "bg-white" : "bg-gray-shade-50",
-    disabled: { 'ui-switch__disabled': props.disabled },
-    sizeInput: `ui-switch__input__${size}`,
-    sizeButton: `ui-switch__button__${size}`,
+    disabled: { 'ui-switch-disabled': props.disabled },
+    sizeInput: `ui-switch-input__${size}`,
+    sizeButton: `ui-switch-button__${size}`,
     textSize: size === "lg" ? "text-base" : size === "sm" ? "text-xs" : "text-sm"
   };
 });
@@ -92,43 +92,43 @@ const classes = computed<{
 .ui-switch {
   @apply inline-flex items-center cursor-pointer  gap-2;
 }
-.ui-switch__input {
+.ui-switch-input {
   @apply inline-flex items-center w-8 h-4.5 p-0.5 rounded-5xl transition-colors duration-300 ease-in-out;
 }
-.ui-switch__butoon {
+.ui-switch-butoon {
   @apply w-3.5 h-3.5 rounded-full transition-all duration-300 ease-in-out;
 }
-.ui-switch__title {
+.ui-switch-title {
   @apply text-gray text-nowrap;
 }
-.ui-switch__input__lg{
+.ui-switch-input__lg{
     @apply  w-8 h-4.5 rounded-5xl
 }
-.ui-switch__input__md{
+.ui-switch-input__md{
     @apply  w-7.25 h-4 rounded-5xl
 }
-.ui-switch__input__sm{
+.ui-switch-input__sm{
     @apply  w-6.5 h-3.5 rounded-5xl
 }
-.ui-switch__button__lg{
+.ui-switch-button__lg{
     @apply w-3.5 h-3.5
 }
-.ui-switch__button__md{
+.ui-switch-button__md{
     @apply w-3 h-3
 }
-.ui-switch__button__sm{
+.ui-switch-button__sm{
     @apply w-2.5 h-2.5
 }
-.ui-switch__title__lg{
+.ui-switch-title__lg{
     @apply  text-base font-medium
 }
-.ui-switch__title__md{
+.ui-switch-title__md{
     @apply  text-xs font-medium
 }
-.ui-switch__title__sm{
+.ui-switch-title__sm{
     @apply  text-2xs font-medium
 }
-.ui-switch__disabled{
+.ui-switch-disabled{
   @apply opacity-50 cursor-not-allowed
 }
 </style>
