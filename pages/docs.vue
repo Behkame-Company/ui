@@ -803,12 +803,12 @@
 
     <div class="flex flex-col w-1/4 px-2">
       <h5 class="text-start mt-4 mb-4 text-lg font-bold">Toggle</h5>
-      <UiToggle v-model="isToggled" label="LG Toggle" size="lg" />
-      <UiToggle v-model="isToggled" label="MD Toggle" size="md" />
+      <UiSwitch v-model="isToggled" label="LG Toggle" size="lg" />
+      <UiSwitch v-model="isToggled" label="MD Toggle" size="md" />
 
-      <UiToggle v-model="isToggled" label="SM Toggle" size="sm" />
+      <UiSwitch v-model="isToggled" label="SM Toggle" size="sm" />
 
-      <UiToggle
+      <UiSwitch
         v-model="isToggled1"
         label="Disabled Toggle"
         size="lg"

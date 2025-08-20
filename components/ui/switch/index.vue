@@ -1,9 +1,9 @@
 <!--
-  switch Component Usage Guide:
+  Toggle Component Usage Guide:
   
   PARENT COMPONENT USAGE:
     
-    <Uiswitch
+    <UiToggle
       v-model="autoSave"
       label="Auto Save"
       size="lg"
@@ -17,17 +17,17 @@
 -->
 
 <template>
-  <label class="ui-switch" :class="classes.disabled">
+  <label class="ui-toggle" :class="classes.disabled">
     <input
       type="checkbox"
       class="sr-only"
       :disabled="disabled"
       v-model="model"
     />
-    <span class="ui-switch__input" :class="[classes.inputBg, classes.sizeInput]">
-      <span class="ui-switch__butoon" :class="[classes.buttonBg, classes.sizeButton]"></span>
+    <span class="ui-toggle__input" :class="[classes.inputBg, classes.sizeInput]">
+      <span class="ui-toggle__butoon" :class="[classes.buttonBg, classes.sizeButton]"></span>
     </span>
-    <span class="ui-switch__title" :class="classes.textSize">
+    <span class="ui-toggle__title" :class="classes.textSize">
       {{ label }}
     </span>
   </label>
@@ -65,7 +65,7 @@ const props = defineProps({
 const classes = computed<{
   inputBg: string
   buttonBg: string
-  disabled: { 'ui-switch-disabled': boolean }
+  disabled: { 'ui-toggle__disabled': boolean }
   sizeInput: string
   sizeButton: string
   textSize: string
@@ -77,9 +77,9 @@ const classes = computed<{
       ? "bg-primary border-primary justify-end"
       : "bg-transparent border border-gray-shade-50 justify-start",
     buttonBg: model.value ? "bg-white" : "bg-gray-shade-50",
-    disabled: { 'ui-switch-disabled': props.disabled },
-    sizeInput: `ui-switch-input__${size}`,
-    sizeButton: `ui-switch-button__${size}`,
+    disabled: { 'ui-toggle__disabled': props.disabled },
+    sizeInput: `ui-toggle__input__${size}`,
+    sizeButton: `ui-toggle__button__${size}`,
     textSize: size === "lg" ? "text-base" : size === "sm" ? "text-xs" : "text-sm"
   };
 });
@@ -89,46 +89,46 @@ const classes = computed<{
 <style >
 @reference "~/assets/css/main.css";
 
-.ui-switch {
+.ui-toggle {
   @apply inline-flex items-center cursor-pointer  gap-2;
 }
-.ui-switch-input {
+.ui-toggle__input {
   @apply inline-flex items-center w-8 h-4.5 p-0.5 rounded-5xl transition-colors duration-300 ease-in-out;
 }
-.ui-switch-butoon {
+.ui-toggle__butoon {
   @apply w-3.5 h-3.5 rounded-full transition-all duration-300 ease-in-out;
 }
-.ui-switch-title {
+.ui-toggle__title {
   @apply text-gray text-nowrap;
 }
-.ui-switch-input__lg{
+.ui-toggle__input__lg{
     @apply  w-8 h-4.5 rounded-5xl
 }
-.ui-switch-input__md{
+.ui-toggle__input__md{
     @apply  w-7.25 h-4 rounded-5xl
 }
-.ui-switch-input__sm{
+.ui-toggle__input__sm{
     @apply  w-6.5 h-3.5 rounded-5xl
 }
-.ui-switch-button__lg{
+.ui-toggle__button__lg{
     @apply w-3.5 h-3.5
 }
-.ui-switch-button__md{
+.ui-toggle__button__md{
     @apply w-3 h-3
 }
-.ui-switch-button__sm{
+.ui-toggle__button__sm{
     @apply w-2.5 h-2.5
 }
-.ui-switch-title__lg{
+.ui-toggle__title__lg{
     @apply  text-base font-medium
 }
-.ui-switch-title__md{
+.ui-toggle__title__md{
     @apply  text-xs font-medium
 }
-.ui-switch-title__sm{
+.ui-toggle__title__sm{
     @apply  text-2xs font-medium
 }
-.ui-switch-disabled{
+.ui-toggle__disabled{
   @apply opacity-50 cursor-not-allowed
 }
 </style>
