@@ -48,10 +48,7 @@
       v-model="currentDate"
       :format="'HH:mm'"
       :inline="true"
-      :enable-time-picker="true"
-      :calendar-only="false"
-      :time-picker="true"
-      :auto-apply="true"
+      time-picker
       @update:model-value="onDateSelect"
       class="ui-date-picker__popup"
     />
