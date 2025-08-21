@@ -32,4 +32,5 @@ export default defineNuxtConfig({
 },
 
   modules: ["@nuxt/icon", "nuxt-time", "@nuxt/ui"],
+
 });

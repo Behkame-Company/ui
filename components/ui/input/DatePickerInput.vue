@@ -317,7 +317,7 @@ watch(() => props.modelValue, () => {
 }
 
 .ui-date-picker__popup {
-  @apply z-50 border border-gray-shade-200 rounded-lg shadow-lg bg-white absolute top-full left-0 ;
+  @apply z-100 border border-gray-shade-200 rounded-lg shadow-lg bg-white absolute top-full left-0 ;
  
 }
 :deep(.dp__outer_menu_wrap) {
