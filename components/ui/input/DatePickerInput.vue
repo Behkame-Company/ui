@@ -45,11 +45,10 @@
     <VueDatePicker
       v-if="isOpen && type === 'time'"
       v-show="isOpen"
-      v-model="currentDate"
+      
       :format="'HH:mm'"
       :inline="true"
-      :auto-apply="true"
-      time-picker
+      :time-picker="true"
       @update:model-value="onDateSelect"
       class="ui-date-picker__popup"
     />
