@@ -55,17 +55,17 @@
       @update:model-value="onDateSelect"
       class="ui-date-picker__popup"
     />
-
     <!-- Date/DateTime Picker -->
     <VueDatePicker
       v-if="isOpen && type !== 'time'"
       v-model="currentDate"
       :format="computedFormat"
+      :inline="true"
       :enable-time-picker="type === 'datetime'"
       :calendar-only="type === 'date'"
       :auto-apply="true"
-      :teleport="true"
       @update:model-value="onDateSelect"
+      class="ui-date-picker__popup"
     />
   </div>
 </template>
@@ -315,14 +315,11 @@ const onDateSelect = (val: Date) => {
   @apply flex flex-col relative;
 }
 
-
 .ui-date-picker__popup {
-  @apply  border border-gray-shade-200 rounded-lg shadow-lg bg-white
-  position: fixed !important;   /* instead of absolute */
-  top: auto !important;
-  left: auto !important;
+  @apply border border-gray-shade-200 rounded-lg shadow-lg bg-white absolute top-full left-0;
   z-index: 9999 !important;
 }
+
 :deep(.dp__outer_menu_wrap) {
   @apply mt-1;
 }
