@@ -1,36 +1,25 @@
-import tailwindcss from "@tailwindcss/vite";
-
 export default defineNuxtConfig({
   ssr: false,
-
-  compatibilityDate: "2025-05-15",
-
-  devtools: { enabled: false },
-
-  css: ["~/assets/css/main.css"],
-
+  modules: [
+   
+    '@nuxt/icon',
+    'nuxt-time',
+    '@nuxt/ui'
+  ],
+  css: ['~/assets/css/main.css'],
   app: {
     head: {
+      link: [
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap'
+        }
+      ],
       bodyAttrs: {
-        class: "bg-[#FCFCFC]",
-      },
-    },
+        class: 'bg-[#FCFCFC]'
+      }
+    }
   },
-
-  vite: {
-    plugins: [tailwindcss()],
-    ssr: {
-      noExternal: ["vue-iconsax"],
-    },
-  },
-
-  devServer: {
-    port: 3003,
-  },
-  build: {
-    transpile: ['@vuepic/vue-datepicker']
-},
-
-  modules: ["@nuxt/icon", "nuxt-time", "@nuxt/ui"],
-
-});
+  devServer: { port: 3003 },
+  build: { transpile: ['@vuepic/vue-datepicker'] },
+})
