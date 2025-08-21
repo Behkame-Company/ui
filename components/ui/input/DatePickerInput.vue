@@ -55,29 +55,27 @@
       @update:model-value="onDateSelect"
       class="ui-date-picker__popup"
     />
-    
+
     <!-- Date/DateTime Picker -->
     <VueDatePicker
       v-if="isOpen && type !== 'time'"
       v-model="currentDate"
       :format="computedFormat"
-      :inline="true"
       :enable-time-picker="type === 'datetime'"
       :calendar-only="type === 'date'"
       :auto-apply="true"
+      :teleport="true"
       @update:model-value="onDateSelect"
-      class="ui-date-picker__popup"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-
 // ============================================================================
 // 1. IMPORTS (External libraries and internal modules)
 // ============================================================================
-import VueDatePicker from '@vuepic/vue-datepicker'
-import '@vuepic/vue-datepicker/dist/main.css'
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 
 // ============================================================================
 // 2. PROPS (Only for components)
@@ -89,25 +87,25 @@ const props = defineProps({
   },
   placeholder: {
     type: String,
-    default: 'Select date/time',
+    default: "Select date/time",
   },
   suffixIcon: {
     type: String,
-    default: 'CalendarTime',
+    default: "CalendarTime",
   },
   size: {
     type: String,
-    default: 'sm',
-    validator: (value: string) => ['sm', 'md', 'lg'].includes(value),
+    default: "sm",
+    validator: (value: string) => ["sm", "md", "lg"].includes(value),
   },
   type: {
     type: String,
-    default: 'datetime',
-    validator: (value: string) => ['date', 'time', 'datetime'].includes(value),
+    default: "datetime",
+    validator: (value: string) => ["date", "time", "datetime"].includes(value),
   },
   format: {
     type: String,
-    default: 'yyyy-MM-dd HH:mm',
+    default: "yyyy-MM-dd HH:mm",
   },
 });
 
@@ -115,111 +113,113 @@ const props = defineProps({
 // 4. EMITS (Only for components)
 // ============================================================================
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: string | Date): void
-}>()
+  (e: "update:modelValue", value: string | Date): void;
+}>();
 
 // ============================================================================
 // 5. VARIABLES (ref, reactive but only for simple state)
 // ============================================================================
 /** Controls the visibility of the date picker popup */
-const isOpen = ref<boolean>(false)
+const isOpen = ref<boolean>(false);
 
 /** Reference to the date picker container for click outside detection */
-const datePickerRef = ref<HTMLElement | null>(null)
+const datePickerRef = ref<HTMLElement | null>(null);
 
 /** Internal date value for the picker component */
-const currentDate = ref<Date | null>(null)
+const currentDate = ref<Date | null>(null);
 
 // ============================================================================
 // 6. COMPUTED PROPERTIES (computed declarations)
 // ============================================================================
 /** Computed format based on picker type */
 const computedFormat = computed<string>(() => {
-  if (props.type === 'time') return 'HH:mm'
-  if (props.type === 'date') return 'yyyy-MM-dd'
-  return 'yyyy-MM-dd HH:mm'
-})
-
+  if (props.type === "time") return "HH:mm";
+  if (props.type === "date") return "yyyy-MM-dd";
+  return "yyyy-MM-dd HH:mm";
+});
 
 /** Display value for the input field */
 const displayValue = computed<string>(() => {
-  const val = currentDate.value
-  if (!val) return ''
+  const val = currentDate.value;
+  if (!val) return "";
 
   try {
-    if (props.type === 'time') {
+    if (props.type === "time") {
       // Handle plain time object (not a Date)
-      if (typeof val === 'object' && 'hours' in val && 'minutes' in val) {
-        const timeObj = val as { hours: number; minutes: number }
-        const hh = String(timeObj.hours).padStart(2, '0')
-        const mi = String(timeObj.minutes).padStart(2, '0')
-        return `${hh}:${mi}`
+      if (typeof val === "object" && "hours" in val && "minutes" in val) {
+        const timeObj = val as { hours: number; minutes: number };
+        const hh = String(timeObj.hours).padStart(2, "0");
+        const mi = String(timeObj.minutes).padStart(2, "0");
+        return `${hh}:${mi}`;
       }
 
       // Handle Date object
       if (val instanceof Date) {
-        const hh = String(val.getHours()).padStart(2, '0')
-        const mi = String(val.getMinutes()).padStart(2, '0')
-        return `${hh}:${mi}`
+        const hh = String(val.getHours()).padStart(2, "0");
+        const mi = String(val.getMinutes()).padStart(2, "0");
+        return `${hh}:${mi}`;
       }
 
-      return ''
+      return "";
     }
 
     // Must be a Date object for date/datetime
-    if (!(val instanceof Date)) return ''
+    if (!(val instanceof Date)) return "";
 
-    const yyyy = val.getFullYear()
-    const mm = String(val.getMonth() + 1).padStart(2, '0')
-    const dd = String(val.getDate()).padStart(2, '0')
-    const hh = String(val.getHours()).padStart(2, '0')
-    const mi = String(val.getMinutes()).padStart(2, '0')
+    const yyyy = val.getFullYear();
+    const mm = String(val.getMonth() + 1).padStart(2, "0");
+    const dd = String(val.getDate()).padStart(2, "0");
+    const hh = String(val.getHours()).padStart(2, "0");
+    const mi = String(val.getMinutes()).padStart(2, "0");
 
-    return props.type === 'date'
+    return props.type === "date"
       ? `${yyyy}-${mm}-${dd}`
-      : `${yyyy}-${mm}-${dd} ${hh}:${mi}`
-
+      : `${yyyy}-${mm}-${dd} ${hh}:${mi}`;
   } catch (error) {
-    console.error('Error formatting date:', error, val)
-    return ''
+    console.error("Error formatting date:", error, val);
+    return "";
   }
-})
-
+});
 
 const dynamicIcon = computed<string | undefined>(() => {
-  return displayValue.value ? 'CloseCircle' : props.suffixIcon
-})
+  return displayValue.value ? "CloseCircle" : props.suffixIcon;
+});
 const onIconClick = (): void => {
   if (displayValue.value) {
-    isOpen.value = false
-    currentDate.value = null
-    emit('update:modelValue', '')
+    isOpen.value = false;
+    currentDate.value = null;
+    emit("update:modelValue", "");
   }
-}
-
+};
 
 // ============================================================================
 // 7. LIFECYCLE HOOKS (onMounted, onBeforeMount, onUnmounted, etc.)
 // ============================================================================
 onMounted(() => {
   // Initialize date when component mounts
-  initializeDate()
-  
+  initializeDate();
+
   // Add click outside listener to close picker
-  document.addEventListener('click', (e) => {
-    if (datePickerRef.value && !datePickerRef.value.contains(e.target as Node)) {
-      isOpen.value = false
+  document.addEventListener("click", (e) => {
+    if (
+      datePickerRef.value &&
+      !datePickerRef.value.contains(e.target as Node)
+    ) {
+      isOpen.value = false;
     }
-  })
-})
+  });
+});
 
 // ============================================================================
 // 8. WATCHERS (watch, watchEffect)
 // ============================================================================
 /** Watch for external modelValue changes and reinitialize */
-watch(() => props.modelValue, () => {
-  initializeDate()
-})
+watch(
+  () => props.modelValue,
+  () => {
+    initializeDate();
+  }
+);
 
 // ============================================================================
 // 9. FUNCTION DEFINITIONS (helper functions and composables)
@@ -228,85 +228,84 @@ watch(() => props.modelValue, () => {
  * Initialize the current date from the modelValue prop
  * Handles different input formats and picker types
  */
- const initializeDate = (): void => {
+const initializeDate = (): void => {
   if (!props.modelValue) {
-    currentDate.value = null
-    return
+    currentDate.value = null;
+    return;
   }
 
   try {
-    if (props.type === 'time') {
-      const timeString = String(props.modelValue)
-      const [hoursStr, minutesStr] = timeString.split(':')
-      const hours = Number(hoursStr)
-      const minutes = Number(minutesStr)
+    if (props.type === "time") {
+      const timeString = String(props.modelValue);
+      const [hoursStr, minutesStr] = timeString.split(":");
+      const hours = Number(hoursStr);
+      const minutes = Number(minutesStr);
 
       if (!isNaN(hours) && !isNaN(minutes)) {
-        const today = new Date()
-        today.setHours(hours, minutes, 0, 0)
-        currentDate.value = today
+        const today = new Date();
+        today.setHours(hours, minutes, 0, 0);
+        currentDate.value = today;
       } else {
-        currentDate.value = null
+        currentDate.value = null;
       }
     } else {
-      const parsedDate = new Date(props.modelValue as string | number | Date)
+      const parsedDate = new Date(props.modelValue as string | number | Date);
       if (isNaN(parsedDate.getTime())) {
-        currentDate.value = null
-        console.warn('Invalid date format:', props.modelValue)
+        currentDate.value = null;
+        console.warn("Invalid date format:", props.modelValue);
       } else {
-        currentDate.value = parsedDate
+        currentDate.value = parsedDate;
       }
     }
   } catch (e) {
-    console.warn('Failed to parse date:', e)
-    currentDate.value = null
+    console.warn("Failed to parse date:", e);
+    currentDate.value = null;
   }
-}
+};
 
 /**
  * Toggle the date picker popup visibility
  */
- const toggleDatePicker = (): void => {
-  isOpen.value = !isOpen.value
-}
+const toggleDatePicker = (): void => {
+  isOpen.value = !isOpen.value;
+};
 
 /**
  * Handle date selection from the picker
  * Formats the value based on picker type and emits the update
  */
- const onDateSelect = (val: Date ) => {
-  if (props.type === 'time') {
-    if (val && typeof val === 'object') {
+const onDateSelect = (val: Date) => {
+  if (props.type === "time") {
+    if (val && typeof val === "object") {
       // Check if val is a time object (not a Date instance)
-      if ('hours' in val && 'minutes' in val) {
-        const hours = String(val.hours).padStart(2, '0')
-        const minutes = String(val.minutes).padStart(2, '0')
-        const timeString = `${hours}:${minutes}`
-        currentDate.value = val
-        emit('update:modelValue', timeString)
-        return
+      if ("hours" in val && "minutes" in val) {
+        const hours = String(val.hours).padStart(2, "0");
+        const minutes = String(val.minutes).padStart(2, "0");
+        const timeString = `${hours}:${minutes}`;
+        currentDate.value = val;
+        emit("update:modelValue", timeString);
+        return;
       }
 
       // If val is a Date instance
       if (val instanceof Date) {
-        const hours = String(val.getHours()).padStart(2, '0')
-        const minutes = String(val.getMinutes()).padStart(2, '0')
-        const timeString = `${hours}:${minutes}`
-        currentDate.value = val
-        emit('update:modelValue', timeString)
-        return
+        const hours = String(val.getHours()).padStart(2, "0");
+        const minutes = String(val.getMinutes()).padStart(2, "0");
+        const timeString = `${hours}:${minutes}`;
+        currentDate.value = val;
+        emit("update:modelValue", timeString);
+        return;
       }
     }
   } else {
-    currentDate.value = val
-    emit('update:modelValue', val)
+    currentDate.value = val;
+    emit("update:modelValue", val);
   }
 
-  if (props.type !== 'time') {
-    isOpen.value = false
+  if (props.type !== "time") {
+    isOpen.value = false;
   }
-}
-
+};
 </script>
 
 <style scoped>
@@ -316,9 +315,13 @@ watch(() => props.modelValue, () => {
   @apply flex flex-col relative;
 }
 
+
 .ui-date-picker__popup {
-  @apply z-100 border border-gray-shade-200 rounded-lg shadow-lg bg-white absolute top-full left-0 ;
- 
+  @apply  border border-gray-shade-200 rounded-lg shadow-lg bg-white
+  position: fixed !important;   /* instead of absolute */
+  top: auto !important;
+  left: auto !important;
+  z-index: 9999 !important;
 }
 :deep(.dp__outer_menu_wrap) {
   @apply mt-1;
