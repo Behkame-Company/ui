@@ -256,7 +256,7 @@
         name="name"
         size="sm"
         placeholder="Input size sm"
-        v-model="inputValue1"
+       type="number"
       />
 
       <UiInput

@@ -97,6 +97,7 @@
 // No external imports needed for this component
 
 const props = defineProps({
+
   name: {
     type: String,
     default: "", // input name property

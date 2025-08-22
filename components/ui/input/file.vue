@@ -100,7 +100,7 @@ const onFileChange = (e: Event): void => {
 @reference "~/assets/css/main.css";
 
 .ui-file__container {
-  @apply w-1/4  h-11 flex items-center gap-2;
+  @apply   h-11 flex items-center gap-2;
 }
 .ui-file__label {
   @apply flex text-center w-full h-full border border-primary rounded-sm  transition-all cursor-pointer;

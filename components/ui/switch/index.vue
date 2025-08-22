@@ -42,7 +42,7 @@ const model = defineModel<boolean>({ required: true });
 const props = defineProps({
   label: {
      type: String,
-      default: "Title" 
+      default: " " 
     },
 
     size: {
