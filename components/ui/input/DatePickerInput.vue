@@ -45,17 +45,17 @@
     <VueDatePicker
       v-if="isOpen && type === 'time'"
       v-show="isOpen"
-      
       :format="'HH:mm'"
       :inline="true"
       :time-picker="true"
       @update:model-value="onDateSelect"
       class="ui-date-picker__popup"
+       v-model="time"
     />
     <!-- Date/DateTime Picker -->
     <VueDatePicker
       v-if="isOpen && type !== 'time'"
-      v-model="currentDate"
+      v-model="date"
       :format="computedFormat"
       :inline="true"
       :enable-time-picker="type === 'datetime'"
@@ -123,7 +123,7 @@ const isOpen = ref<boolean>(false);
 const datePickerRef = ref<HTMLElement | null>(null);
 
 /** Internal date value for the picker component */
-const currentDate = ref<Date | null>(null);
+const date = ref<Date | null>(null);
 
 // ============================================================================
 // 6. COMPUTED PROPERTIES (computed declarations)
@@ -137,7 +137,7 @@ const computedFormat = computed<string>(() => {
 
 /** Display value for the input field */
 const displayValue = computed<string>(() => {
-  const val = currentDate.value;
+  const val = date.value;
   if (!val) return "";
 
   try {
@@ -184,7 +184,7 @@ const dynamicIcon = computed<string | undefined>(() => {
 const onIconClick = (): void => {
   if (displayValue.value) {
     isOpen.value = false;
-    currentDate.value = null;
+    date.value = null;
     emit("update:modelValue", "");
   }
 };
@@ -227,7 +227,7 @@ watch(
  */
 const initializeDate = (): void => {
   if (!props.modelValue) {
-    currentDate.value = null;
+    date.value = null;
     return;
   }
 
@@ -241,22 +241,22 @@ const initializeDate = (): void => {
       if (!isNaN(hours) && !isNaN(minutes)) {
         const today = new Date();
         today.setHours(hours, minutes, 0, 0);
-        currentDate.value = today;
+        date.value = today;
       } else {
-        currentDate.value = null;
+        date.value = null;
       }
     } else {
       const parsedDate = new Date(props.modelValue as string | number | Date);
       if (isNaN(parsedDate.getTime())) {
-        currentDate.value = null;
+        date.value = null;
         console.warn("Invalid date format:", props.modelValue);
       } else {
-        currentDate.value = parsedDate;
+        date.value = parsedDate;
       }
     }
   } catch (e) {
     console.warn("Failed to parse date:", e);
-    currentDate.value = null;
+    date.value = null;
   }
 };
 
@@ -271,6 +271,10 @@ const toggleDatePicker = (): void => {
  * Handle date selection from the picker
  * Formats the value based on picker type and emits the update
  */
+ const time = ref({
+  hours: new Date().getHours(),
+  minutes: new Date().getMinutes()
+});
 const onDateSelect = (val: Date) => {
   if (props.type === "time") {
     if (val && typeof val === "object") {
@@ -279,7 +283,7 @@ const onDateSelect = (val: Date) => {
         const hours = String(val.hours).padStart(2, "0");
         const minutes = String(val.minutes).padStart(2, "0");
         const timeString = `${hours}:${minutes}`;
-        currentDate.value = val;
+        date.value = val;
         emit("update:modelValue", timeString);
         return;
       }
@@ -289,13 +293,13 @@ const onDateSelect = (val: Date) => {
         const hours = String(val.getHours()).padStart(2, "0");
         const minutes = String(val.getMinutes()).padStart(2, "0");
         const timeString = `${hours}:${minutes}`;
-        currentDate.value = val;
+        date.value = val;
         emit("update:modelValue", timeString);
         return;
       }
     }
   } else {
-    currentDate.value = val;
+    date.value = val;
     emit("update:modelValue", val);
   }
 

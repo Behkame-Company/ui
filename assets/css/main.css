@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
+@import '@vuepic/vue-datepicker/dist/main.css';
 * {
   outline: none;
   font-family: "Roboto", sans-serif;
@@ -710,6 +710,8 @@ html {
 .fade-leave-to {
   opacity: 0;
 }
+
+
 
 
 

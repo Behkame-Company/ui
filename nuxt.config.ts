@@ -6,7 +6,7 @@ export default defineNuxtConfig({
     'nuxt-time',
     '@nuxt/ui'
   ],
-  css: ['~/assets/css/main.css'],
+  css: ['~/assets/css/main.css',],
   app: {
     head: {
       link: [
@@ -20,6 +20,9 @@ export default defineNuxtConfig({
       }
     }
   },
+  build: {
+    transpile: ['@vuepic/vue-datepicker']
+  },
   devServer: { port: 3003 },
-  build: { transpile: ['@vuepic/vue-datepicker'] },
+  
 })
